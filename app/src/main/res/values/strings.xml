@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WorkTime</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Worktime</string>
+    <string name="title_notifications">Setup</string>
+    <string name="title_activity_dashbrd">Dashbrd</string>
+</resources>
