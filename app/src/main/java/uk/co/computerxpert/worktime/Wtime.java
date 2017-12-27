@@ -11,29 +11,33 @@ public class Wtime {
     private int _wt_id;
     private int _wt_comp_id;
     private String _wt_compnm;
-    private String _wt_startdate;
-    private String _wt_enddate;
+    private long _wt_startdate;
+    private long _wt_enddate;
     private String _wt_rem;
+    private int _wt_week;
+
 
     public Wtime() {
 
     }
 
-    public Wtime(int wt_id, int wt_comp_id, String wt_compnm, String wt_startdate, String wt_enddate, String wt_rem) {
+    public Wtime(int wt_id, int wt_comp_id, String wt_compnm, long wt_startdate, long wt_enddate, String wt_rem, int wt_week) {
         this._wt_id = wt_id;
         this._wt_comp_id = wt_comp_id;
         this._wt_compnm = wt_compnm;
         this._wt_startdate = wt_startdate;
         this._wt_enddate = wt_enddate;
         this._wt_rem = wt_rem;
+        this._wt_week = wt_week;
     }
 
-    public Wtime(int wt_comp_id, String wt_compnm, String wt_startdate, String wt_enddate, String wt_rem) {
+    public Wtime(int wt_comp_id, String wt_compnm, long wt_startdate, long wt_enddate, String wt_rem, int wt_week) {
         this._wt_comp_id = wt_comp_id;
         this._wt_compnm = wt_compnm;
         this._wt_startdate = wt_startdate;
         this._wt_enddate = wt_enddate;
         this._wt_rem = wt_rem;
+        this._wt_week = wt_week;
     }
 
     public void setWt_id(int wt_id) {
@@ -60,19 +64,19 @@ public class Wtime {
         return this._wt_compnm;
     }
 
-    public void setWt_startdate(String wt_startdate) {
+    public void setWt_startdate(long wt_startdate) {
         this._wt_startdate = wt_startdate;
     }
 
-    public String getWt_startdate() {
+    public long getWt_startdate() {
         return this._wt_startdate;
     }
 
-    public void setWt_enddate(String wt_enddate) {
+    public void setWt_enddate(long wt_enddate) {
         this._wt_enddate = wt_enddate;
     }
 
-    public String getWt_enddate() {
+    public long getWt_enddate() {
         return this._wt_enddate;
     }
 
@@ -83,5 +87,9 @@ public class Wtime {
     public String getWt_rem() {
         return this._wt_rem;
     }
+
+    public void setwt_week(int wt_week) { this._wt_week = wt_week; }
+
+    public int getwt_week() { return this._wt_week; }
 
 }

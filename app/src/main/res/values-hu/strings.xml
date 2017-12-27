@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WorkTime</string>
+    <string name="title_dashboard">Munkaidő</string>
+    <string name="title_notifications">Beállítások</string>
+    <string name="tv_main1">Heti munkanapok:</string>
+    <string name="tv_main2">Heti fizetés:</string>
+    <string name="tv_main3_1">Fizetés a</string>
+    <string name="btn_queries">Egyedi listák</string>
+</resources>

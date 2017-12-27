@@ -17,7 +17,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
 
@@ -37,9 +41,13 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
 
     Button btn_kezddate, btn_kezdtime, btn_vegdate, btn_vegtime;
 
-    final Calendar dateTime = Calendar.getInstance();
+
+    final Calendar dateTime = Calendar.getInstance(Locale.UK); //Locale that has Monday as first day of week
     DateFormat formatDate = DateFormat.getDateInstance();
-    DateFormat formatTime = DateFormat.getTimeInstance();
+    // DateFormat formatTime = DateFormat.getTimeInstance();
+    SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm", Locale.UK);
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -91,6 +99,7 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
+final Calendar mondayFirst = Calendar.getInstance(Locale.UK); //Locale that has Monday as first dfinal Calendar mondayFirst = Calendar.getInstance(Locale.UK); //Locale that has Monday as first day of weekay of week
 
         btn_vegtime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,13 +118,13 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
 
 
     private void updateTime(){
-        new TimePickerDialog(this, t, dateTime.get(Calendar.HOUR_OF_DAY),dateTime.get(Calendar.MINUTE),true).show();
+        new TimePickerDialog(this, t, dateTime.get(Calendar.HOUR_OF_DAY),dateTime.get(Calendar.MINUTE), true ).show();
     }
 
 
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
         @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        public void onDateSet(DatePicker view, int year,  int month, int dayOfMonth) {
             dateTime.set(Calendar.YEAR, year);
             dateTime.set(Calendar.MONTH, month);
             dateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -155,7 +164,7 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-    public void newWtime (View view) {
+    public void newWtime (View view) throws ParseException {
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
 
         String cegnev =  in_cegnev.getText().toString();
@@ -163,13 +172,29 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
         String kezdtime = in_kezdtime.getText().toString();
         String vegdate = in_vegdate.getText().toString();
         String vegtime = in_vegtime.getText().toString();
-        String kezd = kezddate+"/"+kezdtime;
-        String veg = vegdate+"/"+vegtime;
+        String kezd_ = kezddate+" "+kezdtime;
+        String veg_ = vegdate+" "+vegtime;
 
-        Wtime wtime =
-                new Wtime(1, 1, cegnev, kezd, veg,null);
+        int weekyear= dateTime.get(Calendar.WEEK_OF_YEAR);
 
-        Log.i(TAG_Ertek,"wtime "+wtime);
+        DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy hh:mm");
+
+        Date date_kezd = dateFormat.parse(kezd_);
+        long kezd_uxT = (long)date_kezd.getTime()/1000;
+
+        Date date_veg = dateFormat.parse(veg_);
+        long veg_uxT = (long)date_veg.getTime()/1000;
+
+        Log.i(TAG_Ertek,"kezd_uxt "+kezd_uxT);
+        Log.i(TAG_Ertek,"veg_uxt "+veg_uxT);
+
+
+         Wtime wtime =
+                new Wtime(1, 1, cegnev, kezd_uxT, veg_uxT, "", weekyear);
+
+         Log.i(TAG_Ertek,"wtime "+wtime);
+
+
 
         dbHandler.addWtime(wtime);
         in_cegnev.setText("");
@@ -177,6 +202,7 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
         in_kezdtime.setText("");
         in_vegdate.setText("");
         in_vegtime.setText("");
+
 
     }
 
