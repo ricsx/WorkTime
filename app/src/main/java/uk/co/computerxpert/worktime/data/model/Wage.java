@@ -8,9 +8,17 @@ package uk.co.computerxpert.worktime.data.model;
 
 public class Wage {
 
+    public static final String TAG = Wage.class.getSimpleName();
+    public static final String TABLE = "Wage";
+
+    public static final String KEY_wage_id = "wage_id";
+    public static final String KEY_wage_comp_id = "wage_comp_id";
+    public static final String KEY_wage_startdate = "wage_startdate";
+    public static final String KEY_wage_enddate = "wage_enddate";
+    public static final String KEY_wage_val = "wage_val";
 
     private int _wage_id;
-    private int _comp_id;
+    private int _wage_comp_id;
     private long _wage_startdate;
     private long _wage_enddate;
     private float _wage_val;
@@ -19,16 +27,16 @@ public class Wage {
     public Wage() {
     }
 
-    public Wage(int wage_id, int comp_id, long wage_startdate, long wage_enddate, float wage_val) {
+    public Wage(int wage_id, int wage_comp_id, long wage_startdate, long wage_enddate, float wage_val) {
         this._wage_id = wage_id;
-        this._comp_id = comp_id;
+        this._wage_comp_id = wage_comp_id;
         this._wage_startdate = wage_startdate;
         this._wage_enddate = wage_enddate;
         this._wage_val = wage_val;
     }
 
-    public Wage(int comp_id, long wage_startdate, long wage_enddate, float wage_val) {
-        this._comp_id = comp_id;
+    public Wage(int wage_comp_id, long wage_startdate, long wage_enddate, float wage_val) {
+        this._wage_comp_id = wage_comp_id;
         this._wage_startdate = wage_startdate;
         this._wage_enddate = wage_enddate;
         this._wage_val = wage_val;
@@ -42,12 +50,12 @@ public class Wage {
         return this._wage_id;
     }
 
-    public void setwage_comp_id(int comp_id) {
-        this._comp_id = comp_id;
+    public void setwage_comp_id(int wage_comp_id) {
+        this._wage_comp_id = wage_comp_id;
     }
 
     public int getwage_comp_id() {
-        return this._comp_id;
+        return this._wage_comp_id;
     }
 
     public void setwage_startdate(long wage_startdate) {

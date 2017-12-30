@@ -34,7 +34,7 @@
                 android:value="uk.co.computerxpert.worktime.Activities.Setup" />
         </activity>
         <activity
-            android:name=".Activities.Stp_wages"
+            android:name=".Activities.Stp_wage"
             android:label="@string/title_activity_stp_wages"
             android:parentActivityName=".Activities.Setup">
             <meta-data

@@ -11,8 +11,10 @@ import android.util.Log;
 
 import uk.co.computerxpert.worktime.App.App;
 import uk.co.computerxpert.worktime.data.model.Companies;
+import uk.co.computerxpert.worktime.data.model.Wage;
 import uk.co.computerxpert.worktime.data.model.Worktime;
 import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
+import uk.co.computerxpert.worktime.data.repo.WageRepo;
 import uk.co.computerxpert.worktime.data.repo.WorktimeRepo;
 
 
@@ -35,6 +37,7 @@ public class DBHelper  extends SQLiteOpenHelper {
         //All necessary tables you like to create will create here
         db.execSQL(CompaniesRepo.createTable());
         db.execSQL(WorktimeRepo.createTable());
+        db.execSQL(WageRepo.createTable());
     }
 
     @Override
@@ -44,6 +47,7 @@ public class DBHelper  extends SQLiteOpenHelper {
         // Drop table if existed, all data will be gone!!!
         db.execSQL("DROP TABLE IF EXISTS " + Companies.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Worktime.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Wage.TABLE);
         onCreate(db);
     }
 

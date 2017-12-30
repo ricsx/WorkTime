@@ -68,7 +68,7 @@ public class CompaniesRepo  {
         if (cursor.moveToFirst()) {
             do {
                 companies= new Companies();
-                companies.set_comp_id(cursor.getInt(cursor.getColumnIndex(Companies.KEY_comp_id)));
+                companies.setcomp_id(cursor.getInt(cursor.getColumnIndex(Companies.KEY_comp_id)));
                 companies.setcomp_name(cursor.getString(cursor.getColumnIndex(Companies.KEY_comp_name)));
 
                 companies_s.add(companies);

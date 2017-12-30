@@ -30,7 +30,7 @@ public class Companies {
         this._comp_name = comp_name;
     }
 
-    public void set_comp_id(int comp_id) {
+    public void setcomp_id(int comp_id) {
         this._comp_id = comp_id;
     }
 

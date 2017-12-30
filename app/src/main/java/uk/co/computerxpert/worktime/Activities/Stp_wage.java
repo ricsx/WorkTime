@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -18,6 +20,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -32,29 +35,23 @@ import java.util.Map;
 
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.Companies;
-import uk.co.computerxpert.worktime.data.model.Worktime;
+import uk.co.computerxpert.worktime.data.model.Wage;
 import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
-import uk.co.computerxpert.worktime.data.repo.WorktimeRepo;
+import uk.co.computerxpert.worktime.data.repo.WageRepo;
 
+public class Stp_wage extends AppCompatActivity  implements View.OnClickListener {
 
-public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
-
-
-    private TextView mTextMessage;
-    private EditText in_cegnev;
     private EditText in_kezddate;
-    private EditText in_kezdtime;
     private EditText in_vegdate;
-    private EditText in_vegtime;
-    private EditText in_megj;
+    private EditText in_val;
     private int id = 1;
     private Intent Uj_activity;
     private static final String TAG_Ertek="TAG: ";
-    private String var = "time", kezdveg = "k";
+    private String kezdveg = "k";
     private Spinner spinner1;
     private ListView result;
 
-    Button btn_kezddate, btn_kezdtime, btn_vegdate, btn_vegtime;
+    Button btn_kezddate, btn_vegdate;
 
     private Map<String, Integer> months = new HashMap<String, Integer>();
 
@@ -63,34 +60,26 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
     SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm", Locale.UK); // Set up time format to 24-hour
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashbrd);
+        setContentView(R.layout.activity_stp_wages);
 
-        spinner1 = (Spinner) findViewById(R.id.spinner);
-        mTextMessage = (TextView) findViewById(R.id.message);
-        in_kezddate = (EditText) findViewById(R.id.in_kezddateBox);
-        in_kezdtime = (EditText) findViewById(R.id.in_kezdtimeBox);
-        in_vegdate = (EditText) findViewById(R.id.in_vegdateBox);
-        in_vegtime = (EditText) findViewById(R.id.in_vegtimeBox);
-        in_megj = (EditText) findViewById(R.id.in_megjBox);
-        btn_kezddate = (Button) findViewById(R.id.btn_date);
-        btn_kezdtime = (Button) findViewById(R.id.btn_kezdtime);
-        btn_vegdate = (Button) findViewById(R.id.btn_vegdate);
-        btn_vegtime = (Button) findViewById(R.id.btn_vegtime);
+        spinner1 = (Spinner) findViewById(R.id.spinner2);
+        in_kezddate = (EditText) findViewById(R.id.in_wage_stdateBox);
+        in_vegdate = (EditText) findViewById(R.id.in_wage_enddateBox);
+        in_val = (EditText) findViewById(R.id.in_wage_valBox);
+        btn_kezddate = (Button) findViewById(R.id.btn_wage_stdate);
+        btn_vegdate = (Button) findViewById(R.id.btn_wage_enddate);
 
-        // Upload and start of the Spinner (company names)
+        // Upload and start of the Spinner (Company names)
         make_listviewtospinner();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         btn_kezddate.setOnClickListener(this);
-        btn_kezdtime.setOnClickListener(this);
         btn_vegdate.setOnClickListener(this);
-        btn_vegtime.setOnClickListener(this);
 
         months.put("Jan",1); months.put("Feb",2); months.put("Mar",3); months.put("Apr",4); months.put("May",5);
         months.put("Jun",6); months.put("Jul",7); months.put("Aug",8); months.put("Sep",9); months.put("Oct",10);
@@ -104,27 +93,11 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
-        btn_kezdtime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                kezdveg="k";
-                updateTime();
-            }
-        });
-
         btn_vegdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 kezdveg = "v";
                 updateDate();
-            }
-        });
-
-        btn_vegtime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                kezdveg = "v";
-                updateTime();
             }
         });
 
@@ -136,28 +109,13 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-    private void updateTime(){
-        new TimePickerDialog(this, t, dateTime.get(Calendar.HOUR_OF_DAY),dateTime.get(Calendar.MINUTE), true ).show();
-    }
-
-
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
         @Override
-        public void onDateSet(DatePicker view, int year,  int month, int dayOfMonth) {
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             dateTime.set(Calendar.YEAR, year);
             dateTime.set(Calendar.MONTH, month);
             dateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             updateTextLabel("date");
-        }
-    };
-
-
-    TimePickerDialog.OnTimeSetListener t = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            dateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            dateTime.set(Calendar.MINUTE, minute);
-            updateTextLabel("time");
         }
     };
 
@@ -167,32 +125,39 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
             if (var == "date") {
                 in_kezddate.setText(formatDate.format(dateTime.getTime()));
             }
-            if (var == "time") {
-                in_kezdtime.setText(formatTime.format(dateTime.getTime()));
-            }
         }
         if(kezdveg == "v") {
             if (var == "date") {
                 in_vegdate.setText(formatDate.format(dateTime.getTime()));
             }
-            if (var == "time") {
-                in_vegtime.setText(formatTime.format(dateTime.getTime()));
-            }
         }
     }
 
 
-    public void newWtime (View view) throws ParseException {
+    private void make_listviewtospinner(){
+
+        CompaniesRepo companiesRepo = new CompaniesRepo();
+        List<Companies> companies_s= companiesRepo.getCompanies();
+
+        List<String> values = new ArrayList<String>();
+        for(int i=0; i<companies_s.size();i++){ values.add(companies_s.get(i).getcomp_name());  }
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, values);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner1.setAdapter(dataAdapter);
+    }
+
+
+    public void newWage (View view) throws ParseException {
         // MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
 
         String cegnev = spinner1.getSelectedItem().toString();
         String kezddate = in_kezddate.getText().toString();
-        String kezdtime = in_kezdtime.getText().toString();
         String vegdate = in_vegdate.getText().toString();
-        String vegtime = in_vegtime.getText().toString();
-        String kezd_ = kezddate+" "+kezdtime;
-        String veg_ = vegdate+" "+vegtime;
-        String megj =  in_megj.getText().toString();
+        String kezd_ = kezddate+" 00:00";
+        String veg_ = vegdate+" 00:00";
+        float val =  Float.valueOf(in_val.getText().toString());
 
         // Dates convert to Unix format
         // DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy hh:mm");
@@ -223,52 +188,57 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
 
         // End of week-of-year calculate
 
-        Worktime worktime = new Worktime();
-        worktime.setwt_comp_id(1);
-        worktime.setwt_compnm(cegnev);
-        worktime.setwt_startdate(kezd_uxT);
-        worktime.setwt_enddate(veg_uxT);
-        worktime.setwt_rem(megj);
-        worktime.setwt_week(woyear);
+        Wage wage = new Wage();
+        wage.setwage_comp_id(1);
+        wage.setwage_startdate(kezd_uxT);
+        wage.setwage_enddate(veg_uxT);
+        wage.setwage_val(val);
 
         // Write datas into DB
-        WorktimeRepo.insert(worktime);
+        WageRepo.insert(wage);
 
         in_kezddate.setText("");
-        in_kezdtime.setText("");
         in_vegdate.setText("");
-        in_vegtime.setText("");
-        in_megj.setText("");
+        in_val.setText("");
 
     }
 
 
-    public void addItemsOnSpinner1() {
-
-	    spinner1 = (Spinner) findViewById(R.id.spinner);
-	    List<String> list = new ArrayList<String>();
-	    list.add("list 1");
-	    list.add("list 2");
-	    list.add("list 3");
-	    ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-    		android.R.layout.simple_spinner_item, list);
-    	dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    	spinner1.setAdapter(dataAdapter);
-    }
 
 
-    private void make_listviewtospinner(){
+    private void make_listview(){
 
         CompaniesRepo companiesRepo = new CompaniesRepo();
         List<Companies> companies_s= companiesRepo.getCompanies();
 
-        List<String> values = new ArrayList<String>();
+        // "values" array definition and loading
+        ArrayList<String> values = new ArrayList<String>();
         for(int i=0; i<companies_s.size();i++){ values.add(companies_s.get(i).getcomp_name());  }
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, values);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner1.setAdapter(dataAdapter);
+        // array-fetching
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        result.setAdapter(adapter);
+
+        result.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                // ListView Clicked item index
+                int itemPosition = position;
+
+                // ListView Clicked item value
+                String itemValue = (String) result.getItemAtPosition(position);
+
+                // Show Alert
+                Toast.makeText(getApplicationContext(),
+                        "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
+                        .show();
+
+            }
+        });
     }
 
 
@@ -279,17 +249,17 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(Dashbrd.this, MainActivity.class);
+                    Uj_activity = new Intent(Stp_wage.this, MainActivity.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(Dashbrd.this, Dashbrd.class);
+                    Uj_activity = new Intent(Stp_wage.this, Dashbrd.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
-                    Uj_activity = new Intent(Dashbrd.this, Setup.class);
+                    Uj_activity = new Intent(Stp_wage.this, Setup.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
@@ -298,19 +268,29 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
         }
     };
 
+    @Override
+    public void onClick(View v) {
+
+    }
+
+/*
+    public void company_insert(){
+        String comp_name =  ed_comp_name.getText().toString();
+        Companies companies = new Companies();
+        companies.setcomp_name(comp_name);
+        CompaniesRepo.insert(companies);
+        ed_comp_name.setText("");
+    }
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_date:
-                Log.i(TAG_Ertek, "date");
-                break;
-            case R.id.btn_kezdtime:
-                Log.i(TAG_Ertek, "kezdtm");
-                break;
-            case R.id.btn_vegtime:
-                Log.i(TAG_Ertek, "vegtm");
+            case R.id.btn_stp_comp_send:
+                company_insert();
+                Log.i(TAG_Ertek, "send");
                 break;
         }
     }
+*/
 }

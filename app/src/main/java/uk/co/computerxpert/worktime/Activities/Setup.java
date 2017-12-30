@@ -43,7 +43,7 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
                 startActivity(Uj_activity);
                 break;
             case R.id.btn_wages:
-                Uj_activity = new Intent(Setup.this, Stp_wages.class);
+                Uj_activity = new Intent(Setup.this, Stp_wage.class);
                 Uj_activity.putExtra("sessid", id);
                 startActivity(Uj_activity);
                 break;
