@@ -3,6 +3,7 @@
     package="uk.co.computerxpert.worktime">
 
     <application
+        android:name=".App.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,8 +20,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Dashbrd"
-            android:label="@string/title_activity_dashbrd"></activity>
+            android:name=".Activities.Dashbrd"
+            android:label="@string/title_activity_dashbrd" />
+        <activity
+            android:name=".Activities.Setup"
+            android:label="@string/title_activity_setup" />
+        <activity
+            android:name=".Activities.Stp_comp"
+            android:label="@string/title_activity_stp_comp"
+            android:parentActivityName=".Activities.Setup">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="uk.co.computerxpert.worktime.Activities.Setup" />
+        </activity>
+        <activity
+            android:name=".Activities.Stp_wages"
+            android:label="@string/title_activity_stp_wages"
+            android:parentActivityName=".Activities.Setup">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="uk.co.computerxpert.worktime.Activities.Setup" />
+        </activity>
     </application>
 
 </manifest>

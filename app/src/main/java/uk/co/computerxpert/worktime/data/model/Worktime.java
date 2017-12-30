@@ -1,12 +1,23 @@
-package uk.co.computerxpert.worktime;
+package uk.co.computerxpert.worktime.data.model;
 
 /**
- * Created by ricsx on 12/12/17.
+ * Created by ricsx on 29/12/17.
  */
 
 
-public class Wtime {
 
+public class Worktime {
+
+    public static final String TAG = Worktime.class.getSimpleName();
+    public static final String TABLE = "Worktime";
+
+    public static final String KEY_wt_id = "wt_id";
+    public static final String KEY_wt_comp_id = "wt_comp_id";
+    public static final String KEY_wt_compnm = "wt_compnm";
+    public static final String KEY_wt_startdate = "wt_startdate";
+    public static final String KEY_wt_enddate = "wt_enddate";
+    public static final String KEY_wt_rem = "wt_rem";
+    public static final String KEY_wt_week = "wt_week";
 
     private int _wt_id;
     private int _wt_comp_id;
@@ -17,11 +28,11 @@ public class Wtime {
     private int _wt_week;
 
 
-    public Wtime() {
+    public Worktime() {
 
     }
 
-    public Wtime(int wt_id, int wt_comp_id, String wt_compnm, long wt_startdate, long wt_enddate, String wt_rem, int wt_week) {
+    public Worktime(int wt_id, int wt_comp_id, String wt_compnm, long wt_startdate, long wt_enddate, String wt_rem, int wt_week) {
         this._wt_id = wt_id;
         this._wt_comp_id = wt_comp_id;
         this._wt_compnm = wt_compnm;
@@ -31,7 +42,7 @@ public class Wtime {
         this._wt_week = wt_week;
     }
 
-    public Wtime(int wt_comp_id, String wt_compnm, long wt_startdate, long wt_enddate, String wt_rem, int wt_week) {
+    public Worktime(int wt_comp_id, String wt_compnm, long wt_startdate, long wt_enddate, String wt_rem, int wt_week) {
         this._wt_comp_id = wt_comp_id;
         this._wt_compnm = wt_compnm;
         this._wt_startdate = wt_startdate;
@@ -40,15 +51,15 @@ public class Wtime {
         this._wt_week = wt_week;
     }
 
-    public void setWt_id(int wt_id) {
+    public void setwt_id(int wt_id) {
         this._wt_id = wt_id;
     }
 
-    public int getWt_id() {
+    public int getwt_id() {
         return this._wt_id;
     }
 
-    public void setWt_comp_id(int wt_comp_id) {
+    public void setwt_comp_id(int wt_comp_id) {
         this._wt_comp_id = wt_comp_id;
     }
 
@@ -56,7 +67,7 @@ public class Wtime {
         return this._wt_comp_id;
     }
 
-    public void setWt_compnm(String wt_compnm) {
+    public void setwt_compnm(String wt_compnm) {
         this._wt_compnm = wt_compnm;
     }
 
@@ -64,27 +75,27 @@ public class Wtime {
         return this._wt_compnm;
     }
 
-    public void setWt_startdate(long wt_startdate) {
+    public void setwt_startdate(long wt_startdate) {
         this._wt_startdate = wt_startdate;
     }
 
-    public long getWt_startdate() {
+    public long getwt_startdate() {
         return this._wt_startdate;
     }
 
-    public void setWt_enddate(long wt_enddate) {
+    public void setwt_enddate(long wt_enddate) {
         this._wt_enddate = wt_enddate;
     }
 
-    public long getWt_enddate() {
+    public long getwt_enddate() {
         return this._wt_enddate;
     }
 
-    public void setWt_rem(String wt_rem) {
+    public void setwt_rem(String wt_rem) {
         this._wt_rem = wt_rem;
     }
 
-    public String getWt_rem() {
+    public String getwt_rem() {
         return this._wt_rem;
     }
 

@@ -7,4 +7,9 @@
     <string name="tv_main2">Heti fizetés:</string>
     <string name="tv_main3_1">Fizetés a</string>
     <string name="btn_queries">Egyedi listák</string>
+    <string name="title_activity_dashbrd">Munkaidők</string>
+    <string name="btn_setup_wages">Bérek</string>
+    <string name="btn_setup_company">Munkáltatók</string>
+    <string name="tv_str_comp1">Munkáltató neve:</string>
+    <string name="bt_stp_somp_send">Mentés</string>
 </resources>

@@ -1,4 +1,4 @@
-package uk.co.computerxpert.worktime;
+package uk.co.computerxpert.worktime.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,10 +10,10 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-
 import java.util.Calendar;
 import java.util.Locale;
+
+import uk.co.computerxpert.worktime.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,57 +45,8 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG_Ertek, "datetime: " + dateTime.toString() + "\n");
         Log.i(TAG_Ertek, "weekyear: " + weekyear + "\n");
 
-
-        // int aa = rownum("select count(*) from worktime where wt_week=50");
-        // listWtime("Select * FROM worktime WHERE wt_compnm=\"a\"");
-        listWtime("Select * FROM worktime WHERE wt_week=50");
     }
 
-
-
-    public void listWtime(String nm) {
-        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
-
-        Wtime wtime = dbHandler.findWtime(nm);
-
-
-        if (wtime != null)
-
-        {
-            // res_Wt_idBox.setText(String.valueOf(wtime.getWt_id()));
-            Log.i(TAG_Ertek, "wtime: " + wtime + "\n");
-            res_WeekWorkday.setText(String.valueOf(wtime));
-
-            res_SalaryFactory.setText(String.valueOf(wtime.getwt_compnm()));
-        } else
-
-        {
-            res_SalaryFactory.setText("No Match Found");
-        }
-
-    }
-
-
-/*
-    public void lookupWtime(View view){
-        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
-
-        Wtime wtime = dbHandler.findWtime(res_Wt_compnmBox.getText().toString());
-
-            if(wtime !=null)
-
-        {
-            res_Wt_idBox.setText(String.valueOf(wtime.getWt_id()));
-
-            res_Wt_compnmBox.setText(String.valueOf(wtime.getwt_compnm()));
-        } else
-
-        {
-            res_Wt_compnmBox.setText("No Match Found");
-        }
-
-    }
-*/
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -113,14 +64,16 @@ public class MainActivity extends AppCompatActivity {
                     Uj_activity = new Intent(MainActivity.this, Dashbrd.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
-                    // mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    Uj_activity = new Intent(MainActivity.this, Setup.class);
+                    Uj_activity.putExtra("sessid", id);
+                    startActivity(Uj_activity);
                     return true;
             }
             return false;
         }
     };
+
 
 }

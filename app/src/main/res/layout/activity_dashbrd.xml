@@ -5,27 +5,15 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="uk.co.computerxpert.worktime.Dashbrd">
+    tools:context="uk.co.computerxpert.worktime.Activities.Dashbrd">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/in_cegnevBox"
-        android:layout_width="294dp"
-        android:layout_height="37dp"
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="279dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -36,9 +24,9 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="Date of start"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_cegnevBox" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <Button
         android:id="@+id/btn_date"
@@ -48,7 +36,7 @@
         android:layout_marginTop="8dp"
         android:text="Button"
         app:layout_constraintStart_toEndOf="@+id/in_kezddateBox"
-        app:layout_constraintTop_toBottomOf="@+id/in_cegnevBox" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <EditText
         android:id="@+id/in_kezdtimeBox"
@@ -58,7 +46,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="Time of start"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/in_kezddateBox" />
 
@@ -80,7 +68,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="Date of end"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/in_kezdtimeBox" />
 
@@ -97,12 +85,12 @@
     <EditText
         android:id="@+id/in_vegtimeBox"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="Time of end"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/in_vegdateBox" />
 
@@ -116,6 +104,17 @@
         app:layout_constraintStart_toEndOf="@+id/in_vegtimeBox"
         app:layout_constraintTop_toBottomOf="@+id/btn_vegdate" />
 
+    <EditText
+        android:id="@+id/in_megjBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/in_vegtimeBox" />
+
     <Button
         android:id="@+id/button"
         android:layout_width="305dp"
@@ -125,7 +124,7 @@
         android:onClick="newWtime"
         android:text="Save"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_vegtimeBox" />
+        app:layout_constraintTop_toBottomOf="@+id/in_megjBox" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
