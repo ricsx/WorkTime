@@ -1,13 +1,12 @@
 package uk.co.computerxpert.worktime.Activities;
 
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,11 +17,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +31,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import uk.co.computerxpert.worktime.App.App;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.Companies;
 import uk.co.computerxpert.worktime.data.model.Wage;
@@ -48,9 +47,11 @@ public class Stp_wage extends AppCompatActivity  implements View.OnClickListener
     private Intent Uj_activity;
     private static final String TAG_Ertek="TAG: ";
     private String kezdveg = "k";
-    private Spinner spinner1;
+    public Spinner spinner1;
     private ListView result;
+    private Context context = this;
 
+    private DecimalFormat floatformat = new DecimalFormat(".##");
     Button btn_kezddate, btn_vegdate;
 
     private Map<String, Integer> months = new HashMap<String, Integer>();
@@ -71,9 +72,18 @@ public class Stp_wage extends AppCompatActivity  implements View.OnClickListener
         in_val = (EditText) findViewById(R.id.in_wage_valBox);
         btn_kezddate = (Button) findViewById(R.id.btn_wage_stdate);
         btn_vegdate = (Button) findViewById(R.id.btn_wage_enddate);
+        result=(ListView) findViewById(R.id.result);
 
-        // Upload and start of the Spinner (Company names)
-        make_listviewtospinner();
+        make_listview();
+
+
+        // starting Spinner (Company names)
+        String selectQuery =  " SELECT Companies." + Companies.KEY_comp_id
+                + ", Companies." + Companies.KEY_comp_name
+                + " FROM " + Companies.TABLE
+                ;
+
+        App.CompanyListToSpinner(spinner1, context, selectQuery);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -134,21 +144,6 @@ public class Stp_wage extends AppCompatActivity  implements View.OnClickListener
     }
 
 
-    private void make_listviewtospinner(){
-
-        CompaniesRepo companiesRepo = new CompaniesRepo();
-        List<Companies> companies_s= companiesRepo.getCompanies();
-
-        List<String> values = new ArrayList<String>();
-        for(int i=0; i<companies_s.size();i++){ values.add(companies_s.get(i).getcomp_name());  }
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, values);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner1.setAdapter(dataAdapter);
-    }
-
-
     public void newWage (View view) throws ParseException {
         // MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
 
@@ -157,7 +152,16 @@ public class Stp_wage extends AppCompatActivity  implements View.OnClickListener
         String vegdate = in_vegdate.getText().toString();
         String kezd_ = kezddate+" 00:00";
         String veg_ = vegdate+" 00:00";
-        float val =  Float.valueOf(in_val.getText().toString());
+        String val = in_val.getText().toString();
+
+        String selectQuery =  " SELECT Companies." + Companies.KEY_comp_id
+                + ", Companies." + Companies.KEY_comp_name
+                + " FROM " + Companies.TABLE
+                + " WHERE " + Companies.KEY_comp_name
+                + " =\""+ cegnev+"\""
+                ;
+
+        Integer comp_id = App.comp_idFromSpinner(selectQuery);
 
         // Dates convert to Unix format
         // DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy hh:mm");
@@ -189,7 +193,7 @@ public class Stp_wage extends AppCompatActivity  implements View.OnClickListener
         // End of week-of-year calculate
 
         Wage wage = new Wage();
-        wage.setwage_comp_id(1);
+        wage.setwage_comp_id(comp_id);
         wage.setwage_startdate(kezd_uxT);
         wage.setwage_enddate(veg_uxT);
         wage.setwage_val(val);
@@ -204,20 +208,53 @@ public class Stp_wage extends AppCompatActivity  implements View.OnClickListener
     }
 
 
-
-
     private void make_listview(){
+        String selectQuery =  " SELECT Wage." + Wage.KEY_wage_id
+                + ", Wage." + Wage.KEY_wage_comp_id
+                + ", Wage." + Wage.KEY_wage_startdate
+                + ", Wage." + Wage.KEY_wage_enddate
+                + ", Wage." + Wage.KEY_wage_val
+                + ", Companies." + Companies.KEY_comp_name
+                + " FROM " + Wage.TABLE
+                + ", " + Companies.TABLE
+                + " WHERE " + Wage.KEY_wage_comp_id
+                + " = " + Companies.KEY_comp_id
+                ;
 
-        CompaniesRepo companiesRepo = new CompaniesRepo();
-        List<Companies> companies_s= companiesRepo.getCompanies();
+        Log.i(TAG_Ertek, "SQL "+ selectQuery);
+
+
+        WageRepo wageRepo = new WageRepo();
+        List<Wage> wage_s = wageRepo.RelfindWage(selectQuery);
 
         // "values" array definition and loading
-        ArrayList<String> values = new ArrayList<String>();
-        for(int i=0; i<companies_s.size();i++){ values.add(companies_s.get(i).getcomp_name());  }
+        ArrayList<Integer> arr_id = new ArrayList<>();
+        ArrayList<Integer> arr_comp_id = new ArrayList<>();
+        ArrayList<Long> arr_startdate = new ArrayList<>();
+        ArrayList<Long> arr_enddate = new ArrayList<>();
+        ArrayList<String> arr_val = new ArrayList<String>();
+        ArrayList<String> arr_compname = new ArrayList<String>();
+        ArrayList<String> list_val = new ArrayList<String>();
+
+
+        for(int i=0; i<wage_s.size();i++){
+            arr_id.add(wage_s.get(i).getwage_id());
+            arr_comp_id.add(wage_s.get(i).getwage_comp_id());
+            arr_startdate.add(wage_s.get(i).getwage_startdate());
+            arr_enddate.add(wage_s.get(i).getwage_enddate());
+            arr_val.add(wage_s.get(i).getwage_val());
+            arr_compname.add(wage_s.get(i).getcomp_name());
+            list_val.add(wage_s.get(i).getcomp_name()+" "+wage_s.get(i).getwage_val());
+            //getcomp_name();
+            Log.i(TAG_Ertek, "compname"+ arr_compname.get(i));
+
+        }
+
+
 
         // array-fetching
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                android.R.layout.simple_list_item_1, android.R.id.text1, list_val);
         result.setAdapter(adapter);
 
         result.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -254,7 +291,7 @@ public class Stp_wage extends AppCompatActivity  implements View.OnClickListener
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(Stp_wage.this, Dashbrd.class);
+                    Uj_activity = new Intent(Stp_wage.this, Worktime.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
@@ -273,24 +310,4 @@ public class Stp_wage extends AppCompatActivity  implements View.OnClickListener
 
     }
 
-/*
-    public void company_insert(){
-        String comp_name =  ed_comp_name.getText().toString();
-        Companies companies = new Companies();
-        companies.setcomp_name(comp_name);
-        CompaniesRepo.insert(companies);
-        ed_comp_name.setText("");
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_stp_comp_send:
-                company_insert();
-                Log.i(TAG_Ertek, "send");
-                break;
-        }
-    }
-*/
 }

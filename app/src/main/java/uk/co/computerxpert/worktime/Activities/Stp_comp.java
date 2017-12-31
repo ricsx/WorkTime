@@ -51,9 +51,12 @@ public class Stp_comp extends AppCompatActivity  implements View.OnClickListener
 
 
     private void make_listview(){
-
+        String selectQuery =  " SELECT Companies." + Companies.KEY_comp_id
+                + ", Companies." + Companies.KEY_comp_name
+                + " FROM " + Companies.TABLE
+                ;
         CompaniesRepo companiesRepo = new CompaniesRepo();
-        List<Companies> companies_s= companiesRepo.getCompanies();
+        List<Companies> companies_s= companiesRepo.findCompanies(selectQuery);
 
         // "values" array definition and loading
         ArrayList<String> values = new ArrayList<String>();
@@ -98,7 +101,7 @@ public class Stp_comp extends AppCompatActivity  implements View.OnClickListener
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(Stp_comp.this, Dashbrd.class);
+                    Uj_activity = new Intent(Stp_comp.this, Worktime.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;

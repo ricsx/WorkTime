@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.Dashbrd"
+            android:name=".Activities.Worktime"
             android:label="@string/title_activity_dashbrd" />
         <activity
             android:name=".Activities.Setup"

@@ -7,6 +7,31 @@
     android:layout_height="match_parent"
     tools:context="uk.co.computerxpert.worktime.Activities.Stp_wage">
 
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="116dp"
+        android:layout_marginBottom="96dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_stp_wageSave">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="116dp">
+
+            <ListView
+                android:id="@+id/result"
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+        </LinearLayout>
+    </ScrollView>
+
     <Spinner
         android:id="@+id/spinner2"
         android:layout_width="354dp"

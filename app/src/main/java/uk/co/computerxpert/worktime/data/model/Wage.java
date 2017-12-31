@@ -21,13 +21,15 @@ public class Wage {
     private int _wage_comp_id;
     private long _wage_startdate;
     private long _wage_enddate;
-    private float _wage_val;
+    private String _wage_val;
+    private String _comp_name;
+
 
 
     public Wage() {
     }
 
-    public Wage(int wage_id, int wage_comp_id, long wage_startdate, long wage_enddate, float wage_val) {
+    public Wage(int wage_id, int wage_comp_id, long wage_startdate, long wage_enddate, String wage_val, String comp_name) {
         this._wage_id = wage_id;
         this._wage_comp_id = wage_comp_id;
         this._wage_startdate = wage_startdate;
@@ -35,7 +37,7 @@ public class Wage {
         this._wage_val = wage_val;
     }
 
-    public Wage(int wage_comp_id, long wage_startdate, long wage_enddate, float wage_val) {
+    public Wage(int wage_comp_id, long wage_startdate, long wage_enddate, String wage_val, String comp_name) {
         this._wage_comp_id = wage_comp_id;
         this._wage_startdate = wage_startdate;
         this._wage_enddate = wage_enddate;
@@ -74,8 +76,14 @@ public class Wage {
         return this._wage_enddate;
     }
 
-    public void setwage_val(float wage_val) { this._wage_val = wage_val; }
+    public void setwage_val(String wage_val) { this._wage_val = wage_val; }
 
-    public float getwage_val() { return this._wage_val; }
+    public String getwage_val() { return this._wage_val; }
 
+
+    // To the relation-querys:
+
+    public void setcomp_name(String comp_name) { this._comp_name = comp_name; }
+
+    public String getcomp_name() { return _comp_name; }
 }

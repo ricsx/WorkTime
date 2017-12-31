@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(MainActivity.this, Dashbrd.class);
+                    Uj_activity = new Intent(MainActivity.this, Worktime.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;

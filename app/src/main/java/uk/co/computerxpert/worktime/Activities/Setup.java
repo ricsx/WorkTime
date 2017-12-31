@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
+import uk.co.computerxpert.worktime.data.repo.WageRepo;
 import uk.co.computerxpert.worktime.data.repo.WorktimeRepo;
 
 public class Setup extends AppCompatActivity implements View.OnClickListener {
@@ -51,17 +52,13 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-    public void wagesDBDel(View view){
-
-    }
+    public void wagesDBDel(View view){ WageRepo.delete(); }
 
     public void companiesDBDel(View view){
         CompaniesRepo.delete();
     }
 
-    public void worktimeDBDel(View view){
-        WorktimeRepo.delete();
-    }
+    public void worktimeDBDel(View view){ WorktimeRepo.delete(); }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -75,7 +72,7 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(Setup.this, Dashbrd.class);
+                    Uj_activity = new Intent(Setup.this, Worktime.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;

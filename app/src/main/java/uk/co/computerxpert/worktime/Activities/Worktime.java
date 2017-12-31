@@ -2,6 +2,7 @@ package uk.co.computerxpert.worktime.Activities;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,38 +11,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import uk.co.computerxpert.worktime.App.App;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.Companies;
-import uk.co.computerxpert.worktime.data.model.Worktime;
-import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
 import uk.co.computerxpert.worktime.data.repo.WorktimeRepo;
 
+public class Worktime extends AppCompatActivity implements View.OnClickListener {
 
-public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
-
-
-    private TextView mTextMessage;
-    private EditText in_cegnev;
     private EditText in_kezddate;
     private EditText in_kezdtime;
     private EditText in_vegdate;
@@ -53,6 +45,7 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
     private String var = "time", kezdveg = "k";
     private Spinner spinner1;
     private ListView result;
+    private Context context = this;
 
     Button btn_kezddate, btn_kezdtime, btn_vegdate, btn_vegtime;
 
@@ -70,7 +63,6 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_dashbrd);
 
         spinner1 = (Spinner) findViewById(R.id.spinner);
-        mTextMessage = (TextView) findViewById(R.id.message);
         in_kezddate = (EditText) findViewById(R.id.in_kezddateBox);
         in_kezdtime = (EditText) findViewById(R.id.in_kezdtimeBox);
         in_vegdate = (EditText) findViewById(R.id.in_vegdateBox);
@@ -81,8 +73,13 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
         btn_vegdate = (Button) findViewById(R.id.btn_vegdate);
         btn_vegtime = (Button) findViewById(R.id.btn_vegtime);
 
-        // Upload and start of the Spinner (company names)
-        make_listviewtospinner();
+        // starting Spinner (Company names)
+        String selectQuery =  " SELECT Companies." + Companies.KEY_comp_id
+                + ", Companies." + Companies.KEY_comp_name
+                + " FROM " + Companies.TABLE
+                ;
+
+        App.CompanyListToSpinner(spinner1, context, selectQuery);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -194,8 +191,17 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
         String veg_ = vegdate+" "+vegtime;
         String megj =  in_megj.getText().toString();
 
+        // Calculate the comp_id from the spinner return value
+        String selectQuery =  " SELECT Companies." + Companies.KEY_comp_id
+                + ", Companies." + Companies.KEY_comp_name
+                + " FROM " + Companies.TABLE
+                + " WHERE " + Companies.KEY_comp_name
+                + " =\""+ cegnev+"\""
+                ;
+
+        Integer comp_id = App.comp_idFromSpinner(selectQuery);
+
         // Dates convert to Unix format
-        // DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy hh:mm");
         DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy hh:mm");
 
         Date date_kezd = dateFormat.parse(kezd_);
@@ -220,11 +226,10 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
         now.set(Calendar.YEAR,a);
 
         int woyear = now.get(Calendar.WEEK_OF_YEAR);
-
         // End of week-of-year calculate
 
-        Worktime worktime = new Worktime();
-        worktime.setwt_comp_id(1);
+        uk.co.computerxpert.worktime.data.model.Worktime worktime = new uk.co.computerxpert.worktime.data.model.Worktime();
+        worktime.setwt_comp_id(comp_id);
         worktime.setwt_compnm(cegnev);
         worktime.setwt_startdate(kezd_uxT);
         worktime.setwt_enddate(veg_uxT);
@@ -243,35 +248,6 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-    public void addItemsOnSpinner1() {
-
-	    spinner1 = (Spinner) findViewById(R.id.spinner);
-	    List<String> list = new ArrayList<String>();
-	    list.add("list 1");
-	    list.add("list 2");
-	    list.add("list 3");
-	    ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-    		android.R.layout.simple_spinner_item, list);
-    	dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    	spinner1.setAdapter(dataAdapter);
-    }
-
-
-    private void make_listviewtospinner(){
-
-        CompaniesRepo companiesRepo = new CompaniesRepo();
-        List<Companies> companies_s= companiesRepo.getCompanies();
-
-        List<String> values = new ArrayList<String>();
-        for(int i=0; i<companies_s.size();i++){ values.add(companies_s.get(i).getcomp_name());  }
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, values);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner1.setAdapter(dataAdapter);
-    }
-
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -279,17 +255,17 @@ public class Dashbrd extends AppCompatActivity implements View.OnClickListener {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(Dashbrd.this, MainActivity.class);
+                    Uj_activity = new Intent(Worktime.this, MainActivity.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(Dashbrd.this, Dashbrd.class);
+                    Uj_activity = new Intent(Worktime.this, Worktime.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
-                    Uj_activity = new Intent(Dashbrd.this, Setup.class);
+                    Uj_activity = new Intent(Worktime.this, Setup.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;

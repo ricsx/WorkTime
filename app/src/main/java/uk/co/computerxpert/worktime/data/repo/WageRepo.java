@@ -34,7 +34,7 @@ public class WageRepo {
                 + Wage.KEY_wage_comp_id + " INTEGER, "
                 + Wage.KEY_wage_startdate + " LONG, "
                 + Wage.KEY_wage_enddate + " LONG, "
-                + Wage.KEY_wage_val + " FLOAT )";
+                + Wage.KEY_wage_val + " TEXT )";
     }
 
 
@@ -79,7 +79,7 @@ public class WageRepo {
                 wage.setwage_comp_id(cursor.getInt(cursor.getColumnIndex(Wage.KEY_wage_comp_id)));
                 wage.setwage_startdate(cursor.getLong(cursor.getColumnIndex(Wage.KEY_wage_startdate)));
                 wage.setwage_enddate(cursor.getLong(cursor.getColumnIndex(Wage.KEY_wage_enddate)));
-                wage.setwage_val(cursor.getFloat(cursor.getColumnIndex(Wage.KEY_wage_val)));
+                wage.setwage_val(cursor.getString(cursor.getColumnIndex(Wage.KEY_wage_val)));
 
                 wage_s.add(wage);
             } while (cursor.moveToNext());
@@ -92,6 +92,63 @@ public class WageRepo {
 
     }
 
+
+    public static List<Wage> findWage(String selectQuery){
+        Wage wage = new Wage();
+        List<Wage> wage_s = new ArrayList<Wage>();
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        Log.i(TAG_Ertek, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                wage= new Wage();
+                wage.setwage_id(cursor.getInt(cursor.getColumnIndex(Wage.KEY_wage_id)));
+                wage.setwage_comp_id(cursor.getInt(cursor.getColumnIndex(Wage.KEY_wage_comp_id)));
+                wage.setwage_startdate(cursor.getLong(cursor.getColumnIndex(Wage.KEY_wage_startdate)));
+                wage.setwage_enddate(cursor.getLong(cursor.getColumnIndex(Wage.KEY_wage_enddate)));
+                wage.setwage_val(cursor.getString(cursor.getColumnIndex(Wage.KEY_wage_val)));
+                wage_s.add(wage);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return wage_s;
+    }
+
+
+
+    public static List<Wage> RelfindWage(String selectQuery){
+        Wage wage = new Wage();
+        List<Wage> wage_s = new ArrayList<Wage>();
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        Log.i(TAG_Ertek, "vizsgalt"+ selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                wage= new Wage();
+                wage.setwage_id(cursor.getInt(cursor.getColumnIndex(Wage.KEY_wage_id)));
+                wage.setwage_comp_id(cursor.getInt(cursor.getColumnIndex(Wage.KEY_wage_comp_id)));
+                wage.setwage_startdate(cursor.getLong(cursor.getColumnIndex(Wage.KEY_wage_startdate)));
+                wage.setwage_enddate(cursor.getLong(cursor.getColumnIndex(Wage.KEY_wage_enddate)));
+                wage.setwage_val(cursor.getString(cursor.getColumnIndex(Wage.KEY_wage_val)));
+                wage.setcomp_name(cursor.getString(cursor.getColumnIndex("comp_name")));
+                wage_s.add(wage);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return wage_s;
+    }
 
 
     public static void delete() {
