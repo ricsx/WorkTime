@@ -151,9 +151,9 @@ public class WageRepo {
     }
 
 
-    public static void delete() {
+    public static void delete(String query) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        db.delete(Wage.TABLE,null,null);
+        db.delete(Wage.TABLE, query,null);
         DatabaseManager.getInstance().closeDatabase();
     }
 

@@ -41,6 +41,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="uk.co.computerxpert.worktime.Activities.Setup" />
         </activity>
+        <activity
+            android:name=".Activities.DeveloperSection"
+            android:label="@string/title_activity_developer_section"></activity>
     </application>
 
 </manifest>

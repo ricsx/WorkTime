@@ -29,7 +29,7 @@ public class Wage {
     public Wage() {
     }
 
-    public Wage(int wage_id, int wage_comp_id, long wage_startdate, long wage_enddate, String wage_val, String comp_name) {
+    public Wage(int wage_id, int wage_comp_id, long wage_startdate, long wage_enddate, String wage_val) {
         this._wage_id = wage_id;
         this._wage_comp_id = wage_comp_id;
         this._wage_startdate = wage_startdate;
@@ -37,7 +37,7 @@ public class Wage {
         this._wage_val = wage_val;
     }
 
-    public Wage(int wage_comp_id, long wage_startdate, long wage_enddate, String wage_val, String comp_name) {
+    public Wage(int wage_comp_id, long wage_startdate, long wage_enddate, String wage_val) {
         this._wage_comp_id = wage_comp_id;
         this._wage_startdate = wage_startdate;
         this._wage_enddate = wage_enddate;

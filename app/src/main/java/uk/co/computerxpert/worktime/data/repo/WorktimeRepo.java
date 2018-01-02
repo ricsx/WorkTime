@@ -30,7 +30,6 @@ public class WorktimeRepo  {
         return "CREATE TABLE " + Worktime.TABLE  + "("
                 + Worktime.KEY_wt_id  + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + Worktime.KEY_wt_comp_id + " INTEGER, "
-                + Worktime.KEY_wt_compnm + " TEXT, "
                 + Worktime.KEY_wt_startdate + " LONG, "
                 + Worktime.KEY_wt_enddate + " LONG, "
                 + Worktime.KEY_wt_rem + " TEXT, "
@@ -42,9 +41,7 @@ public class WorktimeRepo  {
         int worktimeId;
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
-        // values.put(Worktime.KEY_wt_id, worktime.getwt_id());
         values.put(Worktime.KEY_wt_comp_id, worktime.getwt_comp_id());
-        values.put(Worktime.KEY_wt_compnm, worktime.getwt_compnm());
         values.put(Worktime.KEY_wt_startdate, worktime.getwt_startdate());
         values.put(Worktime.KEY_wt_enddate, worktime.getwt_enddate());
         values.put(Worktime.KEY_wt_rem, worktime.getwt_rem());
@@ -58,9 +55,9 @@ public class WorktimeRepo  {
     }
 
 
-    public static void delete() {
+    public static void delete(String query) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        db.delete(Worktime.TABLE,null,null);
+        db.delete(Worktime.TABLE, query,null);
         DatabaseManager.getInstance().closeDatabase();
     }
 

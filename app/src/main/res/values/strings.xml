@@ -16,5 +16,6 @@
     <string name="title_activity_stp_wages">Stp_wages</string>
     <string name="tv_str_comp1">Company name:</string>
     <string name="bt_stp_somp_send">Save</string>
+    <string name="title_activity_developer_section">DeveloperSection</string>
 
 </resources>

@@ -110,9 +110,9 @@ public class CompaniesRepo  {
 
 
 
-    public static void delete() {
+    public static void delete(String query) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        db.delete(Companies.TABLE,null,null);
+        db.delete(Companies.TABLE, query,null);
         DatabaseManager.getInstance().closeDatabase();
     }
 

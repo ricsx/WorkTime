@@ -230,7 +230,7 @@ public class Worktime extends AppCompatActivity implements View.OnClickListener 
 
         uk.co.computerxpert.worktime.data.model.Worktime worktime = new uk.co.computerxpert.worktime.data.model.Worktime();
         worktime.setwt_comp_id(comp_id);
-        worktime.setwt_compnm(cegnev);
+        // worktime.setwt_compnm(cegnev);
         worktime.setwt_startdate(kezd_uxT);
         worktime.setwt_enddate(veg_uxT);
         worktime.setwt_rem(megj);
