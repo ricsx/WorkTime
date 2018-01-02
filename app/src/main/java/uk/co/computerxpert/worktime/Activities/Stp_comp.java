@@ -101,7 +101,7 @@ public class Stp_comp extends AppCompatActivity  implements View.OnClickListener
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(Stp_comp.this, Worktime.class);
+                    Uj_activity = new Intent(Stp_comp.this, Worktimes.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;

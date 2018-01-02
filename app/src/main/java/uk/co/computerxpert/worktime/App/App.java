@@ -7,6 +7,7 @@ package uk.co.computerxpert.worktime.App;
 
 import android.app.Application;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -31,7 +32,6 @@ public class  App extends Application {
         context = this.getApplicationContext();
         dbHelper = new DBHelper();
         DatabaseManager.initializeInstance(dbHelper);
-
     }
 
 

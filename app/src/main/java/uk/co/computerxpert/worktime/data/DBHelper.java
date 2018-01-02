@@ -3,7 +3,6 @@ package uk.co.computerxpert.worktime.data;
 /**
  * Created by ricsx on 29/12/17.
  */
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -12,10 +11,10 @@ import android.util.Log;
 import uk.co.computerxpert.worktime.App.App;
 import uk.co.computerxpert.worktime.data.model.Companies;
 import uk.co.computerxpert.worktime.data.model.Wage;
-import uk.co.computerxpert.worktime.data.model.Worktime;
+import uk.co.computerxpert.worktime.data.model.Worktimes;
 import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
 import uk.co.computerxpert.worktime.data.repo.WageRepo;
-import uk.co.computerxpert.worktime.data.repo.WorktimeRepo;
+import uk.co.computerxpert.worktime.data.repo.WorktimesRepo;
 
 
 public class DBHelper  extends SQLiteOpenHelper {
@@ -36,7 +35,7 @@ public class DBHelper  extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //All necessary tables you like to create will create here
         db.execSQL(CompaniesRepo.createTable());
-        db.execSQL(WorktimeRepo.createTable());
+        db.execSQL(WorktimesRepo.createTable());
         db.execSQL(WageRepo.createTable());
     }
 
@@ -46,7 +45,7 @@ public class DBHelper  extends SQLiteOpenHelper {
 
         // Drop table if existed, all data will be gone!!!
         db.execSQL("DROP TABLE IF EXISTS " + Companies.TABLE);
-        db.execSQL("DROP TABLE IF EXISTS " + Worktime.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Worktimes.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Wage.TABLE);
         onCreate(db);
     }

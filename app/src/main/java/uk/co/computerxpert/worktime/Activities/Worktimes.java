@@ -30,9 +30,9 @@ import java.util.Map;
 import uk.co.computerxpert.worktime.App.App;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.Companies;
-import uk.co.computerxpert.worktime.data.repo.WorktimeRepo;
+import uk.co.computerxpert.worktime.data.repo.WorktimesRepo;
 
-public class Worktime extends AppCompatActivity implements View.OnClickListener {
+public class Worktimes extends AppCompatActivity implements View.OnClickListener {
 
     private EditText in_kezddate;
     private EditText in_kezdtime;
@@ -54,7 +54,6 @@ public class Worktime extends AppCompatActivity implements View.OnClickListener 
     final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
     DateFormat formatDate = new SimpleDateFormat("dd MMM yyyy");
     SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm", Locale.UK); // Set up time format to 24-hour
-
 
 
     @Override
@@ -228,16 +227,17 @@ public class Worktime extends AppCompatActivity implements View.OnClickListener 
         int woyear = now.get(Calendar.WEEK_OF_YEAR);
         // End of week-of-year calculate
 
-        uk.co.computerxpert.worktime.data.model.Worktime worktime = new uk.co.computerxpert.worktime.data.model.Worktime();
-        worktime.setwt_comp_id(comp_id);
-        // worktime.setwt_compnm(cegnev);
-        worktime.setwt_startdate(kezd_uxT);
-        worktime.setwt_enddate(veg_uxT);
-        worktime.setwt_rem(megj);
-        worktime.setwt_week(woyear);
+        uk.co.computerxpert.worktime.data.model.Worktimes worktimes = new uk.co.computerxpert.worktime.data.model.Worktimes();
+        worktimes.setwt_comp_id(comp_id);
+        // worktimes.setwt_compnm(cegnev);
+        worktimes.setwt_startdate(kezd_uxT);
+        worktimes.setwt_enddate(veg_uxT);
+        worktimes.setwt_rem(megj);
+        worktimes.setwt_week(woyear);
+        worktimes.setwt_year(a);
 
         // Write datas into DB
-        WorktimeRepo.insert(worktime);
+        WorktimesRepo.insert(worktimes);
 
         in_kezddate.setText("");
         in_kezdtime.setText("");
@@ -255,17 +255,17 @@ public class Worktime extends AppCompatActivity implements View.OnClickListener 
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(Worktime.this, MainActivity.class);
+                    Uj_activity = new Intent(Worktimes.this, MainActivity.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(Worktime.this, Worktime.class);
+                    Uj_activity = new Intent(Worktimes.this, Worktimes.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
-                    Uj_activity = new Intent(Worktime.this, Setup.class);
+                    Uj_activity = new Intent(Worktimes.this, Setup.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;

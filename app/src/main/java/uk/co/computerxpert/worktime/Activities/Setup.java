@@ -8,12 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import uk.co.computerxpert.worktime.R;
-import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
-import uk.co.computerxpert.worktime.data.repo.WageRepo;
-import uk.co.computerxpert.worktime.data.repo.WorktimeRepo;
 
 public class Setup extends AppCompatActivity implements View.OnClickListener {
 
@@ -74,7 +70,7 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(Setup.this, Worktime.class);
+                    Uj_activity = new Intent(Setup.this, Worktimes.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
