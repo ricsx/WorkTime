@@ -3,7 +3,7 @@
     <string name="app_name">WorkTime</string>
     <string name="title_dashboard">Munkaidő</string>
     <string name="title_notifications">Beállítások</string>
-    <string name="tv_main1">Heti munkanapok:</string>
+    <string name="tv_main1">Heti munkák:</string>
     <string name="tv_main2">Heti fizetés:</string>
     <string name="tv_main3_1">Fizetés a</string>
     <string name="btn_queries">Egyedi listák</string>
@@ -12,4 +12,5 @@
     <string name="btn_setup_company">Munkáltatók</string>
     <string name="tv_str_comp1">Munkáltató neve:</string>
     <string name="bt_stp_somp_send">Mentés</string>
+    <string name="tv_main3">Heti munkaórák:</string>
 </resources>

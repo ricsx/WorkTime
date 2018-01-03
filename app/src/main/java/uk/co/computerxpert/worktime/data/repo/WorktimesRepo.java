@@ -34,7 +34,18 @@ public class WorktimesRepo {
 
 
     public static String createTable(){
-        return "CREATE TABLE " + Worktimes.TABLE  + "("
+
+        String aa="CREATE TABLE " + Worktimes.TABLE  + " ( "
+        + Worktimes.KEY_wt_id  + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+        + Worktimes.KEY_wt_comp_id + " INTEGER, "
+        + Worktimes.KEY_wt_startdate + " LONG, "
+        + Worktimes.KEY_wt_enddate + " LONG, "
+        + Worktimes.KEY_wt_rem + " TEXT, "
+        + Worktimes.KEY_wt_week + " INTEGER, "
+        + Worktimes.KEY_wt_year + " INTEGER "
+        + ")";
+
+        return "CREATE TABLE " + Worktimes.TABLE  + " ( "
                 + Worktimes.KEY_wt_id  + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + Worktimes.KEY_wt_comp_id + " INTEGER, "
                 + Worktimes.KEY_wt_startdate + " LONG, "
@@ -71,7 +82,6 @@ public class WorktimesRepo {
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
-        Log.i(TAG_Ertek, selectQuery);
         Cursor cursor = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {

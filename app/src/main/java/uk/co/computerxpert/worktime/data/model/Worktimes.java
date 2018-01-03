@@ -9,7 +9,7 @@ package uk.co.computerxpert.worktime.data.model;
 public class Worktimes {
 
     public static final String TAG = Worktimes.class.getSimpleName();
-    public static final String TABLE = "Worktimes";
+    public static final String TABLE = "Worktime";
 
     public static final String KEY_wt_id = "wt_id";
     public static final String KEY_wt_comp_id = "wt_comp_id";

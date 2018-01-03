@@ -69,7 +69,6 @@ public class WageRepo {
                 + " FROM " + Wage.TABLE
                 ;
 
-        Log.i(TAG_Ertek, selectQuery);
         Cursor cursor = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
@@ -99,7 +98,6 @@ public class WageRepo {
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
-        Log.i(TAG_Ertek, selectQuery);
         Cursor cursor = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
@@ -128,7 +126,6 @@ public class WageRepo {
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
-        Log.i(TAG_Ertek, "vizsgalt"+ selectQuery);
         Cursor cursor = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {

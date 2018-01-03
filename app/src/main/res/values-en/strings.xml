@@ -3,7 +3,7 @@
     <string name="app_name">WorkTime</string>
     <string name="title_dashboard">Worktime</string>
     <string name="title_notifications">Setup</string>
-    <string name="tv_main1">Workdays of week:</string>
+    <string name="tv_main1">Works of week:</string>
     <string name="tv_main2">Salary of week:</string>
     <string name="tv_main3_1">Salary from</string>
     <string name="btn_queries">Unique queries</string>
@@ -12,4 +12,5 @@
     <string name="btn_setup_company">Companys</string>
     <string name="tv_str_comp1">Company name:</string>
     <string name="bt_stp_somp_send">Save</string>
+    <string name="tv_main3">Workhours of week</string>
 </resources>
