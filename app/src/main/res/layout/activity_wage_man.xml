@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="uk.co.computerxpert.worktime.Activities.Stp_wage">
+    tools:context="uk.co.computerxpert.worktime.Activities.WageMan">
 
     <ScrollView
         android:id="@+id/scrollView2"

@@ -59,7 +59,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashbrd);
+        setContentView(R.layout.activity_worktimes);
 
         spinner1 = (Spinner) findViewById(R.id.spinner);
         in_kezddate = (EditText) findViewById(R.id.in_kezddateBox);

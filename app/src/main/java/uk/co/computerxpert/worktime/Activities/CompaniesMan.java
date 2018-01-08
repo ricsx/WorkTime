@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,22 +23,30 @@ import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.Companies;
 import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
 
-public class Stp_comp extends AppCompatActivity  implements View.OnClickListener {
+public class CompaniesMan extends AppCompatActivity  implements View.OnClickListener {
 
     private Intent Uj_activity;
     private int id=1;
     private static final String TAG_Ertek="TAG: ";
-    EditText ed_comp_name;
+    EditText ed_comp_name, edCompAddr, edCompCity, edCompPostCode, edCompPhone, edContPName, edContPPhone, edContPEmail;
     private ListView result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stp_comp);
+        setContentView(R.layout.activity_companies_man);
 
-        TextView tv_str_comp = (TextView) findViewById(R.id.tv_stp_comp);
+        // TextView tv_str_comp = (TextView) findViewById(R.id.tv_stp_comp);
         result=(ListView) findViewById(R.id.result);
-        ed_comp_name = (EditText) findViewById(R.id.in_comp_nameBox);
+        ed_comp_name = (EditText) findViewById(R.id.cmm_compNameBox3);
+        edCompAddr = (EditText) findViewById(R.id.cmm_compAddressBox3);
+        edCompCity = (EditText) findViewById(R.id.cmm_compCityBox3);
+        edCompPostCode = (EditText) findViewById(R.id.cmm_compPostcodeBox3);
+        edCompPhone = (EditText) findViewById(R.id.cmm_compPhoneBox3);
+        edContPName = (EditText) findViewById(R.id.cmm_compContPersNameBox3);
+        edContPPhone = (EditText) findViewById(R.id.cmm_compContPersPhoneBox3);
+        edContPEmail = (EditText) findViewById(R.id.cmm_compContPersEmailBox3);
+
         Button btn_stp_comp_send = (Button) findViewById(R.id.btn_stp_comp_send);
 
         make_listview();
@@ -55,8 +62,9 @@ public class Stp_comp extends AppCompatActivity  implements View.OnClickListener
                 + ", Companies." + Companies.KEY_comp_name
                 + " FROM " + Companies.TABLE
                 ;
+
         CompaniesRepo companiesRepo = new CompaniesRepo();
-        List<Companies> companies_s= companiesRepo.findCompanies(selectQuery);
+        List<Companies> companies_s= companiesRepo.getCompanies(selectQuery);
 
         // "values" array definition and loading
         ArrayList<String> values = new ArrayList<String>();
@@ -67,6 +75,8 @@ public class Stp_comp extends AppCompatActivity  implements View.OnClickListener
               android.R.layout.simple_list_item_1, android.R.id.text1, values);
         result.setAdapter(adapter);
 
+        // After Clicked...
+        // TODO: To create the modify of records (NO DELETE! just modify)
         result.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -96,17 +106,17 @@ public class Stp_comp extends AppCompatActivity  implements View.OnClickListener
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(Stp_comp.this, MainActivity.class);
+                    Uj_activity = new Intent(CompaniesMan.this, MainActivity.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(Stp_comp.this, Worktimes.class);
+                    Uj_activity = new Intent(CompaniesMan.this, Worktimes.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
-                    Uj_activity = new Intent(Stp_comp.this, Setup.class);
+                    Uj_activity = new Intent(CompaniesMan.this, Setup.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;

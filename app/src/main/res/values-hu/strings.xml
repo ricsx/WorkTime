@@ -13,4 +13,13 @@
     <string name="tv_str_comp1">Munkáltató neve:</string>
     <string name="bt_stp_somp_send">Mentés</string>
     <string name="tv_main3">Heti munkaórák:</string>
+    <string name="Name">Név:</string>
+    <string name="CompanyAddress">Cím:</string>
+    <string name="Phone">Phone:</string>
+    <string name="CompanyConPers">Kapcsolattartó:</string>
+    <string name="CompanyCity">Város:</string>
+    <string name="Company">Munkáltató</string>
+    <string name="ContactPerson">Kapcsolattartó</string>
+    <string name="NewCompany">Új munkáltató hozzáadása</string>
+    <string name="Companies">Céglista</string>
 </resources>

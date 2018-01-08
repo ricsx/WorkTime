@@ -38,12 +38,12 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
     public void onClick(final android.view.View v){
         switch (v.getId()) {
             case R.id.btn_companies:
-                Uj_activity = new Intent(Setup.this, Stp_comp.class);
+                Uj_activity = new Intent(Setup.this, CompaniesMan.class);
                 Uj_activity.putExtra("sessid", id);
                 startActivity(Uj_activity);
                 break;
             case R.id.btn_wages:
-                Uj_activity = new Intent(Setup.this, Stp_wage.class);
+                Uj_activity = new Intent(Setup.this, WageMan.class);
                 Uj_activity.putExtra("sessid", id);
                 startActivity(Uj_activity);
                 break;

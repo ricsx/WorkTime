@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="uk.co.computerxpert.worktime.Activities.CompaniesManMod">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbars="horizontal">
+
+            <TextView
+                android:id="@+id/tv_cmm1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/Name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/cmm_compNameBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:labelFor="@+id/cmm_compNameBox"
+                android:text="Name"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_cmm1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_cmm2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/CompanyAddress"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cmm1" />
+
+            <EditText
+                android:id="@+id/cmm_compAddressBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:labelFor="@+id/cmm_compAddressBox"
+                android:text="Name"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_cmm2"
+                app:layout_constraintTop_toBottomOf="@+id/cmm_compNameBox" />
+
+            <TextView
+                android:id="@+id/tv_cmm3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/CompanyCity"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cmm2" />
+
+            <EditText
+                android:id="@+id/cmm_compCityBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:labelFor="@+id/cmm_compCityBox"
+                android:text="Name"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_cmm3"
+                app:layout_constraintTop_toBottomOf="@+id/cmm_compAddressBox" />
+
+            <TextView
+                android:id="@+id/tv_cmm4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/CompanyPostcode"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cmm3" />
+
+            <EditText
+                android:id="@+id/cmm_compPostcodeBox"
+                android:layout_width="193dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:labelFor="@+id/cmm_compPostcodeBox"
+                android:text="Name"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_cmm4"
+                app:layout_constraintTop_toBottomOf="@+id/cmm_compCityBox" />
+
+            <TextView
+                android:id="@+id/tv_cmm5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:focusableInTouchMode="false"
+                android:text="@string/Phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cmm4" />
+
+            <EditText
+                android:id="@+id/cmm_compPhoneBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:labelFor="@+id/cmm_compPhoneBox"
+                android:text="Name"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_cmm5"
+                app:layout_constraintTop_toBottomOf="@+id/cmm_compPostcodeBox" />
+
+            <TextView
+                android:id="@+id/tv_cmm6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/Name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cmm5" />
+
+            <EditText
+                android:id="@+id/cmm_compContPersNameBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:labelFor="@+id/cmm_compContPersNameBox"
+                android:text="Name"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_cmm6"
+                app:layout_constraintTop_toBottomOf="@+id/cmm_compPhoneBox" />
+
+            <TextView
+                android:id="@+id/tv_cmm7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="36dp"
+                android:text="@string/Phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cmm6" />
+
+            <EditText
+                android:id="@+id/cmm_compContPersPhoneBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:labelFor="@+id/cmm_compContPersPhoneBox"
+                android:text="Name"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_cmm7"
+                app:layout_constraintTop_toBottomOf="@+id/cmm_compContPersNameBox" />
+
+            <TextView
+                android:id="@+id/tv_cmm8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                android:text="@string/CompanyConPersEmail"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cmm7" />
+
+            <EditText
+                android:id="@+id/cmm_compContPersEmailBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:labelFor="@+id/cmm_compContPersEmailBox"
+                android:text="Name"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_cmm8"
+                app:layout_constraintTop_toBottomOf="@+id/cmm_compContPersPhoneBox" />
+
+            <Button
+                android:id="@+id/btn_cmmMod"
+                android:layout_width="275dp"
+                android:layout_height="41dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/bt_stp_somp_send"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cmm_compContPersEmailBox" />
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation" />
+
+</android.support.constraint.ConstraintLayout>

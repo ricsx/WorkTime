@@ -6,10 +6,6 @@ package uk.co.computerxpert.worktime.data.model;
 
 public class FullQuerys {
 
-/*    public static final String TAG = Worktimes.class.getSimpleName();
-    public static final String TAG = Companies.class.getSimpleName();
-    public static final String TAG = Wage.class.getSimpleName();
-*/
     public static final String Wo_TABLE = "Worktime";
 
     public static final String KEY_wt_id = "wt_id";

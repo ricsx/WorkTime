@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,7 +36,7 @@ import uk.co.computerxpert.worktime.data.model.Companies;
 import uk.co.computerxpert.worktime.data.model.Wage;
 import uk.co.computerxpert.worktime.data.repo.WageRepo;
 
-public class Stp_wage extends AppCompatActivity  implements View.OnClickListener {
+public class WageMan extends AppCompatActivity  implements View.OnClickListener {
 
     private EditText in_kezddate;
     private EditText in_vegdate;
@@ -63,7 +62,7 @@ public class Stp_wage extends AppCompatActivity  implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stp_wages);
+        setContentView(R.layout.activity_wage_man);
 
         spinner1 = (Spinner) findViewById(R.id.spinner2);
         in_kezddate = (EditText) findViewById(R.id.in_wage_stdateBox);
@@ -219,12 +218,8 @@ public class Stp_wage extends AppCompatActivity  implements View.OnClickListener
                 + " WHERE " + Wage.KEY_wage_comp_id
                 + " = " + Companies.KEY_comp_id
                 ;
-
-        Log.i(TAG_Ertek, "SQL "+ selectQuery);
-
-
         WageRepo wageRepo = new WageRepo();
-        List<Wage> wage_s = wageRepo.RelfindWage(selectQuery);
+        List<Wage> wage_s = wageRepo.relGetWage(selectQuery);
 
         // "values" array definition and loading
         ArrayList<Integer> arr_id = new ArrayList<>();
@@ -244,9 +239,6 @@ public class Stp_wage extends AppCompatActivity  implements View.OnClickListener
             arr_val.add(wage_s.get(i).getwage_val());
             arr_compname.add(wage_s.get(i).getcomp_name());
             list_val.add(wage_s.get(i).getcomp_name()+" "+wage_s.get(i).getwage_val());
-            //getcomp_name();
-            Log.i(TAG_Ertek, "compname"+ arr_compname.get(i));
-
         }
 
 
@@ -256,6 +248,8 @@ public class Stp_wage extends AppCompatActivity  implements View.OnClickListener
                 android.R.layout.simple_list_item_1, android.R.id.text1, list_val);
         result.setAdapter(adapter);
 
+        // TODO: To create the modify of records (NO DELETE! just modify)
+        // After Clicked...
         result.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -285,17 +279,17 @@ public class Stp_wage extends AppCompatActivity  implements View.OnClickListener
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(Stp_wage.this, MainActivity.class);
+                    Uj_activity = new Intent(WageMan.this, MainActivity.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(Stp_wage.this, Worktimes.class);
+                    Uj_activity = new Intent(WageMan.this, Worktimes.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
-                    Uj_activity = new Intent(Stp_wage.this, Setup.class);
+                    Uj_activity = new Intent(WageMan.this, Setup.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;

@@ -26,7 +26,7 @@
             android:name=".Activities.Setup"
             android:label="@string/title_activity_setup" />
         <activity
-            android:name=".Activities.Stp_comp"
+            android:name=".Activities.CompaniesMan"
             android:label="@string/title_activity_stp_comp"
             android:parentActivityName=".Activities.Setup">
             <meta-data
@@ -34,7 +34,7 @@
                 android:value="uk.co.computerxpert.worktime.Activities.Setup" />
         </activity>
         <activity
-            android:name=".Activities.Stp_wage"
+            android:name=".Activities.WageMan"
             android:label="@string/title_activity_stp_wages"
             android:parentActivityName=".Activities.Setup">
             <meta-data
@@ -43,7 +43,10 @@
         </activity>
         <activity
             android:name=".Activities.DeveloperSection"
-            android:label="@string/title_activity_developer_section"></activity>
+            android:label="@string/title_activity_developer_section" />
+        <activity
+            android:name=".Activities.CompaniesManMod"
+            android:label="@string/title_activity_companies_man_mod"></activity>
     </application>
 
 </manifest>

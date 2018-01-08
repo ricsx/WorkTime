@@ -18,5 +18,17 @@
     <string name="bt_stp_somp_send">Save</string>
     <string name="title_activity_developer_section">DeveloperSection</string>
     <string name="tv_main3">Workhours of week</string>
+    <string name="title_activity_companies_man_mod">CompaniesManMod</string>
+    <string name="Name">Name:</string>
+    <string name="CompanyAddress">Address:</string>
+    <string name="CompanyCity">City:</string>
+    <string name="CompanyPostcode">Postcode:</string>
+    <string name="Phone">Phone:</string>
+    <string name="CompanyConPers">Contact person:</string>
+    <string name="CompanyConPersEmail">Email:</string>
+    <string name="Company">Company</string>
+    <string name="ContactPerson">Contact Person</string>
+    <string name="NewCompany">Add new company</string>
+    <string name="Companies">Companies</string>
 
 </resources>
