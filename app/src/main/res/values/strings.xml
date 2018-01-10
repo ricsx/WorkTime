@@ -30,5 +30,10 @@
     <string name="ContactPerson">Contact Person</string>
     <string name="NewCompany">Add new company</string>
     <string name="Companies">Companies</string>
+    <string name="startofempl">Start of employment</string>
+    <string name="endofempl">End of employment</string>
+    <string name="btnDate">Date</string>
+    <string name="title_activity_wage_man_mod">WageManMod</string>
+    <string name="title_activity_my">MyActivity</string>
 
 </resources>

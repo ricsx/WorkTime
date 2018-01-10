@@ -4,10 +4,10 @@
  *
  */
 
- TODO: To finish the --- activity_companies_man.xml --- and to use the datas from layout.
- TODO: Write data modification in --- Companies --- and --- Wages --- tables.
+    TODO: To implement and integrate the "listmaker" function
+    TODO: Write data modification in --- Wages --- tables.
 
- Todo: Nationalisation with manual selection
- Todo: To create and implementation Agencys TBL
+    Todo: Nationalisation with manual selection
+    Todo: To create and implementation Agencys TBL
 
 

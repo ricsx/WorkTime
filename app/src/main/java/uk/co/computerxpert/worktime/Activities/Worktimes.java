@@ -73,10 +73,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         btn_vegtime = (Button) findViewById(R.id.btn_vegtime);
 
         // starting Spinner (Company names)
-        String selectQuery =  " SELECT Companies." + Companies.KEY_comp_id
-                + ", Companies." + Companies.KEY_comp_name
-                + " FROM " + Companies.TABLE
-                ;
+        String selectQuery =  "SELECT * FROM Companies";
 
         App.CompanyListToSpinner(spinner1, context, selectQuery);
 

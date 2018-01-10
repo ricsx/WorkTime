@@ -46,7 +46,23 @@
             android:label="@string/title_activity_developer_section" />
         <activity
             android:name=".Activities.CompaniesManMod"
-            android:label="@string/title_activity_companies_man_mod"></activity>
+            android:label="@string/title_activity_companies_man_mod"
+            android:parentActivityName=".Activities.CompaniesMan">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="uk.co.computerxpert.worktime.Activities.CompaniesMan" />
+        </activity>
+        <activity
+            android:name=".Activities.WageManMod"
+            android:label="@string/title_activity_wage_man_mod"
+            android:parentActivityName=".Activities.WageMan">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="uk.co.computerxpert.worktime.Activities.WageMan" />
+        </activity>
+        <activity
+            android:name=".Activities.listMaker"
+            android:label="@string/title_activity_my"></activity>
     </application>
 
 </manifest>

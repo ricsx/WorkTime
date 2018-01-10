@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -57,11 +56,41 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
     }
 
 
+
+    public void company_insert(){
+        String comp_name =  ed_comp_name.getText().toString();
+        String comp_addrs = edCompAddr.getText().toString();
+        String comp_city = edCompCity.getText().toString();
+        String comp_postc = edCompPostCode.getText().toString();
+        String comp_phone = edCompPhone.getText().toString();
+        String comp_cpname = edContPName.getText().toString();
+        String comp_cpphone = edContPPhone.getText().toString();
+        String comp_cpemail = edContPEmail.getText().toString();
+        int comp_agencyid = 0; // Todo: make listview for calculate this value
+        Companies companies = new Companies();
+        companies.setcomp_name(comp_name);
+        companies.setcompanyAddress(comp_addrs);
+        companies.setcompanyCity(comp_city);
+        companies.setcompanyPostcode(comp_postc);
+        companies.setcompanyPhone(comp_phone);
+        companies.setcontactpersonName(comp_cpname);
+        companies.setcontactpersonPhone(comp_cpphone);
+        companies.setcontactpersonEmail(comp_cpemail);
+        companies.setcompanyAgencyID(comp_agencyid);
+        CompaniesRepo.insert(companies);
+        ed_comp_name.setText("");
+        edCompAddr.setText("");
+        edCompCity.setText("");
+        edCompPostCode.setText("");
+        edCompPhone.setText("");
+        edContPName.setText("");
+        edContPPhone.setText("");
+        edContPEmail.setText("");
+    }
+
+
     private void make_listview(){
-        String selectQuery =  " SELECT Companies." + Companies.KEY_comp_id
-                + ", Companies." + Companies.KEY_comp_name
-                + " FROM " + Companies.TABLE
-                ;
+        String selectQuery =  " SELECT * from Companies";
 
         CompaniesRepo companiesRepo = new CompaniesRepo();
         List<Companies> companies_s= companiesRepo.getCompanies(selectQuery);
@@ -76,27 +105,41 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
         result.setAdapter(adapter);
 
         // After Clicked...
-        // TODO: To create the modify of records (NO DELETE! just modify)
         result.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
              public void onItemClick(AdapterView<?> parent, View view,
                                      int position, long id) {
-
                  // ListView Clicked item index
                  int itemPosition = position;
-
                  // ListView Clicked item value
                  String itemValue = (String) result.getItemAtPosition(position);
-
                  // Show Alert
-                 Toast.makeText(getApplicationContext(),
-                         "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-                         .show();
-
+//                 Toast.makeText(getApplicationContext(),
+  //                       "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
+    //                     .show();
+                String companyIDString = Integer.toString(getCompanyIDFromQuery("SELECT * FROM Companies WHERE comp_name = \""+itemValue+"\""));
+                Uj_activity = new Intent(CompaniesMan.this, CompaniesManMod.class);
+                Uj_activity.putExtra("companyID", companyIDString);
+                startActivity(Uj_activity);
              }
          });
     }
+
+
+
+
+    private int getCompanyIDFromQuery(String query){
+        String selectQuery =  query;
+        int companyID=0;
+        CompaniesRepo companiesRepo = new CompaniesRepo();
+        List<Companies> companies_s= companiesRepo.getCompanies(selectQuery);
+
+        for(int i=0; i<companies_s.size();i++){ companyID = companies_s.get(i).getcomp_id(); }
+
+        return companyID;
+    }
+
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -126,13 +169,6 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
     };
 
 
-    public void company_insert(){
-        String comp_name =  ed_comp_name.getText().toString();
-        Companies companies = new Companies();
-        companies.setcomp_name(comp_name);
-        CompaniesRepo.insert(companies);
-        ed_comp_name.setText("");
-    }
 
 
     @Override

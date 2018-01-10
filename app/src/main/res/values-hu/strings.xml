@@ -22,4 +22,7 @@
     <string name="ContactPerson">Kapcsolattartó</string>
     <string name="NewCompany">Új munkáltató hozzáadása</string>
     <string name="Companies">Céglista</string>
+    <string name="btnDate">Dátum</string>
+    <string name="startofempl">Foglalkoztatás kezdete</string>
+    <string name="endofempl">Foglalkoztatás vége</string>
 </resources>

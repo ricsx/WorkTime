@@ -3,10 +3,14 @@ package uk.co.computerxpert.worktime.Activities;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,8 +18,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
@@ -34,6 +43,7 @@ import uk.co.computerxpert.worktime.App.App;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.Companies;
 import uk.co.computerxpert.worktime.data.model.Wage;
+import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
 import uk.co.computerxpert.worktime.data.repo.WageRepo;
 
 public class WageMan extends AppCompatActivity  implements View.OnClickListener {
@@ -48,6 +58,7 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
     public Spinner spinner1;
     private ListView result;
     private Context context = this;
+    private GridView gridView;
 
     private DecimalFormat floatformat = new DecimalFormat(".##");
     Button btn_kezddate, btn_vegdate;
@@ -57,6 +68,13 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
     final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
     DateFormat formatDate = new SimpleDateFormat("dd MMM yyyy");
     SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm", Locale.UK); // Set up time format to 24-hour
+
+    String companies[] = {"Google", "Windows", "iPhone", "Nokia", "Samsung",
+            "Google", "Windows", "iPhone", "Nokia", "Samsung",
+            "Google", "Windows", "iPhone", "Nokia", "Samsung", "faszom"};
+    String os[] = {"Android", "Mango", "iOS", "Symbian", "Bada",
+            "Android", "Mango", "iOS", "Symbian", "Bada",
+            "Android", "Mango", "iOS", "Symbian", "Bada", "FASZOM"};
 
 
     @Override
@@ -74,13 +92,11 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
 
         make_listview();
 
+        addHeaders();
+        addData();
 
         // starting Spinner (Company names)
-        String selectQuery =  " SELECT Companies." + Companies.KEY_comp_id
-                + ", Companies." + Companies.KEY_comp_name
-                + " FROM " + Companies.TABLE
-                ;
-
+        String selectQuery = "SELECT * FROM companies";
         App.CompanyListToSpinner(spinner1, context, selectQuery);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -229,7 +245,8 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
         ArrayList<String> arr_val = new ArrayList<String>();
         ArrayList<String> arr_compname = new ArrayList<String>();
         ArrayList<String> list_val = new ArrayList<String>();
-
+        //ArrayList<String> df_arr_st = new ArrayList<>();
+       // ArrayList<String> df_arr_en = new ArrayList<>();
 
         for(int i=0; i<wage_s.size();i++){
             arr_id.add(wage_s.get(i).getwage_id());
@@ -238,10 +255,13 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
             arr_enddate.add(wage_s.get(i).getwage_enddate());
             arr_val.add(wage_s.get(i).getwage_val());
             arr_compname.add(wage_s.get(i).getcomp_name());
-            list_val.add(wage_s.get(i).getcomp_name()+" "+wage_s.get(i).getwage_val());
+            long dv = Long.valueOf(wage_s.get(i).getwage_startdate())*1000;
+            Date df = new java.util.Date(dv);
+            // Date df = new java.util.Date(wage_s.get(i).getwage_startdate());
+
+            String df_arr_st = new SimpleDateFormat("MM/dd, yyyy").format(df);
+            list_val.add(wage_s.get(i).getcomp_name()+"  "+df_arr_st+"  "+wage_s.get(i).getwage_val());
         }
-
-
 
         // array-fetching
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -255,20 +275,31 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
-                // ListView Clicked item index
                 int itemPosition = position;
-
-                // ListView Clicked item value
                 String itemValue = (String) result.getItemAtPosition(position);
 
-                // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-                        .show();
+                String companyIDString = Integer.toString(getWageIDFromQuery( "SELECT * FROM  wage,Companies WHERE wage.wage_comp_id=companies.comp_id AND wage_name = \""+itemValue+"\""));
+                Uj_activity = new Intent(WageMan.this, WageManMod.class);
+                // Uj_activity.putExtra("companyID", companyIDString);
+                Uj_activity.putExtra("companyID", 1);
+                startActivity(Uj_activity);
 
             }
         });
+
+
+    }
+
+
+    private int getWageIDFromQuery(String query){
+        String selectQuery =  query;
+        int wageID=0;
+        WageRepo wageRepo = new WageRepo();
+        List<Wage> wages_s= wageRepo.relGetWage(selectQuery);
+
+        for(int i=0; i<wages_s.size();i++){ wageID = wages_s.get(i).getwage_id(); }
+
+        return wageID;
     }
 
 
@@ -297,10 +328,88 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
             return false;
         }
     };
-
+/*
     @Override
     public void onClick(View v) {
 
     }
+*/
+
+
+
+    private TextView getTextView(int id, String title, int color, int typeface, int bgColor) {
+        TextView tv = new TextView(this);
+        tv.setId(id);
+        tv.setText(title.toUpperCase());
+        tv.setTextColor(color);
+        tv.setPadding(40, 40, 40, 40);
+        tv.setTypeface(Typeface.DEFAULT, typeface);
+        tv.setBackgroundColor(bgColor);
+        tv.setLayoutParams(getLayoutParams());
+        tv.setOnClickListener(this);
+        return tv;
+    }
+
+    @NonNull
+    private TableRow.LayoutParams getLayoutParams() {
+        TableRow.LayoutParams params = new TableRow.LayoutParams(
+                TableRow.LayoutParams.MATCH_PARENT,
+                TableRow.LayoutParams.WRAP_CONTENT);
+        params.setMargins(2, 0, 0, 2);
+        return params;
+    }
+
+    @NonNull
+    private TableLayout.LayoutParams getTblLayoutParams() {
+        return new TableLayout.LayoutParams(
+                TableRow.LayoutParams.MATCH_PARENT,
+                TableRow.LayoutParams.WRAP_CONTENT);
+    }
+
+    /**
+     * This function add the headers to the table
+     **/
+    public void addHeaders() {
+        TableLayout tl = findViewById(R.id.table);
+        TableRow tr = new TableRow(this);
+        tr.setLayoutParams(getLayoutParams());
+        tr.addView(getTextView(0, "COMPANY", Color.WHITE, Typeface.BOLD, Color.BLUE));
+        tr.addView(getTextView(0, "OS", Color.WHITE, Typeface.BOLD, Color.BLUE));
+        tr.addView(getTextView(0, "UJ", Color.WHITE, Typeface.BOLD, Color.BLUE));
+        tl.addView(tr, getTblLayoutParams());
+    }
+
+    /**
+     * This function add the data to the table
+     **/
+    public void addData() {
+        int numCompanies = companies.length;
+        TableLayout tl = findViewById(R.id.table);
+        for (int i = 0; i < numCompanies; i++) {
+            TableRow tr = new TableRow(this);
+            tr.setLayoutParams(getLayoutParams());
+            tr.addView(getTextView(i + 1, companies[i], Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
+            tr.addView(getTextView(i + numCompanies, os[i], Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
+            tr.addView(getTextView(i + numCompanies, os[i], Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
+
+            tl.addView(tr, getTblLayoutParams());
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        TextView tv = findViewById(id);
+        if (null != tv) {
+            Log.i("onClick", "Clicked on row :: " + id);
+            Toast.makeText(this, "Clicked on row :: " + id + ", Text :: " + tv.getText(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    {
+
+    }
+
+
 
 }

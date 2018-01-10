@@ -39,7 +39,7 @@
     <ScrollView
         android:id="@+id/scrollview4"
         android:layout_width="0dp"
-        android:layout_height="180dp"
+        android:layout_height="233dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +84,6 @@
                 android:inputType="textPersonName"
                 android:labelFor="@+id/cmm_compNameBox3"
                 android:nextFocusForward="@id/cmm_compAddressBox3"
-                android:text="Name"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/tv_cmm16"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -109,7 +108,6 @@
                 android:inputType="textPersonName"
                 android:labelFor="@+id/cmm_compAddressBox3"
                 android:nextFocusForward="@id/cmm_compCityBox3"
-                android:text="Name"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/tv_cmm16"
                 app:layout_constraintTop_toBottomOf="@+id/cmm_compNameBox3" />
@@ -134,7 +132,6 @@
                 android:inputType="textPersonName"
                 android:labelFor="@+id/cmm_compCityBox3"
                 android:nextFocusForward="@id/cmm_compPostcodeBox3"
-                android:text="Name"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/tv_cmm18"
                 app:layout_constraintTop_toBottomOf="@+id/cmm_compAddressBox3" />
@@ -159,7 +156,6 @@
                 android:inputType="textPersonName"
                 android:labelFor="@+id/cmm_compPostcodeBox3"
                 android:nextFocusForward="@id/cmm_compPhoneBox3"
-                android:text="Name"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/tv_cmm19"
                 app:layout_constraintTop_toBottomOf="@+id/cmm_compCityBox3" />
@@ -184,7 +180,6 @@
                 android:inputType="phone"
                 android:labelFor="@+id/cmm_compPhoneBox3"
                 android:nextFocusForward="@id/cmm_compContPersNameBox3"
-                android:text="Name"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/tv_cmm20"
                 app:layout_constraintTop_toBottomOf="@+id/cmm_compPostcodeBox3" />
@@ -223,7 +218,6 @@
                 android:inputType="textPersonName"
                 android:labelFor="@+id/cmm_compContPersNameBox3"
                 android:nextFocusForward="@id/cmm_compContPersPhoneBox3"
-                android:text="Name"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/tv_cmm21"
                 app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -246,9 +240,8 @@
                 android:layout_marginTop="16dp"
                 android:ems="10"
                 android:inputType="phone"
-                android:labelFor="@+id/cmm_compContPersPhoneBox33"
+                android:labelFor="@+id/cmm_compContPersPhoneBox3"
                 android:nextFocusForward="@id/cmm_compContPersEmailBox3"
-                android:text="Name"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/tv_cmm22"
                 app:layout_constraintTop_toBottomOf="@+id/cmm_compContPersNameBox3" />
@@ -273,7 +266,6 @@
                 android:inputType="textEmailAddress"
                 android:labelFor="@+id/cmm_compContPersEmailBox3"
                 android:nextFocusForward="@id/btn_stp_comp_send"
-                android:text="Name"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/tv_cmm23"
                 app:layout_constraintTop_toBottomOf="@+id/cmm_compContPersPhoneBox3" />

@@ -1,15 +1,19 @@
 package uk.co.computerxpert.worktime.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -28,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG_Ertek = "TAG: ";
     private int id = 1;
-    private Intent Uj_activity;
+    private Intent Uj_activity, Uj_activity2;
     private int actWeekYear, actYear;
     private static DecimalFormat dfToHours = new DecimalFormat("0.0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
     private static DecimalFormat dfToWages = new DecimalFormat("0.00", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
@@ -57,12 +61,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 /*        actWeekYear = dateTime.get(Calendar.WEEK_OF_YEAR);
         actYear = dateTime.get(Calendar.YEAR);
 */
+
+        //MyActivity();
+
         res_WeekWorkday.setText(workdaysOfWeek().toString());
         res_WeekWorkhours.setText( dfToHours.format(hoursOfWeek()).toString());
         res_WeekSalary.setText(dfToWages.format(salaryOfWeek()).toString());
 
         btn_uniqueQueries.setOnClickListener(this);
 
+    }
+
+    public class MyActivity extends Activity {
+
+    private TableLayout tableLayout;
+
+    /* @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        tableLayout = (TableLayout) findViewById(R.id.tableLayout);
+
+        for (int i = 0; i < 5; i++) {
+            View tableRow = LayoutInflater.from(this).inflate(R.layout.activity_main, null, false);
+            TextView history_display_no = (TextView) tableRow.findViewById(R.id.first);
+            TextView history_display_date = (TextView) tableRow.findViewById(R.id.second);
+            TextView history_display_orderid = (TextView) tableRow.findViewById(R.id.third);
+            TextView history_display_quantity = (TextView) tableRow.findViewById(R.id.forth);
+
+            history_display_no.setText("" + (i + 1));
+            history_display_date.setText("2014-02-05");
+            history_display_orderid.setText("S0" + (i + 1));
+            history_display_quantity.setText("" + (20 + (i + 1)));
+            tableLayout.addView(tableRow);
+        }
+    }
+    */
     }
 
 
@@ -170,8 +205,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_uniqueQueries:
-                Log.i(TAG_Ertek, "date");
-                break;
+            Uj_activity2 = new Intent(MainActivity.this, uk.co.computerxpert.worktime.Activities.listMaker.class);
+            Uj_activity2.putExtra("sessid", id);
+            startActivity(Uj_activity2);
+            break;
         }
     }
 
