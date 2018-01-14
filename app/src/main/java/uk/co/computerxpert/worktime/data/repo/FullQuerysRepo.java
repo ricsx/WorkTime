@@ -47,7 +47,6 @@ public class FullQuerysRepo {
                 fullQuerys.setwage_enddate(cursor.getLong(cursor.getColumnIndex("wage_enddate")));
                 fullQuerys.setwage_val(cursor.getString(cursor.getColumnIndex("wage_val")));
 
-
                 fullQuerys.setwt_id(cursor.getInt(cursor.getColumnIndex("wt_id")));
                 fullQuerys.setwt_comp_id(cursor.getInt(cursor.getColumnIndex("wt_comp_id")));
                 fullQuerys.setwt_startdate(cursor.getLong(cursor.getColumnIndex("wt_startdate")));
@@ -55,6 +54,12 @@ public class FullQuerysRepo {
                 fullQuerys.setwt_rem(cursor.getString(cursor.getColumnIndex("wt_rem")));
                 fullQuerys.setwt_week(cursor.getInt(cursor.getColumnIndex("wt_week")));
                 fullQuerys.setwt_year(cursor.getInt(cursor.getColumnIndex("wt_year")));
+                fullQuerys.setwt_hours(cursor.getString(cursor.getColumnIndex("wt_hours")));
+                fullQuerys.setwt_salary(cursor.getString(cursor.getColumnIndex("wt_salary")));
+                fullQuerys.setwt_stredate(cursor.getString(cursor.getColumnIndex("wt_stredate")));
+                fullQuerys.setwt_stretime(cursor.getString(cursor.getColumnIndex("wt_stretime")));
+                fullQuerys.setwt_strsdate(cursor.getString(cursor.getColumnIndex("wt_strsdate")));
+                fullQuerys.setwt_strstime(cursor.getString(cursor.getColumnIndex("wt_strstime")));
 
                 fullQuerys_s.add(fullQuerys);
             } while (cursor.moveToNext());

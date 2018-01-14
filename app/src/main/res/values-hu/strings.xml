@@ -25,4 +25,6 @@
     <string name="btnDate">Dátum</string>
     <string name="startofempl">Foglalkoztatás kezdete</string>
     <string name="endofempl">Foglalkoztatás vége</string>
+    <string name="title_home">Áttekintés</string>
+    <string name="Querys">Lekérdezések</string>
 </resources>

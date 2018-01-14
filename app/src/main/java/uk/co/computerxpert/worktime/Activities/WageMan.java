@@ -92,8 +92,8 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
 
         make_listview();
 
-        addHeaders();
-        addData();
+//        addHeaders();
+ //       addData();
 
         // starting Spinner (Company names)
         String selectQuery = "SELECT * FROM companies";
@@ -240,8 +240,8 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
         // "values" array definition and loading
         ArrayList<Integer> arr_id = new ArrayList<>();
         ArrayList<Integer> arr_comp_id = new ArrayList<>();
-        ArrayList<Long> arr_startdate = new ArrayList<>();
-        ArrayList<Long> arr_enddate = new ArrayList<>();
+        ArrayList<Double> arr_startdate = new ArrayList<>();
+        ArrayList<Double> arr_enddate = new ArrayList<>();
         ArrayList<String> arr_val = new ArrayList<String>();
         ArrayList<String> arr_compname = new ArrayList<String>();
         ArrayList<String> list_val = new ArrayList<String>();
@@ -255,7 +255,7 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
             arr_enddate.add(wage_s.get(i).getwage_enddate());
             arr_val.add(wage_s.get(i).getwage_val());
             arr_compname.add(wage_s.get(i).getcomp_name());
-            long dv = Long.valueOf(wage_s.get(i).getwage_startdate())*1000;
+            long dv = (long) (Double.valueOf(wage_s.get(i).getwage_startdate())*1000);
             Date df = new java.util.Date(dv);
             // Date df = new java.util.Date(wage_s.get(i).getwage_startdate());
 

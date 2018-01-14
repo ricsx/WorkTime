@@ -27,4 +27,6 @@
     <string name="startofempl">Start of employment</string>
     <string name="endofempl">End of employment</string>
     <string name="btnDate">Date</string>
+    <string name="title_home">Overview</string>
+    <string name="Querys">Querys</string>
 </resources>

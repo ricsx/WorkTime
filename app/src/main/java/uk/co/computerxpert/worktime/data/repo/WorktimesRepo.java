@@ -38,22 +38,20 @@ public class WorktimesRepo {
         String aa="CREATE TABLE " + Worktimes.TABLE  + " ( "
         + Worktimes.KEY_wt_id  + " INTEGER PRIMARY KEY AUTOINCREMENT, "
         + Worktimes.KEY_wt_comp_id + " INTEGER, "
-        + Worktimes.KEY_wt_startdate + " LONG, "
-        + Worktimes.KEY_wt_enddate + " LONG, "
-        + Worktimes.KEY_wt_rem + " TEXT, "
+        + Worktimes.KEY_wt_startdate + " REAL, "
+        + Worktimes.KEY_wt_enddate + " REAL, "
+        + Worktimes.KEY_wt_strsdate + " TEXT, "
+        + Worktimes.KEY_wt_strstime + " TEXT, "
+        + Worktimes.KEY_wt_stredate + " TEXT, "
+        + Worktimes.KEY_wt_stretime + " TEXT, "
         + Worktimes.KEY_wt_week + " INTEGER, "
-        + Worktimes.KEY_wt_year + " INTEGER "
+        + Worktimes.KEY_wt_year + " INTEGER, "
+        + Worktimes.KEY_wt_rem + " TEXT, "
+        + Worktimes.KEY_wt_hours + " TEXT, "
+        + Worktimes.KEY_wt_salary + " TEXT "
         + ")";
 
-        return "CREATE TABLE " + Worktimes.TABLE  + " ( "
-                + Worktimes.KEY_wt_id  + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + Worktimes.KEY_wt_comp_id + " INTEGER, "
-                + Worktimes.KEY_wt_startdate + " LONG, "
-                + Worktimes.KEY_wt_enddate + " LONG, "
-                + Worktimes.KEY_wt_rem + " TEXT, "
-                + Worktimes.KEY_wt_week + " INTEGER, "
-                + Worktimes.KEY_wt_year + " INTEGER "
-                + ")";
+        return aa;
     }
 
 
@@ -67,7 +65,12 @@ public class WorktimesRepo {
         values.put(Worktimes.KEY_wt_rem, worktimes.getwt_rem());
         values.put(Worktimes.KEY_wt_week, worktimes.getwt_week());
         values.put(Worktimes.KEY_wt_year, worktimes.getwt_year());
-
+        values.put(Worktimes.KEY_wt_strsdate, worktimes.getwt_strsdate());
+        values.put(Worktimes.KEY_wt_stredate, worktimes.getwt_stredate());
+        values.put(Worktimes.KEY_wt_hours, worktimes.getwt_hours());
+        values.put(Worktimes.KEY_wt_salary, worktimes.getwt_salary());
+        values.put(Worktimes.KEY_wt_strstime, worktimes.getwt_strstime());
+        values.put(Worktimes.KEY_wt_stretime, worktimes.getwt_stretime());
         // Inserting Row
         worktimeId=(int) db.insert(Worktimes.TABLE, null, values);
         DatabaseManager.getInstance().closeDatabase();
@@ -94,6 +97,12 @@ public class WorktimesRepo {
                 worktimes.setwt_rem(cursor.getString(cursor.getColumnIndex(Worktimes.KEY_wt_rem)));
                 worktimes.setwt_week(cursor.getInt(cursor.getColumnIndex(Worktimes.KEY_wt_week)));
                 worktimes.setwt_year(cursor.getInt(cursor.getColumnIndex(Worktimes.KEY_wt_year)));
+                worktimes.setwt_strsdate(cursor.getString(cursor.getColumnIndex(Worktimes.KEY_wt_strsdate)));
+                worktimes.setwt_stredate(cursor.getString(cursor.getColumnIndex(Worktimes.KEY_wt_stredate)));
+                worktimes.setwt_hours(cursor.getString(cursor.getColumnIndex(Worktimes.KEY_wt_hours)));
+                worktimes.setwt_salary(cursor.getString(cursor.getColumnIndex(Worktimes.KEY_wt_salary)));
+                worktimes.setwt_strstime(cursor.getString(cursor.getColumnIndex(Worktimes.KEY_wt_strstime)));
+                worktimes.setwt_stretime(cursor.getString(cursor.getColumnIndex(Worktimes.KEY_wt_stretime)));
                 worktimes_s.add(worktimes);
             } while (cursor.moveToNext());
         }

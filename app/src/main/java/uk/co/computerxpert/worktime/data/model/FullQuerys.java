@@ -18,8 +18,8 @@ public class FullQuerys {
 
     private int _wt_id;
     private int _wt_comp_id;
-    private long _wt_startdate;
-    private long _wt_enddate;
+    private double _wt_startdate;
+    private double _wt_enddate;
     private String _wt_rem;
     private int _wt_week;
     private int _wt_year;
@@ -34,9 +34,15 @@ public class FullQuerys {
 
     private int _wage_id;
     private int _wage_comp_id;
-    private long _wage_startdate;
-    private long _wage_enddate;
+    private double _wage_startdate;
+    private double _wage_enddate;
     private String _wage_val;
+    private String _wt_strsdate;
+    private String _wt_stredate;
+    private String _wt_strstime;
+    private String _wt_stretime;
+    private String _wt_hours;
+    private String _wt_salary;
 
     public static final String C_TABLE = "Companies";
 
@@ -53,8 +59,10 @@ public class FullQuerys {
 
 
     public FullQuerys(int comp_id, String comp_name,
-                      int wage_id, int wage_comp_id, long wage_startdate, long wage_enddate, String wage_val,
-                      int wt_id, int wt_comp_id, long wt_startdate, long wt_enddate, String wt_rem, int wt_week, int wt_year){
+                      int wage_id, int wage_comp_id, double  wage_startdate, double  wage_enddate, String wage_val,
+                      int wt_id, int wt_comp_id, double  wt_startdate, double  wt_enddate, String wt_rem, int wt_week, int wt_year,
+                      String wt_strsdate, String wt_stredate, String wt_strstime, String wt_stretime,
+                      String wt_hours, String wt_salary){
         this._comp_id = comp_id;
         this._comp_name = comp_name;
         this._wage_id = wage_id;
@@ -69,12 +77,20 @@ public class FullQuerys {
         this._wt_rem = wt_rem;
         this._wt_week = wt_week;
         this._wt_year = wt_year;
+        this._wt_strsdate = wt_strsdate;
+        this._wt_stredate = wt_stredate;
+        this._wt_strstime = wt_strstime;
+        this._wt_stretime = wt_stretime;
+        this._wt_hours = wt_hours;
+        this._wt_salary = wt_salary;
     }
 
 
     public FullQuerys(String comp_name,
-                      int wage_id, int wage_comp_id, long wage_startdate, long wage_enddate, String wage_val,
-                      int wt_id, int wt_comp_id, long wt_startdate, long wt_enddate, String wt_rem, int wt_week, int wt_year){
+                      int wage_id, int wage_comp_id, double  wage_startdate, double  wage_enddate, String wage_val,
+                      int wt_id, int wt_comp_id, double  wt_startdate, double  wt_enddate, String wt_rem, int wt_week, int wt_year,
+                      String wt_strsdate, String wt_stredate, String wt_strstime, String wt_stretime,
+                      String wt_hours, String wt_salary){
         this._comp_name = comp_name;
         this._wage_id = wage_id;
         this._wage_comp_id = wage_comp_id;
@@ -88,6 +104,12 @@ public class FullQuerys {
         this._wt_rem = wt_rem;
         this._wt_week = wt_week;
         this._wt_year = wt_year;
+        this._wt_strsdate = wt_strsdate;
+        this._wt_stredate = wt_stredate;
+        this._wt_strstime = wt_strstime;
+        this._wt_stretime = wt_stretime;
+        this._wt_hours = wt_hours;
+        this._wt_salary = wt_salary;
     }
 
 
@@ -123,19 +145,19 @@ public class FullQuerys {
 
     public int getwage_comp_id() { return this._wage_comp_id; }
 
-    public void setwage_startdate(long wage_startdate) {
+    public void setwage_startdate(double  wage_startdate) {
         this._wage_startdate = wage_startdate;
     }
 
-    public long getwage_startdate() {
+    public double  getwage_startdate() {
         return this._wage_startdate;
     }
 
-    public void setwage_enddate(long wage_enddate) {
+    public void setwage_enddate(double  wage_enddate) {
         this._wage_enddate = wage_enddate;
     }
 
-    public long getwage_enddate() {
+    public double  getwage_enddate() {
         return this._wage_enddate;
     }
 
@@ -159,21 +181,17 @@ public class FullQuerys {
         return this._wt_comp_id;
     }
 
-    public void setwt_startdate(long wt_startdate) {
+    public void setwt_startdate(double  wt_startdate) {
         this._wt_startdate = wt_startdate;
     }
 
-    public long getwt_startdate() {
+    public double  getwt_startdate() {
         return this._wt_startdate;
     }
 
-    public void setwt_enddate(long wt_enddate) {
-        this._wt_enddate = wt_enddate;
-    }
+    public void setwt_enddate(double  wt_enddate) {this._wt_enddate = wt_enddate; }
 
-    public long getwt_enddate() {
-        return this._wt_enddate;
-    }
+    public double  getwt_enddate() { return this._wt_enddate; }
 
     public void setwt_rem(String wt_rem) {
         this._wt_rem = wt_rem;
@@ -190,6 +208,46 @@ public class FullQuerys {
     public void setwt_year(int wt_year) { this._wt_year = wt_year; }
 
     public int getwt_year() { return this._wt_year; }
+
+    public void setwt_strsdate(String _wt_strsdate) {
+        this._wt_strsdate = _wt_strsdate;
+    }
+
+    public String getwt_strsdate() {
+        return this._wt_strsdate;
+    }
+
+    public void setwt_stredate(String _wt_stredate) {
+        this._wt_stredate = _wt_stredate;
+    }
+
+    public String getwt_stredate() {
+        return this._wt_stredate;
+    }
+
+    public void setwt_strstime(String _wt_strstime) {
+        this._wt_strstime = _wt_strstime;
+    }
+
+    public String getwt_strstime() {
+        return this._wt_strstime;
+    }
+
+    public void setwt_stretime(String _wt_stretime) {
+        this._wt_stretime = _wt_stretime;
+    }
+
+    public String getwt_stretime() {
+        return this._wt_stretime;
+    }
+
+    public void setwt_hours(String wt_hours) { this._wt_hours = wt_hours; }
+
+    public String getwt_hours() { return this._wt_hours; }
+
+    public void setwt_salary(String wt_salary) { this._wt_salary = wt_salary; }
+
+    public String getwt_salary() { return this._wt_salary; }
 
 }
 

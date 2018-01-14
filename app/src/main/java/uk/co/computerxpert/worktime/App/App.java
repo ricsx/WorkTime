@@ -6,22 +6,40 @@ package uk.co.computerxpert.worktime.App;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import java.io.File;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import uk.co.computerxpert.worktime.Activities.MainActivity;
+import uk.co.computerxpert.worktime.Activities.Setup;
+import uk.co.computerxpert.worktime.Activities.Worktimes;
+import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.DBHelper;
 import uk.co.computerxpert.worktime.data.DatabaseManager;
 import uk.co.computerxpert.worktime.data.model.Companies;
+import uk.co.computerxpert.worktime.data.model.FullQuerys;
+import uk.co.computerxpert.worktime.data.model.Wage;
 import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
+import uk.co.computerxpert.worktime.data.repo.FullQuerysRepo;
+import uk.co.computerxpert.worktime.data.repo.WageRepo;
 
 public class App extends Application {
     private static Context context;
     private static DBHelper dbHelper;
     private static Integer comp_id;
     private static final String TAG_Ertek="TAG: ";
+    private static DecimalFormat dfToHours = new DecimalFormat("0.0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
 
     @Override
     public void onCreate()
@@ -40,7 +58,7 @@ public class App extends Application {
 
     // Calculate the comp_id from the spinner return value
     public static Integer comp_idFromSpinner(String selectQuery){
-        List<Companies> aa = CompaniesRepo.getCompanies(selectQuery);
+        List<Companies> aa = CompaniesRepo.getCompanies2(selectQuery);
         List<Integer> values = new ArrayList<Integer>();
         for(int i=0; i<aa.size();i++){
             values.add(aa.get(i).getcomp_id());
@@ -86,6 +104,19 @@ public class App extends Application {
             return false;
         }
     }
+
+
+    public static Double wageFromWageID(int comp_id){
+        double wage_val = 0.00;
+        String selectQuery= "SELECT * FROM wage WHERE wage_comp_id= \"" + comp_id + "\"";
+
+        List<Wage> wages_s = WageRepo.getWage(selectQuery);
+        for(int i=0;i<wages_s.size();i++){
+            wage_val = Double.parseDouble(wages_s.get(i).getwage_val());
+        }
+        return wage_val;
+    }
+
 
 }
 

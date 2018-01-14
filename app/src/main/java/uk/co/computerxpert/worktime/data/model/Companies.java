@@ -39,6 +39,12 @@ public class Companies {
 
     }
 
+
+    public Companies(int comp_id, String comp_name){
+        this._comp_id = comp_id;
+        this._comp_name = comp_name;
+    }
+
     public Companies(int comp_id, String comp_name, String comp_addrs, String comp_city, String comp_postc,
                      String comp_phone, String comp_cpname, String comp_cpphone, String comp_cpemail,
                      int comp_agencyid) {

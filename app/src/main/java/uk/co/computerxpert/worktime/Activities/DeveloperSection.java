@@ -45,6 +45,8 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
         Button droptable = (Button) findViewById(R.id.btn_dropTable);
         Button worktimeCreate = (Button) findViewById(R.id.btn_worktimeCreate);
         Button companiesCreate = (Button) findViewById(R.id.btn_companiesCreate);
+        Button wagesCreate = (Button) findViewById(R.id.btn_wagesCreate);
+
 
         wagesDel.setOnClickListener(this);
         companiesDel.setOnClickListener(this);
@@ -52,6 +54,7 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
         droptable.setOnClickListener(this);
         worktimeCreate.setOnClickListener(this);
         companiesCreate.setOnClickListener(this);
+        wagesCreate.setOnClickListener(this);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -90,6 +93,10 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
         db.execSQL(CompaniesRepo.createTable());
     }
 
+    public void createWage(){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        db.execSQL(WageRepo.createTable());
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -137,6 +144,9 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btn_companiesCreate:
                 createCompanies();
+                break;
+            case R.id.btn_wagesCreate:
+                createWage();
                 break;
         }
     }

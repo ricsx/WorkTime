@@ -71,6 +71,29 @@ public class CompaniesRepo  {
     }
 
 
+    public static List<Companies> getCompanies2(String selectQuery){
+        Companies companies = new Companies();
+        List<Companies> companies_s = new ArrayList<Companies>();
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                companies= new Companies();
+                companies.setcomp_id(cursor.getInt(cursor.getColumnIndex(Companies.KEY_comp_id)));
+                companies.setcomp_name(cursor.getString(cursor.getColumnIndex(Companies.KEY_comp_name)));
+                companies_s.add(companies);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return companies_s;
+    }
+
+
     public static List<Companies> getCompanies(String selectQuery){
         Companies companies = new Companies();
         List<Companies> companies_s = new ArrayList<Companies>();

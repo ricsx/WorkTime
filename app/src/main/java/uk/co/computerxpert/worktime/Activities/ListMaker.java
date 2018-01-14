@@ -1,12 +1,15 @@
 package uk.co.computerxpert.worktime.Activities;
 
+/**
+ * Created by ricsx on 10/01/18.
+ */
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,25 +32,21 @@ import uk.co.computerxpert.worktime.data.model.FullQuerys;
 import uk.co.computerxpert.worktime.data.repo.FullQuerysRepo;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class ListMaker extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG_Ertek="TAG: ";
-    public Intent Uj_activity;
-    int id = 1;
+    private static Intent Uj_activity;
+    private int id=1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_listmaker);
         addHeaders();
         addData();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        floatingActionButton();
-
     }
-
 
     private TextView getTextView(int id, String title, int color, int typeface, int bgColor) {
         TextView tv = new TextView(this);
@@ -62,24 +62,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return tv;
     }
 
-
     @NonNull
-    private TableRow.LayoutParams getLayoutParams() {
-        TableRow.LayoutParams params = new TableRow.LayoutParams(
-                TableRow.LayoutParams.MATCH_PARENT,
-                TableRow.LayoutParams.WRAP_CONTENT);
+    private LayoutParams getLayoutParams() {
+        LayoutParams params = new LayoutParams(
+                LayoutParams.MATCH_PARENT,
+                LayoutParams.WRAP_CONTENT);
         params.setMargins(2, 0, 0, 2);
         return params;
     }
 
-
     @NonNull
     private TableLayout.LayoutParams getTblLayoutParams() {
         return new TableLayout.LayoutParams(
-                TableRow.LayoutParams.MATCH_PARENT,
-                TableRow.LayoutParams.WRAP_CONTENT);
+                LayoutParams.MATCH_PARENT,
+                LayoutParams.WRAP_CONTENT);
     }
-
 
     /**
      * This function add the headers to the table
@@ -95,9 +92,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    /**
-     * This function add the data to the table
-     **/
     public void addData() {
 
         String selectQuery =  " SELECT * FROM worktime, wage,companies " +
@@ -137,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             tl.addView(tr, getTblLayoutParams());
         }
         TableRow tr = new TableRow(this);
-        tr.addView(getTextView(1, "Sum: ", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
+        tr.addView(getTextView(1, "Summmma: ", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
         tr.addView(getTextView(1,  ""+hoursOfWeek, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
         tr.addView(getTextView(1,  ""+salaryOfWeek, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
         tl.addView(tr, getTblLayoutParams());
@@ -153,52 +147,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return formattedDate;
     }
 
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-            setContentView(R.layout.activity_main);
-
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    Uj_activity = new Intent(MainActivity.this, MainActivity.class);
-                    Uj_activity.putExtra("sessid", id);
-                    startActivity(Uj_activity);
-                    return true;
-                case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(MainActivity.this, uk.co.computerxpert.worktime.Activities.Worktimes.class);
-                    Uj_activity.putExtra("sessid", id);
-                    startActivity(Uj_activity);
-                    return true;
-                case R.id.navigation_notifications:
-                    Uj_activity = new Intent(MainActivity.this, Setup.class);
-                    Uj_activity.putExtra("sessid", id);
-                    startActivity(Uj_activity);
-                    return true;
-            }
-            return false;
-        }
-    };
-
-
-    public void floatingActionButton(){
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    Uj_activity = new Intent(MainActivity.this, ListMaker.class);
-                    Uj_activity.putExtra("sessid", id);
-                    startActivity(Uj_activity);
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                  //      .setAction("Action", null).show();
-            }
-        });
-    }
-
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -208,5 +156,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "Clicked on row :: " + id + ", Text :: " + tv.getText(), Toast.LENGTH_SHORT).show();
         }
     }
+
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    Uj_activity = new Intent(ListMaker.this, MainActivity.class);
+                    Uj_activity.putExtra("sessid", id);
+                    startActivity(Uj_activity);
+                    return true;
+                case R.id.navigation_dashboard:
+                    Uj_activity = new Intent(ListMaker.this, Worktimes.class);
+                    Uj_activity.putExtra("sessid", id);
+                    startActivity(Uj_activity);
+                    return true;
+                case R.id.navigation_notifications:
+                    Uj_activity = new Intent(ListMaker.this, Setup.class);
+                    Uj_activity.putExtra("sessid", id);
+                    startActivity(Uj_activity);
+                    return true;
+            }
+            return false;
+        }
+    };
 
 }

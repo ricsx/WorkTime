@@ -19,8 +19,8 @@ public class Wage {
 
     private int _wage_id;
     private int _wage_comp_id;
-    private long _wage_startdate;
-    private long _wage_enddate;
+    private double _wage_startdate;
+    private double _wage_enddate;
     private String _wage_val;
     private String _comp_name;
 
@@ -29,7 +29,7 @@ public class Wage {
     public Wage() {
     }
 
-    public Wage(int wage_id, int wage_comp_id, long wage_startdate, long wage_enddate, String wage_val) {
+    public Wage(int wage_id, int wage_comp_id, double wage_startdate, double wage_enddate, String wage_val) {
         this._wage_id = wage_id;
         this._wage_comp_id = wage_comp_id;
         this._wage_startdate = wage_startdate;
@@ -37,7 +37,7 @@ public class Wage {
         this._wage_val = wage_val;
     }
 
-    public Wage(int wage_comp_id, long wage_startdate, long wage_enddate, String wage_val) {
+    public Wage(int wage_comp_id, double wage_startdate, double wage_enddate, String wage_val) {
         this._wage_comp_id = wage_comp_id;
         this._wage_startdate = wage_startdate;
         this._wage_enddate = wage_enddate;
@@ -60,19 +60,19 @@ public class Wage {
         return this._wage_comp_id;
     }
 
-    public void setwage_startdate(long wage_startdate) {
+    public void setwage_startdate(double wage_startdate) {
         this._wage_startdate = wage_startdate;
     }
 
-    public long getwage_startdate() {
+    public double getwage_startdate() {
         return this._wage_startdate;
     }
 
-    public void setwage_enddate(long wage_enddate) {
+    public void setwage_enddate(double wage_enddate) {
         this._wage_enddate = wage_enddate;
     }
 
-    public long getwage_enddate() {
+    public double getwage_enddate() {
         return this._wage_enddate;
     }
 

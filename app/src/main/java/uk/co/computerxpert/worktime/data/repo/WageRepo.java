@@ -32,8 +32,8 @@ public class WageRepo {
         return "CREATE TABLE " + Wage.TABLE  + "("
                 + Wage.KEY_wage_id  + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + Wage.KEY_wage_comp_id + " INTEGER, "
-                + Wage.KEY_wage_startdate + " LONG, "
-                + Wage.KEY_wage_enddate + " LONG, "
+                + Wage.KEY_wage_startdate + " REAL, "
+                + Wage.KEY_wage_enddate + " REAL, "
                 + Wage.KEY_wage_val + " TEXT )";
     }
 
@@ -56,12 +56,11 @@ public class WageRepo {
 
 
 
-    public List<Wage> getWage(){
+    public static List<Wage> getWage(String selectQuery){
         Wage wage = new Wage();
         List<Wage> wage_s = new ArrayList<Wage>();
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        String selectQuery =  " SELECT * FROM " + Wage.TABLE;
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
@@ -70,8 +69,8 @@ public class WageRepo {
                 wage= new Wage();
                 wage.setwage_id(cursor.getInt(cursor.getColumnIndex(Wage.KEY_wage_id)));
                 wage.setwage_comp_id(cursor.getInt(cursor.getColumnIndex(Wage.KEY_wage_comp_id)));
-                wage.setwage_startdate(cursor.getLong(cursor.getColumnIndex(Wage.KEY_wage_startdate)));
-                wage.setwage_enddate(cursor.getLong(cursor.getColumnIndex(Wage.KEY_wage_enddate)));
+                wage.setwage_startdate(cursor.getDouble(cursor.getColumnIndex(Wage.KEY_wage_startdate)));
+                wage.setwage_enddate(cursor.getDouble(cursor.getColumnIndex(Wage.KEY_wage_enddate)));
                 wage.setwage_val(cursor.getString(cursor.getColumnIndex(Wage.KEY_wage_val)));
 
                 wage_s.add(wage);
@@ -96,8 +95,8 @@ public class WageRepo {
                 wage= new Wage();
                 wage.setwage_id(cursor.getInt(cursor.getColumnIndex(Wage.KEY_wage_id)));
                 wage.setwage_comp_id(cursor.getInt(cursor.getColumnIndex(Wage.KEY_wage_comp_id)));
-                wage.setwage_startdate(cursor.getLong(cursor.getColumnIndex(Wage.KEY_wage_startdate)));
-                wage.setwage_enddate(cursor.getLong(cursor.getColumnIndex(Wage.KEY_wage_enddate)));
+                wage.setwage_startdate(cursor.getDouble(cursor.getColumnIndex(Wage.KEY_wage_startdate)));
+                wage.setwage_enddate(cursor.getDouble(cursor.getColumnIndex(Wage.KEY_wage_enddate)));
                 wage.setwage_val(cursor.getString(cursor.getColumnIndex(Wage.KEY_wage_val)));
                 wage.setcomp_name(cursor.getString(cursor.getColumnIndex("comp_name")));
 

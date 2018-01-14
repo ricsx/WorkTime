@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -54,7 +55,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
     final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
     DateFormat formatDate = new SimpleDateFormat("dd MMM yyyy");
     SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm", Locale.UK); // Set up time format to 24-hour
-
+    DecimalFormat decimalFormat = new DecimalFormat("##.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -188,8 +189,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         String megj =  in_megj.getText().toString();
 
         // Calculate the comp_id from the spinner return value
-        String selectQuery =  " SELECT Companies." + Companies.KEY_comp_id
-                + ", Companies." + Companies.KEY_comp_name
+        String selectQuery =  " SELECT * "
                 + " FROM " + Companies.TABLE
                 + " WHERE " + Companies.KEY_comp_name
                 + " =\""+ cegnev+"\""
@@ -198,13 +198,13 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         Integer comp_id = App.comp_idFromSpinner(selectQuery);
 
         // Dates convert to Unix format
-        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy hh:mm");
+        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy kk:mm", Locale.UK);
 
         Date date_kezd = dateFormat.parse(kezd_);
-        long kezd_uxT = (long)date_kezd.getTime()/1000;
+        double kezd_uxT = (long)date_kezd.getTime()/1000;
 
         Date date_veg = dateFormat.parse(veg_);
-        long veg_uxT = (long)date_veg.getTime()/1000;
+        double veg_uxT = (long)date_veg.getTime()/1000;
         // End of converts
 
         // Calculate the correct week-of-year from the selected date
@@ -224,6 +224,16 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         int woyear = now.get(Calendar.WEEK_OF_YEAR);
         // End of week-of-year calculate
 
+        // Calculate workhours of day
+        float wh = (float) 0.00;
+        if(kezd_uxT>veg_uxT){ wh = (float) ((kezd_uxT - veg_uxT) / 3600); }
+        else if(kezd_uxT<veg_uxT){ wh = (float) ((veg_uxT - kezd_uxT) / 3600); }
+        String hoursOfDay=Double.toString(Double.parseDouble(decimalFormat.format(wh)));
+        // End of workhouse-calculate
+
+        Double wOfDay = App.wageFromWageID(comp_id)*Double.parseDouble(hoursOfDay);
+        String wageOfDay = Double.toString(Double.parseDouble(decimalFormat.format(wOfDay)));
+
         uk.co.computerxpert.worktime.data.model.Worktimes worktimes = new uk.co.computerxpert.worktime.data.model.Worktimes();
         worktimes.setwt_comp_id(comp_id);
         // worktimes.setwt_compnm(cegnev);
@@ -232,6 +242,12 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         worktimes.setwt_rem(megj);
         worktimes.setwt_week(woyear);
         worktimes.setwt_year(a);
+        worktimes.setwt_hours(hoursOfDay);
+        worktimes.setwt_salary(wageOfDay);
+        worktimes.setwt_stredate(kezddate);
+        worktimes.setwt_strsdate(vegdate);
+        worktimes.setwt_strstime(kezdtime);
+        worktimes.setwt_stretime(vegtime);
 
         // Write datas into DB
         WorktimesRepo.insert(worktimes);
