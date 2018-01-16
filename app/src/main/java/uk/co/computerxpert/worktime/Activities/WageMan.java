@@ -69,14 +69,6 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
     DateFormat formatDate = new SimpleDateFormat("dd MMM yyyy");
     SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm", Locale.UK); // Set up time format to 24-hour
 
-    String companies[] = {"Google", "Windows", "iPhone", "Nokia", "Samsung",
-            "Google", "Windows", "iPhone", "Nokia", "Samsung",
-            "Google", "Windows", "iPhone", "Nokia", "Samsung", "faszom"};
-    String os[] = {"Android", "Mango", "iOS", "Symbian", "Bada",
-            "Android", "Mango", "iOS", "Symbian", "Bada",
-            "Android", "Mango", "iOS", "Symbian", "Bada", "FASZOM"};
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
@@ -91,9 +83,6 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
         result=(ListView) findViewById(R.id.result);
 
         make_listview();
-
-//        addHeaders();
- //       addData();
 
         // starting Spinner (Company names)
         String selectQuery = "SELECT * FROM companies";
@@ -218,7 +207,6 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
         in_kezddate.setText("");
         in_vegdate.setText("");
         in_val.setText("");
-
     }
 
 
@@ -328,87 +316,12 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
             return false;
         }
     };
-/*
-    @Override
-    public void onClick(View v) {
-
-    }
-*/
-
-
-
-    private TextView getTextView(int id, String title, int color, int typeface, int bgColor) {
-        TextView tv = new TextView(this);
-        tv.setId(id);
-        tv.setText(title.toUpperCase());
-        tv.setTextColor(color);
-        tv.setPadding(40, 40, 40, 40);
-        tv.setTypeface(Typeface.DEFAULT, typeface);
-        tv.setBackgroundColor(bgColor);
-        tv.setLayoutParams(getLayoutParams());
-        tv.setOnClickListener(this);
-        return tv;
-    }
-
-    @NonNull
-    private TableRow.LayoutParams getLayoutParams() {
-        TableRow.LayoutParams params = new TableRow.LayoutParams(
-                TableRow.LayoutParams.MATCH_PARENT,
-                TableRow.LayoutParams.WRAP_CONTENT);
-        params.setMargins(2, 0, 0, 2);
-        return params;
-    }
-
-    @NonNull
-    private TableLayout.LayoutParams getTblLayoutParams() {
-        return new TableLayout.LayoutParams(
-                TableRow.LayoutParams.MATCH_PARENT,
-                TableRow.LayoutParams.WRAP_CONTENT);
-    }
-
-    /**
-     * This function add the headers to the table
-     **/
-    public void addHeaders() {
-        TableLayout tl = findViewById(R.id.table);
-        TableRow tr = new TableRow(this);
-        tr.setLayoutParams(getLayoutParams());
-        tr.addView(getTextView(0, "COMPANY", Color.WHITE, Typeface.BOLD, Color.BLUE));
-        tr.addView(getTextView(0, "OS", Color.WHITE, Typeface.BOLD, Color.BLUE));
-        tr.addView(getTextView(0, "UJ", Color.WHITE, Typeface.BOLD, Color.BLUE));
-        tl.addView(tr, getTblLayoutParams());
-    }
-
-    /**
-     * This function add the data to the table
-     **/
-    public void addData() {
-        int numCompanies = companies.length;
-        TableLayout tl = findViewById(R.id.table);
-        for (int i = 0; i < numCompanies; i++) {
-            TableRow tr = new TableRow(this);
-            tr.setLayoutParams(getLayoutParams());
-            tr.addView(getTextView(i + 1, companies[i], Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
-            tr.addView(getTextView(i + numCompanies, os[i], Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
-            tr.addView(getTextView(i + numCompanies, os[i], Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
-
-            tl.addView(tr, getTblLayoutParams());
-        }
-    }
 
     @Override
     public void onClick(View v) {
-        int id = v.getId();
-        TextView tv = findViewById(id);
-        if (null != tv) {
-            Log.i("onClick", "Clicked on row :: " + id);
-            Toast.makeText(this, "Clicked on row :: " + id + ", Text :: " + tv.getText(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    {
 
     }
+
 
 
 

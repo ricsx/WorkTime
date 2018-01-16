@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Uj_activity = new Intent(MainActivity.this, ListMaker.class);
+                    Uj_activity = new Intent(MainActivity.this, Querys.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

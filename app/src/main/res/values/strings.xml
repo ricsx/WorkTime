@@ -36,5 +36,13 @@
     <string name="title_activity_wage_man_mod">WageManMod</string>
     <string name="title_activity_my">MyActivity</string>
     <string name="Querys">Querys</string>
+    <string name="title_activity_querys">Querys</string>
+    <string name="TimeOfStart">Time of start</string>
+    <string name="DateOfStart">Date of start</string>
+    <string name="DateOfEnd">Date of end</string>
+    <string name="TimeOfEnd">Time of end</string>
+    <string name="CompanyComPersPhone">Phone:</string>
+    <string name="NumberOfWeek">Number of the week</string>
+    <string name="Query">Query</string>
 
 </resources>

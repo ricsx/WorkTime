@@ -15,7 +15,7 @@
     <string name="tv_main3">Heti munkaórák:</string>
     <string name="Name">Név:</string>
     <string name="CompanyAddress">Cím:</string>
-    <string name="Phone">Phone:</string>
+    <string name="Phone">Tel:</string>
     <string name="CompanyConPers">Kapcsolattartó:</string>
     <string name="CompanyCity">Város:</string>
     <string name="Company">Munkáltató</string>
@@ -27,4 +27,13 @@
     <string name="endofempl">Foglalkoztatás vége</string>
     <string name="title_home">Áttekintés</string>
     <string name="Querys">Lekérdezések</string>
+    <string name="TimeOfStart">Munkaidő kezdete</string>
+    <string name="DateOfStart">Munkanap kezdete</string>
+    <string name="DateOfEnd">Munkanap vége</string>
+    <string name="TimeOfEnd">Munkaidő vége</string>
+    <string name="CompanyPostcode">Irányítószám:</string>
+    <string name="CompanyConPersEmail">Email:</string>
+    <string name="CompanyComPersPhone">Tel.:</string>
+    <string name="NumberOfWeek">A hét száma</string>
+    <string name="Query">Lekérdezés</string>
 </resources>

@@ -29,4 +29,11 @@
     <string name="btnDate">Date</string>
     <string name="title_home">Overview</string>
     <string name="Querys">Querys</string>
+    <string name="TimeOfStart">Time of start</string>
+    <string name="DateOfStart">Date of start</string>
+    <string name="DateOfEnd">Date of end</string>
+    <string name="TimeOfEnd">Time of end</string>
+    <string name="CompanyPostcode">Postcode:</string>
+    <string name="NumberOfWeek">Number of the week</string>
+    <string name="Query">Query</string>
 </resources>

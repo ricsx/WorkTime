@@ -61,8 +61,11 @@
                 android:value="uk.co.computerxpert.worktime.Activities.WageMan" />
         </activity>
         <activity
-            android:name=".Activities.ListMaker"
-            android:label="@string/title_activity_my"></activity>
+            android:name=".Activities.QuerysResults"
+            android:label="@string/title_activity_my" />
+        <activity
+            android:name=".Activities.Querys"
+            android:label="@string/title_activity_querys"></activity>
     </application>
 
 </manifest>

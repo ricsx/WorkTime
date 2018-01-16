@@ -32,16 +32,19 @@ import uk.co.computerxpert.worktime.data.model.FullQuerys;
 import uk.co.computerxpert.worktime.data.repo.FullQuerysRepo;
 
 
-public class ListMaker extends AppCompatActivity implements View.OnClickListener {
+public class QuerysResults extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG_Ertek="TAG: ";
     private static Intent Uj_activity;
     private int id=1;
+    private String newSelectQuery;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listmaker);
+        setContentView(R.layout.activity_querys_results);
+        newSelectQuery = getIntent().getStringExtra("sel");
+
         addHeaders();
         addData();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -94,17 +97,17 @@ public class ListMaker extends AppCompatActivity implements View.OnClickListener
 
     public void addData() {
 
-        String selectQuery =  " SELECT * FROM worktime, wage,companies " +
-                " WHERE worktime.wt_comp_id=companies.comp_id " +
-                " AND companies.comp_id=wage.wage_comp_id "
-                ;
+        // String selectQuery =  " SELECT * FROM worktime, wage,companies " +
+           //     " WHERE worktime.wt_comp_id=companies.comp_id " +
+             //   " AND companies.comp_id=wage.wage_comp_id "
+               // ;
         double hoursOfWeek=0;
         double salaryOfWeek=0;
 
         TableLayout tl = findViewById(R.id.table);
 
         FullQuerysRepo fullQuerysRepo = new FullQuerysRepo();
-        List<FullQuerys> fullQuerys_s = FullQuerysRepo.getFullQuerys(selectQuery);
+        List<FullQuerys> fullQuerys_s = FullQuerysRepo.getFullQuerys(newSelectQuery);
         List<String> values = new ArrayList<String>();
 
         for(int i=0; i<fullQuerys_s.size();i++){
@@ -165,17 +168,17 @@ public class ListMaker extends AppCompatActivity implements View.OnClickListener
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(ListMaker.this, MainActivity.class);
+                    Uj_activity = new Intent(QuerysResults.this, MainActivity.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(ListMaker.this, Worktimes.class);
+                    Uj_activity = new Intent(QuerysResults.this, Worktimes.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
-                    Uj_activity = new Intent(ListMaker.this, Setup.class);
+                    Uj_activity = new Intent(QuerysResults.this, Setup.class);
                     Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
