@@ -118,18 +118,20 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
             values.add(fullQuerys_s.get(i).getwt_stretime());
             values.add(fullQuerys_s.get(i).getwt_hours());
             values.add(fullQuerys_s.get(i).getwt_salary());
+            values.add(fullQuerys_s.get(i).getcomp_name());
 
             hoursOfWeek = hoursOfWeek + Double.parseDouble(fullQuerys_s.get(i).getwt_hours());
             salaryOfWeek = salaryOfWeek + Double.parseDouble(fullQuerys_s.get(i).getwt_salary());
 
-            String shift = fullQuerys_s.get(i).getwt_strsdate()+" - "+fullQuerys_s.get(i).getwt_strstime()+"\n"+
+            String shift = fullQuerys_s.get(i).getcomp_name()+" \n"+
+                    fullQuerys_s.get(i).getwt_strsdate()+" - "+fullQuerys_s.get(i).getwt_strstime()+"\n"+
                     fullQuerys_s.get(i).getwt_stredate()+" - "+fullQuerys_s.get(i).getwt_stretime();
 
             TableRow tr = new TableRow(this);
             tr.setLayoutParams(getLayoutParams());
             tr.addView(getTextView(i + 1, shift, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
-            tr.addView(getTextView(i + fullQuerys_s.size(), fullQuerys_s.get(i).getwt_hours()+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
-            tr.addView(getTextView(i + fullQuerys_s.size(),"£"+fullQuerys_s.get(i).getwt_salary()+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
+            tr.addView(getTextView(i + fullQuerys_s.size(), "\n"+fullQuerys_s.get(i).getwt_hours()+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
+            tr.addView(getTextView(i + fullQuerys_s.size(),"\n£"+fullQuerys_s.get(i).getwt_salary()+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
 
             tl.addView(tr, getTblLayoutParams());
         }

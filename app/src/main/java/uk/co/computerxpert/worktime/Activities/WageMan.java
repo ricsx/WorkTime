@@ -3,14 +3,10 @@ package uk.co.computerxpert.worktime.Activities;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,14 +14,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -43,14 +34,11 @@ import uk.co.computerxpert.worktime.App.App;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.Companies;
 import uk.co.computerxpert.worktime.data.model.Wage;
-import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
 import uk.co.computerxpert.worktime.data.repo.WageRepo;
 
 public class WageMan extends AppCompatActivity  implements View.OnClickListener {
 
-    private EditText in_kezddate;
-    private EditText in_vegdate;
-    private EditText in_val;
+    private EditText in_kezddate, in_vegdate, in_val;
     private int id = 1;
     private Intent Uj_activity;
     private static final String TAG_Ertek="TAG: ";
@@ -80,13 +68,13 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
         in_val = (EditText) findViewById(R.id.in_wage_valBox);
         btn_kezddate = (Button) findViewById(R.id.btn_wage_stdate);
         btn_vegdate = (Button) findViewById(R.id.btn_wage_enddate);
-        result=(ListView) findViewById(R.id.result);
+        result = (ListView) findViewById(R.id.results);
 
         make_listview();
 
         // starting Spinner (Company names)
         String selectQuery = "SELECT * FROM companies";
-        App.CompanyListToSpinner(spinner1, context, selectQuery);
+        App.CompanyListToSpinner(spinner1, context, selectQuery, "false");
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -233,8 +221,6 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
         ArrayList<String> arr_val = new ArrayList<String>();
         ArrayList<String> arr_compname = new ArrayList<String>();
         ArrayList<String> list_val = new ArrayList<String>();
-        //ArrayList<String> df_arr_st = new ArrayList<>();
-       // ArrayList<String> df_arr_en = new ArrayList<>();
 
         for(int i=0; i<wage_s.size();i++){
             arr_id.add(wage_s.get(i).getwage_id());
@@ -256,7 +242,7 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
                 android.R.layout.simple_list_item_1, android.R.id.text1, list_val);
         result.setAdapter(adapter);
 
-        // TODO: To create the modify of records (NO DELETE! just modify)
+        // TODO: To create the modify of records (NO DELETE! modify only)
         // After Clicked...
         result.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -265,8 +251,7 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
                                     int position, long id) {
                 int itemPosition = position;
                 String itemValue = (String) result.getItemAtPosition(position);
-
-                String companyIDString = Integer.toString(getWageIDFromQuery( "SELECT * FROM  wage,Companies WHERE wage.wage_comp_id=companies.comp_id AND wage_name = \""+itemValue+"\""));
+                String wageIDString = Integer.toString(getWageIDFromQuery( "SELECT * FROM  wage,Companies WHERE wage.wage_comp_id=companies.comp_id AND wage_name = \""+itemValue+"\""));;
                 Uj_activity = new Intent(WageMan.this, WageManMod.class);
                 // Uj_activity.putExtra("companyID", companyIDString);
                 Uj_activity.putExtra("companyID", 1);

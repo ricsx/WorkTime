@@ -3,16 +3,21 @@ package uk.co.computerxpert.worktime.data;
 /**
  * Created by ricsx on 29/12/17.
  */
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 
 import uk.co.computerxpert.worktime.App.App;
+import uk.co.computerxpert.worktime.data.model.Agencies;
 import uk.co.computerxpert.worktime.data.model.Companies;
+import uk.co.computerxpert.worktime.data.model.DefShifts;
 import uk.co.computerxpert.worktime.data.model.Wage;
 import uk.co.computerxpert.worktime.data.model.Worktimes;
+import uk.co.computerxpert.worktime.data.repo.AgenciesRepo;
 import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
+import uk.co.computerxpert.worktime.data.repo.DefShiftsRepo;
 import uk.co.computerxpert.worktime.data.repo.WageRepo;
 import uk.co.computerxpert.worktime.data.repo.WorktimesRepo;
 
@@ -26,6 +31,9 @@ public class DBHelper  extends SQLiteOpenHelper {
     // Database Name
     private static final String DATABASE_NAME = "worktimeDB.db";
     private static final String TAG = DBHelper.class.getSimpleName().toString();
+    private static SQLiteDatabase mDatabase;
+
+    // boolean aa = isTableExists("DefShifts", false);
 
     public DBHelper( ) {
         super(App.getContext(), DATABASE_NAME, null, DATABASE_VERSION);
@@ -37,6 +45,8 @@ public class DBHelper  extends SQLiteOpenHelper {
         db.execSQL(CompaniesRepo.createTable());
         db.execSQL(WorktimesRepo.createTable());
         db.execSQL(WageRepo.createTable());
+        db.execSQL(AgenciesRepo.createTable());
+        db.execSQL(DefShiftsRepo.createTable());
     }
 
     @Override
@@ -47,7 +57,32 @@ public class DBHelper  extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + Companies.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Worktimes.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Wage.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Agencies.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + DefShifts.TABLE);
         onCreate(db);
+    }
+
+    public boolean isTableExists(String tableName, boolean openDb) {
+        if(openDb) {
+            if(mDatabase == null || !mDatabase.isOpen()) {
+                mDatabase = getReadableDatabase();
+            }
+
+            if(!mDatabase.isReadOnly()) {
+                mDatabase.close();
+                mDatabase = getReadableDatabase();
+            }
+        }
+
+        Cursor cursor = mDatabase.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'", null);
+        if(cursor!=null) {
+            if(cursor.getCount()>0) {
+                cursor.close();
+                return true;
+            }
+            cursor.close();
+        }
+        return false;
     }
 
 }

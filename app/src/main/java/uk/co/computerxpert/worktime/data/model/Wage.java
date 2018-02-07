@@ -25,7 +25,6 @@ public class Wage {
     private String _comp_name;
 
 
-
     public Wage() {
     }
 
@@ -72,14 +71,11 @@ public class Wage {
         this._wage_enddate = wage_enddate;
     }
 
-    public double getwage_enddate() {
-        return this._wage_enddate;
-    }
+    public double getwage_enddate() { return this._wage_enddate; }
 
     public void setwage_val(String wage_val) { this._wage_val = wage_val; }
 
     public String getwage_val() { return this._wage_val; }
-
 
     // To the relation-querys:
 

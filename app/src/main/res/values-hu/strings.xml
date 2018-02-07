@@ -36,4 +36,22 @@
     <string name="CompanyComPersPhone">Tel.:</string>
     <string name="NumberOfWeek">A hét száma</string>
     <string name="Query">Lekérdezés</string>
+    <string name="salaryPerHour">Órabér</string>
+    <string name="unpaidBreak">Fizetetlen szünet (perc)</string>
+    <string name="Comment">Megjegyzés</string>
+    <string name="btnTime">Idő</string>
+    <string name="Agencies">Ügynökségek</string>
+    <string name="AddNewAgency">Új ügynökség hozzáadása</string>
+    <string name="Agency">Ügynökség</string>
+    <string name="title_activity_companies_man_mod">Munkáltatói adatok módosítása</string>
+    <string name="title_activity_wage_man_mod">Béradatok módosítása</string>
+    <string name="title_activity_querys">Lekérdezések</string>
+    <string name="title_activity_stp_comp">Munkáltatói adatok</string>
+    <string name="title_activity_stp_wages">Béradatok</string>
+    <string name="DefShifts">Műszak minták</string>
+    <string name="ShiftName">Műszak neve:</string>
+    <string name="save">Mentés</string>
+    <string name="title_activity_def_shifts_man">Műszak alapbeállitások</string>
+    <string name="title_activity_agencies_man">Ügynökségek adatai</string>
+    <string name="title_activity_agencies_man_mod">Ügynökségadatok módositása</string>
 </resources>

@@ -84,20 +84,8 @@
         app:layout_constraintStart_toEndOf="@+id/in_worktimeQueryBox"
         app:layout_constraintTop_toBottomOf="@+id/btn_compDBDel" />
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation" />
-
     <EditText
-        android:id="@+id/in_dropTableNameBox"
+        android:id="@+id/in_agenciesQueryBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -108,21 +96,42 @@
         app:layout_constraintTop_toBottomOf="@+id/in_worktimeQueryBox" />
 
     <Button
-        android:id="@+id/btn_dropTable"
+        android:id="@+id/btn_agenciesDBDel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:text="Agencies DEL"
+        app:layout_constraintStart_toEndOf="@+id/in_agenciesQueryBox"
+        app:layout_constraintTop_toBottomOf="@+id/btn_worktimeDBDel" />
+
+    <EditText
+        android:id="@+id/in_dropTableNameBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/in_agenciesQueryBox" />
+
+    <Button
+        android:id="@+id/btn_dropTable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
         android:text="Drop table"
         app:layout_constraintStart_toEndOf="@+id/in_dropTableNameBox"
-        app:layout_constraintTop_toBottomOf="@+id/btn_worktimeDBDel" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_agenciesDBDel" />
 
     <Button
         android:id="@+id/btn_worktimeCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Worktime TBL create"
         android:textSize="8sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -132,8 +141,8 @@
         android:id="@+id/btn_companiesCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
         android:text="Companies TBL create"
         android:textSize="8sp"
         app:layout_constraintStart_toEndOf="@+id/btn_worktimeCreate"
@@ -143,11 +152,43 @@
         android:id="@+id/btn_wagesCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="Wages tbl create"
         android:textSize="8sp"
         app:layout_constraintStart_toEndOf="@+id/btn_companiesCreate"
         app:layout_constraintTop_toBottomOf="@+id/in_dropTableNameBox" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation" />
+
+    <Button
+        android:id="@+id/btn_agenciesCreate"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Agencies TBL Create"
+        android:textSize="8sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_worktimeCreate" />
+
+    <Button
+        android:id="@+id/btn_defShiftsCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="DefShistf TBL Create"
+        android:textSize="8sp"
+        app:layout_constraintStart_toEndOf="@+id/btn_agenciesCreate"
+        app:layout_constraintTop_toBottomOf="@+id/btn_companiesCreate" />
 
 </android.support.constraint.ConstraintLayout>

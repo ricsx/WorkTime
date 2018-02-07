@@ -11,46 +11,45 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import uk.co.computerxpert.worktime.App.App;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.Companies;
+import uk.co.computerxpert.worktime.data.model.DefShifts;
+import uk.co.computerxpert.worktime.data.repo.DefShiftsRepo;
 import uk.co.computerxpert.worktime.data.repo.WorktimesRepo;
+
 
 public class Worktimes extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText in_kezddate;
-    private EditText in_kezdtime;
-    private EditText in_vegdate;
-    private EditText in_vegtime;
-    private EditText in_megj;
+    private EditText in_kezddate, in_kezdtime, in_vegdate, in_vegtime, in_megj, in_unpaidBreak;
     private int id = 1;
     private Intent Uj_activity;
-    private static final String TAG_Ertek="TAG: ";
+    private static final String TAG_Ertek = "TAG: ";
     private String var = "time", kezdveg = "k";
-    private Spinner spinner1;
+    private Spinner spinner1, spinner2;
     private ListView result;
     private Context context = this;
 
     Button btn_kezddate, btn_kezdtime, btn_vegdate, btn_vegtime;
-
-    private Map<String, Integer> months = new HashMap<String, Integer>();
 
     final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
     DateFormat formatDate = new SimpleDateFormat("dd MMM yyyy");
@@ -58,25 +57,30 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
     DecimalFormat decimalFormat = new DecimalFormat("##.00");
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)  {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worktimes);
 
         spinner1 = (Spinner) findViewById(R.id.spinner);
+        spinner2 = (Spinner) findViewById(R.id.spinner4);
         in_kezddate = (EditText) findViewById(R.id.in_kezddateBox);
         in_kezdtime = (EditText) findViewById(R.id.in_kezdtimeBox);
         in_vegdate = (EditText) findViewById(R.id.in_vegdateBox);
         in_vegtime = (EditText) findViewById(R.id.in_vegtimeBox);
         in_megj = (EditText) findViewById(R.id.in_megjBox);
+        in_unpaidBreak = (EditText) findViewById(R.id.in_unpaidBreakBox);
         btn_kezddate = (Button) findViewById(R.id.btn_date);
         btn_kezdtime = (Button) findViewById(R.id.btn_kezdtime);
         btn_vegdate = (Button) findViewById(R.id.btn_vegdate);
         btn_vegtime = (Button) findViewById(R.id.btn_vegtime);
 
-        // starting Spinner (Company names)
-        String selectQuery =  "SELECT * FROM Companies";
+        // starting Spinners
+        String selectQuery = "SELECT * FROM DefShifts";
+        App.DefShiftsListToSpinner(spinner2, context, selectQuery, "Default shifts ");
+        loadingDatasFromSpinner2();
 
-        App.CompanyListToSpinner(spinner1, context, selectQuery);
+        selectQuery = "SELECT * FROM Companies";
+        App.CompanyListToSpinner(spinner1, context, selectQuery, "false");
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -86,14 +90,12 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         btn_vegdate.setOnClickListener(this);
         btn_vegtime.setOnClickListener(this);
 
-        months.put("Jan",1); months.put("Feb",2); months.put("Mar",3); months.put("Apr",4); months.put("May",5);
-        months.put("Jun",6); months.put("Jul",7); months.put("Aug",8); months.put("Sep",9); months.put("Oct",10);
-        months.put("Nov",11); months.put("Dec",12);
+        App.makeMonthArray();
 
         btn_kezddate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                kezdveg="k";
+                kezdveg = "k";
                 updateDate();
             }
         });
@@ -101,7 +103,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         btn_kezdtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                kezdveg="k";
+                kezdveg = "k";
                 updateTime();
             }
         });
@@ -122,6 +124,39 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
             }
         });
 
+    }
+
+
+    public void loadingDatasFromSpinner2(){
+
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected (AdapterView < ? > parent, View view,int position, long id){
+                String text = spinner2.getSelectedItem().toString();
+                loadFormDefaults(text);
+            }
+
+            @Override
+            public void onNothingSelected (AdapterView < ? > parent){
+
+            }
+        });
+    }
+
+
+    private void loadFormDefaults(String value){
+        String selectQuery =  " SELECT * from DefShifts WHERE " + DefShifts.KEY_DS_Name + " = \"" + value + "\"";
+        DefShiftsRepo defShiftsRepo = new DefShiftsRepo();
+        List<DefShifts> defShifts_s= defShiftsRepo.getDefShifts(selectQuery);
+        // "values" array definition and loading
+        ArrayList<String> values = new ArrayList<String>();
+        for(int i=0; i<defShifts_s.size();i++){
+            in_kezdtime.setText(defShifts_s.get(i).get_defsh_starttime());
+            in_vegtime.setText(defShifts_s.get(i).get_defsh_endtime());
+            in_unpaidBreak.setText(String.valueOf(defShifts_s.get(i).get_defsh_unpbr()));
+            values.add(defShifts_s.get(i).get_defsh_name());
+        }
     }
 
 
@@ -187,6 +222,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         String kezd_ = kezddate+" "+kezdtime;
         String veg_ = vegdate+" "+vegtime;
         String megj =  in_megj.getText().toString();
+        String unpbr =  in_unpaidBreak.getText().toString();
 
         // Calculate the comp_id from the spinner return value
         String selectQuery =  " SELECT * "
@@ -215,7 +251,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
 
         int a = Integer.parseInt(bb[2]);
         int c = Integer.parseInt(bb[0]); //.replaceAll(".$", ""));
-        int b = months.get(bb[1]);
+        int b = App.months.get(bb[1]);
 
         now.set(Calendar.DATE,c);
         now.set(Calendar.MONTH,b-1);
@@ -225,13 +261,17 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         // End of week-of-year calculate
 
         // Calculate workhours of day
-        float wh = (float) 0.00;
+        float wh = (float) 0.00, wh2 = (float) 0.00;
+
         if(kezd_uxT>veg_uxT){ wh = (float) ((kezd_uxT - veg_uxT) / 3600); }
         else if(kezd_uxT<veg_uxT){ wh = (float) ((veg_uxT - kezd_uxT) / 3600); }
+        if(kezd_uxT>veg_uxT){ wh2 = (float) ((kezd_uxT - veg_uxT - (Integer.parseInt(unpbr)*60)) / 3600); }
+        else if(kezd_uxT<veg_uxT){ wh2 = (float) ((veg_uxT - kezd_uxT - (Integer.parseInt(unpbr)*60)) / 3600); }
         String hoursOfDay=Double.toString(Double.parseDouble(decimalFormat.format(wh)));
+        String exactHoursOfDay=Double.toString(Double.parseDouble(decimalFormat.format(wh2)));
         // End of workhouse-calculate
 
-        Double wOfDay = App.wageFromWageID(comp_id)*Double.parseDouble(hoursOfDay);
+        Double wOfDay = App.wageFromWageID(comp_id)*Double.parseDouble(exactHoursOfDay);
         String wageOfDay = Double.toString(Double.parseDouble(decimalFormat.format(wOfDay)));
 
         uk.co.computerxpert.worktime.data.model.Worktimes worktimes = new uk.co.computerxpert.worktime.data.model.Worktimes();
@@ -248,6 +288,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         worktimes.setwt_strsdate(vegdate);
         worktimes.setwt_strstime(kezdtime);
         worktimes.setwt_stretime(vegtime);
+        worktimes.setwt_unpbr(Integer.parseInt(unpbr));
 
         // Write datas into DB
         WorktimesRepo.insert(worktimes);
@@ -257,7 +298,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         in_vegdate.setText("");
         in_vegtime.setText("");
         in_megj.setText("");
-
+        in_unpaidBreak.setText("");
     }
 
 

@@ -34,7 +34,8 @@ public class WageRepo {
                 + Wage.KEY_wage_comp_id + " INTEGER, "
                 + Wage.KEY_wage_startdate + " REAL, "
                 + Wage.KEY_wage_enddate + " REAL, "
-                + Wage.KEY_wage_val + " TEXT )";
+                + Wage.KEY_wage_val + " TEXT "
+                + ")";
     }
 
 

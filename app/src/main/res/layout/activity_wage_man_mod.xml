@@ -77,7 +77,7 @@
 
     <EditText
         android:id="@+id/in_wage_valBox2"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -86,6 +86,16 @@
         android:labelFor="@+id/btn_wage_enddate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/in_wage_enddateBox2" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/salaryPerHour"
+        app:layout_constraintStart_toEndOf="@+id/in_wage_valBox2"
+        app:layout_constraintTop_toBottomOf="@+id/btn_wage_enddate2" />
 
     <Button
         android:id="@+id/btn_stp_wageSave2"
@@ -96,7 +106,7 @@
         android:layout_marginTop="32dp"
         android:text="@string/bt_stp_somp_send"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/in_wage_valBox2" />
 </android.support.constraint.ConstraintLayout>

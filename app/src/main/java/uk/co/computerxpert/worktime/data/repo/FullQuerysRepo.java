@@ -72,4 +72,29 @@ public class FullQuerysRepo {
     }
 
 
+    public static List<FullQuerys> getMaxStartDate(String selectQuery){
+        FullQuerys fullQuerys = new FullQuerys();
+        List<FullQuerys> fullQuerys_s = new ArrayList<FullQuerys>();
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        Log.i(TAG_Ertek, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                fullQuerys= new FullQuerys();
+                fullQuerys.setwt_startdate(cursor.getLong(cursor.getColumnIndex("max(wt_startdate)")));
+
+                fullQuerys_s.add(fullQuerys);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return fullQuerys_s;
+    }
+
+
 }

@@ -27,6 +27,7 @@ import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.FullQuerys;
 import uk.co.computerxpert.worktime.data.repo.FullQuerysRepo;
 
+import static uk.co.computerxpert.worktime.App.App.*;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         floatingActionButton();
 
     }
+
 
 
     private TextView getTextView(int id, String title, int color, int typeface, int bgColor) {
@@ -100,9 +102,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      **/
     public void addData() {
 
+        double maxStartDate = maxStartDate();
+        double minMaxStartDate = maxStartDate - OneDayUxt*8;
+
         String selectQuery =  " SELECT * FROM worktime, wage,companies " +
                 " WHERE worktime.wt_comp_id=companies.comp_id " +
-                " AND companies.comp_id=wage.wage_comp_id "
+                " AND companies.comp_id=wage.wage_comp_id " +
+                "AND wt_startdate <= " + maxStartDate + " AND wt_startdate >= " + minMaxStartDate
                 ;
         double hoursOfWeek=0;
         double salaryOfWeek=0;
@@ -141,6 +147,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tr.addView(getTextView(1,  ""+hoursOfWeek, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
         tr.addView(getTextView(1,  ""+salaryOfWeek, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
         tl.addView(tr, getTblLayoutParams());
+    }
+
+
+    public double maxStartDate(){
+        String selectQuery =  " SELECT max(wt_startdate) FROM worktime, wage,companies " +
+                " WHERE worktime.wt_comp_id=companies.comp_id " +
+                " AND companies.comp_id=wage.wage_comp_id"
+                ;
+        double aa=0.00;
+        FullQuerysRepo fullQuerysRepo = new FullQuerysRepo();
+        List<FullQuerys> fullQuerys_s = FullQuerysRepo.getMaxStartDate(selectQuery);
+        List<String> values = new ArrayList<String>();
+
+        for(int i=0; i<fullQuerys_s.size();i++){ aa = fullQuerys_s.get(i).getwt_startdate();
+        }
+
+        return aa;
     }
 
 
@@ -208,5 +231,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "Clicked on row :: " + id + ", Text :: " + tv.getText(), Toast.LENGTH_SHORT).show();
         }
     }
+
 
 }

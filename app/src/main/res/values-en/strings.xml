@@ -36,4 +36,23 @@
     <string name="CompanyPostcode">Postcode:</string>
     <string name="NumberOfWeek">Number of the week</string>
     <string name="Query">Query</string>
+    <string name="salaryPerHour">Hourly wage</string>
+    <string name="unpaidBreak">Unpaid break (minutes)</string>
+    <string name="Comment">Comment</string>
+    <string name="btnTime">Time</string>
+    <string name="Agencies">Agencies</string>
+    <string name="AddNewAgency">Add new agency</string>
+    <string name="Agency">Agency</string>
+    <string name="title_activity_companies_man_mod">Modify of company\'s datas</string>
+    <string name="title_activity_wage_man_mod">Modify of wage\'s datas</string>
+    <string name="title_activity_querys">Querys</string>
+    <string name="title_activity_stp_comp">Datas of companies</string>
+    <string name="title_activity_stp_wages">Datas of wages</string>
+    <string name="DefShifts">Default Shifts</string>
+    <string name="ShiftName">Name of shift:</string>
+    <string name="save">Save</string>
+    <string name="title_activity_def_shifts_man_mod">Modify defaults of Shifts</string>
+    <string name="title_activity_def_shifts_man">Defaults of shifts</string>
+    <string name="title_activity_agencies_man">Datas of Agencies</string>
+    <string name="title_activity_agencies_man_mod">Modify datas of agencies</string>
 </resources>

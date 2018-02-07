@@ -65,7 +65,29 @@
             android:label="@string/title_activity_my" />
         <activity
             android:name=".Activities.Querys"
-            android:label="@string/title_activity_querys"></activity>
+            android:label="@string/title_activity_querys" />
+        <activity android:name=".Activities.AgenciesMan"
+            android:label="@string/title_activity_agencies_man"
+            android:parentActivityName=".Activities.Setup" />
+        <activity android:name=".Activities.AgenciesManMod"
+            android:label="@string/title_activity_agencies_man_mod"
+            android:parentActivityName=".Activities.AgenciesMan"/>
+        <activity
+            android:name=".Activities.DefShiftsMan"
+            android:label="@string/title_activity_def_shifts_man"
+            android:parentActivityName=".Activities.Setup">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="uk.co.computerxpert.worktime.Activities.Setup" />
+        </activity>
+        <activity
+            android:name=".Activities.DefShiftsManMod"
+            android:label="@string/title_activity_def_shifts_man_mod"
+            android:parentActivityName=".Activities.DefShiftsMan">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="uk.co.computerxpert.worktime.Activities.DefShiftsMan" />
+        </activity>
     </application>
 
 </manifest>

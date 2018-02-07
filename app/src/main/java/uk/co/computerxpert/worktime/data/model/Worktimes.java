@@ -24,6 +24,7 @@ public class Worktimes {
     public static final String KEY_wt_salary = "wt_salary";
     public static final String KEY_wt_strstime = "wt_strstime";
     public static final String KEY_wt_stretime = "wt_stretime";
+    public static final String KEY_wt_unpaidBreak = "wt_unpbr";
 
 
     private int _wt_id;
@@ -39,12 +40,13 @@ public class Worktimes {
     private String _wt_stretime;
     private String _wt_hours;
     private String _wt_salary;
+    private int _wt_unpbr;
 
     public Worktimes() {
 
     }
 
-    public Worktimes(int wt_id, int wt_comp_id, double wt_startdate, double wt_enddate, String wt_rem, int wt_week, int wt_year) {
+    public Worktimes(int wt_id, int wt_comp_id, double wt_startdate, double wt_enddate, String wt_rem, int wt_week, int wt_year, int wt_unpbr) {
         this._wt_id = wt_id;
         this._wt_comp_id = wt_comp_id;
         this._wt_startdate = wt_startdate;
@@ -52,20 +54,22 @@ public class Worktimes {
         this._wt_rem = wt_rem;
         this._wt_week = wt_week;
         this._wt_year = wt_year;
+        this._wt_unpbr = wt_unpbr;
     }
 
-    public Worktimes(int wt_comp_id, double wt_startdate, double wt_enddate, String wt_rem, int wt_week, int wt_year) {
+    public Worktimes(int wt_comp_id, double wt_startdate, double wt_enddate, String wt_rem, int wt_week, int wt_year, int wt_unpbr) {
         this._wt_comp_id = wt_comp_id;
         this._wt_startdate = wt_startdate;
         this._wt_enddate = wt_enddate;
         this._wt_rem = wt_rem;
         this._wt_week = wt_week;
         this._wt_year = wt_year;
+        this._wt_unpbr = wt_unpbr;
     }
 
     public Worktimes(int wt_id, int wt_comp_id, double wt_startdate, double wt_enddate, String wt_rem, int wt_week, int wt_year,
                      String wt_strsdate, String wt_stredate, String wt_strstime, String wt_stretime,
-                     String wt_hours, String wt_salary ) {
+                     String wt_hours, String wt_salary, int wt_unpbr) {
         this._wt_id = wt_id;
         this._wt_comp_id = wt_comp_id;
         this._wt_startdate = wt_startdate;
@@ -79,6 +83,7 @@ public class Worktimes {
         this._wt_stretime = wt_stretime;
         this._wt_hours = wt_hours;
         this._wt_salary = wt_salary;
+        this._wt_unpbr = wt_unpbr;
     }
 
 
@@ -167,4 +172,13 @@ public class Worktimes {
     public void setwt_salary(String wt_salary) { this._wt_salary = wt_salary; }
 
     public String getwt_salary() { return this._wt_salary; }
+
+    public void setwt_unpbr(int wt_unpbr) {
+        this._wt_unpbr = wt_unpbr;
+    }
+
+    public int getwt_unpbr() {
+        return this._wt_unpbr;
+    }
+
 }

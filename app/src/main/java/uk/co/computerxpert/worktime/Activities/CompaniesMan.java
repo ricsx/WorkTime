@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +35,7 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
         setContentView(R.layout.activity_companies_man);
 
         // TextView tv_str_comp = (TextView) findViewById(R.id.tv_stp_comp);
-        result=(ListView) findViewById(R.id.result);
+        result=(ListView) findViewById(R.id.results);
         ed_comp_name = (EditText) findViewById(R.id.cmm_compNameBox3);
         edCompAddr = (EditText) findViewById(R.id.cmm_compAddressBox3);
         edCompCity = (EditText) findViewById(R.id.cmm_compCityBox3);

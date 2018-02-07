@@ -14,7 +14,9 @@ import android.widget.TextView;
 
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.DatabaseManager;
+import uk.co.computerxpert.worktime.data.repo.AgenciesRepo;
 import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
+import uk.co.computerxpert.worktime.data.repo.DefShiftsRepo;
 import uk.co.computerxpert.worktime.data.repo.WageRepo;
 import uk.co.computerxpert.worktime.data.repo.WorktimesRepo;
 
@@ -27,6 +29,7 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
     EditText wagesQueryBox;
     EditText companiesQueryBox;
     EditText dropTableNameBox;
+    EditText agenciesQueryBox;
 
     private static final String TAG_Ertek = "TAG: ";
 
@@ -39,22 +42,31 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
         companiesQueryBox = (EditText) findViewById(R.id.in_companiesQueryBox);
         worktimeQueryBox = (EditText) findViewById(R.id.in_worktimeQueryBox);
         dropTableNameBox = (EditText) findViewById(R.id.in_dropTableNameBox);
+        agenciesQueryBox = (EditText) findViewById(R.id.in_dropTableNameBox);
+
         Button wagesDel = (Button) findViewById(R.id.btn_wagesDBDel);
         Button companiesDel = (Button) findViewById(R.id.btn_compDBDel);
         Button worktimeDel = (Button) findViewById(R.id.btn_worktimeDBDel);
+        Button agencysDel = (Button) findViewById(R.id.btn_agenciesDBDel);
         Button droptable = (Button) findViewById(R.id.btn_dropTable);
         Button worktimeCreate = (Button) findViewById(R.id.btn_worktimeCreate);
         Button companiesCreate = (Button) findViewById(R.id.btn_companiesCreate);
         Button wagesCreate = (Button) findViewById(R.id.btn_wagesCreate);
+        Button agenciesCreate = (Button) findViewById(R.id.btn_agenciesCreate);
+        Button defShiftsCreate = (Button) findViewById(R.id.btn_defShiftsCreate);
+
 
 
         wagesDel.setOnClickListener(this);
         companiesDel.setOnClickListener(this);
         worktimeDel.setOnClickListener(this);
+        agencysDel.setOnClickListener(this);
         droptable.setOnClickListener(this);
         worktimeCreate.setOnClickListener(this);
         companiesCreate.setOnClickListener(this);
         wagesCreate.setOnClickListener(this);
+        agenciesCreate.setOnClickListener(this);
+        defShiftsCreate.setOnClickListener(this);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -77,6 +89,11 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
         WorktimesRepo.delete(var);
     }
 
+    public void agencysDBDel(){
+        String var =  agenciesQueryBox.getText().toString();
+        AgenciesRepo.delete(var);
+    }
+
     public void dropTable(){
         String var =  dropTableNameBox.getText().toString();
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
@@ -96,6 +113,17 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
     public void createWage(){
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         db.execSQL(WageRepo.createTable());
+    }
+
+    public void createAgencies(){
+        try (SQLiteDatabase db = DatabaseManager.getInstance().openDatabase()) {
+            db.execSQL(AgenciesRepo.createTable());
+        }
+    }
+
+    public void createDefShifts(){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        db.execSQL(DefShiftsRepo.createTable());
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -136,6 +164,9 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
             case R.id.btn_worktimeDBDel:
                 worktimeDBDel();
                 break;
+            case R.id.btn_agenciesDBDel:
+                agencysDBDel();
+                break;
             case R.id.btn_dropTable:
                 dropTable();
                 break;
@@ -147,6 +178,12 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btn_wagesCreate:
                 createWage();
+                break;
+            case R.id.btn_agenciesCreate:
+                createAgencies();
+                break;
+            case R.id.btn_defShiftsCreate:
+                createDefShifts();
                 break;
         }
     }

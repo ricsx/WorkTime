@@ -119,6 +119,7 @@ public class FullQuerys {
 
     }
 
+
     public void setcomp_id(int comp_id) {
         this._comp_id = comp_id;
     }

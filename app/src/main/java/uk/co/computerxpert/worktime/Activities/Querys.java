@@ -60,7 +60,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
 
         String selectQuery = "SELECT * FROM Companies";
 
-        App.CompanyListToSpinner(_inCegn, this, selectQuery);
+        App.CompanyListToSpinner(_inCegn, this, selectQuery, "false");
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);

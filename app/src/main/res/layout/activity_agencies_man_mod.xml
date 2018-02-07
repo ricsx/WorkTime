@@ -2,62 +2,32 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="uk.co.computerxpert.worktime.Activities.CompaniesMan">
+    tools:context="uk.co.computerxpert.worktime.Activities.AgenciesManMod">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/Companies"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/results"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollview4" />
-
-    <ListView
-        android:id="@+id/results"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <ScrollView
-        android:id="@+id/scrollview4"
+        android:id="@+id/scrollview6"
         android:layout_width="0dp"
-        android:layout_height="280dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7">
+        app:layout_constraintTop_toBottomOf="@+id/textView15">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/Company"
+                android:text="@string/Agency"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -65,137 +35,137 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_cmm16"
+                android:id="@+id/tv_cmm24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/Name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
             <EditText
-                android:id="@+id/cmm_compNameBox3"
+                android:id="@+id/upd_agencyNameBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="12dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:labelFor="@+id/cmm_compNameBox3"
-                android:nextFocusForward="@id/cmm_compAddressBox3"
+                android:labelFor="@+id/upd_agencyNameBox"
+                android:nextFocusForward="@id/upd_agencyAddressBox"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_cmm16"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                app:layout_constraintStart_toEndOf="@+id/tv_cmm24"
+                app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
             <TextView
-                android:id="@+id/tv_cmm17"
+                android:id="@+id/tv_cmm25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/CompanyAddress"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_cmm16" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_cmm24" />
 
             <EditText
-                android:id="@+id/cmm_compAddressBox3"
+                android:id="@+id/upd_agencyAddressBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="16dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:labelFor="@+id/cmm_compAddressBox3"
-                android:nextFocusForward="@id/cmm_compCityBox3"
+                android:labelFor="@+id/upd_agencyAddressBox"
+                android:nextFocusForward="@id/upd_agencyCityBox"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_cmm16"
-                app:layout_constraintTop_toBottomOf="@+id/cmm_compNameBox3" />
+                app:layout_constraintStart_toEndOf="@+id/tv_cmm24"
+                app:layout_constraintTop_toBottomOf="@+id/upd_agencyNameBox" />
 
             <TextView
-                android:id="@+id/tv_cmm18"
+                android:id="@+id/tv_cmm26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/CompanyCity"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_cmm17" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_cmm25" />
 
             <EditText
-                android:id="@+id/cmm_compCityBox3"
+                android:id="@+id/upd_agencyCityBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="16dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:labelFor="@+id/cmm_compCityBox3"
-                android:nextFocusForward="@id/cmm_compPostcodeBox3"
+                android:labelFor="@+id/upd_agencyCityBox"
+                android:nextFocusForward="@id/upd_agencyPostcodeBox"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_cmm18"
-                app:layout_constraintTop_toBottomOf="@+id/cmm_compAddressBox3" />
+                app:layout_constraintStart_toEndOf="@+id/tv_cmm26"
+                app:layout_constraintTop_toBottomOf="@+id/upd_agencyAddressBox" />
 
             <TextView
-                android:id="@+id/tv_cmm19"
+                android:id="@+id/tv_cmm27"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/CompanyPostcode"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_cmm18" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_cmm26" />
 
             <EditText
-                android:id="@+id/cmm_compPostcodeBox3"
+                android:id="@+id/upd_agencyPostcodeBox"
                 android:layout_width="193dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="16dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:labelFor="@+id/cmm_compPostcodeBox3"
-                android:nextFocusForward="@id/cmm_compPhoneBox3"
+                android:labelFor="@+id/upd_agencyPostcodeBox"
+                android:nextFocusForward="@id/upd_agencyPhoneBox"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_cmm19"
-                app:layout_constraintTop_toBottomOf="@+id/cmm_compCityBox3" />
+                app:layout_constraintStart_toEndOf="@+id/tv_cmm27"
+                app:layout_constraintTop_toBottomOf="@+id/upd_agencyCityBox" />
 
             <TextView
-                android:id="@+id/tv_cmm20"
+                android:id="@+id/tv_cmm28"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="44dp"
                 android:text="@string/Phone"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_cmm19" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_cmm27" />
 
             <EditText
-                android:id="@+id/cmm_compPhoneBox3"
+                android:id="@+id/upd_agencyPhoneBox"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:ems="10"
                 android:inputType="phone"
-                android:labelFor="@+id/cmm_compPhoneBox3"
-                android:nextFocusForward="@id/cmm_compContPersNameBox3"
+                android:labelFor="@+id/upd_agencyPhoneBox"
+                android:nextFocusForward="@id/upd_agencyContPersNameBox"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_cmm20"
-                app:layout_constraintTop_toBottomOf="@+id/cmm_compPostcodeBox3" />
+                app:layout_constraintStart_toEndOf="@+id/tv_cmm28"
+                app:layout_constraintTop_toBottomOf="@+id/upd_agencyPostcodeBox" />
 
             <TextView
-                android:id="@+id/tv_cmm21"
+                android:id="@+id/tv_cmm29"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="40dp"
                 android:text="@string/Name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -206,72 +176,72 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cmm_compPhoneBox3" />
+                app:layout_constraintTop_toBottomOf="@+id/upd_agencyPhoneBox" />
 
             <EditText
-                android:id="@+id/cmm_compContPersNameBox3"
+                android:id="@+id/upd_agencyContPersNameBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="24dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:labelFor="@+id/cmm_compContPersNameBox3"
-                android:nextFocusForward="@id/cmm_compContPersPhoneBox3"
+                android:labelFor="@+id/upd_agencyContPersNameBox"
+                android:nextFocusForward="@id/upd_agencyContPersPhoneBox"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_cmm21"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                app:layout_constraintStart_toEndOf="@+id/tv_cmm29"
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
             <TextView
-                android:id="@+id/tv_cmm22"
+                android:id="@+id/tv_cmm30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="36dp"
                 android:text="@string/Phone"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_cmm21" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_cmm29" />
 
             <EditText
-                android:id="@+id/cmm_compContPersPhoneBox3"
+                android:id="@+id/upd_agencyContPersPhoneBox"
                 android:layout_width="wrap_content"
                 android:layout_height="33dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:ems="10"
                 android:inputType="phone"
-                android:labelFor="@+id/cmm_compContPersPhoneBox3"
-                android:nextFocusForward="@id/cmm_compContPersEmailBox3"
+                android:labelFor="@+id/upd_agencyContPersPhoneBox"
+                android:nextFocusForward="@id/upd_agencyContPersEmailBox"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_cmm22"
-                app:layout_constraintTop_toBottomOf="@+id/cmm_compContPersNameBox3" />
+                app:layout_constraintStart_toEndOf="@+id/tv_cmm30"
+                app:layout_constraintTop_toBottomOf="@+id/upd_agencyContPersNameBox" />
 
             <TextView
-                android:id="@+id/tv_cmm23"
+                android:id="@+id/tv_cmm31"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="28dp"
                 android:text="@string/CompanyConPersEmail"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_cmm22" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_cmm30" />
 
             <EditText
-                android:id="@+id/cmm_compContPersEmailBox3"
+                android:id="@+id/upd_agencyContPersEmailBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="16dp"
                 android:ems="10"
                 android:inputType="textEmailAddress"
-                android:labelFor="@+id/cmm_compContPersEmailBox3"
-                android:nextFocusForward="@id/btn_stp_comp_send"
+                android:labelFor="@+id/upd_agencyContPersEmailBox"
+                android:nextFocusForward="@id/btn_stp_agency_update"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_cmm23"
-                app:layout_constraintTop_toBottomOf="@+id/cmm_compContPersPhoneBox3" />
+                app:layout_constraintStart_toEndOf="@+id/tv_cmm31"
+                app:layout_constraintTop_toBottomOf="@+id/upd_agencyContPersPhoneBox" />
 
             <Button
-                android:id="@+id/btn_stp_comp_send"
+                android:id="@+id/btn_stp_agency_update"
                 android:layout_width="275dp"
                 android:layout_height="41dp"
                 android:layout_marginEnd="8dp"
@@ -281,19 +251,19 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cmm_compContPersEmailBox3" />
+                app:layout_constraintTop_toBottomOf="@+id/upd_agencyContPersEmailBox" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/NewCompany"
+        android:text="@string/AddNewAgency"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -312,5 +282,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/navigation" />
+
+
 
 </android.support.constraint.ConstraintLayout>

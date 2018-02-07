@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 
 import uk.co.computerxpert.worktime.R;
+import uk.co.computerxpert.worktime.data.model.Agencies;
+import uk.co.computerxpert.worktime.data.model.DefShifts;
 
 public class Setup extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,10 +26,14 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         Button companies = (Button) findViewById(R.id.btn_companies);
         Button wages = (Button) findViewById(R.id.btn_wages);
         Button dev = (Button) findViewById(R.id.btn_dev);
+        Button agencies = (Button) findViewById(R.id.btn_agencies);
+        Button defShifts = (Button) findViewById(R.id.btn_defShifts);
 
         companies.setOnClickListener(this);
         wages.setOnClickListener(this);
         dev.setOnClickListener(this);
+        agencies.setOnClickListener(this);
+        defShifts.setOnClickListener(this);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -49,6 +55,16 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.btn_dev:
                 Uj_activity = new Intent(Setup.this, DeveloperSection.class);
+                Uj_activity.putExtra("sessid", id);
+                startActivity(Uj_activity);
+                break;
+            case R.id.btn_agencies:
+                Uj_activity = new Intent(Setup.this, AgenciesMan.class);
+                Uj_activity.putExtra("sessid", id);
+                startActivity(Uj_activity);
+                break;
+            case R.id.btn_defShifts:
+                Uj_activity = new Intent(Setup.this, DefShiftsMan.class);
                 Uj_activity.putExtra("sessid", id);
                 startActivity(Uj_activity);
                 break;

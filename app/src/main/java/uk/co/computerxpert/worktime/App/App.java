@@ -18,8 +18,10 @@ import java.io.File;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import uk.co.computerxpert.worktime.Activities.MainActivity;
 import uk.co.computerxpert.worktime.Activities.Setup;
@@ -28,9 +30,11 @@ import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.DBHelper;
 import uk.co.computerxpert.worktime.data.DatabaseManager;
 import uk.co.computerxpert.worktime.data.model.Companies;
+import uk.co.computerxpert.worktime.data.model.DefShifts;
 import uk.co.computerxpert.worktime.data.model.FullQuerys;
 import uk.co.computerxpert.worktime.data.model.Wage;
 import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
+import uk.co.computerxpert.worktime.data.repo.DefShiftsRepo;
 import uk.co.computerxpert.worktime.data.repo.FullQuerysRepo;
 import uk.co.computerxpert.worktime.data.repo.WageRepo;
 
@@ -40,6 +44,9 @@ public class App extends Application {
     private static Integer comp_id;
     private static final String TAG_Ertek="TAG: ";
     private static DecimalFormat dfToHours = new DecimalFormat("0.0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+    public static double OneDayUxt = 86400;
+    public static Map<String, Integer> months = new HashMap<String, Integer>();
+
 
     @Override
     public void onCreate()
@@ -48,6 +55,14 @@ public class App extends Application {
         context = this.getApplicationContext();
         dbHelper = new DBHelper();
         DatabaseManager.initializeInstance(dbHelper);
+    }
+
+
+    public static void makeMonthArray() {
+        months.put("Jan", 1); months.put("Feb", 2); months.put("Mar", 3);
+        months.put("Apr", 4); months.put("May", 5); months.put("Jun", 6);
+        months.put("Jul", 7); months.put("Aug", 8); months.put("Sep", 9);
+        months.put("Oct", 10); months.put("Nov", 11); months.put("Dec", 12);
     }
 
 
@@ -68,12 +83,27 @@ public class App extends Application {
     }
 
 
-    public static void CompanyListToSpinner(Spinner spinnername, Context context, String selectQuery){
+    public static void CompanyListToSpinner(Spinner spinnername, Context context, String selectQuery, String def){
 
         CompaniesRepo companiesRepo = new CompaniesRepo();
         List<Companies> companies_s= CompaniesRepo.getCompanies(selectQuery);
         List<String> values = new ArrayList<String>();
+        if(def!="false"){ values.add(def); }
         for(int i=0; i<companies_s.size();i++){ values.add(companies_s.get(i).getcomp_name()); }
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,
+                android.R.layout.simple_spinner_item, values);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnername.setAdapter(dataAdapter);
+    }
+
+
+    public static void DefShiftsListToSpinner(Spinner spinnername, Context context, String selectQuery, String def){
+
+        DefShiftsRepo defShiftsRepo = new DefShiftsRepo();
+        List<DefShifts> defShifts_s= DefShiftsRepo.getDefShifts(selectQuery);
+        List<String> values = new ArrayList<String>();
+        if(def!="false"){ values.add(def); }
+        for(int i=0; i<defShifts_s.size();i++){ values.add(defShifts_s.get(i).get_defsh_name()); }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,
                 android.R.layout.simple_spinner_item, values);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
