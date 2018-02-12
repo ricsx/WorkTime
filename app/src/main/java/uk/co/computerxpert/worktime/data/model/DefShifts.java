@@ -15,6 +15,7 @@ public class DefShifts {
     public static final String KEY_DS_Starttime = "defsh_starttime";
     public static final String KEY_DS_Endtime = "defsh_endtime";
     public static final String KEY_DS_Unpbr = "defsh_unpbr";
+    public static final String KEY_DS_Agency_id = "defsh_agency_id";
 
 
     private int _defsh_id;
@@ -23,6 +24,7 @@ public class DefShifts {
     private String _defsh_starttime;
     private String _defsh_endtime;
     private int _defsh_unpbr;
+    private int _defsh_agency_id;
 
 
     public DefShifts() {
@@ -30,22 +32,24 @@ public class DefShifts {
     }
 
     public DefShifts(int defsh_id, String defsh_name, int defsh_comp_id, String defsh_starttime,
-                     String defsh_endtime, int defsh_unpbr ) {
+                     String defsh_endtime, int defsh_unpbr, int defsh_agency_id ) {
         this._defsh_id = defsh_id;
         this._defsh_name = defsh_name;
         this._defsh_comp_id = defsh_comp_id;
         this._defsh_starttime = defsh_starttime;
         this._defsh_endtime = defsh_endtime;
         this._defsh_unpbr = defsh_unpbr;
+        this._defsh_agency_id = defsh_agency_id;
     }
 
     public DefShifts(String defsh_name, int defsh_comp_id, String defsh_starttime,
-                     String defsh_endtime, int defsh_unpbr ) {
+                     String defsh_endtime, int defsh_unpbr, int defsh_agency_id ) {
         this._defsh_name = defsh_name;
         this._defsh_comp_id = defsh_comp_id;
         this._defsh_starttime = defsh_starttime;
         this._defsh_endtime = defsh_endtime;
         this._defsh_unpbr = defsh_unpbr;
+        this._defsh_agency_id = defsh_agency_id;
     }
 
     public void set_defsh_id(int defsh_id) {
@@ -75,4 +79,8 @@ public class DefShifts {
     public void set_defsh_unpbr(int defsh_unpbr) { this._defsh_unpbr = defsh_unpbr; }
 
     public int get_defsh_unpbr() { return this._defsh_unpbr; }
+
+    public void set_defsh_agency_id(int defsh_agency_id) { this._defsh_agency_id = defsh_agency_id; }
+
+    public int get_defsh_agency_id() { return this._defsh_agency_id; }
 }

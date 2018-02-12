@@ -22,14 +22,9 @@ import uk.co.computerxpert.worktime.data.repo.WorktimesRepo;
 
 public class DeveloperSection extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView mTextMessage;
     private int id = 1;
     private Intent Uj_activity;
-    EditText worktimeQueryBox;
-    EditText wagesQueryBox;
-    EditText companiesQueryBox;
-    EditText dropTableNameBox;
-    EditText agenciesQueryBox;
+    EditText sqlQueryBox,dropTableNameBox, defTblNameBox;
 
     private static final String TAG_Ertek = "TAG: ";
 
@@ -38,35 +33,27 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_developer_section);
 
-        wagesQueryBox = (EditText) findViewById(R.id.in_wagesQueryBox);
-        companiesQueryBox = (EditText) findViewById(R.id.in_companiesQueryBox);
-        worktimeQueryBox = (EditText) findViewById(R.id.in_worktimeQueryBox);
+        sqlQueryBox = (EditText) findViewById(R.id.in_SQLQueryBox);
         dropTableNameBox = (EditText) findViewById(R.id.in_dropTableNameBox);
-        agenciesQueryBox = (EditText) findViewById(R.id.in_dropTableNameBox);
+        defTblNameBox = (EditText) findViewById(R.id.in_defTblNameBox);
 
-        Button wagesDel = (Button) findViewById(R.id.btn_wagesDBDel);
-        Button companiesDel = (Button) findViewById(R.id.btn_compDBDel);
-        Button worktimeDel = (Button) findViewById(R.id.btn_worktimeDBDel);
-        Button agencysDel = (Button) findViewById(R.id.btn_agenciesDBDel);
+        Button execSql = (Button) findViewById(R.id.btn_execSql);
         Button droptable = (Button) findViewById(R.id.btn_dropTable);
         Button worktimeCreate = (Button) findViewById(R.id.btn_worktimeCreate);
         Button companiesCreate = (Button) findViewById(R.id.btn_companiesCreate);
         Button wagesCreate = (Button) findViewById(R.id.btn_wagesCreate);
         Button agenciesCreate = (Button) findViewById(R.id.btn_agenciesCreate);
         Button defShiftsCreate = (Button) findViewById(R.id.btn_defShiftsCreate);
+        Button defDatas = (Button) findViewById(R.id.btn_defDatas);
 
-
-
-        wagesDel.setOnClickListener(this);
-        companiesDel.setOnClickListener(this);
-        worktimeDel.setOnClickListener(this);
-        agencysDel.setOnClickListener(this);
+        execSql.setOnClickListener(this);
         droptable.setOnClickListener(this);
         worktimeCreate.setOnClickListener(this);
         companiesCreate.setOnClickListener(this);
         wagesCreate.setOnClickListener(this);
         agenciesCreate.setOnClickListener(this);
         defShiftsCreate.setOnClickListener(this);
+        defDatas.setOnClickListener(this);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -74,24 +61,10 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
     }
 
 
-    public void wagesDBDel(){
-        String var =  wagesQueryBox.getText().toString();
-        WageRepo.delete(var);
-    }
-
-    public void companiesDBDel(){
-        String var =  companiesQueryBox.getText().toString();
-        CompaniesRepo.delete(var);
-    }
-
-    public void worktimeDBDel(){
-        String var =  worktimeQueryBox.getText().toString();
-        WorktimesRepo.delete(var);
-    }
-
-    public void agencysDBDel(){
-        String var =  agenciesQueryBox.getText().toString();
-        AgenciesRepo.delete(var);
+    public void execSql(){
+        String var =  sqlQueryBox.getText().toString();
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        db.execSQL(var);
     }
 
     public void dropTable(){
@@ -126,6 +99,67 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
         db.execSQL(DefShiftsRepo.createTable());
     }
 
+    public void fillDefDatas() {
+        String var = defTblNameBox.getText().toString();
+        if (var.equals("all")) { agenciesDef(); companiesDef(); defsshiftsDef(); wageDef(); worktimeDef();
+        }if (var.equals("agencies")) { agenciesDef();
+        }if (var.equals("companies")) { companiesDef();
+        }if(var.equals("defshifts")) { defsshiftsDef();
+        }if(var.equals("wage")) { wageDef();
+        }if(var.equals("worktime")) { worktimeDef(); }
+    }
+
+    public void agenciesDef() {
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        //db.execSQL(AgenciesRepo.createTable());
+        String SqlQuery = "INSERT INTO `Agencies` (agency_id,agency_name,agency_addrs,agency_city,agency_postc,agency_phone,agency_cpname,agency_cpphone,agency_cpemail) " +
+                "VALUES (1,'Köcsög Blue Arrow','12 Belgrade','Bellshill','ml42pe','+44 123 456 789','First Contact','+44 987 654 321','First@bluearrow.co.uk'), " +
+                "(2,'SNJ','23 Somewher str','Bellshill','ML45BE','+44 321456789','A girl','+44 789654321','girl@snj.co.uk');";
+        db.execSQL(SqlQuery);
+    }
+
+    public void companiesDef() {
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        //db.execSQL(CompaniesRepo.createTable());
+        String SqlQuery = "INSERT INTO `Companies` (comp_id,comp_name,comp_addrs,comp_city,comp_postc,comp_phone,comp_cpname,comp_cpphone,comp_cpemail,comp_agencyid) " +
+                "VALUES (1,'Elsö cég','23, Itt str','Glasgow','G13ML','07850 250 726','elso contact person','01254 225 265','elso@elso.com',0), " +
+                "(2,'Második cég','12, Somewhere ave.','Motherwell','ML142CV','01254 332 665','Második contact person','01222 333 444','masodik@masidok.co.uk',0), " +
+                "(3,'Harmadik cég','3rd floor, KV Building, 54, Knockwille road','Bellshill','BL12VB','01365 549 987','Harmadik contact person','07234 567 896','harmadik@harmadik.com',0), " +
+                "(4,'Negyedik c;g','','Bellshill','','01554 887 998','','','',0), (6,'6odik','','','','','','01445667889','',0);";
+        db.execSQL(SqlQuery);
+    }
+
+    public void defsshiftsDef() {
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        //db.execSQL(DefShiftsRepo.createTable());
+        String SqlQuery = "INSERT INTO `DefShifts` (defsh_id,defsh_name,defsh_comp_id,defsh_starttime,defsh_endtime,defsh_unpbr,defsh_agency_id) " +
+                "VALUES (1,'Elso shift',1,'06:00','14:30',30,1), " +
+                "(2,'Második shift',1,'07:00','12:00',15,1)";
+        db.execSQL(SqlQuery);
+    }
+
+    public void wageDef() {
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        //db.execSQL(WageRepo.createTable());
+        String SqlQuery = "INSERT INTO `Wage` (wage_id,wage_comp_id,wage_startdate,wage_enddate,wage_val,wage_unpbr) " +
+                "VALUES (1,1,1512086400.0,1517356800.0,'7.50',20), " +
+                "(2,2,1509494400.0,1517356800.0,'8.85',30)";
+        db.execSQL(SqlQuery);
+    }
+
+    public void worktimeDef() {
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        //db.execSQL(WorktimesRepo.createTable());
+        String SqlQuery= "INSERT INTO `Worktime` (wt_id,wt_comp_id,wt_startdate,wt_enddate,wt_strsdate,wt_strstime,wt_stredate,wt_stretime,wt_week,wt_year,wt_rem,wt_hours,wt_unpbr,wt_salary,wt_agency_id) " +
+                "VALUES (1,1,1514786400.0,1514817000.0,'01 Jan 2018','06:00','01 Jan 2018','14:30',1,2018,'','8.5',30,'60.0',1), " +
+                "(2,1,1514872800.0,1514903400.0,'02 Jan 2018','06:00','02 Jan 2018','14:30',1,2018,'','8.5',30,'60.0',1), " +
+                "(3,1,1514966400.0,1514980800.0,'03 Jan 2018','08:00','03 Jan 2018','12:00',1,2018,'','4.0',15,'28.12',1), " +
+                "(4,1,1515045600.0,1515067200.0,'04 Jan 2018','06:00','04 Jan 2018','12:00',1,2018,'','6.0',15,'43.12',1), " +
+                "(5,1,1515132000.0,1515165300.0,'05 Jan 2018','06:00','05 Jan 2018','15:15',1,2018,'','9.25',30,'65.62',1);";
+        db.execSQL(SqlQuery);
+    }
+
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -155,17 +189,8 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_wagesDBDel:
-                wagesDBDel();
-                break;
-            case R.id.btn_compDBDel:
-                companiesDBDel();
-                break;
-            case R.id.btn_worktimeDBDel:
-                worktimeDBDel();
-                break;
-            case R.id.btn_agenciesDBDel:
-                agencysDBDel();
+            case R.id.btn_execSql:
+                execSql();
                 break;
             case R.id.btn_dropTable:
                 dropTable();
@@ -184,6 +209,9 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btn_defShiftsCreate:
                 createDefShifts();
+                break;
+            case R.id.btn_defDatas:
+                fillDefDatas();
                 break;
         }
     }

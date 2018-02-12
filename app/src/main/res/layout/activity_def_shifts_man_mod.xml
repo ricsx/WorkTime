@@ -46,7 +46,7 @@
                 android:id="@+id/textView21"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="40dp"
                 android:text="@string/Company"
                 app:layout_constraintStart_toStartOf="parent"
@@ -56,22 +56,40 @@
                 android:id="@+id/sp_compNames2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="27dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="17dp"
                 app:layout_constraintStart_toEndOf="@+id/textView21"
                 app:layout_constraintTop_toBottomOf="@+id/inp_defShiftName2" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="TextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+            <Spinner
+                android:id="@+id/sp_agencyNames2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toEndOf="@+id/textView23"
+                app:layout_constraintTop_toBottomOf="@+id/sp_compNames2" />
 
             <EditText
                 android:id="@+id/inp_startTime2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="@string/TimeOfStart"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sp_compNames2" />
+                app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
             <Button
                 android:id="@+id/btn_startTime2"
@@ -81,7 +99,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/btnTime"
                 app:layout_constraintStart_toEndOf="@+id/inp_startTime2"
-                app:layout_constraintTop_toBottomOf="@+id/sp_compNames2" />
+                app:layout_constraintTop_toBottomOf="@+id/sp_agencyNames2" />
 
             <EditText
                 android:id="@+id/inp_endTime2"

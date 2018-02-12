@@ -54,4 +54,8 @@
     <string name="title_activity_def_shifts_man">Műszak alapbeállitások</string>
     <string name="title_activity_agencies_man">Ügynökségek adatai</string>
     <string name="title_activity_agencies_man_mod">Ügynökségadatok módositása</string>
+    <string name="NotSelected">Nincs kiválasztva</string>
+    <string name="ChooseDefaultShift">Alapértelmezett műszak</string>
+    <string name="chooseCompany">Válassz egy céget</string>
+    <string name="chooseAgency">Válassz egy ügynökséget</string>
 </resources>

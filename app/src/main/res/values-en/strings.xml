@@ -55,4 +55,8 @@
     <string name="title_activity_def_shifts_man">Defaults of shifts</string>
     <string name="title_activity_agencies_man">Datas of Agencies</string>
     <string name="title_activity_agencies_man_mod">Modify datas of agencies</string>
+    <string name="NotSelected">Not selected</string>
+    <string name="ChooseDefaultShift">Choose a default shift</string>
+    <string name="chooseCompany">Choose a company</string>
+    <string name="chooseAgency">choose an agency</string>
 </resources>

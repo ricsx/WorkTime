@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/in_wagesQueryBox"
+        android:id="@+id/in_SQLQueryBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -33,77 +33,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/btn_wagesDBDel"
+        android:id="@+id/btn_execSql"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="60dp"
-        android:text="Wages del"
-        app:layout_constraintStart_toEndOf="@+id/in_wagesQueryBox"
+        android:text="Execute SQL"
+        app:layout_constraintStart_toEndOf="@+id/in_SQLQueryBox"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_compDBDel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="companies del"
-        app:layout_constraintStart_toEndOf="@+id/in_companiesQueryBox"
-        app:layout_constraintTop_toBottomOf="@+id/btn_wagesDBDel" />
-
-    <EditText
-        android:id="@+id/in_companiesQueryBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_wagesQueryBox" />
-
-    <EditText
-        android:id="@+id/in_worktimeQueryBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_companiesQueryBox" />
-
-    <Button
-        android:id="@+id/btn_worktimeDBDel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="worktimes del"
-        app:layout_constraintStart_toEndOf="@+id/in_worktimeQueryBox"
-        app:layout_constraintTop_toBottomOf="@+id/btn_compDBDel" />
-
-    <EditText
-        android:id="@+id/in_agenciesQueryBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_worktimeQueryBox" />
-
-    <Button
-        android:id="@+id/btn_agenciesDBDel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Agencies DEL"
-        app:layout_constraintStart_toEndOf="@+id/in_agenciesQueryBox"
-        app:layout_constraintTop_toBottomOf="@+id/btn_worktimeDBDel" />
 
     <EditText
         android:id="@+id/in_dropTableNameBox"
@@ -114,7 +51,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_agenciesQueryBox" />
+        app:layout_constraintTop_toBottomOf="@+id/in_SQLQueryBox" />
 
     <Button
         android:id="@+id/btn_dropTable"
@@ -124,40 +61,39 @@
         android:layout_marginTop="8dp"
         android:text="Drop table"
         app:layout_constraintStart_toEndOf="@+id/in_dropTableNameBox"
-        app:layout_constraintTop_toBottomOf="@+id/btn_agenciesDBDel" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_execSql" />
 
     <Button
         android:id="@+id/btn_worktimeCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Worktime TBL create"
         android:textSize="8sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_dropTableNameBox" />
+        app:layout_constraintTop_toBottomOf="@+id/in_defTblNameBox" />
 
     <Button
         android:id="@+id/btn_companiesCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Companies TBL create"
         android:textSize="8sp"
         app:layout_constraintStart_toEndOf="@+id/btn_worktimeCreate"
-        app:layout_constraintTop_toBottomOf="@+id/in_dropTableNameBox" />
+        app:layout_constraintTop_toBottomOf="@+id/in_defTblNameBox" />
 
     <Button
         android:id="@+id/btn_wagesCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Wages tbl create"
         android:textSize="8sp"
         app:layout_constraintStart_toEndOf="@+id/btn_companiesCreate"
-        app:layout_constraintTop_toBottomOf="@+id/in_dropTableNameBox" />
+        app:layout_constraintTop_toBottomOf="@+id/in_defTblNameBox" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
@@ -190,5 +126,26 @@
         android:textSize="8sp"
         app:layout_constraintStart_toEndOf="@+id/btn_agenciesCreate"
         app:layout_constraintTop_toBottomOf="@+id/btn_companiesCreate" />
+
+    <EditText
+        android:id="@+id/in_defTblNameBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/in_dropTableNameBox" />
+
+    <Button
+        android:id="@+id/btn_defDatas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Fill defaults"
+        app:layout_constraintStart_toEndOf="@+id/in_defTblNameBox"
+        app:layout_constraintTop_toBottomOf="@+id/btn_dropTable" />
 
 </android.support.constraint.ConstraintLayout>

@@ -24,20 +24,23 @@ import java.util.Locale;
 
 import uk.co.computerxpert.worktime.App.App;
 import uk.co.computerxpert.worktime.R;
+import uk.co.computerxpert.worktime.data.model.Agencies;
 import uk.co.computerxpert.worktime.data.model.Companies;
 import uk.co.computerxpert.worktime.data.model.DefShifts;
+import uk.co.computerxpert.worktime.data.repo.AgenciesRepo;
+import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
 import uk.co.computerxpert.worktime.data.repo.DefShiftsRepo;
 
 
 public class DefShiftsManMod extends AppCompatActivity implements View.OnClickListener {
 
     private Intent Uj_activity;
-    private int id=1;
+    private int id=1, defAgencyId, defCompId;
     private static final String TAG_Ertek="TAG: ";
     EditText eddefShiftName, edstarttime, edendtime, edunpbreak;
     private int eddefShiftID = 0;
-    private Spinner spinner;
-    private String var = "time", kezdveg = "k";
+    private Spinner spinnerCompany, spinnerAgency;
+    private String var = "time", kezdveg = "k", notSelected;
 
     final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
     DateFormat formatDate = new SimpleDateFormat("dd MMM yyyy");
@@ -49,22 +52,25 @@ public class DefShiftsManMod extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_def_shifts_man_mod);
 
-        // TextView tv_str_agency = (TextView) findViewById(R.id.tv_stp_agency);
+        notSelected=getString(R.string.NotSelected);
         eddefShiftName = (EditText) findViewById(R.id.inp_defShiftName2);
         edstarttime = (EditText) findViewById(R.id.inp_startTime2);
         edendtime = (EditText) findViewById(R.id.inp_endTime2);
         edunpbreak = (EditText) findViewById(R.id.inp_unpBreak2);
-        spinner = (Spinner) findViewById(R.id.sp_compNames2);
+        spinnerCompany = (Spinner) findViewById(R.id.sp_compNames2);
+        spinnerAgency = (Spinner) findViewById(R.id.sp_agencyNames2);
 
         Button btnstartTime = (Button) findViewById(R.id.btn_startTime2);
         Button btnendTime = (Button) findViewById(R.id.btn_endTime2);
         Button btnSave = (Button) findViewById(R.id.btn_defShiftsSave2);
 
         String fromDefShiftsID = getIntent().getStringExtra("defShiftsID");
+
+        App.CompanyListToSpinner(spinnerCompany, this,"SELECT * FROM Companies" , "false");
+        App.AgenciesListToSpinner(spinnerAgency, this, "SELECT * FROM Agencies", "false");
+
         loadFormDefaults(fromDefShiftsID);
 
-        String selectQuery =  "SELECT * FROM Companies";
-        App.CompanyListToSpinner(spinner, this, selectQuery, "false");
 
         btnstartTime.setOnClickListener(this);
         btnendTime.setOnClickListener(this);
@@ -113,8 +119,31 @@ public class DefShiftsManMod extends AppCompatActivity implements View.OnClickLi
             edstarttime.setText(defShifts_s.get(i).get_defsh_starttime());
             edendtime.setText(defShifts_s.get(i).get_defsh_endtime());
             edunpbreak.setText(String.valueOf(defShifts_s.get(i).get_defsh_unpbr()));
+            defCompId = defShifts_s.get(i).get_defsh_comp_id();
+            defAgencyId = defShifts_s.get(i).get_defsh_agency_id();
             values.add(defShifts_s.get(i).get_defsh_name());
         }
+        spinnerAgency.setSelection(setPosFromDefAgencyId(defAgencyId));
+        spinnerCompany.setSelection(setPosFromDefCompanyId(defCompId));
+    }
+
+    private int setPosFromDefCompanyId(int companyId){
+        Integer position=0;
+        String selectQuery = " SELECT * FROM Companies";
+        List<Companies> companies_s = CompaniesRepo.getCompanies(selectQuery);
+        for(int i=0; i<companies_s.size();i++){
+            if(companies_s.get(i).getcomp_id() == companyId){ position = i; }
+        } return position;
+    }
+
+
+    private int setPosFromDefAgencyId(int agencyId){
+        Integer position=0;
+        String selectQuery = " SELECT * FROM Agencies";
+        List<Agencies> agencies_s= AgenciesRepo.getAgencies(selectQuery);
+        for(int i=0; i<agencies_s.size();i++){
+            if(agencies_s.get(i).getagency_id() == agencyId){ position = i; }
+        } return position;
     }
 
 
@@ -144,7 +173,19 @@ public class DefShiftsManMod extends AppCompatActivity implements View.OnClickLi
         String _edstarttime = edstarttime.getText().toString();
         String _edendtime = edendtime.getText().toString();
         String _edunbreak = edunpbreak.getText().toString();
-        String _comp_name = spinner.getSelectedItem().toString();
+        String _comp_name = spinnerCompany.getSelectedItem().toString();
+        String _agency_name = spinnerAgency.getSelectedItem().toString();
+        Integer _agency_id = 0;
+
+        if(_agency_name.equals(notSelected)){
+            _agency_id = 0;
+        }else {
+            String selectQuery = " SELECT * "
+                    + " FROM " + Agencies.TABLE
+                    + " WHERE " + Agencies.KEY_agency_name
+                    + " =\"" + _agency_name + "\"";
+            _agency_id = App.agency_idFromSpinner(selectQuery);
+        }
 
         String selectQuery =  " SELECT * "
                 + " FROM " + Companies.TABLE
@@ -154,7 +195,7 @@ public class DefShiftsManMod extends AppCompatActivity implements View.OnClickLi
         Integer _comp_id = App.comp_idFromSpinner(selectQuery);
 
         DefShiftsRepo.update(eddefShiftID, _eddefShiftName, _comp_id, _edstarttime,
-                _edendtime, Integer.parseInt(_edunbreak));
+                _edendtime, Integer.parseInt(_edunbreak), _agency_id);
     }
 
 

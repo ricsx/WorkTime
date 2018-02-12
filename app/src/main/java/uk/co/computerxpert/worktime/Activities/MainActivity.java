@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;

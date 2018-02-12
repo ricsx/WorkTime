@@ -32,7 +32,8 @@ public class DefShiftsRepo {
                 + DefShifts.KEY_DS_comp_id + " INTEGER, "
                 + DefShifts.KEY_DS_Starttime + " TEXT, "
                 + DefShifts.KEY_DS_Endtime + " TEXT, "
-                + DefShifts.KEY_DS_Unpbr + " INTEGER "
+                + DefShifts.KEY_DS_Unpbr + " INTEGER, "
+                + DefShifts.KEY_DS_Agency_id + " INTEGER "
                 + ")";
     }
 
@@ -46,7 +47,9 @@ public class DefShiftsRepo {
         values.put(DefShifts.KEY_DS_Starttime, defShifts.get_defsh_starttime());
         values.put(DefShifts.KEY_DS_Endtime, defShifts.get_defsh_endtime());
         values.put(DefShifts.KEY_DS_Unpbr, defShifts.get_defsh_unpbr());
-        
+        values.put(DefShifts.KEY_DS_Agency_id, defShifts.get_defsh_agency_id());
+
+
         // Inserting Row
         defShiftsId=(int) db.insert(DefShifts.TABLE, null, values);
         DatabaseManager.getInstance().closeDatabase();
@@ -94,6 +97,7 @@ public class DefShiftsRepo {
                 defShifts.set_defsh_starttime(cursor.getString(cursor.getColumnIndex(DefShifts.KEY_DS_Starttime)));
                 defShifts.set_defsh_endtime(cursor.getString(cursor.getColumnIndex(DefShifts.KEY_DS_Endtime)));
                 defShifts.set_defsh_unpbr(cursor.getInt(cursor.getColumnIndex(DefShifts.KEY_DS_Unpbr)));
+                defShifts.set_defsh_agency_id(cursor.getInt(cursor.getColumnIndex(DefShifts.KEY_DS_Agency_id)));
                 defShifts_s.add(defShifts);
             } while (cursor.moveToNext());
         }
@@ -105,7 +109,7 @@ public class DefShiftsRepo {
     }
 
     public static void update(int defsh_id, String defsh_name, int defsh_comp_id, String defsh_starttime,
-                              String defsh_endtime, int defsh_unpbr) {
+                              String defsh_endtime, int defsh_unpbr, int defsh_agency_id) {
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase(); //DBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -115,6 +119,7 @@ public class DefShiftsRepo {
         values.put(DefShifts.KEY_DS_Starttime, defsh_starttime);
         values.put(DefShifts.KEY_DS_Endtime, defsh_endtime);
         values.put(DefShifts.KEY_DS_Unpbr, defsh_unpbr);
+        values.put(DefShifts.KEY_DS_Agency_id, defsh_agency_id);
 
         // It's a good practice to use parameter ?, instead of concatenate string
         db.update (DefShifts.TABLE, values, DefShifts.KEY_DS_ID + "= ?",

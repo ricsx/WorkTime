@@ -54,9 +54,8 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
     private static final String TAG_Ertek="TAG: ";
     EditText eddefShiftName, edstarttime, edendtime, edunpbreak;
     private ListView results;
-    private Spinner spinner;
-   // private Context context = this;
-    private String var = "time", kezdveg = "k";
+    private Spinner spinner, spinnerAgency;
+    private String var = "time", kezdveg = "k", notSelected;
 
     private Map<String, Integer> months = new HashMap<String, Integer>();
     final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
@@ -70,19 +69,21 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_def_shifts_man);
 
         // TextView tv_str_agency = (TextView) findViewById(R.id.tv_stp_agency);
+        notSelected=getString(R.string.NotSelected);
         results=(ListView) findViewById(R.id.result);
         eddefShiftName = (EditText) findViewById(R.id.inp_defShiftName);
         edstarttime = (EditText) findViewById(R.id.inp_startTime);
         edendtime = (EditText) findViewById(R.id.inp_endTime);
         edunpbreak = (EditText) findViewById(R.id.inp_unpBreak);
         spinner = (Spinner) findViewById(R.id.sp_compNames);
+        spinnerAgency = (Spinner) findViewById(R.id.sp_agencyNames);
 
         Button btnstartTime = (Button) findViewById(R.id.btn_startTime);
         Button btnendTime = (Button) findViewById(R.id.btn_endTime);
         Button btnSave = (Button) findViewById(R.id.btn_defShiftsSave);
 
-        String selectQuery =  "SELECT * FROM Companies";
-        App.CompanyListToSpinner(spinner, this, selectQuery, "false");
+        App.CompanyListToSpinner(spinner, this, "SELECT * FROM Companies", "false");
+        App.AgenciesListToSpinner(spinnerAgency, this, "SELECT * FROM Agencies", notSelected);
 
         make_listview();
         btnstartTime.setOnClickListener(this);
@@ -112,9 +113,6 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
                 updateTime();
             }
         });
-
-
-
     }
 
 
@@ -193,13 +191,25 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
         String endtime = edendtime.getText().toString();
         String unpbreak = edunpbreak.getText().toString();
         String comp_name = spinner.getSelectedItem().toString();
+        String agency_name = spinnerAgency.getSelectedItem().toString();
+        Integer agency_id = null;
 
-        String selectQuery =  " SELECT * "
-                + " FROM " + Companies.TABLE
-                + " WHERE " + Companies.KEY_comp_name
-                + " =\""+ comp_name+"\""
-                ;
+        if(agency_name.equals(notSelected)){
+            agency_id = null;
+        }else {
+            String selectQuery = " SELECT * "
+                    + " FROM " + Agencies.TABLE
+                    + " WHERE " + Agencies.KEY_agency_name
+                    + " =\"" + agency_name + "\"";
+            agency_id = App.agency_idFromSpinner(selectQuery);
+        }
+
+        String selectQuery = " SELECT * "
+                    + " FROM " + Companies.TABLE
+                    + " WHERE " + Companies.KEY_comp_name
+                    + " =\"" + comp_name + "\"";
         Integer comp_id = App.comp_idFromSpinner(selectQuery);
+
 
         DefShifts defShifts = new DefShifts();
         defShifts.set_defsh_name(shiftName);
@@ -207,6 +217,7 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
         defShifts.set_defsh_starttime(starttime);
         defShifts.set_defsh_endtime(endtime);
         defShifts.set_defsh_unpbr(Integer.parseInt(unpbreak));
+        defShifts.set_defsh_agency_id(agency_id);
 
         DefShiftsRepo.insert(defShifts);
 
@@ -249,7 +260,6 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btn_defShiftsSave:
                 defShift_insert();
-                Log.i(TAG_Ertek, "send");
                 break;
         }
     }
