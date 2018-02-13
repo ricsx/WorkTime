@@ -44,7 +44,7 @@ public class FullQuerysRepo {
                 fullQuerys.setwage_id(cursor.getInt(cursor.getColumnIndex("wage_id")));
                 fullQuerys.setwage_comp_id(cursor.getInt(cursor.getColumnIndex("wage_comp_id")));
                 fullQuerys.setwage_startdate(cursor.getLong(cursor.getColumnIndex("wage_startdate")));
-                fullQuerys.setwage_enddate(cursor.getLong(cursor.getColumnIndex("wage_enddate")));
+                fullQuerys.set_wage_strstdate(cursor.getString(cursor.getColumnIndex("wage_strstdate")));
                 fullQuerys.setwage_val(cursor.getString(cursor.getColumnIndex("wage_val")));
 
                 fullQuerys.setwt_id(cursor.getInt(cursor.getColumnIndex("wt_id")));

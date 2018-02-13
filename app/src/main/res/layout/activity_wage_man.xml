@@ -44,11 +44,11 @@
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/salaryPerHour"
                 app:layout_constraintStart_toEndOf="@+id/in_wage_valBox"
-                app:layout_constraintTop_toBottomOf="@+id/btn_wage_enddate" />
+                app:layout_constraintTop_toBottomOf="@+id/in_wage_stdateBox" />
 
             <EditText
                 android:id="@+id/in_wage_valBox"
@@ -59,19 +59,6 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:labelFor="@+id/btn_wage_enddate"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/in_wage_enddateBox" />
-
-            <EditText
-                android:id="@+id/in_wage_enddateBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:labelFor="@+id/in_wage_stdateBox"
-                android:text="@string/endofempl"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/in_wage_stdateBox" />
 
@@ -88,16 +75,6 @@
                 app:layout_constraintHorizontal_bias="0.507"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/in_wage_valBox" />
-
-            <Button
-                android:id="@+id/btn_wage_enddate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/btnDate"
-                app:layout_constraintStart_toEndOf="@+id/in_wage_enddateBox"
-                app:layout_constraintTop_toBottomOf="@+id/btn_wage_stdate" />
 
             <EditText
                 android:id="@+id/in_wage_stdateBox"

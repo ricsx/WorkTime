@@ -98,6 +98,7 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
 
         double hoursOfWeek=0;
         double salaryOfWeek=0;
+        Integer rowcolor;
 
         TableLayout tl = findViewById(R.id.table);
 
@@ -107,6 +108,11 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
 
             hoursOfWeek = hoursOfWeek + Double.parseDouble(fullQuerys_s.get(i).getwt_hours());
             salaryOfWeek = salaryOfWeek + Double.parseDouble(fullQuerys_s.get(i).getwt_salary());
+            if (fullQuerys_s.get(i).getwt_otwage().equals("0")) {
+                rowcolor = R.color.row_normal;
+            } else {
+                rowcolor = R.color.row_overtime;
+            }
 
             String shift = fullQuerys_s.get(i).getcomp_name()+" \n"+
                     fullQuerys_s.get(i).getwt_strsdate()+" - "+fullQuerys_s.get(i).getwt_strstime()+"\n"+
@@ -114,9 +120,9 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
 
             TableRow tr = new TableRow(this);
             tr.setLayoutParams(getLayoutParams());
-            tr.addView(getTextView(i + 1, shift, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
-            tr.addView(getTextView(i + fullQuerys_s.size(), "\n"+fullQuerys_s.get(i).getwt_hours()+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
-            tr.addView(getTextView(i + fullQuerys_s.size(),"\n£"+fullQuerys_s.get(i).getwt_salary()+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
+            tr.addView(getTextView(i + 1, shift, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
+            tr.addView(getTextView(i + fullQuerys_s.size(), "\n"+fullQuerys_s.get(i).getwt_hours()+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
+            tr.addView(getTextView(i + fullQuerys_s.size(),"\n£"+fullQuerys_s.get(i).getwt_salary()+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
 
             tl.addView(tr, getTblLayoutParams());
         }

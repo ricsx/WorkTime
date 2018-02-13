@@ -7,17 +7,6 @@
     android:layout_height="match_parent"
     tools:context="uk.co.computerxpert.worktime.Activities.WageManMod">
 
-    <Spinner
-        android:id="@+id/spinner3"
-        android:layout_width="354dp"
-        android:layout_height="27dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
@@ -28,52 +17,41 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation" />
+        app:menu="@menu/navigation" >
+
+    </android.support.design.widget.BottomNavigationView>
+
+    <TextView
+        android:id="@+id/tvCompName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/in_wage_stdateBox2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/startofempl"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner3" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCompName" />
 
     <Button
         android:id="@+id/btn_wage_stdate2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="@string/btnDate"
         app:layout_constraintStart_toEndOf="@+id/in_wage_stdateBox2"
-        app:layout_constraintTop_toBottomOf="@+id/spinner3" />
-
-    <EditText
-        android:id="@+id/in_wage_enddateBox2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:labelFor="@+id/in_wage_stdateBox"
-        android:text="@string/endofempl"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_wage_stdateBox2" />
-
-    <Button
-        android:id="@+id/btn_wage_enddate2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/btnDate"
-        app:layout_constraintStart_toEndOf="@+id/in_wage_enddateBox2"
-        app:layout_constraintTop_toBottomOf="@+id/btn_wage_stdate2" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCompName" />
 
     <EditText
         android:id="@+id/in_wage_valBox2"
@@ -85,25 +63,26 @@
         android:inputType="textPersonName"
         android:labelFor="@+id/btn_wage_enddate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_wage_enddateBox2" />
+        app:layout_constraintTop_toBottomOf="@+id/in_wage_stdateBox2" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="@string/salaryPerHour"
         app:layout_constraintStart_toEndOf="@+id/in_wage_valBox2"
-        app:layout_constraintTop_toBottomOf="@+id/btn_wage_enddate2" />
+        app:layout_constraintTop_toBottomOf="@+id/in_wage_stdateBox2" />
 
     <Button
         android:id="@+id/btn_stp_wageSave2"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
+        android:onClick="onClick"
         android:text="@string/bt_stp_somp_send"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

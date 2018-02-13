@@ -17,7 +17,7 @@ public class FullQuerys {
     private int _wage_id;
     private int _wage_comp_id;
     private double _wage_startdate;
-    private double _wage_enddate;
+    private String _wage_strstdate;
     private String _wage_val;
     private String _wt_strsdate;
     private String _wt_stredate;
@@ -37,7 +37,7 @@ public class FullQuerys {
 
 
     public FullQuerys(int comp_id, String comp_name,
-                      int wage_id, int wage_comp_id, double  wage_startdate, double  wage_enddate, String wage_val,
+                      int wage_id, int wage_comp_id, double  wage_startdate, String wage_strstdate, String wage_val,
                       int wt_id, int wt_comp_id, double  wt_startdate, double  wt_enddate, String wt_rem, int wt_week, int wt_year,
                       String wt_strsdate, String wt_stredate, String wt_strstime, String wt_stretime,
                       String wt_hours, String wt_salary, String wt_otwage){
@@ -46,7 +46,7 @@ public class FullQuerys {
         this._wage_id = wage_id;
         this._wage_comp_id = wage_comp_id;
         this._wage_startdate = wage_startdate;
-        this._wage_enddate = wage_enddate;
+        this._wage_strstdate = wage_strstdate;
         this._wage_val = wage_val;
         this._wt_id = wt_id;
         this._wt_comp_id = wt_comp_id;
@@ -66,7 +66,7 @@ public class FullQuerys {
 
 
     public FullQuerys(String comp_name,
-                      int wage_id, int wage_comp_id, double  wage_startdate, double  wage_enddate, String wage_val,
+                      int wage_id, int wage_comp_id, double  wage_startdate, String wage_strstdate, String wage_val,
                       int wt_id, int wt_comp_id, double  wt_startdate, double  wt_enddate, String wt_rem, int wt_week, int wt_year,
                       String wt_strsdate, String wt_stredate, String wt_strstime, String wt_stretime,
                       String wt_hours, String wt_salary, String wt_otwage){
@@ -74,7 +74,7 @@ public class FullQuerys {
         this._wage_id = wage_id;
         this._wage_comp_id = wage_comp_id;
         this._wage_startdate = wage_startdate;
-        this._wage_enddate = wage_enddate;
+        this._wage_strstdate = wage_strstdate;
         this._wage_val = wage_val;
         this._wt_id = wt_id;
         this._wt_comp_id = wt_comp_id;
@@ -134,41 +134,29 @@ public class FullQuerys {
         return this._wage_startdate;
     }
 
-    public void setwage_enddate(double  wage_enddate) {
-        this._wage_enddate = wage_enddate;
+    public void set_wage_strstdate(String wage_stsstdate) {
+        this._wage_strstdate = wage_stsstdate;
     }
 
-    public double  getwage_enddate() {
-        return this._wage_enddate;
+    public String  get_wage_strstdate() {
+        return this._wage_strstdate;
     }
 
     public void setwage_val(String wage_val) { this._wage_val = wage_val; }
 
     public String getwage_val() { return this._wage_val; }
 
-    public void setwt_id(int wt_id) {
-        this._wt_id = wt_id;
-    }
+    public void setwt_id(int wt_id) { this._wt_id = wt_id; }
 
-    public int getwt_id() {
-        return this._wt_id;
-    }
+    public int getwt_id() { return this._wt_id; }
 
-    public void setwt_comp_id(int wt_comp_id) {
-        this._wt_comp_id = wt_comp_id;
-    }
+    public void setwt_comp_id(int wt_comp_id) { this._wt_comp_id = wt_comp_id; }
 
-    public int getwt_comp_id() {
-        return this._wt_comp_id;
-    }
+    public int getwt_comp_id() { return this._wt_comp_id; }
 
-    public void setwt_startdate(double  wt_startdate) {
-        this._wt_startdate = wt_startdate;
-    }
+    public void setwt_startdate(double  wt_startdate) { this._wt_startdate = wt_startdate; }
 
-    public double  getwt_startdate() {
-        return this._wt_startdate;
-    }
+    public double  getwt_startdate() { return this._wt_startdate; }
 
     public void setwt_enddate(double  wt_enddate) {this._wt_enddate = wt_enddate; }
 

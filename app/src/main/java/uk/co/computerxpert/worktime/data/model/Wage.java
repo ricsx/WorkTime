@@ -14,13 +14,13 @@ public class Wage {
     public static final String KEY_wage_id = "wage_id";
     public static final String KEY_wage_comp_id = "wage_comp_id";
     public static final String KEY_wage_startdate = "wage_startdate";
-    public static final String KEY_wage_enddate = "wage_enddate";
+    public static final String KEY_wage_strstdate = "wage_strstdate";
     public static final String KEY_wage_val = "wage_val";
 
     private int _wage_id;
     private int _wage_comp_id;
     private double _wage_startdate;
-    private double _wage_enddate;
+    private String _wage_strstdate;
     private String _wage_val;
     private String _comp_name;
 
@@ -28,18 +28,18 @@ public class Wage {
     public Wage() {
     }
 
-    public Wage(int wage_id, int wage_comp_id, double wage_startdate, double wage_enddate, String wage_val) {
+    public Wage(int wage_id, int wage_comp_id, double wage_startdate, String wage_strstdate, String wage_val) {
         this._wage_id = wage_id;
         this._wage_comp_id = wage_comp_id;
         this._wage_startdate = wage_startdate;
-        this._wage_enddate = wage_enddate;
+        this._wage_strstdate = wage_strstdate;
         this._wage_val = wage_val;
     }
 
-    public Wage(int wage_comp_id, double wage_startdate, double wage_enddate, String wage_val) {
+    public Wage(int wage_comp_id, double wage_startdate, String wage_strstdate, String wage_val) {
         this._wage_comp_id = wage_comp_id;
         this._wage_startdate = wage_startdate;
-        this._wage_enddate = wage_enddate;
+        this._wage_strstdate = wage_strstdate;
         this._wage_val = wage_val;
     }
 
@@ -67,11 +67,11 @@ public class Wage {
         return this._wage_startdate;
     }
 
-    public void setwage_enddate(double wage_enddate) {
-        this._wage_enddate = wage_enddate;
+    public void setwage_strstdate(String wage_strstdate) {
+        this._wage_strstdate = wage_strstdate;
     }
 
-    public double getwage_enddate() { return this._wage_enddate; }
+    public String getwage_strstdate() { return this._wage_strstdate; }
 
     public void setwage_val(String wage_val) { this._wage_val = wage_val; }
 

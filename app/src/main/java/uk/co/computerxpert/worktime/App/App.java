@@ -15,8 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -49,6 +51,9 @@ public class App extends Application {
     public static double OneDayUxt = 86400;
     public static Map<String, Integer> months = new HashMap<String, Integer>();
     public static DecimalFormat dformat = new DecimalFormat("0.00");
+    public static DateFormat formatDate = new SimpleDateFormat("dd MMM yyyy");
+    public static final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
+    public static final DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy hh:mm");
 
     @Override
     public void onCreate()
@@ -157,6 +162,17 @@ public class App extends Application {
             wage_val = Double.parseDouble(wages_s.get(i).getwage_val());
         }
         return wage_val;
+    }
+
+    public static String compNameFromWageID(int comp_id){
+        String compName = "";
+        String selectQuery= "SELECT * FROM wage,companies WHERE wage.wage_comp_id = companies.comp_id and " +
+                "wage_comp_id= \"" + comp_id + "\"";
+        List<Wage> wages_s = WageRepo.getWage(selectQuery);
+        for(int i=0;i<wages_s.size();i++){
+            compName = wages_s.get(i).getcomp_name();
+        }
+        return compName;
     }
 
     public static Integer agency_idFromSpinner(String selectQuery){

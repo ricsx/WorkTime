@@ -121,6 +121,8 @@ public class CompaniesManMod extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.btn_cmmMod:
                 updater();
+                Intent Uj_activity = new Intent(CompaniesManMod.this, CompaniesMan.class);
+                startActivity(Uj_activity);
                 break;
         }
     }
