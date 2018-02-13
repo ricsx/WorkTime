@@ -10,12 +10,9 @@ import android.view.View;
 import android.widget.Button;
 
 import uk.co.computerxpert.worktime.R;
-import uk.co.computerxpert.worktime.data.model.Agencies;
-import uk.co.computerxpert.worktime.data.model.DefShifts;
 
 public class Setup extends AppCompatActivity implements View.OnClickListener {
 
-    private int id=1;
     private Intent Uj_activity;
 
     @Override
@@ -45,27 +42,22 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btn_companies:
                 Uj_activity = new Intent(Setup.this, CompaniesMan.class);
-                Uj_activity.putExtra("sessid", id);
                 startActivity(Uj_activity);
                 break;
             case R.id.btn_wages:
                 Uj_activity = new Intent(Setup.this, WageMan.class);
-                Uj_activity.putExtra("sessid", id);
                 startActivity(Uj_activity);
                 break;
             case R.id.btn_dev:
                 Uj_activity = new Intent(Setup.this, DeveloperSection.class);
-                Uj_activity.putExtra("sessid", id);
                 startActivity(Uj_activity);
                 break;
             case R.id.btn_agencies:
                 Uj_activity = new Intent(Setup.this, AgenciesMan.class);
-                Uj_activity.putExtra("sessid", id);
                 startActivity(Uj_activity);
                 break;
             case R.id.btn_defShifts:
                 Uj_activity = new Intent(Setup.this, DefShiftsMan.class);
-                Uj_activity.putExtra("sessid", id);
                 startActivity(Uj_activity);
                 break;
         }
@@ -82,17 +74,14 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     Uj_activity = new Intent(Setup.this, MainActivity.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
                     Uj_activity = new Intent(Setup.this, Worktimes.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
                     Uj_activity = new Intent(Setup.this, Setup.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
             }

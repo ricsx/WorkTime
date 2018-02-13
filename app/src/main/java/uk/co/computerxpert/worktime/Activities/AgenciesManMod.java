@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +19,6 @@ import uk.co.computerxpert.worktime.data.repo.AgenciesRepo;
 
 public class AgenciesManMod extends AppCompatActivity implements View.OnClickListener{
 
-    private int id=1;
-    private static final String TAG_Ertek="TAG: ";
     int ed_agency_id;
     EditText ed_agency_name;
     EditText edAgencyAddr;
@@ -31,14 +28,12 @@ public class AgenciesManMod extends AppCompatActivity implements View.OnClickLis
     EditText edContPName;
     EditText edContPPhone;
     EditText edContPEmail;
-    private ListView result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agencies_man_mod);
 
-        result=(ListView) findViewById(R.id.results);
         ed_agency_name = (EditText) findViewById(R.id.upd_agencyNameBox);
         edAgencyAddr = (EditText) findViewById(R.id.upd_agencyAddressBox);
         edAgencyCity = (EditText) findViewById(R.id.upd_agencyCityBox);
@@ -105,17 +100,14 @@ public class AgenciesManMod extends AppCompatActivity implements View.OnClickLis
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     Uj_activity = new Intent(AgenciesManMod.this, MainActivity.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
                     Uj_activity = new Intent(AgenciesManMod.this, Worktimes.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
                     Uj_activity = new Intent(AgenciesManMod.this, Setup.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
             }

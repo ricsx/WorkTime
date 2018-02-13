@@ -36,7 +36,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner4" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_wage" />
 
             <Spinner
                 android:id="@+id/sp_agencyNames"
@@ -190,6 +190,40 @@
                 android:inputType="textPersonName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/in_megjBox" />
+
+            <CheckBox
+                android:id="@+id/chb_overTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/Overtime"
+                app:layout_constraintStart_toEndOf="@+id/spinner4"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_wage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="28dp"
+                android:text="@string/wageOfTheOtime"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner4" />
+
+            <EditText
+                android:id="@+id/overTimeWage"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="0"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/tv_wage"
+                app:layout_constraintTop_toBottomOf="@+id/chb_overTime" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

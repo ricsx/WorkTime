@@ -62,4 +62,6 @@
     <string name="ChooseDefaultShift">Choose a default shift</string>
     <string name="chooseCompany">Choose a company</string>
     <string name="chooseAgency">Chosse an agency</string>
+    <string name="Overtime">Overtime</string>
+    <string name="wageOfTheOtime">Wage of the overtime</string>
 </resources>

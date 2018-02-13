@@ -18,6 +18,7 @@ import java.io.File;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -44,11 +45,10 @@ public class App extends Application {
     private static Context context;
     private static DBHelper dbHelper;
     private static Integer comp_id;
-    private static final String TAG_Ertek="TAG: ";
-    private static DecimalFormat dfToHours = new DecimalFormat("0.0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+    public static DecimalFormat dfToHours = new DecimalFormat("0.0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
     public static double OneDayUxt = 86400;
     public static Map<String, Integer> months = new HashMap<String, Integer>();
-
+    public static DecimalFormat dformat = new DecimalFormat("0.00");
 
     @Override
     public void onCreate()
@@ -87,7 +87,6 @@ public class App extends Application {
 
     public static void CompanyListToSpinner(Spinner spinnername, Context context, String selectQuery, String def){
 
-        CompaniesRepo companiesRepo = new CompaniesRepo();
         List<Companies> companies_s= CompaniesRepo.getCompanies(selectQuery);
         List<String> values = new ArrayList<String>();
         if(def!="false"){ values.add(def); }
@@ -101,7 +100,6 @@ public class App extends Application {
 
     public static void DefShiftsListToSpinner(Spinner spinnername, Context context, String selectQuery, String def){
 
-        DefShiftsRepo defShiftsRepo = new DefShiftsRepo();
         List<DefShifts> defShifts_s= DefShiftsRepo.getDefShifts(selectQuery);
         List<String> values = new ArrayList<String>();
         if(def!="false"){ values.add(def); }
@@ -115,7 +113,6 @@ public class App extends Application {
 
     public static void AgenciesListToSpinner(Spinner spinnername, Context context, String selectQuery, String def){
 
-        AgenciesRepo agenciesRepo = new AgenciesRepo();
         List<Agencies> agencies_s= AgenciesRepo.getAgencies(selectQuery);
         List<String> values = new ArrayList<String>();
         if(def!="false"){ values.add(def); }
@@ -155,7 +152,6 @@ public class App extends Application {
     public static Double wageFromWageID(int comp_id){
         double wage_val = 0.00;
         String selectQuery= "SELECT * FROM wage WHERE wage_comp_id= \"" + comp_id + "\"";
-
         List<Wage> wages_s = WageRepo.getWage(selectQuery);
         for(int i=0;i<wages_s.size();i++){
             wage_val = Double.parseDouble(wages_s.get(i).getwage_val());

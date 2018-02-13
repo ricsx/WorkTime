@@ -20,8 +20,6 @@ import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
 
 public class CompaniesManMod extends AppCompatActivity implements View.OnClickListener {
 
-    private int id=1;
-    private static final String TAG_Ertek="TAG: ";
     int ed_comp_id;
     EditText ed_comp_name;
     EditText edCompAddr;
@@ -31,14 +29,12 @@ public class CompaniesManMod extends AppCompatActivity implements View.OnClickLi
     EditText edContPName;
     EditText edContPPhone;
     EditText edContPEmail;
-    private ListView result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_companies_man_mod);
 
-        result=(ListView) findViewById(R.id.results);
         ed_comp_name = (EditText) findViewById(R.id.cmm_compNameBox);
         edCompAddr = (EditText) findViewById(R.id.cmm_compAddressBox);
         edCompCity = (EditText) findViewById(R.id.cmm_compCityBox);
@@ -104,17 +100,14 @@ public class CompaniesManMod extends AppCompatActivity implements View.OnClickLi
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     Uj_activity = new Intent(CompaniesManMod.this, MainActivity.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
                     Uj_activity = new Intent(CompaniesManMod.this, Worktimes.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
                     Uj_activity = new Intent(CompaniesManMod.this, Setup.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
             }

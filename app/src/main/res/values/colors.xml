@@ -6,5 +6,6 @@
     <color name="colorAccent">#78909B</color>
     <color name="colorWhite">#fff</color>
     <color name="text_color">#888888</color>
-
+    <color name="row_overtime">#336699</color>
+    <color name="row_normal">#78909B</color>
 </resources>

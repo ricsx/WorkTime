@@ -6,16 +6,6 @@ package uk.co.computerxpert.worktime.data.model;
 
 public class FullQuerys {
 
-    public static final String Wo_TABLE = "Worktime";
-
-    public static final String KEY_wt_id = "wt_id";
- //   public static final String KEY_wt_comp_id = "wt_comp_id";
-    public static final String KEY_wt_startdate = "wt_startdate";
-    public static final String KEY_wt_enddate = "wt_enddate";
-    public static final String KEY_wt_rem = "wt_rem";
-    public static final String KEY_wt_week = "wt_week";
-    public static final String KEY_wt_year = "wt_year";
-
     private int _wt_id;
     private int _wt_comp_id;
     private double _wt_startdate;
@@ -23,14 +13,6 @@ public class FullQuerys {
     private String _wt_rem;
     private int _wt_week;
     private int _wt_year;
-
-    public static final String W_TABLE = "Wage";
-
-    public static final String KEY_wage_id = "wage_id";
-    public static final String KEY_wage_comp_id = "wage_comp_id";
-    public static final String KEY_wage_startdate = "wage_startdate";
-    public static final String KEY_wage_enddate = "wage_enddate";
-    public static final String KEY_wage_val = "wage_val";
 
     private int _wage_id;
     private int _wage_comp_id;
@@ -43,11 +25,7 @@ public class FullQuerys {
     private String _wt_stretime;
     private String _wt_hours;
     private String _wt_salary;
-
-    public static final String C_TABLE = "Companies";
-
-    public static final String KEY_comp_id = "comp_id";
-    public static final String KEY_comp_name = "comp_name";
+    private String _wt_otwage;
 
     private int _comp_id;
     private String _comp_name;
@@ -62,7 +40,7 @@ public class FullQuerys {
                       int wage_id, int wage_comp_id, double  wage_startdate, double  wage_enddate, String wage_val,
                       int wt_id, int wt_comp_id, double  wt_startdate, double  wt_enddate, String wt_rem, int wt_week, int wt_year,
                       String wt_strsdate, String wt_stredate, String wt_strstime, String wt_stretime,
-                      String wt_hours, String wt_salary){
+                      String wt_hours, String wt_salary, String wt_otwage){
         this._comp_id = comp_id;
         this._comp_name = comp_name;
         this._wage_id = wage_id;
@@ -83,6 +61,7 @@ public class FullQuerys {
         this._wt_stretime = wt_stretime;
         this._wt_hours = wt_hours;
         this._wt_salary = wt_salary;
+        this._wt_otwage = wt_otwage;
     }
 
 
@@ -90,7 +69,7 @@ public class FullQuerys {
                       int wage_id, int wage_comp_id, double  wage_startdate, double  wage_enddate, String wage_val,
                       int wt_id, int wt_comp_id, double  wt_startdate, double  wt_enddate, String wt_rem, int wt_week, int wt_year,
                       String wt_strsdate, String wt_stredate, String wt_strstime, String wt_stretime,
-                      String wt_hours, String wt_salary){
+                      String wt_hours, String wt_salary, String wt_otwage){
         this._comp_name = comp_name;
         this._wage_id = wage_id;
         this._wage_comp_id = wage_comp_id;
@@ -110,6 +89,7 @@ public class FullQuerys {
         this._wt_stretime = wt_stretime;
         this._wt_hours = wt_hours;
         this._wt_salary = wt_salary;
+        this._wt_otwage = wt_otwage;
     }
 
 
@@ -250,5 +230,8 @@ public class FullQuerys {
 
     public String getwt_salary() { return this._wt_salary; }
 
+    public void setwt_otwage(String wt_otwage) { this._wt_otwage = wt_otwage; }
+
+    public String getwt_otwage() { return this._wt_otwage; }
 }
 

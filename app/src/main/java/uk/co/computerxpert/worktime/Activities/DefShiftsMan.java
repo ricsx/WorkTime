@@ -1,22 +1,15 @@
 package uk.co.computerxpert.worktime.Activities;
 
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,50 +18,38 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TimePicker;
 
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import uk.co.computerxpert.worktime.App.App;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.Agencies;
 import uk.co.computerxpert.worktime.data.model.Companies;
 import uk.co.computerxpert.worktime.data.model.DefShifts;
-import uk.co.computerxpert.worktime.data.repo.AgenciesRepo;
 import uk.co.computerxpert.worktime.data.repo.DefShiftsRepo;
-import uk.co.computerxpert.worktime.data.repo.WorktimesRepo;
 
 
 public class DefShiftsMan extends AppCompatActivity implements View.OnClickListener {
 
     private Intent Uj_activity;
-    private int id=1;
-    private static final String TAG_Ertek="TAG: ";
     EditText eddefShiftName, edstarttime, edendtime, edunpbreak;
     private ListView results;
     private Spinner spinner, spinnerAgency;
     private String var = "time", kezdveg = "k", notSelected;
 
-    private Map<String, Integer> months = new HashMap<String, Integer>();
     final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
-    DateFormat formatDate = new SimpleDateFormat("dd MMM yyyy");
     SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm", Locale.UK); // Set up time format to 24-hour
-    DecimalFormat decimalFormat = new DecimalFormat("##.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_def_shifts_man);
 
-        // TextView tv_str_agency = (TextView) findViewById(R.id.tv_stp_agency);
         notSelected=getString(R.string.NotSelected);
         results=(ListView) findViewById(R.id.result);
         eddefShiftName = (EditText) findViewById(R.id.inp_defShiftName);
@@ -92,11 +73,6 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        months.put("Jan",1); months.put("Feb",2); months.put("Mar",3); months.put("Apr",4); months.put("May",5);
-        months.put("Jun",6); months.put("Jul",7); months.put("Aug",8); months.put("Sep",9); months.put("Oct",10);
-        months.put("Nov",11); months.put("Dec",12);
-
 
         btnstartTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,9 +134,6 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // ListView Clicked item index
-                int itemPosition = position;
-                // ListView Clicked item value
                 String itemValue = (String) results.getItemAtPosition(position);
                 String defshiftsIDString = Integer.toString(getDefShiftsIDFromQuery("SELECT * FROM DefShifts WHERE defsh_name = \""+itemValue+"\""));
                 Uj_activity = new Intent(DefShiftsMan.this, DefShiftsManMod.class);
@@ -236,17 +209,14 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     Uj_activity = new Intent(DefShiftsMan.this, MainActivity.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
                     Uj_activity = new Intent(DefShiftsMan.this, Worktimes.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
                     Uj_activity = new Intent(DefShiftsMan.this, Setup.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
             }

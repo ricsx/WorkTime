@@ -14,12 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,23 +37,18 @@ import uk.co.computerxpert.worktime.data.repo.WageRepo;
 public class WageMan extends AppCompatActivity  implements View.OnClickListener {
 
     private EditText in_kezddate, in_vegdate, in_val;
-    private int id = 1;
     private Intent Uj_activity;
-    private static final String TAG_Ertek="TAG: ";
     private String kezdveg = "k";
     public Spinner spinner1;
     private ListView result;
     private Context context = this;
-    private GridView gridView;
 
-    private DecimalFormat floatformat = new DecimalFormat(".##");
     Button btn_kezddate, btn_vegdate;
 
     private Map<String, Integer> months = new HashMap<String, Integer>();
 
     final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
     DateFormat formatDate = new SimpleDateFormat("dd MMM yyyy");
-    SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm", Locale.UK); // Set up time format to 24-hour
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -179,8 +172,6 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
         now.set(Calendar.MONTH,b-1);
         now.set(Calendar.YEAR,a);
 
-        int woyear = now.get(Calendar.WEEK_OF_YEAR);
-
         // End of week-of-year calculate
 
         Wage wage = new Wage();
@@ -284,17 +275,14 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     Uj_activity = new Intent(WageMan.this, MainActivity.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
                     Uj_activity = new Intent(WageMan.this, Worktimes.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
                     Uj_activity = new Intent(WageMan.this, Setup.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
             }

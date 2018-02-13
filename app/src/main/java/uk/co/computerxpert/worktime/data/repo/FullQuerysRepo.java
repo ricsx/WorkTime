@@ -60,6 +60,7 @@ public class FullQuerysRepo {
                 fullQuerys.setwt_stretime(cursor.getString(cursor.getColumnIndex("wt_stretime")));
                 fullQuerys.setwt_strsdate(cursor.getString(cursor.getColumnIndex("wt_strsdate")));
                 fullQuerys.setwt_strstime(cursor.getString(cursor.getColumnIndex("wt_strstime")));
+                fullQuerys.setwt_otwage(cursor.getString(cursor.getColumnIndex("wt_otwage")));
 
                 fullQuerys_s.add(fullQuerys);
             } while (cursor.moveToNext());

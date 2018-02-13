@@ -8,15 +8,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.text.DateFormat;
@@ -42,13 +43,14 @@ import uk.co.computerxpert.worktime.data.repo.WorktimesRepo;
 
 public class Worktimes extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText in_kezddate, in_kezdtime, in_vegdate, in_vegtime, in_megj, in_unpaidBreak;
-    private int id = 1, defAgencyId=0, defCompId=0;
+    private EditText in_kezddate, in_kezdtime, in_vegdate, in_vegtime, in_megj, in_unpaidBreak, overTimeWage;
+    private int defAgencyId=0, defCompId=0;
     private Intent Uj_activity;
-    private static final String TAG_Ertek = "TAG: ";
-    private String var = "time", kezdveg = "k", chooseDefaulShift, notSelected, chooseCompany;
+    private String kezdveg = "k", chooseDefaulShift, notSelected, chooseCompany,aa;
     private Spinner spinnerCompany, spinner2, spinnerAgency;
+    private CheckBox chechBox_overTime;
     private Context context = this;
+    private TextView tvWage;
 
     Button btn_kezddate, btn_kezdtime, btn_vegdate, btn_vegtime, btn_WorktimeSave;
 
@@ -79,6 +81,9 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         btn_vegdate = (Button) findViewById(R.id.btn_vegdate);
         btn_vegtime = (Button) findViewById(R.id.btn_vegtime);
         btn_WorktimeSave = (Button) findViewById(R.id.btn_WorktimeSave);
+        chechBox_overTime = (CheckBox) findViewById(R.id.chb_overTime);
+        tvWage = (TextView) findViewById(R.id.tv_wage);
+        overTimeWage = (EditText) findViewById(R.id.overTimeWage);
 
         // starting Spinners
         App.DefShiftsListToSpinner(spinner2, context, "SELECT * FROM DefShifts", chooseDefaulShift);
@@ -87,6 +92,21 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         App.AgenciesListToSpinner(spinnerAgency, this, "SELECT * FROM Agencies", notSelected);
 
         App.CompanyListToSpinner(spinnerCompany, context, "SELECT * FROM Companies", chooseCompany);
+
+        chechBox_overTime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {
+                    tvWage.setVisibility(View.VISIBLE);
+                    overTimeWage.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    tvWage.setVisibility(View.GONE);
+                    overTimeWage.setVisibility(View.GONE);
+                }
+            }
+        });
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -255,6 +275,8 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
 
 
     public void newWtime() throws ParseException {
+        Double wageOfDay;
+        String wt_outwage;
         String cegnev = spinnerCompany.getSelectedItem().toString();
         String kezddate = in_kezddate.getText().toString();
         String kezdtime = in_kezdtime.getText().toString();
@@ -265,6 +287,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         String megj =  in_megj.getText().toString();
         String unpbr =  in_unpaidBreak.getText().toString();
         String agency_name = spinnerAgency.getSelectedItem().toString();
+        String ovTimeWage = overTimeWage.getText().toString();
         Integer agency_id = null;
 
         if(agency_name.equals(notSelected)){
@@ -324,8 +347,16 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         String exactHoursOfDay=Double.toString(Double.parseDouble(decimalFormat.format(wh2)));
         // End of workhouse-calculate
 
-        Double wOfDay = App.wageFromWageID(comp_id)*Double.parseDouble(exactHoursOfDay);
-        String wageOfDay = Double.toString(Double.parseDouble(decimalFormat.format(wOfDay)));
+        if(ovTimeWage.equals("0")){
+            Double wOfDay = App.wageFromWageID(comp_id)*Double.parseDouble(exactHoursOfDay);
+            wageOfDay = Double.parseDouble(decimalFormat.format(wOfDay));
+            wt_outwage = "0";
+        }else{
+            wageOfDay = Double.parseDouble(ovTimeWage)*Double.parseDouble(exactHoursOfDay);
+            wt_outwage = ovTimeWage;
+        }
+
+
 
         uk.co.computerxpert.worktime.data.model.Worktimes worktimes = new uk.co.computerxpert.worktime.data.model.Worktimes();
         worktimes.setwt_comp_id(comp_id);
@@ -335,14 +366,14 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         worktimes.setwt_week(woyear);
         worktimes.setwt_year(a);
         worktimes.setwt_hours(hoursOfDay);
-        worktimes.setwt_salary(wageOfDay);
+        worktimes.setwt_salary(String.valueOf(wageOfDay));
         worktimes.setwt_stredate(kezddate);
         worktimes.setwt_strsdate(vegdate);
         worktimes.setwt_strstime(kezdtime);
         worktimes.setwt_stretime(vegtime);
         worktimes.setwt_unpbr(Integer.parseInt(unpbr));
         worktimes.setwt_agency_id(agency_id);
-
+        worktimes.setwt_otwage(wt_outwage);
         // Write datas into DB
         WorktimesRepo.insert(worktimes);
 
@@ -363,17 +394,14 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     Uj_activity = new Intent(Worktimes.this, MainActivity.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
                     Uj_activity = new Intent(Worktimes.this, Worktimes.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
                     Uj_activity = new Intent(Worktimes.this, Setup.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
             }
@@ -385,15 +413,6 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_date:
-                Log.i(TAG_Ertek, "date");
-                break;
-            case R.id.btn_kezdtime:
-                Log.i(TAG_Ertek, "kezdtm");
-                break;
-            case R.id.btn_vegtime:
-                Log.i(TAG_Ertek, "vegtm");
-                break;
             case R.id.btn_WorktimeSave:
                 try {
                     newWtime();
@@ -401,7 +420,6 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
                     e.printStackTrace();
                 }
                 Uj_activity = new Intent(Worktimes.this, MainActivity.class);
-                Uj_activity.putExtra("sessid", id);
                 startActivity(Uj_activity);
         }
     }

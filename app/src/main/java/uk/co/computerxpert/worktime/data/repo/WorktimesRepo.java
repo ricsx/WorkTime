@@ -50,7 +50,8 @@ public class WorktimesRepo {
         + Worktimes.KEY_wt_hours + " TEXT, "
         + Worktimes.KEY_wt_unpaidBreak + " INTEGER, "
         + Worktimes.KEY_wt_salary + " TEXT, "
-        + Worktimes.KEY_wt_agency_id + " INTEGER "
+        + Worktimes.KEY_wt_agency_id + " INTEGER, "
+        + Worktimes.KEY_wt_otwage + " TEXT "
         + ")";
 
         return aa;
@@ -75,6 +76,7 @@ public class WorktimesRepo {
         values.put(Worktimes.KEY_wt_stretime, worktimes.getwt_stretime());
         values.put(Worktimes.KEY_wt_unpaidBreak, worktimes.getwt_unpbr());
         values.put(Worktimes.KEY_wt_agency_id, worktimes.getwt_agency_id());
+        values.put(Worktimes.KEY_wt_otwage, worktimes.getwt_otwage());
         // Inserting Row
         worktimeId=(int) db.insert(Worktimes.TABLE, null, values);
         DatabaseManager.getInstance().closeDatabase();
@@ -109,6 +111,7 @@ public class WorktimesRepo {
                 worktimes.setwt_stretime(cursor.getString(cursor.getColumnIndex(Worktimes.KEY_wt_stretime)));
                 worktimes.setwt_unpbr(cursor.getInt(cursor.getColumnIndex(Worktimes.KEY_wt_unpaidBreak)));
                 worktimes.setwt_agency_id(cursor.getInt(cursor.getColumnIndex(Worktimes.KEY_wt_agency_id)));
+                worktimes.setwt_otwage(cursor.getString(cursor.getColumnIndex(Worktimes.KEY_wt_otwage)));
                 worktimes_s.add(worktimes);
             } while (cursor.moveToNext());
         }

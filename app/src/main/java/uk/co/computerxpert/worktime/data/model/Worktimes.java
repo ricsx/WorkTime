@@ -26,6 +26,8 @@ public class Worktimes {
     public static final String KEY_wt_stretime = "wt_stretime";
     public static final String KEY_wt_unpaidBreak = "wt_unpbr";
     public static final String KEY_wt_agency_id = "wt_agency_id";
+    public static final String KEY_wt_otwage = "wt_otwage";
+
 
 
     private int _wt_id;
@@ -43,13 +45,14 @@ public class Worktimes {
     private String _wt_salary;
     private int _wt_unpbr;
     private int _wt_agency_id;
+    private String _wt_otwage;
 
     public Worktimes() {
 
     }
 
     public Worktimes(int wt_id, int wt_comp_id, double wt_startdate, double wt_enddate, String wt_rem, int wt_week, int wt_year,
-                     int wt_unpbr, int wt_agency_id) {
+                     int wt_unpbr, int wt_agency_id, String wt_otwage) {
         this._wt_id = wt_id;
         this._wt_comp_id = wt_comp_id;
         this._wt_startdate = wt_startdate;
@@ -59,10 +62,11 @@ public class Worktimes {
         this._wt_year = wt_year;
         this._wt_unpbr = wt_unpbr;
         this._wt_agency_id = wt_agency_id;
+        this._wt_otwage = wt_otwage;
     }
 
     public Worktimes(int wt_comp_id, double wt_startdate, double wt_enddate, String wt_rem, int wt_week, int wt_year,
-                     int wt_unpbr, int wt_agency_id) {
+                     int wt_unpbr, int wt_agency_id, String wt_otwage) {
         this._wt_comp_id = wt_comp_id;
         this._wt_startdate = wt_startdate;
         this._wt_enddate = wt_enddate;
@@ -71,11 +75,12 @@ public class Worktimes {
         this._wt_year = wt_year;
         this._wt_unpbr = wt_unpbr;
         this._wt_agency_id = wt_agency_id;
+        this._wt_otwage = wt_otwage;
     }
 
     public Worktimes(int wt_id, int wt_comp_id, double wt_startdate, double wt_enddate, String wt_rem, int wt_week, int wt_year,
                      String wt_strsdate, String wt_stredate, String wt_strstime, String wt_stretime,
-                     String wt_hours, String wt_salary, int wt_unpbr, int wt_agency_id) {
+                     String wt_hours, String wt_salary, int wt_unpbr, int wt_agency_id, String wt_otwage) {
         this._wt_id = wt_id;
         this._wt_comp_id = wt_comp_id;
         this._wt_startdate = wt_startdate;
@@ -91,6 +96,7 @@ public class Worktimes {
         this._wt_salary = wt_salary;
         this._wt_unpbr = wt_unpbr;
         this._wt_agency_id = wt_agency_id;
+        this._wt_otwage = wt_otwage;
     }
 
 
@@ -196,4 +202,7 @@ public class Worktimes {
         return this._wt_agency_id;
     }
 
+    public void setwt_otwage(String wt_otwage) { this._wt_otwage = wt_otwage; }
+
+    public String getwt_otwage() { return this._wt_otwage; }
 }

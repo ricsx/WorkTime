@@ -9,18 +9,15 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -33,7 +30,6 @@ import static uk.co.computerxpert.worktime.App.App.*;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private static final String TAG_Ertek="TAG: ";
     public Intent Uj_activity;
     int id = 1;
 
@@ -104,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      **/
     public void addData() {
 
+        Integer rowcolor;
         double maxStartDate = maxStartDate();
         double minMaxStartDate = maxStartDate - OneDayUxt*8;
 
@@ -117,37 +114,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         TableLayout tl = findViewById(R.id.table);
 
-        FullQuerysRepo fullQuerysRepo = new FullQuerysRepo();
         List<FullQuerys> fullQuerys_s = FullQuerysRepo.getFullQuerys(selectQuery);
-        List<String> values = new ArrayList<String>();
 
-        for(int i=0; i<fullQuerys_s.size();i++){
-            values.add(fullQuerys_s.get(i).getcomp_name());
-            String aa = fullQuerys_s.get(i).getwt_strsdate();
-            values.add(fullQuerys_s.get(i).getwt_strstime());
-            values.add(fullQuerys_s.get(i).getwt_stredate());
-            values.add(fullQuerys_s.get(i).getwt_stretime());
-            values.add(fullQuerys_s.get(i).getwt_hours());
-            values.add(fullQuerys_s.get(i).getwt_salary());
+        for(int i=0; i<fullQuerys_s.size();i++) {
+
+            if (fullQuerys_s.get(i).getwt_otwage().equals("0")) {
+                rowcolor = R.color.row_normal;
+            } else {
+                rowcolor = R.color.row_overtime;
+            }
 
             hoursOfWeek = hoursOfWeek + Double.parseDouble(fullQuerys_s.get(i).getwt_hours());
             salaryOfWeek = salaryOfWeek + Double.parseDouble(fullQuerys_s.get(i).getwt_salary());
 
-            String shift = fullQuerys_s.get(i).getwt_strsdate()+" - "+fullQuerys_s.get(i).getwt_strstime()+"\n"+
+            String shift = fullQuerys_s.get(i).getwt_strsdate()+" - "+
+                    fullQuerys_s.get(i).getwt_strstime()+"\n"+
                     fullQuerys_s.get(i).getwt_stredate()+" - "+fullQuerys_s.get(i).getwt_stretime();
+
 
             TableRow tr = new TableRow(this);
             tr.setLayoutParams(getLayoutParams());
-            tr.addView(getTextView(i + 1, shift, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
-            tr.addView(getTextView(i + fullQuerys_s.size(), fullQuerys_s.get(i).getwt_hours()+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
-            tr.addView(getTextView(i + fullQuerys_s.size(),"£"+fullQuerys_s.get(i).getwt_salary()+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
+            tr.addView(getTextView(i + 1, shift, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
+            tr.addView(getTextView(i + fullQuerys_s.size(), fullQuerys_s.get(i).getwt_hours()+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
+            tr.addView(getTextView(i + fullQuerys_s.size(),"£"+fullQuerys_s.get(i).getwt_salary()+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
 
             tl.addView(tr, getTblLayoutParams());
         }
+
         TableRow tr = new TableRow(this);
         tr.addView(getTextView(1, "Sum: ", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
         tr.addView(getTextView(1,  ""+hoursOfWeek, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
-        tr.addView(getTextView(1,  ""+salaryOfWeek, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
+        tr.addView(getTextView(1,  ""+dformat.format(salaryOfWeek), Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
         tl.addView(tr, getTblLayoutParams());
     }
 
@@ -158,9 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 " AND companies.comp_id=wage.wage_comp_id"
                 ;
         double aa=0.00;
-        FullQuerysRepo fullQuerysRepo = new FullQuerysRepo();
         List<FullQuerys> fullQuerys_s = FullQuerysRepo.getMaxStartDate(selectQuery);
-        List<String> values = new ArrayList<String>();
 
         for(int i=0; i<fullQuerys_s.size();i++){ aa = fullQuerys_s.get(i).getwt_startdate();
         }
@@ -190,17 +185,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     Uj_activity = new Intent(MainActivity.this, MainActivity.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
                     Uj_activity = new Intent(MainActivity.this, uk.co.computerxpert.worktime.Activities.Worktimes.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
                     Uj_activity = new Intent(MainActivity.this, Setup.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
             }
@@ -215,10 +207,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                     Uj_activity = new Intent(MainActivity.this, Querys.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                  //      .setAction("Action", null).show();
             }
         });
     }
@@ -229,7 +218,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         TextView tv = findViewById(id);
         if (null != tv) {
-            Log.i("onClick", "Clicked on row :: " + id);
             Toast.makeText(this, "Clicked on row :: " + id + ", Text :: " + tv.getText(), Toast.LENGTH_SHORT).show();
         }
     }

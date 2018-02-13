@@ -14,8 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,17 +33,14 @@ import uk.co.computerxpert.worktime.data.repo.DefShiftsRepo;
 public class DefShiftsManMod extends AppCompatActivity implements View.OnClickListener {
 
     private Intent Uj_activity;
-    private int id=1, defAgencyId, defCompId;
-    private static final String TAG_Ertek="TAG: ";
+    private int defAgencyId, defCompId;
     EditText eddefShiftName, edstarttime, edendtime, edunpbreak;
     private int eddefShiftID = 0;
     private Spinner spinnerCompany, spinnerAgency;
-    private String var = "time", kezdveg = "k", notSelected;
+    private String kezdveg = "k", notSelected;
 
     final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
-    DateFormat formatDate = new SimpleDateFormat("dd MMM yyyy");
     SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm", Locale.UK); // Set up time format to 24-hour
-    DecimalFormat decimalFormat = new DecimalFormat("##.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,17 +202,14 @@ public class DefShiftsManMod extends AppCompatActivity implements View.OnClickLi
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     Uj_activity = new Intent(DefShiftsManMod.this, MainActivity.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
                     Uj_activity = new Intent(DefShiftsManMod.this, Worktimes.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
                     Uj_activity = new Intent(DefShiftsManMod.this, Setup.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
             }

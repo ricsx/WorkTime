@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -31,12 +30,12 @@ import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.FullQuerys;
 import uk.co.computerxpert.worktime.data.repo.FullQuerysRepo;
 
+import static uk.co.computerxpert.worktime.App.App.dformat;
+
 
 public class QuerysResults extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG_Ertek="TAG: ";
     private static Intent Uj_activity;
-    private int id=1;
     private String newSelectQuery;
 
     @Override
@@ -97,28 +96,14 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
 
     public void addData() {
 
-        // String selectQuery =  " SELECT * FROM worktime, wage,companies " +
-           //     " WHERE worktime.wt_comp_id=companies.comp_id " +
-             //   " AND companies.comp_id=wage.wage_comp_id "
-               // ;
         double hoursOfWeek=0;
         double salaryOfWeek=0;
 
         TableLayout tl = findViewById(R.id.table);
 
-        FullQuerysRepo fullQuerysRepo = new FullQuerysRepo();
         List<FullQuerys> fullQuerys_s = FullQuerysRepo.getFullQuerys(newSelectQuery);
-        List<String> values = new ArrayList<String>();
 
         for(int i=0; i<fullQuerys_s.size();i++){
-            values.add(fullQuerys_s.get(i).getcomp_name());
-            String aa = fullQuerys_s.get(i).getwt_strsdate();
-            values.add(fullQuerys_s.get(i).getwt_strstime());
-            values.add(fullQuerys_s.get(i).getwt_stredate());
-            values.add(fullQuerys_s.get(i).getwt_stretime());
-            values.add(fullQuerys_s.get(i).getwt_hours());
-            values.add(fullQuerys_s.get(i).getwt_salary());
-            values.add(fullQuerys_s.get(i).getcomp_name());
 
             hoursOfWeek = hoursOfWeek + Double.parseDouble(fullQuerys_s.get(i).getwt_hours());
             salaryOfWeek = salaryOfWeek + Double.parseDouble(fullQuerys_s.get(i).getwt_salary());
@@ -136,9 +121,9 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
             tl.addView(tr, getTblLayoutParams());
         }
         TableRow tr = new TableRow(this);
-        tr.addView(getTextView(1, "Summmma: ", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
+        tr.addView(getTextView(1, "SUM: ", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
         tr.addView(getTextView(1,  ""+hoursOfWeek, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
-        tr.addView(getTextView(1,  ""+salaryOfWeek, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
+        tr.addView(getTextView(1,  ""+dformat.format(salaryOfWeek), Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
         tl.addView(tr, getTblLayoutParams());
     }
 
@@ -171,17 +156,14 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     Uj_activity = new Intent(QuerysResults.this, MainActivity.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
                     Uj_activity = new Intent(QuerysResults.this, Worktimes.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
                     Uj_activity = new Intent(QuerysResults.this, Setup.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
             }

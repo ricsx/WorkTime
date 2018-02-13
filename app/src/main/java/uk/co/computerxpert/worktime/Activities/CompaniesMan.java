@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,8 +23,6 @@ import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
 public class CompaniesMan extends AppCompatActivity  implements View.OnClickListener {
 
     private Intent Uj_activity;
-    private int id=1;
-    private static final String TAG_Ertek="TAG: ";
     EditText ed_comp_name, edCompAddr, edCompCity, edCompPostCode, edCompPhone, edContPName, edContPPhone, edContPEmail;
     private ListView result;
 
@@ -34,7 +31,6 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_companies_man);
 
-        // TextView tv_str_comp = (TextView) findViewById(R.id.tv_stp_comp);
         result=(ListView) findViewById(R.id.results);
         ed_comp_name = (EditText) findViewById(R.id.cmm_compNameBox3);
         edCompAddr = (EditText) findViewById(R.id.cmm_compAddressBox3);
@@ -65,7 +61,7 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
         String comp_cpname = edContPName.getText().toString();
         String comp_cpphone = edContPPhone.getText().toString();
         String comp_cpemail = edContPEmail.getText().toString();
-        int comp_agencyid = 0; // Todo: make listview for calculate this value
+        int comp_agencyid = 0;
         Companies companies = new Companies();
         companies.setcomp_name(comp_name);
         companies.setcompanyAddress(comp_addrs);
@@ -109,14 +105,7 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
             @Override
              public void onItemClick(AdapterView<?> parent, View view,
                                      int position, long id) {
-                 // ListView Clicked item index
-                 int itemPosition = position;
-                 // ListView Clicked item value
-                 String itemValue = (String) result.getItemAtPosition(position);
-                 // Show Alert
-//                 Toast.makeText(getApplicationContext(),
-  //                       "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-    //                     .show();
+                String itemValue = (String) result.getItemAtPosition(position);
                 String companyIDString = Integer.toString(getCompanyIDFromQuery("SELECT * FROM Companies WHERE comp_name = \""+itemValue+"\""));
                 Uj_activity = new Intent(CompaniesMan.this, CompaniesManMod.class);
                 Uj_activity.putExtra("companyID", companyIDString);
@@ -149,17 +138,14 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     Uj_activity = new Intent(CompaniesMan.this, MainActivity.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
                     Uj_activity = new Intent(CompaniesMan.this, Worktimes.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
                     Uj_activity = new Intent(CompaniesMan.this, Setup.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
             }
@@ -175,7 +161,6 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
         switch (v.getId()) {
             case R.id.btn_stp_comp_send:
                 company_insert();
-                Log.i(TAG_Ertek, "send");
                 break;
         }
     }

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,8 +23,6 @@ import uk.co.computerxpert.worktime.data.repo.AgenciesRepo;
 public class AgenciesMan extends AppCompatActivity implements View.OnClickListener {
 
     private Intent Uj_activity;
-    private int id=1;
-    private static final String TAG_Ertek="TAG: ";
     EditText ed_agency_name, edAgencyAddr, edAgencyCity, edAgencyPostCode, edAgencyPhone, edContPName, edContPPhone, edContPEmail;
     private ListView result;
 
@@ -34,7 +31,6 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agencies_man);
 
-        // TextView tv_str_agency = (TextView) findViewById(R.id.tv_stp_agency);
         result=(ListView) findViewById(R.id.results);
         ed_agency_name = (EditText) findViewById(R.id.cmm_agencyNameBox3);
         edAgencyAddr = (EditText) findViewById(R.id.cmm_agencyAddressBox3);
@@ -65,7 +61,6 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
         String agency_cpname = edContPName.getText().toString();
         String agency_cpphone = edContPPhone.getText().toString();
         String agency_cpemail = edContPEmail.getText().toString();
-        int agency_agencyid = 0; // Todo: make listview for calculate this value
         Agencies agencies = new Agencies();
         agencies.setagency_name(agency_name);
         agencies.setagencyAddress(agency_addrs);
@@ -108,14 +103,8 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // ListView Clicked item index
                 int itemPosition = position;
-                // ListView Clicked item value
                 String itemValue = (String) result.getItemAtPosition(position);
-                // Show Alert
-//                 Toast.makeText(getApplicationContext(),
-                //                       "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-                //                     .show();
                 String agencyIDString = Integer.toString(getAgencyIDFromQuery("SELECT * FROM Agencies WHERE agency_name = \""+itemValue+"\""));
                 Uj_activity = new Intent(AgenciesMan.this, AgenciesManMod.class);
                 Uj_activity.putExtra("agencyID", agencyIDString);
@@ -148,17 +137,14 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     Uj_activity = new Intent(AgenciesMan.this, MainActivity.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
                     Uj_activity = new Intent(AgenciesMan.this, Worktimes.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
                     Uj_activity = new Intent(AgenciesMan.this, Setup.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
             }
@@ -174,7 +160,6 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.btn_stp_agency_update:
                 agency_insert();
-                Log.i(TAG_Ertek, "send");
                 break;
         }
     }

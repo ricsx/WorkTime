@@ -36,12 +36,22 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="9dp"
                 android:ems="10"
                 android:focusedByDefault="false"
                 android:inputType="none|number"
                 android:nextFocusForward="@id/btnStDate"
                 android:selectAllOnFocus="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inOverTime" />
+
+            <CheckBox
+                android:id="@+id/inOverTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/Overtime"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inCegn" />
 
@@ -108,8 +118,8 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="64dp"
                 android:text="@string/NumberOfWeek"
                 app:layout_constraintStart_toEndOf="@+id/inWeekNum"
                 app:layout_constraintTop_toBottomOf="@+id/inCegn" />
