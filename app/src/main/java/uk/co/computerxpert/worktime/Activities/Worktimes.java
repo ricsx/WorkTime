@@ -1,8 +1,10 @@
 package uk.co.computerxpert.worktime.Activities;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -46,13 +48,15 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
     private EditText in_kezddate, in_kezdtime, in_vegdate, in_vegtime, in_megj, in_unpaidBreak, overTimeWage;
     private int defAgencyId=0, defCompId=0;
     private Intent Uj_activity;
-    private String kezdveg = "k", chooseDefaulShift, notSelected, chooseCompany,aa;
+    private String kezdveg = "k", chooseDefaulShift, notSelected, chooseCompany, globalVegdate;
     private Spinner spinnerCompany, spinner2, spinnerAgency;
     private CheckBox chechBox_overTime;
     private Context context = this;
     private TextView tvWage;
-
+    private int saveValidator = 0;
     Button btn_kezddate, btn_kezdtime, btn_vegdate, btn_vegtime, btn_WorktimeSave;
+
+    private uk.co.computerxpert.worktime.data.model.Worktimes arrWorktimes = new uk.co.computerxpert.worktime.data.model.Worktimes();
 
     final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
     DateFormat formatDate = new SimpleDateFormat("dd MMM yyyy");
@@ -181,7 +185,6 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
             in_unpaidBreak.setText("");
             App.AgenciesListToSpinner(spinnerAgency, this, "SELECT * FROM Agencies", notSelected);
             App.CompanyListToSpinner(spinnerCompany, context, "SELECT * FROM Companies", chooseCompany);
-
         } else {
             String selectQuery = " SELECT * from DefShifts WHERE " + DefShifts.KEY_DS_Name + " = \"" + value + "\"";
             DefShiftsRepo defShiftsRepo = new DefShiftsRepo();
@@ -274,13 +277,14 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
     }
 
 
-    public void newWtime() throws ParseException {
+    public void newWtime(){
         Double wageOfDay;
         String wt_outwage;
         String cegnev = spinnerCompany.getSelectedItem().toString();
         String kezddate = in_kezddate.getText().toString();
         String kezdtime = in_kezdtime.getText().toString();
         String vegdate = in_vegdate.getText().toString();
+        globalVegdate = in_vegdate.getText().toString();
         String vegtime = in_vegtime.getText().toString();
         String kezd_ = kezddate+" "+kezdtime;
         String veg_ = vegdate+" "+vegtime;
@@ -290,6 +294,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         String ovTimeWage = overTimeWage.getText().toString();
         Integer agency_id = null;
 
+        if(unpbr.equals("")){ unpbr = "0"; }
         if(agency_name.equals(notSelected)){
             agency_id = 0;
         }else {
@@ -301,8 +306,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         }
 
         // Calculate the comp_id from the spinner return value
-        String selectQuery =  " SELECT * "
-                + " FROM " + Companies.TABLE
+        String selectQuery =  " SELECT * FROM " + Companies.TABLE
                 + " WHERE " + Companies.KEY_comp_name
                 + " =\""+ cegnev+"\""
                 ;
@@ -312,10 +316,20 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         // Dates convert to Unix format
         DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy kk:mm", Locale.UK);
 
-        Date date_kezd = dateFormat.parse(kezd_);
+        Date date_kezd = null;
+        try {
+            date_kezd = dateFormat.parse(kezd_);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         double kezd_uxT = (long)date_kezd.getTime()/1000;
 
-        Date date_veg = dateFormat.parse(veg_);
+        Date date_veg = null;
+        try {
+            date_veg = dateFormat.parse(veg_);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         double veg_uxT = (long)date_veg.getTime()/1000;
         // End of converts
 
@@ -356,26 +370,21 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
             wt_outwage = ovTimeWage;
         }
 
-
-
-        uk.co.computerxpert.worktime.data.model.Worktimes worktimes = new uk.co.computerxpert.worktime.data.model.Worktimes();
-        worktimes.setwt_comp_id(comp_id);
-        worktimes.setwt_startdate(kezd_uxT);
-        worktimes.setwt_enddate(veg_uxT);
-        worktimes.setwt_rem(megj);
-        worktimes.setwt_week(woyear);
-        worktimes.setwt_year(a);
-        worktimes.setwt_hours(hoursOfDay);
-        worktimes.setwt_salary(String.valueOf(wageOfDay));
-        worktimes.setwt_stredate(kezddate);
-        worktimes.setwt_strsdate(vegdate);
-        worktimes.setwt_strstime(kezdtime);
-        worktimes.setwt_stretime(vegtime);
-        worktimes.setwt_unpbr(Integer.parseInt(unpbr));
-        worktimes.setwt_agency_id(agency_id);
-        worktimes.setwt_otwage(wt_outwage);
-        // Write datas into DB
-        WorktimesRepo.insert(worktimes);
+        arrWorktimes.setwt_comp_id(comp_id); // must specified
+        arrWorktimes.setwt_startdate(kezd_uxT); // calculated value
+        arrWorktimes.setwt_enddate(veg_uxT); // calculated value
+        arrWorktimes.setwt_rem(megj); // possible the empty value
+        arrWorktimes.setwt_week(woyear); // calculated value
+        arrWorktimes.setwt_year(a); // calculated value
+        arrWorktimes.setwt_hours(hoursOfDay); // calculated value
+        arrWorktimes.setwt_salary(String.valueOf(wageOfDay)); // calculated value
+        arrWorktimes.setwt_stredate(kezddate); // must specified
+        arrWorktimes.setwt_strsdate(vegdate); // must specified
+        arrWorktimes.setwt_strstime(kezdtime); // must specified
+        arrWorktimes.setwt_stretime(vegtime); // must specified
+        arrWorktimes.setwt_unpbr(Integer.parseInt(unpbr)); // possible the empty value
+        arrWorktimes.setwt_agency_id(agency_id); // possible the empty value
+        arrWorktimes.setwt_otwage(wt_outwage); // possible the empty
 
         in_kezddate.setText("");
         in_kezdtime.setText("");
@@ -383,6 +392,65 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         in_vegtime.setText("");
         in_megj.setText("");
         in_unpaidBreak.setText("");
+    }
+
+
+    private void createDialog(String title, String message) {
+
+        AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
+
+        alertDlg.setTitle(title)
+            .setMessage(message)
+            .setCancelable(false);
+
+        alertDlg.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                saveValidator = 1;
+                postrunner(arrWorktimes);
+            }
+        });
+
+        alertDlg.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                saveValidator = 0;
+                Uj_activity = new Intent(Worktimes.this, MainActivity.class);
+                startActivity(Uj_activity);
+            }
+        });
+
+        alertDlg.create().show();
+
+    }
+
+    // If say Yes from dialog
+    private void postrunner(uk.co.computerxpert.worktime.data.model.Worktimes arrWorktimes){
+        if (saveValidator != 1 ) {
+        } else {
+            WorktimesRepo.insert((uk.co.computerxpert.worktime.data.model.Worktimes) arrWorktimes);
+        }
+    }
+
+    // date -> data redundancy checking
+    public void validator(uk.co.computerxpert.worktime.data.model.Worktimes arrWorktimes, String vegdate){
+        String dialogRecordExistWarning = getString(R.string.dialogRecordExistWarning);
+        String dialogRecordExistQuestion = getString(R.string.dialogRecordExistQuestion);
+        String selectQuery2 =  " SELECT * FROM worktime WHERE worktime.wt_strsdate=\"" + vegdate +"\"";
+        List<uk.co.computerxpert.worktime.data.model.Worktimes> worktimes_s = WorktimesRepo.findWorktime(selectQuery2);
+        int wts=worktimes_s.size();
+        if(wts == 0){ WorktimesRepo.insert(arrWorktimes); }
+        for(int i=0; i<worktimes_s.size();i++) {
+            if (worktimes_s.get(i).getwt_strsdate().equals(vegdate)) {
+                createDialog(dialogRecordExistQuestion, dialogRecordExistWarning);
+                i=worktimes_s.size();
+                if(saveValidator == 1) {
+                    WorktimesRepo.insert(arrWorktimes);
+                }
+            }else if(worktimes_s.get(i).getwt_strsdate() != vegdate){
+                WorktimesRepo.insert(arrWorktimes);
+            }
+        }
     }
 
 
@@ -414,13 +482,8 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_WorktimeSave:
-                try {
-                    newWtime();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                Uj_activity = new Intent(Worktimes.this, MainActivity.class);
-                startActivity(Uj_activity);
+                newWtime();
+                validator(arrWorktimes, globalVegdate);
         }
     }
 }

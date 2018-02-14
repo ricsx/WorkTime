@@ -96,7 +96,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="time"
                 android:text="@string/TimeOfEnd"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/in_vegdateBox" />
@@ -144,7 +144,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="text"
+                android:text="@string/faszom"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/in_vegtimeBox" />
 

@@ -60,4 +60,8 @@
     <string name="chooseAgency">Válassz egy ügynökséget</string>
     <string name="Overtime">Túlóra</string>
     <string name="wageOfTheOtime">Túlóradíj</string>
+    <string name="Yes">Igen</string>
+    <string name="No">Nem</string>
+    <string name="dialogRecordExistWarning">Ez a nap már tartalmaz bejegyzést.</string>
+    <string name="dialogRecordExistQuestion">Biztosan hozzá akarja adni?</string>
 </resources>

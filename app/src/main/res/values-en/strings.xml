@@ -61,4 +61,8 @@
     <string name="chooseAgency">choose an agency</string>
     <string name="Overtime">Overtime</string>
     <string name="wageOfTheOtime">Wage of the overtime</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+    <string name="dialogRecordExistWarning">This day already contains record.</string>
+    <string name="dialogRecordExistQuestion">Are you sure you want to add this entry?</string>
 </resources>

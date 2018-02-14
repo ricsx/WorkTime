@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         addHeaders();
         addData();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -106,7 +107,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String selectQuery =  " SELECT * FROM worktime, wage,companies " +
                 " WHERE worktime.wt_comp_id=companies.comp_id " +
                 " AND companies.comp_id=wage.wage_comp_id " +
-                "AND wt_startdate <= " + maxStartDate + " AND wt_startdate >= " + minMaxStartDate
+                "AND wt_startdate <= " + maxStartDate + " AND wt_startdate >= " + minMaxStartDate +
+                " ORDER BY wt_startdate"
                 ;
         double hoursOfWeek=0;
         double salaryOfWeek=0;
