@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -46,14 +47,13 @@ import uk.co.computerxpert.worktime.data.repo.WorktimesRepo;
 public class Worktimes extends AppCompatActivity implements View.OnClickListener {
 
     private EditText in_kezddate, in_kezdtime, in_vegdate, in_vegtime, in_megj, in_unpaidBreak, overTimeWage;
-    private int defAgencyId=0, defCompId=0;
+    private int defAgencyId=0, defCompId=0, saveValidator = 0, errorFlag = 0;
     private Intent Uj_activity;
     private String kezdveg = "k", chooseDefaulShift, notSelected, chooseCompany, globalVegdate;
     private Spinner spinnerCompany, spinner2, spinnerAgency;
     private CheckBox chechBox_overTime;
     private Context context = this;
     private TextView tvWage;
-    private int saveValidator = 0;
     Button btn_kezddate, btn_kezdtime, btn_vegdate, btn_vegtime, btn_WorktimeSave;
 
     private uk.co.computerxpert.worktime.data.model.Worktimes arrWorktimes = new uk.co.computerxpert.worktime.data.model.Worktimes();
@@ -294,104 +294,128 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         String ovTimeWage = overTimeWage.getText().toString();
         Integer agency_id = null;
 
-        if(unpbr.equals("")){ unpbr = "0"; }
-        if(agency_name.equals(notSelected)){
-            agency_id = 0;
+        if(kezddate.equals("") || kezddate.equals(getString(R.string.DateOfStart)) ||
+                kezdtime.equals("") || kezdtime.equals(getString(R.string.TimeOfStart)) ||
+                vegdate.equals("") || vegdate.equals(getString(R.string.DateOfEnd)) ||
+                vegtime.equals("") || vegtime.equals(getString(R.string.TimeOfEnd))
+                )
+        {
+            errorFlag = 1;
+            Toast.makeText(this, getString(R.string.mustFillDateTime),Toast.LENGTH_LONG).show();
         }else {
-            String selectQuery = " SELECT * "
-                    + " FROM " + Agencies.TABLE
-                    + " WHERE " + Agencies.KEY_agency_name
-                    + " =\"" + agency_name + "\"";
-            agency_id = App.agency_idFromSpinner(selectQuery);
+            errorFlag = 0;
         }
 
-        // Calculate the comp_id from the spinner return value
-        String selectQuery =  " SELECT * FROM " + Companies.TABLE
-                + " WHERE " + Companies.KEY_comp_name
-                + " =\""+ cegnev+"\""
-                ;
 
-        Integer comp_id = App.comp_idFromSpinner(selectQuery);
+        if(errorFlag != 1) {
+            if (unpbr.equals("")) {
+                unpbr = "0";
+            }
+            if (agency_name.equals(notSelected)) {
+                agency_id = 0;
+            } else {
+                String selectQuery = " SELECT * "
+                        + " FROM " + Agencies.TABLE
+                        + " WHERE " + Agencies.KEY_agency_name
+                        + " =\"" + agency_name + "\"";
+                agency_id = App.agency_idFromSpinner(selectQuery);
+            }
 
-        // Dates convert to Unix format
-        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy kk:mm", Locale.UK);
+            // Calculate the comp_id from the spinner return value
+            String selectQuery = " SELECT * FROM " + Companies.TABLE
+                    + " WHERE " + Companies.KEY_comp_name
+                    + " =\"" + cegnev + "\"";
 
-        Date date_kezd = null;
-        try {
-            date_kezd = dateFormat.parse(kezd_);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            Integer comp_id = App.comp_idFromSpinner(selectQuery);
+
+            // Dates convert to Unix format
+            DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy kk:mm", Locale.UK);
+
+            Date date_kezd = null;
+            try {
+                date_kezd = dateFormat.parse(kezd_);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            double kezd_uxT = (long) date_kezd.getTime() / 1000;
+
+            Date date_veg = null;
+            try {
+                date_veg = dateFormat.parse(veg_);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            double veg_uxT = (long) date_veg.getTime() / 1000;
+            // End of converts
+
+            // Calculate the correct week-of-year from the selected date
+            String bb[] = kezddate.split(" ");
+            for (int i = 0; i < bb.length; i++) {
+                bb[i] = bb[i].trim();
+            }
+
+            Calendar now = Calendar.getInstance(Locale.UK);
+
+            int a = Integer.parseInt(bb[2]);
+            int c = Integer.parseInt(bb[0]); //.replaceAll(".$", ""));
+            int b = App.months.get(bb[1]);
+
+            now.set(Calendar.DATE, c);
+            now.set(Calendar.MONTH, b - 1);
+            now.set(Calendar.YEAR, a);
+
+            int woyear = now.get(Calendar.WEEK_OF_YEAR);
+            // End of week-of-year calculate
+
+            // Calculate workhours of day
+            float wh = (float) 0.00, wh2 = (float) 0.00;
+
+            if (kezd_uxT > veg_uxT) {
+                wh = (float) ((kezd_uxT - veg_uxT) / 3600);
+            } else if (kezd_uxT < veg_uxT) {
+                wh = (float) ((veg_uxT - kezd_uxT) / 3600);
+            }
+            if (kezd_uxT > veg_uxT) {
+                wh2 = (float) ((kezd_uxT - veg_uxT - (Integer.parseInt(unpbr) * 60)) / 3600);
+            } else if (kezd_uxT < veg_uxT) {
+                wh2 = (float) ((veg_uxT - kezd_uxT - (Integer.parseInt(unpbr) * 60)) / 3600);
+            }
+            String hoursOfDay = Double.toString(Double.parseDouble(decimalFormat.format(wh)));
+            String exactHoursOfDay = Double.toString(Double.parseDouble(decimalFormat.format(wh2)));
+            // End of workhouse-calculate
+
+            if (ovTimeWage.equals("0")) {
+                Double wOfDay = App.wageFromWageID(comp_id) * Double.parseDouble(exactHoursOfDay);
+                wageOfDay = Double.parseDouble(decimalFormat.format(wOfDay));
+                wt_outwage = "0";
+            } else {
+                wageOfDay = Double.parseDouble(ovTimeWage) * Double.parseDouble(exactHoursOfDay);
+                wt_outwage = ovTimeWage;
+            }
+
+            arrWorktimes.setwt_comp_id(comp_id); // must specified
+            arrWorktimes.setwt_startdate(kezd_uxT); // calculated value
+            arrWorktimes.setwt_enddate(veg_uxT); // calculated value
+            arrWorktimes.setwt_rem(megj); // possible the empty value
+            arrWorktimes.setwt_week(woyear); // calculated value
+            arrWorktimes.setwt_year(a); // calculated value
+            arrWorktimes.setwt_hours(hoursOfDay); // calculated value
+            arrWorktimes.setwt_salary(String.valueOf(wageOfDay)); // calculated value
+            arrWorktimes.setwt_stredate(kezddate); // must specified
+            arrWorktimes.setwt_strsdate(vegdate); // must specified
+            arrWorktimes.setwt_strstime(kezdtime); // must specified
+            arrWorktimes.setwt_stretime(vegtime); // must specified
+            arrWorktimes.setwt_unpbr(Integer.parseInt(unpbr)); // possible the empty value
+            arrWorktimes.setwt_agency_id(agency_id); // possible the empty value
+            arrWorktimes.setwt_otwage(wt_outwage); // possible the empty
+
+            in_kezddate.setText("");
+            in_kezdtime.setText("");
+            in_vegdate.setText("");
+            in_vegtime.setText("");
+            in_megj.setText("");
+            in_unpaidBreak.setText("");
         }
-        double kezd_uxT = (long)date_kezd.getTime()/1000;
-
-        Date date_veg = null;
-        try {
-            date_veg = dateFormat.parse(veg_);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        double veg_uxT = (long)date_veg.getTime()/1000;
-        // End of converts
-
-        // Calculate the correct week-of-year from the selected date
-        String bb[] = kezddate.split(" ");
-        for(int i=0;i<bb.length;i++){ bb[i] = bb[i].trim(); }
-
-        Calendar now = Calendar.getInstance(Locale.UK);
-
-        int a = Integer.parseInt(bb[2]);
-        int c = Integer.parseInt(bb[0]); //.replaceAll(".$", ""));
-        int b = App.months.get(bb[1]);
-
-        now.set(Calendar.DATE,c);
-        now.set(Calendar.MONTH,b-1);
-        now.set(Calendar.YEAR,a);
-
-        int woyear = now.get(Calendar.WEEK_OF_YEAR);
-        // End of week-of-year calculate
-
-        // Calculate workhours of day
-        float wh = (float) 0.00, wh2 = (float) 0.00;
-
-        if(kezd_uxT>veg_uxT){ wh = (float) ((kezd_uxT - veg_uxT) / 3600); }
-        else if(kezd_uxT<veg_uxT){ wh = (float) ((veg_uxT - kezd_uxT) / 3600); }
-        if(kezd_uxT>veg_uxT){ wh2 = (float) ((kezd_uxT - veg_uxT - (Integer.parseInt(unpbr)*60)) / 3600); }
-        else if(kezd_uxT<veg_uxT){ wh2 = (float) ((veg_uxT - kezd_uxT - (Integer.parseInt(unpbr)*60)) / 3600); }
-        String hoursOfDay=Double.toString(Double.parseDouble(decimalFormat.format(wh)));
-        String exactHoursOfDay=Double.toString(Double.parseDouble(decimalFormat.format(wh2)));
-        // End of workhouse-calculate
-
-        if(ovTimeWage.equals("0")){
-            Double wOfDay = App.wageFromWageID(comp_id)*Double.parseDouble(exactHoursOfDay);
-            wageOfDay = Double.parseDouble(decimalFormat.format(wOfDay));
-            wt_outwage = "0";
-        }else{
-            wageOfDay = Double.parseDouble(ovTimeWage)*Double.parseDouble(exactHoursOfDay);
-            wt_outwage = ovTimeWage;
-        }
-
-        arrWorktimes.setwt_comp_id(comp_id); // must specified
-        arrWorktimes.setwt_startdate(kezd_uxT); // calculated value
-        arrWorktimes.setwt_enddate(veg_uxT); // calculated value
-        arrWorktimes.setwt_rem(megj); // possible the empty value
-        arrWorktimes.setwt_week(woyear); // calculated value
-        arrWorktimes.setwt_year(a); // calculated value
-        arrWorktimes.setwt_hours(hoursOfDay); // calculated value
-        arrWorktimes.setwt_salary(String.valueOf(wageOfDay)); // calculated value
-        arrWorktimes.setwt_stredate(kezddate); // must specified
-        arrWorktimes.setwt_strsdate(vegdate); // must specified
-        arrWorktimes.setwt_strstime(kezdtime); // must specified
-        arrWorktimes.setwt_stretime(vegtime); // must specified
-        arrWorktimes.setwt_unpbr(Integer.parseInt(unpbr)); // possible the empty value
-        arrWorktimes.setwt_agency_id(agency_id); // possible the empty value
-        arrWorktimes.setwt_otwage(wt_outwage); // possible the empty
-
-        in_kezddate.setText("");
-        in_kezdtime.setText("");
-        in_vegdate.setText("");
-        in_vegtime.setText("");
-        in_megj.setText("");
-        in_unpaidBreak.setText("");
     }
 
 
@@ -400,8 +424,8 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
 
         alertDlg.setTitle(title)
-            .setMessage(message)
-            .setCancelable(false);
+                .setMessage(message)
+                .setCancelable(false);
 
         alertDlg.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
@@ -419,9 +443,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
                 startActivity(Uj_activity);
             }
         });
-
         alertDlg.create().show();
-
     }
 
     // If say Yes from dialog
@@ -429,6 +451,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         if (saveValidator != 1 ) {
         } else {
             WorktimesRepo.insert((uk.co.computerxpert.worktime.data.model.Worktimes) arrWorktimes);
+            goToHome();
         }
     }
 
@@ -439,18 +462,31 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         String selectQuery2 =  " SELECT * FROM worktime WHERE worktime.wt_strsdate=\"" + vegdate +"\"";
         List<uk.co.computerxpert.worktime.data.model.Worktimes> worktimes_s = WorktimesRepo.findWorktime(selectQuery2);
         int wts=worktimes_s.size();
-        if(wts == 0){ WorktimesRepo.insert(arrWorktimes); }
+        if(wts == 0){
+            WorktimesRepo.insert(arrWorktimes);
+            if(errorFlag != 1){
+                goToHome();
+            }
+        }
         for(int i=0; i<worktimes_s.size();i++) {
             if (worktimes_s.get(i).getwt_strsdate().equals(vegdate)) {
                 createDialog(dialogRecordExistQuestion, dialogRecordExistWarning);
                 i=worktimes_s.size();
                 if(saveValidator == 1) {
                     WorktimesRepo.insert(arrWorktimes);
+                    goToHome();
                 }
             }else if(worktimes_s.get(i).getwt_strsdate() != vegdate){
                 WorktimesRepo.insert(arrWorktimes);
+                goToHome();
             }
         }
+    }
+
+
+    private void goToHome(){
+        Uj_activity = new Intent(Worktimes.this, MainActivity.class);
+        startActivity(Uj_activity);
     }
 
 

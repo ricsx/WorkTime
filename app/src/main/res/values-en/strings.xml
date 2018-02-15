@@ -65,4 +65,5 @@
     <string name="No">No</string>
     <string name="dialogRecordExistWarning">This day already contains record.</string>
     <string name="dialogRecordExistQuestion">Are you sure you want to add this entry?</string>
+    <string name="mustFillDateTime">The date and time values must fill!</string>
 </resources>

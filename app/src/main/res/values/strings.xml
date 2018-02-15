@@ -69,4 +69,5 @@
     <string name="No">No</string>
     <string name="faszom">Faszom ujra</string>
     <string name="dialogRecordExistWarning">This day already contains record.</string>
+    <string name="mustFillDateTime">The date and time values must fill!</string>
 </resources>

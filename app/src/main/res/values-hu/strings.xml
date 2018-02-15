@@ -64,4 +64,5 @@
     <string name="No">Nem</string>
     <string name="dialogRecordExistWarning">Ez a nap már tartalmaz bejegyzést.</string>
     <string name="dialogRecordExistQuestion">Biztosan hozzá akarja adni?</string>
+    <string name="mustFillDateTime">A dátum- és idő értékeket kitöltése kötelező!</string>
 </resources>
