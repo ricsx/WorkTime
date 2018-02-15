@@ -78,18 +78,6 @@ public class App extends Application {
     }
 
 
-    // Calculate the comp_id from the spinner return value
-    public static Integer comp_idFromSpinner(String selectQuery){
-        List<Companies> aa = CompaniesRepo.getCompanies2(selectQuery);
-        List<Integer> values = new ArrayList<Integer>();
-        for(int i=0; i<aa.size();i++){
-            values.add(aa.get(i).getcomp_id());
-            comp_id = values.get(i);
-        }
-        return comp_id;
-    }
-
-
     public static void CompanyListToSpinner(Spinner spinnername, Context context, String selectQuery, String def){
 
         List<Companies> companies_s= CompaniesRepo.getCompanies(selectQuery);
@@ -185,6 +173,20 @@ public class App extends Application {
         }
         return agency_id;
     }
+
+
+    // Calculate the comp_id from the spinner return value
+    public static Integer comp_idFromSpinner(String selectQuery){
+        List<Companies> aa = CompaniesRepo.getCompanies2(selectQuery);
+        List<Integer> values = new ArrayList<Integer>();
+        for(int i=0; i<aa.size();i++){
+            values.add(aa.get(i).getcomp_id());
+            comp_id = values.get(i);
+        }
+        return comp_id;
+    }
+
+
 }
 
 

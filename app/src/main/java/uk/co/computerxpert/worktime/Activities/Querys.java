@@ -23,11 +23,12 @@ import java.util.Locale;
 
 import uk.co.computerxpert.worktime.App.App;
 import uk.co.computerxpert.worktime.R;
+import uk.co.computerxpert.worktime.data.model.Agencies;
 import uk.co.computerxpert.worktime.data.model.Companies;
 
 public class Querys extends AppCompatActivity implements View.OnClickListener{
 
-    private Spinner _inCegn;
+    private Spinner _inCegn, _inAgencyName;
     private EditText _inWeekNum, _inStDate, _inEndDate;
     private Button _btnStDate, _btnEndDate;
     private CheckBox _inOverTime;
@@ -44,6 +45,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_querys);
 
         notSelected=getString(R.string.NotSelected);
+        _inAgencyName = (Spinner) findViewById(R.id.inAgencyName);
         _inCegn = (Spinner) findViewById(R.id.inCegn);
         _inWeekNum = (EditText) findViewById(R.id.inWeekNum);
         _inStDate = (EditText) findViewById(R.id.inStDate);
@@ -53,6 +55,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         _inOverTime = (CheckBox) findViewById(R.id.inOverTime);
 
         App.CompanyListToSpinner(_inCegn, this, "SELECT * FROM Companies", notSelected);
+        App.AgenciesListToSpinner(_inAgencyName, this, "SELECT * FROM Agencies", notSelected);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -111,21 +114,34 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
 
     public void makeListView (View view) throws ParseException {
 
-        String partQueryCompName="", partQueryWeekNum="", partQueryStartDate="", partQueryEndDate="", partQueryOvertime="";
+        String partQueryCompName="", partQueryWeekNum="", partQueryStartDate="",
+                partQueryEndDate="", partQueryOvertime="", partQueryAgencyName="";
         String compName = _inCegn.getSelectedItem().toString();
+        String agencyName = _inAgencyName.getSelectedItem().toString();
         String kezddate = _inStDate.getText().toString();
         String vegdate = _inEndDate.getText().toString();
         String kezd_ = kezddate+" 00:00";
         String veg_ = vegdate+" 23:59";
         String week = _inWeekNum.getText().toString();
         Integer comp_id = 0;
+        Integer agency_id = 0;
         long kezd_uxT=0, veg_uxT=0;
+
+        if(agencyName.equals(notSelected)){
+            agency_id = 0;
+        }else{
+             String selectQuery = " SELECT * "
+                    + " FROM " + Agencies.TABLE
+                    + " WHERE " + Agencies.KEY_agency_name
+                    + " =\"" + agencyName + "\"";
+            agency_id = App.agency_idFromSpinner(selectQuery);
+        }
+
 
         if(compName.equals(notSelected)){
             comp_id=0;
         }else {
-            String selectQuery = " SELECT Companies." + Companies.KEY_comp_id
-                    + ", Companies." + Companies.KEY_comp_name
+            String selectQuery = " SELECT * "
                     + " FROM " + Companies.TABLE
                     + " WHERE " + Companies.KEY_comp_name
                     + " =\"" + compName + "\"";
@@ -145,13 +161,14 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         }
         // End of converts
         if (_inOverTime.isChecked()){ partQueryOvertime = " AND wt_otwage != 0 "; }else{ partQueryOvertime = ""; }
-        if (comp_id != 0) { partQueryCompName = " AND wt_comp_id = "+comp_id; }else{ partQueryCompName = ""; }
+        if (comp_id != 0) { partQueryCompName = " AND wt_comp_id = "+comp_id; }else{  partQueryCompName = ""; }
         if (week.length() != 0) { partQueryWeekNum = " AND wt_week = "+week; }else { partQueryWeekNum = ""; }
         if (kezddate.length() != 0) { partQueryStartDate = " AND wt_startdate > "+kezd_uxT; } else { partQueryStartDate = ""; }
         if (vegdate.length() != 0) { partQueryEndDate = " AND wt_enddate < "+veg_uxT; }else { partQueryEndDate = ""; }
+        if (agency_id != 0) { partQueryAgencyName = " AND wt_agency_id = "+agency_id; }else{ partQueryAgencyName = ""; }
 
         String sel = "select * from worktime,companies,wage where worktime.wt_comp_id=companies.comp_id and companies.comp_id=wage.wage_comp_id "
-                +partQueryCompName+partQueryWeekNum+partQueryStartDate+partQueryEndDate+partQueryOvertime;
+                +partQueryCompName+partQueryWeekNum+partQueryStartDate+partQueryEndDate+partQueryOvertime+partQueryAgencyName;
 
         Uj_activity = new Intent(Querys.this, QuerysResults.class);
         Uj_activity.putExtra("sel", sel);

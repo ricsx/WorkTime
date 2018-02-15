@@ -31,6 +31,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <Spinner
+                android:id="@+id/inAgencyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inCegn" />
+
             <EditText
                 android:id="@+id/inWeekNum"
                 android:layout_width="150dp"
@@ -53,7 +62,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/Overtime"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/inCegn" />
+                app:layout_constraintTop_toBottomOf="@+id/inAgencyName" />
 
             <EditText
                 android:id="@+id/inStDate"
@@ -118,11 +127,11 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="64dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/NumberOfWeek"
                 app:layout_constraintStart_toEndOf="@+id/inWeekNum"
-                app:layout_constraintTop_toBottomOf="@+id/inCegn" />
+                app:layout_constraintTop_toBottomOf="@+id/inOverTime" />
 
         </android.support.constraint.ConstraintLayout>
 
