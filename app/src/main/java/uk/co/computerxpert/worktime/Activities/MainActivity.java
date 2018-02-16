@@ -16,7 +16,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -88,9 +90,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TableLayout tl = findViewById(R.id.table);
         TableRow tr = new TableRow(this);
         tr.setLayoutParams(getLayoutParams());
-        tr.addView(getTextView(0, "SHIFT", Color.WHITE, Typeface.BOLD, Color.BLUE));
-        tr.addView(getTextView(0, "HOURS", Color.WHITE, Typeface.BOLD, Color.BLUE));
-        tr.addView(getTextView(0, "WAGE", Color.WHITE, Typeface.BOLD, Color.BLUE));
+        tr.addView(getTextView(0, "DAY", Color.WHITE, Typeface.BOLD, Color.BLUE));
+        tr.addView(getTextView(1, "SHIFT", Color.WHITE, Typeface.BOLD, Color.BLUE));
+        tr.addView(getTextView(2, "HOURS", Color.WHITE, Typeface.BOLD, Color.BLUE));
+        tr.addView(getTextView(3, "WAGE", Color.WHITE, Typeface.BOLD, Color.BLUE));
         tl.addView(tr, getTblLayoutParams());
     }
 
@@ -132,17 +135,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     fullQuerys_s.get(i).getwt_strstime()+"\n"+
                     fullQuerys_s.get(i).getwt_stredate()+" - "+fullQuerys_s.get(i).getwt_stretime();
 
+            Date date = new Date((long) fullQuerys_s.get(i).getwt_startdate()*1000L);
+            SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+            String dayOfTheWeek = sdf.format(date);
 
             TableRow tr = new TableRow(this);
             tr.setLayoutParams(getLayoutParams());
-            tr.addView(getTextView(i + 1, shift, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
+            tr.addView(getTextView(i + 1, dayOfTheWeek+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
+            tr.addView(getTextView(i + fullQuerys_s.size(), shift, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
             tr.addView(getTextView(i + fullQuerys_s.size(), fullQuerys_s.get(i).getwt_hours()+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
             tr.addView(getTextView(i + fullQuerys_s.size(),"£"+fullQuerys_s.get(i).getwt_salary()+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
+            // tr.addView(getTextView(i + fullQuerys_s.size(),tmp2+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
 
             tl.addView(tr, getTblLayoutParams());
         }
 
         TableRow tr = new TableRow(this);
+        tr.addView(getTextView(1, "", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
         tr.addView(getTextView(1, "Sum: ", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
         tr.addView(getTextView(1,  ""+hoursOfWeek, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));
         tr.addView(getTextView(1,  ""+dformat.format(salaryOfWeek), Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorAccent)));

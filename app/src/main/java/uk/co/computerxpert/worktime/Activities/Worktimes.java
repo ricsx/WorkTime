@@ -390,6 +390,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
                 wt_outwage = "0";
             } else {
                 wageOfDay = Double.parseDouble(ovTimeWage) * Double.parseDouble(exactHoursOfDay);
+                wageOfDay = Double.parseDouble(decimalFormat.format(wageOfDay));
                 wt_outwage = ovTimeWage;
             }
 
