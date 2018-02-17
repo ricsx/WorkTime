@@ -7,6 +7,45 @@
     android:layout_height="match_parent"
     tools:context="uk.co.computerxpert.worktime.Activities.WageMan">
 
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/wages_man_top"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:background="@color/toolbar_background"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- app:theme="@style/" > -->
+
+
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="16dp">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:text="@string/SetUpYourWages"
+                android:textAllCaps="true"
+                android:textColor="@color/toolbar_title"
+                android:textSize="22sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+
     <ListView
         android:id="@+id/results"
         android:layout_width="0dp"
@@ -20,10 +59,11 @@
     <ScrollView
         android:id="@+id/scrollView4"
         android:layout_width="match_parent"
-        android:layout_height="330dp"
+        android:layout_height="280dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/wages_man_top">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -31,71 +71,82 @@
 
             <Spinner
                 android:id="@+id/spinner2"
-                android:layout_width="354dp"
-                android:layout_height="27dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:background="@color/colorWhite"
+                android:paddingBottom="8dp"
+                android:paddingStart="26dp"
+                android:paddingTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:text="@string/salaryPerHour"
-                app:layout_constraintStart_toEndOf="@+id/in_wage_valBox"
-                app:layout_constraintTop_toBottomOf="@+id/in_wage_stdateBox" />
-
-            <EditText
-                android:id="@+id/in_wage_valBox"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:labelFor="@+id/btn_wage_enddate"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/in_wage_stdateBox" />
-
-            <Button
-                android:id="@+id/btn_stp_wageSave"
-                android:layout_width="305dp"
-                android:layout_height="38dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:onClick="newWage"
-                android:text="@string/bt_stp_somp_send"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.507"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/in_wage_valBox" />
 
             <EditText
                 android:id="@+id/in_wage_stdateBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="72dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="@string/startofempl"
+                android:text="Name"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="@+id/btn_wage_stdate"
+                app:layout_constraintTop_toBottomOf="@+id/in_wage_valBox" />
+
+            <EditText
+                android:id="@+id/in_wage_valBox"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:ems="10"
+                android:hint="@string/salaryPerHour"
+                android:inputType="textPersonName"
+                android:labelFor="@+id/btn_wage_enddate"
+                android:paddingBottom="8dp"
+                android:paddingStart="26dp"
+                android:paddingTop="8dp"
+                android:textAlignment="viewStart"
+                android:textSize="16sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner2" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_wage_stdate" />
+
+            <Button
+                android:id="@+id/btn_stp_wageSave"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/shape"
+                android:fontFamily="sans-serif"
+                android:onClick="newWage"
+                android:text="@string/bt_stp_somp_send"
+                android:textColor="@color/colorWhite"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.507"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/in_wage_valBox" />
 
             <Button
                 android:id="@+id/btn_wage_stdate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/btnDate"
-                app:layout_constraintStart_toEndOf="@+id/in_wage_stdateBox"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:fontFamily="sans-serif"
+                android:hint="@string/startofempl"
+                android:paddingBottom="8dp"
+                android:paddingStart="26dp"
+                android:paddingTop="8dp"
+                android:textAlignment="viewStart"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spinner2" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

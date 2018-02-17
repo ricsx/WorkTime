@@ -3,10 +3,13 @@ package uk.co.computerxpert.worktime.Activities;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -62,6 +65,16 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
         btn_kezddate = (Button) findViewById(R.id.btn_wage_stdate);
         result = (ListView) findViewById(R.id.results);
 
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.wages_man_top);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
+        upArrow.setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
+
         make_listview();
         makeMonthArray();
         // starting Spinner (Company names)
@@ -103,6 +116,7 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
         if(kezdveg == "k") {
             if (var == "date") {
                 in_kezddate.setText(formatDate.format(dateTime.getTime()));
+                btn_kezddate.setText(formatDate.format(dateTime.getTime()));
             }
         }
     }

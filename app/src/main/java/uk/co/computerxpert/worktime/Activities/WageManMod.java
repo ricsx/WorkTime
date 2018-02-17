@@ -2,10 +2,13 @@ package uk.co.computerxpert.worktime.Activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -56,6 +59,14 @@ public class WageManMod extends AppCompatActivity implements View.OnClickListene
         in_val = (EditText) findViewById(R.id.in_wage_valBox2);
         btn_kezddate = (Button) findViewById(R.id.btn_wage_stdate2);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.wages_man_mod_top);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
+        upArrow.setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
         makeMonthArray();
 
         fromWageID = getIntent().getStringExtra("wageID");
@@ -96,6 +107,7 @@ public class WageManMod extends AppCompatActivity implements View.OnClickListene
     private void updateTextLabel (String var){
             if (var == "date") {
                 in_kezddate.setText(formatDate.format(dateTime.getTime()));
+                btn_kezddate.setText(formatDate.format(dateTime.getTime()));
             }
     }
 
@@ -113,8 +125,8 @@ public class WageManMod extends AppCompatActivity implements View.OnClickListene
             in_val.setText(wage_s.get(i).getwage_val());
             defCompId = wage_s.get(i).getwage_comp_id();
             values.add(wage_s.get(i).getcomp_name());
+            btn_kezddate.setText((wage_s.get(i).getwage_strstdate()));
         }
-
     }
 
 

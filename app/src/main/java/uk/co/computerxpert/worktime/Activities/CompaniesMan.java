@@ -1,10 +1,13 @@
 package uk.co.computerxpert.worktime.Activities;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,6 +45,14 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
         edContPEmail = (EditText) findViewById(R.id.cmm_compContPersEmailBox3);
 
         Button btn_stp_comp_send = (Button) findViewById(R.id.btn_stp_comp_send);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.companies_top);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
+        upArrow.setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         make_listview();
         btn_stp_comp_send.setOnClickListener(this);

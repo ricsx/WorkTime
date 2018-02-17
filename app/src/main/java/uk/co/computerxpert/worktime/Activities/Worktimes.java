@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,7 +20,6 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -53,7 +53,6 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
     private Spinner spinnerCompany, spinner2, spinnerAgency;
     private CheckBox chechBox_overTime;
     private Context context = this;
-    private TextView tvWage;
     Button btn_kezddate, btn_kezdtime, btn_vegdate, btn_vegtime, btn_WorktimeSave;
 
     private uk.co.computerxpert.worktime.data.model.Worktimes arrWorktimes = new uk.co.computerxpert.worktime.data.model.Worktimes();
@@ -86,8 +85,12 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         btn_vegtime = (Button) findViewById(R.id.btn_vegtime);
         btn_WorktimeSave = (Button) findViewById(R.id.btn_WorktimeSave);
         chechBox_overTime = (CheckBox) findViewById(R.id.chb_overTime);
-        tvWage = (TextView) findViewById(R.id.tv_wage);
         overTimeWage = (EditText) findViewById(R.id.overTimeWage);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.worktimes_top);
+        setSupportActionBar(myToolbar);
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // starting Spinners
         App.DefShiftsListToSpinner(spinner2, context, "SELECT * FROM DefShifts", chooseDefaulShift);
@@ -101,12 +104,10 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (buttonView.isChecked()) {
-                    tvWage.setVisibility(View.VISIBLE);
                     overTimeWage.setVisibility(View.VISIBLE);
                 }
                 else
                 {
-                    tvWage.setVisibility(View.GONE);
                     overTimeWage.setVisibility(View.GONE);
                 }
             }
@@ -119,7 +120,6 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         btn_kezdtime.setOnClickListener(this);
         btn_vegdate.setOnClickListener(this);
         btn_vegtime.setOnClickListener(this);
-
         App.makeMonthArray();
 
         btn_kezddate.setOnClickListener(new View.OnClickListener() {
@@ -261,17 +261,21 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         if(kezdveg.equals("k")) {
             if (var.equals("date")) {
                 in_kezddate.setText(formatDate.format(dateTime.getTime()));
+                btn_kezddate.setText(formatDate.format(dateTime.getTime()));
             }
             if (var.equals("time")) {
                 in_kezdtime.setText(formatTime.format(dateTime.getTime()));
+                 btn_kezdtime.setText(formatTime.format(dateTime.getTime()));
             }
         }
         if(kezdveg.equals("v")) {
             if (var.equals("date")) {
                 in_vegdate.setText(formatDate.format(dateTime.getTime()));
+                btn_vegdate.setText(formatDate.format(dateTime.getTime()));
             }
             if (var.equals("time")) {
                 in_vegtime.setText(formatTime.format(dateTime.getTime()));
+                btn_vegtime.setText(formatTime.format(dateTime.getTime()));
             }
         }
     }

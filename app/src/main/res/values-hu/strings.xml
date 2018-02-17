@@ -13,11 +13,11 @@
     <string name="tv_str_comp1">Munkáltató neve:</string>
     <string name="bt_stp_somp_send">Mentés</string>
     <string name="tv_main3">Heti munkaórák:</string>
-    <string name="Name">Név:</string>
-    <string name="CompanyAddress">Cím:</string>
-    <string name="Phone">Tel:</string>
-    <string name="CompanyConPers">Kapcsolattartó:</string>
-    <string name="CompanyCity">Város:</string>
+    <string name="Name">Név</string>
+    <string name="CompanyAddress">Cím</string>
+    <string name="Phone">Tel</string>
+    <string name="CompanyConPers">Kapcsolattartó</string>
+    <string name="CompanyCity">Város</string>
     <string name="Company">Munkáltató</string>
     <string name="ContactPerson">Kapcsolattartó</string>
     <string name="NewCompany">Új munkáltató hozzáadása</string>
@@ -31,14 +31,14 @@
     <string name="DateOfStart">Munkanap kezdete</string>
     <string name="DateOfEnd">Munkanap vége</string>
     <string name="TimeOfEnd">Munkaidő vége</string>
-    <string name="CompanyPostcode">Irányítószám:</string>
-    <string name="CompanyConPersEmail">Email:</string>
-    <string name="CompanyComPersPhone">Tel.:</string>
+    <string name="CompanyPostcode">Irányítószámconjfdkklbdgfkl</string>
+    <string name="CompanyConPersEmail">Email</string>
+    <string name="CompanyComPersPhone">Tel.</string>
     <string name="NumberOfWeek">A hét száma</string>
     <string name="Query">Lekérdezés</string>
     <string name="salaryPerHour">Órabér</string>
     <string name="unpaidBreak">Fizetetlen szünet (perc)</string>
-    <string name="Comment">Megjegyzés</string>
+    <string name="Comment">Megjegyzés...</string>
     <string name="btnTime">Idő</string>
     <string name="Agencies">Ügynökségek</string>
     <string name="AddNewAgency">Új ügynökség hozzáadása</string>
@@ -66,4 +66,11 @@
     <string name="dialogRecordExistQuestion">Biztosan hozzá akarja adni?</string>
     <string name="mustFillDateTime">A dátum- és idő értékeket kitöltése kötelező!</string>
     <string name="wagesFormat">%.2$s Ft</string>
+    <string name="setUpWorkingTime">ÁLLÍTSD BE A MUNKAIDŐD</string>
+    <string name="myCompanies">Céglista</string>
+    <string name="myAgencies">Ügynögségek</string>
+    <string name="DataOfTheCompany">Cégadatok</string>
+    <string name="DataOfTheAgencies">Ügynökség adatok</string>
+    <string name="SetUpYourWages">Órabér beállitása</string>
+    <string name="ModifyYourWage">Órabér megváltoztatása</string>
 </resources>
