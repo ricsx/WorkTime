@@ -73,7 +73,8 @@
         <activity
             android:name=".Activities.DefShiftsMan"
             android:label="@string/title_activity_def_shifts_man"
-            android:parentActivityName=".Activities.Setup">
+            android:parentActivityName=".Activities.Setup"
+            android:windowSoftInputMode="stateAlwaysHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="uk.co.computerxpert.worktime.Activities.Setup" />

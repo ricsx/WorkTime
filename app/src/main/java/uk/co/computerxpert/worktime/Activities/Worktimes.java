@@ -193,7 +193,9 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
             ArrayList<String> values = new ArrayList<String>();
             for (int i = 0; i < defShifts_s.size(); i++) {
                 in_kezdtime.setText(defShifts_s.get(i).get_defsh_starttime());
+                btn_kezdtime.setText(defShifts_s.get(i).get_defsh_starttime());
                 in_vegtime.setText(defShifts_s.get(i).get_defsh_endtime());
+                btn_vegtime.setText(defShifts_s.get(i).get_defsh_endtime());
                 in_unpaidBreak.setText(String.valueOf(defShifts_s.get(i).get_defsh_unpbr()));
                 defAgencyId = defShifts_s.get(i).get_defsh_agency_id();
                 defCompId = defShifts_s.get(i).get_defsh_comp_id();
@@ -284,6 +286,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
     public void newWtime(){
         Double wageOfDay;
         String wt_outwage;
+        String defOvTimeWage = getString(R.string.wageOfTheOtime);
         String cegnev = spinnerCompany.getSelectedItem().toString();
         String kezddate = in_kezddate.getText().toString();
         String kezdtime = in_kezdtime.getText().toString();
@@ -388,7 +391,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
             String exactHoursOfDay = Double.toString(Double.parseDouble(decimalFormat.format(wh2)));
             // End of workhouse-calculate
 
-            if (ovTimeWage.equals("0")) {
+            if (ovTimeWage.equals(defOvTimeWage)||ovTimeWage.equals("")) {
                 Double wOfDay = App.wageFromWageID(comp_id) * Double.parseDouble(exactHoursOfDay);
                 wageOfDay = Double.parseDouble(decimalFormat.format(wOfDay));
                 wt_outwage = "0";

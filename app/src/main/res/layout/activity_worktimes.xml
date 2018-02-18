@@ -13,7 +13,6 @@
         android:layout_width="0dp"
         android:layout_height="90dp"
         android:background="@color/toolbar_background"
-        android:minHeight="?attr/actionBarSize"
         app:layout_constraintBottom_toTopOf="@+id/scrollView6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,28 +30,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginEnd="26dp"
                 android:layout_marginTop="8dp"
                 android:text="WORKTIME"
                 android:textColor="@color/toolbar_title"
                 android:textSize="30sp"
                 android:textStyle="bold|italic"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView26"
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="26dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/setUpWorkingTime"
                 android:textColor="@color/text_color"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar_title" />
 
         </android.support.constraint.ConstraintLayout>
@@ -78,7 +75,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/colorWhite"
+                android:background="@drawable/layerlist_cal"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:focusedByDefault="true"
@@ -96,7 +93,7 @@
                 android:id="@+id/spinner4"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:background="@color/colorWhite"
+                android:background="@drawable/layerlist"
                 android:paddingBottom="8dp"
                 android:paddingStart="26dp"
                 android:paddingTop="8dp"
@@ -128,7 +125,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
-                android:background="@color/colorWhite"
+                android:background="@drawable/layerlist"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:focusedByDefault="true"
@@ -146,7 +143,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
-                android:background="@color/colorWhite"
+                android:background="@drawable/layerlist"
                 android:paddingBottom="8dp"
                 android:paddingStart="26dp"
                 android:paddingTop="8dp"
@@ -161,7 +158,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/colorWhite"
+                android:background="@drawable/layerlist_cal"
                 android:fontFamily="sans-serif"
                 android:paddingStart="26dp"
                 android:text="@string/DateOfStart"
@@ -233,7 +230,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
-                android:background="@color/colorWhite"
+                android:background="@drawable/layerlist_hour"
                 android:fontFamily="sans-serif"
                 android:paddingStart="26dp"
                 android:text="@string/TimeOfStart"
@@ -263,7 +260,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
-                android:background="@color/colorWhite"
+                android:background="@drawable/layerlist_hour"
                 android:fontFamily="sans-serif"
                 android:paddingStart="26dp"
                 android:text="@string/TimeOfEnd"
@@ -295,12 +292,12 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:background="@color/colorWhite"
+                android:paddingRight="22dp"
                 android:paddingStart="4dp"
-                android:text="@string/Overtime"
+                android:textAlignment="viewStart"
                 android:textColor="@color/text_color"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spinner4" />
 
             <Button
@@ -323,6 +320,21 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/in_megjBox" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:paddingBottom="8dp"
+                android:paddingStart="26dp"
+                android:paddingTop="8dp"
+                android:text="@string/Overtime"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/chb_overTime"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner4" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

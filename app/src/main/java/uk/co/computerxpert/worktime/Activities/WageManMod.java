@@ -17,22 +17,17 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import uk.co.computerxpert.worktime.App.App;
 import uk.co.computerxpert.worktime.R;
-import uk.co.computerxpert.worktime.data.model.Companies;
 import uk.co.computerxpert.worktime.data.model.Wage;
 import uk.co.computerxpert.worktime.data.repo.WageRepo;
 
-import static uk.co.computerxpert.worktime.App.App.compNameFromWageID;
 import static uk.co.computerxpert.worktime.App.App.dateFormat;
 import static uk.co.computerxpert.worktime.App.App.dateTime;
 import static uk.co.computerxpert.worktime.App.App.formatDate;
@@ -46,7 +41,7 @@ public class WageManMod extends AppCompatActivity implements View.OnClickListene
     int ed_wage_id, defCompId;
     Button btn_kezddate;
     TextView _tvCompName;
-    String fromWageID;
+    String fromWageID, defaultCompName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +65,7 @@ public class WageManMod extends AppCompatActivity implements View.OnClickListene
         makeMonthArray();
 
         fromWageID = getIntent().getStringExtra("wageID");
+        defaultCompName = getIntent().getStringExtra("compName");
         Button btn_cmmMod = (Button) findViewById(R.id.btn_stp_wageSave2);
 
         loadFormDefaults(fromWageID);
@@ -120,7 +116,7 @@ public class WageManMod extends AppCompatActivity implements View.OnClickListene
         ed_wage_id = Integer.parseInt(value);
         ArrayList<String> values = new ArrayList<String>();
         for(int i=0; i<wage_s.size();i++){
-            _tvCompName.setText(compNameFromWageID(ed_wage_id));
+            _tvCompName.setText(defaultCompName);
             in_kezddate.setText(wage_s.get(i).getwage_strstdate());
             in_val.setText(wage_s.get(i).getwage_val());
             defCompId = wage_s.get(i).getwage_comp_id();

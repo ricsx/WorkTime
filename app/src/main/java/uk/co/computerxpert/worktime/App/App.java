@@ -6,11 +6,6 @@ package uk.co.computerxpert.worktime.App;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.util.Log;
-import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -26,21 +21,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import uk.co.computerxpert.worktime.Activities.MainActivity;
-import uk.co.computerxpert.worktime.Activities.Setup;
-import uk.co.computerxpert.worktime.Activities.Worktimes;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.DBHelper;
 import uk.co.computerxpert.worktime.data.DatabaseManager;
 import uk.co.computerxpert.worktime.data.model.Agencies;
 import uk.co.computerxpert.worktime.data.model.Companies;
 import uk.co.computerxpert.worktime.data.model.DefShifts;
-import uk.co.computerxpert.worktime.data.model.FullQuerys;
 import uk.co.computerxpert.worktime.data.model.Wage;
 import uk.co.computerxpert.worktime.data.repo.AgenciesRepo;
 import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
 import uk.co.computerxpert.worktime.data.repo.DefShiftsRepo;
-import uk.co.computerxpert.worktime.data.repo.FullQuerysRepo;
 import uk.co.computerxpert.worktime.data.repo.WageRepo;
 
 public class App extends Application {
@@ -78,6 +68,41 @@ public class App extends Application {
     }
 
 
+    public static void CompanyListToSpinnerAlignBCKP(Spinner spinnername, Context context, String selectQuery, String def, String align){
+
+        List<Companies> companies_s= CompaniesRepo.getCompanies(selectQuery);
+        List<String> values = new ArrayList<String>();
+        if(def!="false"){ values.add(def); }
+        for(int i=0; i<companies_s.size();i++){ values.add(companies_s.get(i).getcomp_name()); }
+        if(align.equals("left")) {
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,
+                    android.R.layout.simple_spinner_item, values);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnername.setAdapter(dataAdapter);
+        }else if (align.equals("right")) {
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,
+                    R.layout.spinner_align_right, values);
+            dataAdapter.setDropDownViewResource(R.layout.spinner_align_right);
+            spinnername.setAdapter(dataAdapter);
+        }
+
+    }
+
+
+    public static void CompanyListToSpinnerAlign(Spinner spinnername, Context context, String selectQuery, String def){
+
+        List<Companies> companies_s= CompaniesRepo.getCompanies(selectQuery);
+        List<String> values = new ArrayList<String>();
+        if(def!="false"){ values.add(def); }
+        for(int i=0; i<companies_s.size();i++){ values.add(companies_s.get(i).getcomp_name()); }
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,
+                    R.layout.spinner_align_right, values);
+            dataAdapter.setDropDownViewResource(R.layout.spinner_align_right);
+            spinnername.setAdapter(dataAdapter);
+    }
+
+
+
     public static void CompanyListToSpinner(Spinner spinnername, Context context, String selectQuery, String def){
 
         List<Companies> companies_s= CompaniesRepo.getCompanies(selectQuery);
@@ -113,6 +138,19 @@ public class App extends Application {
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,
                 android.R.layout.simple_spinner_item, values);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnername.setAdapter(dataAdapter);
+    }
+
+
+    public static void AgenciesListToSpinnerAlign(Spinner spinnername, Context context, String selectQuery, String def){
+
+        List<Agencies> agencies_s= AgenciesRepo.getAgencies(selectQuery);
+        List<String> values = new ArrayList<String>();
+        if(def!="false"){ values.add(def); }
+        for(int i=0; i<agencies_s.size();i++){ values.add(agencies_s.get(i).getagency_name()); }
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,
+                R.layout.spinner_align_right, values);
+        dataAdapter.setDropDownViewResource(R.layout.spinner_align_right);
         spinnername.setAdapter(dataAdapter);
     }
 

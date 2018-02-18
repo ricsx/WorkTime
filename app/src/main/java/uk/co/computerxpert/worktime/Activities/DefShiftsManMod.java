@@ -61,7 +61,7 @@ public class DefShiftsManMod extends AppCompatActivity implements View.OnClickLi
 
         String fromDefShiftsID = getIntent().getStringExtra("defShiftsID");
 
-        App.CompanyListToSpinner(spinnerCompany, this,"SELECT * FROM Companies" , "false");
+        App.CompanyListToSpinnerAlign(spinnerCompany, this,"SELECT * FROM Companies" , "false");
         App.AgenciesListToSpinner(spinnerAgency, this, "SELECT * FROM Agencies", "false");
 
         loadFormDefaults(fromDefShiftsID);

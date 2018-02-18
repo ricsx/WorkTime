@@ -65,7 +65,6 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
         btn_kezddate = (Button) findViewById(R.id.btn_wage_stdate);
         result = (ListView) findViewById(R.id.results);
 
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.wages_man_top);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -236,6 +235,8 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
                 Uj_activity = new Intent(WageMan.this, WageManMod.class);
                 // Uj_activity.putExtra("companyID", companyIDString);
                 Uj_activity.putExtra("wageID", wageIDString);
+                Uj_activity.putExtra("compName", cutteredItems.get(0));
+
                 startActivity(Uj_activity);
 
             }

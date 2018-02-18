@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.DatabaseManager;
@@ -141,9 +140,9 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
     public void wageDef() {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         //db.execSQL(WageRepo.createTable());
-        String SqlQuery = "INSERT INTO `Wage` (wage_id,wage_comp_id,wage_startdate,wage_enddate,wage_val,wage_unpbr) " +
-                "VALUES (1,1,1512086400.0,1517356800.0,'7.50',20), " +
-                "(2,2,1509494400.0,1517356800.0,'8.85',30)";
+        String SqlQuery = "INSERT INTO `Wage` (wage_id,wage_comp_id,wage_startdate,wage_enddate,wage_val) " +
+                "VALUES (1,1,1512086400.0,1517356800.0,'7.50'), " +
+                "(2,2,1509494400.0,1517356800.0,'8.85')";
         db.execSQL(SqlQuery);
     }
 

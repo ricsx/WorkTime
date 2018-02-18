@@ -1,10 +1,13 @@
 package uk.co.computerxpert.worktime.Activities;
 
 import android.app.TimePickerDialog;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Spinner;
 
@@ -40,7 +43,8 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
     EditText eddefShiftName, edstarttime, edendtime, edunpbreak;
     private ListView results;
     private Spinner spinner, spinnerAgency;
-    private String var = "time", kezdveg = "k", notSelected;
+    private String kezdveg = "k", notSelected, selectCompany, selectAgency;
+    private Button btnstartTime, btnendTime;
 
     final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
     SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm", Locale.UK); // Set up time format to 24-hour
@@ -51,6 +55,8 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_def_shifts_man);
 
         notSelected=getString(R.string.NotSelected);
+        selectCompany=getString(R.string.SelectCompany);
+        selectAgency=getString(R.string.SelectAgency);
         results=(ListView) findViewById(R.id.result);
         eddefShiftName = (EditText) findViewById(R.id.inp_defShiftName);
         edstarttime = (EditText) findViewById(R.id.inp_startTime);
@@ -59,12 +65,20 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
         spinner = (Spinner) findViewById(R.id.sp_compNames);
         spinnerAgency = (Spinner) findViewById(R.id.sp_agencyNames);
 
-        Button btnstartTime = (Button) findViewById(R.id.btn_startTime);
-        Button btnendTime = (Button) findViewById(R.id.btn_endTime);
+        btnstartTime = (Button) findViewById(R.id.btn_startTime);
+        btnendTime = (Button) findViewById(R.id.btn_endTime);
         Button btnSave = (Button) findViewById(R.id.btn_defShiftsSave);
 
-        App.CompanyListToSpinner(spinner, this, "SELECT * FROM Companies", "false");
-        App.AgenciesListToSpinner(spinnerAgency, this, "SELECT * FROM Agencies", notSelected);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.def_shifts_man_top);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
+        upArrow.setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
+        App.CompanyListToSpinnerAlign(spinner, this, "SELECT * FROM Companies", notSelected);
+        App.AgenciesListToSpinnerAlign(spinnerAgency, this, "SELECT * FROM Agencies", notSelected);
 
         make_listview();
         btnstartTime.setOnClickListener(this);
@@ -79,6 +93,7 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 kezdveg="k";
                 updateTime();
+
             }
         });
 
@@ -108,8 +123,14 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
 
 
     private void updateTextLabel (String var){
-        if(kezdveg == "k") { edstarttime.setText(formatTime.format(dateTime.getTime())); }
-        if(kezdveg == "v") { edendtime.setText(formatTime.format(dateTime.getTime())); }
+        if(kezdveg == "k") {
+            edstarttime.setText(formatTime.format(dateTime.getTime()));
+            btnstartTime.setText(formatTime.format(dateTime.getTime()));
+        }
+        if(kezdveg == "v") {
+            edendtime.setText(formatTime.format(dateTime.getTime()));
+            btnendTime.setText(formatTime.format(dateTime.getTime()));
+        }
     }
 
 

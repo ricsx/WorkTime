@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="#ffffff"/>
+            <stroke
+                android:width="0dp"
+                android:color="#80000000"/>
+            <padding
+                android:bottom="2dp"
+                android:left="2dp"
+                android:right="26dp"
+                android:top="2dp"/>
+
+        </shape>
+    </item>
+
+    <item>
+        <bitmap
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:src="@drawable/my_hour" />
+    </item>
+</layer-list>
