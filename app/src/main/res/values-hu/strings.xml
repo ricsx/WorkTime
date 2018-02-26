@@ -61,4 +61,9 @@
     <string name="SetANewDefaultShift">Új müszak-minta beállitása</string>
     <string name="SelectCompany">Válassz céget</string>
     <string name="SelectAgency">Válassz ügynökséget</string>
+    <string name="ModifyYourShift">Müszak módositása</string>
+    <string name="ModifyYourCompany">Cégadatok módositása</string>
+    <string name="ModifyYourAgency">Ügynökség adatok módositása</string>
+    <string name="title_activity_def_shifts_man_mod">Müszak-minta megváltoztatása</string>
+    <string name="chooseAgency">Válassz egy ügynökséget</string>
 </resources>

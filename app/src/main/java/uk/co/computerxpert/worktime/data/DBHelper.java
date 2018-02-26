@@ -3,21 +3,23 @@ package uk.co.computerxpert.worktime.data;
 /**
  * Created by ricsx on 29/12/17.
  */
+
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-
 import uk.co.computerxpert.worktime.App.App;
 import uk.co.computerxpert.worktime.data.model.Agencies;
 import uk.co.computerxpert.worktime.data.model.Companies;
 import uk.co.computerxpert.worktime.data.model.DefShifts;
+import uk.co.computerxpert.worktime.data.model.Settings;
 import uk.co.computerxpert.worktime.data.model.Wage;
 import uk.co.computerxpert.worktime.data.model.Worktimes;
 import uk.co.computerxpert.worktime.data.repo.AgenciesRepo;
 import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
 import uk.co.computerxpert.worktime.data.repo.DefShiftsRepo;
+import uk.co.computerxpert.worktime.data.repo.SettingsRepo;
 import uk.co.computerxpert.worktime.data.repo.WageRepo;
 import uk.co.computerxpert.worktime.data.repo.WorktimesRepo;
 
@@ -47,6 +49,7 @@ public class DBHelper  extends SQLiteOpenHelper {
         db.execSQL(WageRepo.createTable());
         db.execSQL(AgenciesRepo.createTable());
         db.execSQL(DefShiftsRepo.createTable());
+        db.execSQL(SettingsRepo.createTable());
     }
 
     @Override
@@ -59,6 +62,7 @@ public class DBHelper  extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + Wage.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Agencies.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + DefShifts.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Settings.TABLE);
         onCreate(db);
     }
 

@@ -44,6 +44,9 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
         edContPPhone = (EditText) findViewById(R.id.cmm_compContPersPhoneBox3);
         edContPEmail = (EditText) findViewById(R.id.cmm_compContPersEmailBox3);
 
+        String firstRunFlag = getIntent().getStringExtra("firstRunFlag");
+        if(firstRunFlag == null){ firstRunFlag ="0"; }
+
         Button btn_stp_comp_send = (Button) findViewById(R.id.btn_stp_comp_send);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.companies_top);
@@ -59,6 +62,12 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        if(firstRunFlag.equals("0")) {
+            navigation.setVisibility(View.VISIBLE);
+        }else{
+            navigation.setVisibility(View.GONE);
+        }
     }
 
 

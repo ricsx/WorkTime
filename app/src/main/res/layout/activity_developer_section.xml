@@ -68,8 +68,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Worktime TBL create"
-        android:textSize="8sp"
+        android:text="CR Worktime "
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/in_defTblNameBox" />
 
@@ -79,8 +79,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Companies TBL create"
-        android:textSize="8sp"
+        android:text="CR Companies "
+        android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/btn_worktimeCreate"
         app:layout_constraintTop_toBottomOf="@+id/in_defTblNameBox" />
 
@@ -90,8 +90,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="Wages tbl create"
-        android:textSize="8sp"
+        android:text="CR Wages "
+        android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/btn_companiesCreate"
         app:layout_constraintTop_toBottomOf="@+id/in_defTblNameBox" />
 
@@ -111,8 +111,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Agencies TBL Create"
-        android:textSize="8sp"
+        android:text="CR Agencies"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_worktimeCreate" />
 
@@ -122,8 +122,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="DefShistf TBL Create"
-        android:textSize="8sp"
+        android:text="CR DefShifts"
+        android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/btn_agenciesCreate"
         app:layout_constraintTop_toBottomOf="@+id/btn_companiesCreate" />
 
@@ -147,5 +147,16 @@
         android:text="Fill defaults"
         app:layout_constraintStart_toEndOf="@+id/in_defTblNameBox"
         app:layout_constraintTop_toBottomOf="@+id/btn_dropTable" />
+
+    <Button
+        android:id="@+id/btn_SettingsCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="CR SETTINGS"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/btn_defShiftsCreate"
+        app:layout_constraintTop_toBottomOf="@+id/btn_wagesCreate" />
 
 </android.support.constraint.ConstraintLayout>

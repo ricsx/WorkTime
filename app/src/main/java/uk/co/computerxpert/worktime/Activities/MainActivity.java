@@ -15,32 +15,41 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.FullQuerys;
+import uk.co.computerxpert.worktime.data.model.Settings;
 import uk.co.computerxpert.worktime.data.repo.FullQuerysRepo;
+import uk.co.computerxpert.worktime.data.repo.SettingsRepo;
 
-import static uk.co.computerxpert.worktime.App.App.*;
+import static uk.co.computerxpert.worktime.App.App.OneDayUxt;
+import static uk.co.computerxpert.worktime.App.App.dformat;
+import static uk.co.computerxpert.worktime.App.App.settingTest;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     public Intent Uj_activity;
     int id = 1;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(settingTest("firstrun").equals("") || settingTest("firstrun").equals(0)) {
+            Settings settings = new Settings();
+            settings.set_settings_name("firstrun");
+            settings.set_settings_val("1");
+            SettingsRepo.insert(settings);
+            Uj_activity = new Intent(MainActivity.this, FirstRunLoadDefaults.class);
+            startActivity(Uj_activity);
+        }else {
 
+        }
 
         addHeaders();
         addData();
@@ -52,18 +61,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     private TextView getTextView(int id, String title, int color, int typeface, int bgColor) {
         TextView tv = new TextView(this);
         tv.setId(id);
         tv.setText(title.toUpperCase());
         tv.setTextColor(color);
-        tv.setPadding(40, 40, 40, 40);
+        tv.setPadding(10, 10, 10, 10);
         tv.setTypeface(Typeface.DEFAULT, typeface);
         tv.setBackgroundColor(bgColor);
         tv.setLayoutParams(getLayoutParams());
-        tv.setTextSize(10);
+        tv.setTextSize(12);
         tv.setOnClickListener(this);
+        tv.setGravity(1);
         return tv;
     }
 
@@ -93,10 +102,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TableLayout tl = findViewById(R.id.table);
         TableRow tr = new TableRow(this);
         tr.setLayoutParams(getLayoutParams());
-        tr.addView(getTextView(0, "DAY", Color.WHITE, Typeface.BOLD, Color.BLUE));
-        tr.addView(getTextView(1, "SHIFT", Color.WHITE, Typeface.BOLD, Color.BLUE));
-        tr.addView(getTextView(2, "HOURS", Color.WHITE, Typeface.BOLD, Color.BLUE));
-        tr.addView(getTextView(3, "WAGE", Color.WHITE, Typeface.BOLD, Color.BLUE));
+        tr.addView(getTextView(0, "", Color.WHITE, Typeface.BOLD, ContextCompat.getColor(this, R.color.colorPrimaryDark)));
+        tr.addView(getTextView(1, "SHIFT", Color.WHITE, Typeface.BOLD, ContextCompat.getColor(this, R.color.colorPrimaryDark)));
+        tr.addView(getTextView(2, "HOURS", Color.WHITE, Typeface.BOLD, ContextCompat.getColor(this, R.color.colorPrimaryDark)));
+        tr.addView(getTextView(3, "WAGE", Color.WHITE, Typeface.BOLD, ContextCompat.getColor(this, R.color.colorPrimaryDark)));
+
         tl.addView(tr, getTblLayoutParams());
     }
 
@@ -118,15 +128,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ;
         double hoursOfWeek=0;
         double salaryOfWeek=0;
-
+        int x = 1;
         TableLayout tl = findViewById(R.id.table);
 
         List<FullQuerys> fullQuerys_s = FullQuerysRepo.getFullQuerys(selectQuery);
 
         for(int i=0; i<fullQuerys_s.size();i++) {
-
+            x = x +i;
+            //if()
             if (fullQuerys_s.get(i).getwt_otwage().equals("0")) {
-                rowcolor = R.color.row_normal;
+                rowcolor = R.color.toolbar_background;
             } else {
                 rowcolor = R.color.row_overtime;
             }
@@ -139,15 +150,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     fullQuerys_s.get(i).getwt_stredate()+" - "+fullQuerys_s.get(i).getwt_stretime();
 
             Date date = new Date((long) fullQuerys_s.get(i).getwt_startdate()*1000L);
-            SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+            SimpleDateFormat sdf = new SimpleDateFormat("EE");
             String dayOfTheWeek = sdf.format(date);
+            dayOfTheWeek = dayOfTheWeek.replace(" ","");
 
             TableRow tr = new TableRow(this);
             tr.setLayoutParams(getLayoutParams());
-            tr.addView(getTextView(i + 1, dayOfTheWeek+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
-            tr.addView(getTextView(i + fullQuerys_s.size(), shift, Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
-            tr.addView(getTextView(i + fullQuerys_s.size(), fullQuerys_s.get(i).getwt_hours()+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
-            tr.addView(getTextView(i + fullQuerys_s.size(),"£"+fullQuerys_s.get(i).getwt_salary()+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
+            tr.addView(getTextView(i + 1, dayOfTheWeek+"\n", R.color.text_color, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
+            tr.addView(getTextView(i + fullQuerys_s.size(), shift, R.color.text_color, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
+            tr.addView(getTextView(i + fullQuerys_s.size(), fullQuerys_s.get(i).getwt_hours()+"\n", R.color.text_color, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
+            tr.addView(getTextView(i + fullQuerys_s.size(),"£"+fullQuerys_s.get(i).getwt_salary()+"\n", R.color.text_color, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
             // tr.addView(getTextView(i + fullQuerys_s.size(),tmp2+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
 
             tl.addView(tr, getTblLayoutParams());

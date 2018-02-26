@@ -43,6 +43,10 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
         edContPName = (EditText) findViewById(R.id.cmm_agencyContPersNameBox3);
         edContPPhone = (EditText) findViewById(R.id.cmm_agencyContPersPhoneBox3);
         edContPEmail = (EditText) findViewById(R.id.cmm_agencyContPersEmailBox3);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+
+        String firstRunFlag = getIntent().getStringExtra("firstRunFlag");
+        if(firstRunFlag == null){ firstRunFlag ="0"; }
 
         Button btn_stp_agency_send = (Button) findViewById(R.id.btn_stp_agency_update);
 
@@ -54,11 +58,14 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
         upArrow.setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-
         make_listview();
         btn_stp_agency_send.setOnClickListener(this);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        if(firstRunFlag.equals("0")) {
+            navigation.setVisibility(View.VISIBLE);
+        }else{
+            navigation.setVisibility(View.GONE);
+        }
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 

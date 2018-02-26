@@ -68,6 +68,10 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
         btnstartTime = (Button) findViewById(R.id.btn_startTime);
         btnendTime = (Button) findViewById(R.id.btn_endTime);
         Button btnSave = (Button) findViewById(R.id.btn_defShiftsSave);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+
+        String firstRunFlag = getIntent().getStringExtra("firstRunFlag");
+        if(firstRunFlag == null){ firstRunFlag ="0"; }
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.def_shifts_man_top);
         setSupportActionBar(myToolbar);
@@ -85,7 +89,11 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
         btnendTime.setOnClickListener(this);
         btnSave.setOnClickListener(this);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        if(firstRunFlag.equals("0")) {
+            navigation.setVisibility(View.VISIBLE);
+        }else{
+            navigation.setVisibility(View.GONE);
+        }
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         btnstartTime.setOnClickListener(new View.OnClickListener() {

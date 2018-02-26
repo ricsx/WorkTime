@@ -53,6 +53,7 @@ public class WageManMod extends AppCompatActivity implements View.OnClickListene
         in_kezddate = (EditText) findViewById(R.id.in_wage_stdateBox2);
         in_val = (EditText) findViewById(R.id.in_wage_valBox2);
         btn_kezddate = (Button) findViewById(R.id.btn_wage_stdate2);
+        Button btn_kezddateSt = (Button) findViewById(R.id.btn_wage_stdate2st);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.wages_man_mod_top);
         setSupportActionBar(myToolbar);
@@ -76,6 +77,12 @@ public class WageManMod extends AppCompatActivity implements View.OnClickListene
 
 
         btn_kezddate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateDate();
+            }
+        });
+        btn_kezddateSt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateDate();

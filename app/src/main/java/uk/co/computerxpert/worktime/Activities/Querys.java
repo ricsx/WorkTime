@@ -33,7 +33,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
     private Button _btnStDate, _btnEndDate;
     private CheckBox _inOverTime;
     private Intent Uj_activity;
-    private String kezdveg = "k", notSelected;
+    private String kezdveg = "k", notSelected, chooseCompany, choosAgency;
 
 
     final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
@@ -45,6 +45,8 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_querys);
 
         notSelected=getString(R.string.NotSelected);
+        chooseCompany=getString(R.string.chooseCompany);
+        choosAgency=getString(R.string.chooseAgency);
         _inAgencyName = (Spinner) findViewById(R.id.inAgencyName);
         _inCegn = (Spinner) findViewById(R.id.inCegn);
         _inWeekNum = (EditText) findViewById(R.id.inWeekNum);
@@ -54,8 +56,8 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         _btnEndDate = (Button) findViewById(R.id.btnEndDate);
         _inOverTime = (CheckBox) findViewById(R.id.inOverTime);
 
-        App.CompanyListToSpinner(_inCegn, this, "SELECT * FROM Companies", notSelected);
-        App.AgenciesListToSpinner(_inAgencyName, this, "SELECT * FROM Agencies", notSelected);
+        App.CompanyListToSpinner(_inCegn, this, "SELECT * FROM Companies", chooseCompany);
+        App.AgenciesListToSpinner(_inAgencyName, this, "SELECT * FROM Agencies", choosAgency);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -102,11 +104,13 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         if(kezdveg == "k") {
             if (var == "date") {
                 _inStDate.setText(formatDate.format(dateTime.getTime()));
+                _btnStDate.setText(formatDate.format(dateTime.getTime()));
             }
         }
         if(kezdveg == "v") {
             if (var == "date") {
                 _inEndDate.setText(formatDate.format(dateTime.getTime()));
+                _btnEndDate.setText(formatDate.format(dateTime.getTime()));
             }
         }
     }
@@ -127,7 +131,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         Integer agency_id = 0;
         long kezd_uxT=0, veg_uxT=0;
 
-        if(agencyName.equals(notSelected)){
+        if(agencyName.equals(choosAgency)){
             agency_id = 0;
         }else{
              String selectQuery = " SELECT * "
@@ -138,7 +142,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         }
 
 
-        if(compName.equals(notSelected)){
+        if(compName.equals(chooseCompany)){
             comp_id=0;
         }else {
             String selectQuery = " SELECT * "

@@ -8,15 +8,48 @@
     android:focusable="true" android:focusableInTouchMode="true"
     tools:context="uk.co.computerxpert.worktime.Activities.Querys">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/querys_top"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:background="@color/toolbar_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- app:theme="@style/" > -->
+
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="16dp">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="26dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/title_activity_querys"
+                android:textAllCaps="true"
+                android:textColor="@color/toolbar_title"
+                android:textSize="30sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/querys_top">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,67 +57,91 @@
 
             <Spinner
                 android:id="@+id/inCegn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:background="@drawable/layerlist_right"
+                android:paddingBottom="8dp"
+                android:paddingStart="18dp"
+                android:paddingTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
                 android:id="@+id/inAgencyName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/layerlist_right"
+                android:paddingBottom="8dp"
+                android:paddingStart="18dp"
+                android:paddingTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inCegn" />
 
             <EditText
                 android:id="@+id/inWeekNum"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="9dp"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
                 android:ems="10"
                 android:focusedByDefault="false"
+                android:hint="@string/NumberOfWeek"
                 android:inputType="none|number"
                 android:nextFocusForward="@id/btnStDate"
+                android:paddingBottom="8dp"
+                android:paddingStart="26dp"
+                android:paddingTop="8dp"
                 android:selectAllOnFocus="false"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inOverTime" />
 
             <CheckBox
                 android:id="@+id/inOverTime"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/Overtime"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:paddingRight="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inAgencyName" />
 
             <EditText
                 android:id="@+id/inStDate"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="64dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="none|date"
                 android:nextFocusForward="@id/btnStDate"
+                android:textSize="10sp"
+                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inWeekNum" />
 
             <Button
                 android:id="@+id/btnStDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/layerlist_cal"
+                android:fontFamily="sans-serif"
                 android:nextFocusForward="@id/btnEndDate"
+                android:paddingBottom="8dp"
+                android:paddingStart="26dp"
+                android:paddingTop="8dp"
                 android:text="@string/DateOfStart"
-                app:layout_constraintStart_toEndOf="@+id/inStDate"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inWeekNum" />
 
             <EditText
@@ -96,42 +153,63 @@
                 android:ems="10"
                 android:inputType="none|date"
                 android:nextFocusForward="@id/btnEndDate"
+                android:textSize="10sp"
+                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inStDate" />
 
             <Button
                 android:id="@+id/btnEndDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/layerlist_cal"
+                android:fontFamily="sans-serif"
                 android:nextFocusForward="@id/btnSendQuerys"
+                android:paddingBottom="8dp"
+                android:paddingStart="26dp"
+                android:paddingTop="8dp"
                 android:text="@string/DateOfEnd"
-                app:layout_constraintStart_toEndOf="@+id/inEndDate"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnStDate" />
 
             <Button
                 android:id="@+id/btnSendQuerys"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/shape"
+                android:fontFamily="sans-serif"
                 android:onClick="makeListView"
                 android:text="@string/Query"
+                android:textColor="@color/colorWhite"
+                android:textSize="20dp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/inEndDate" />
+                app:layout_constraintTop_toBottomOf="@+id/btnEndDate" />
 
             <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/NumberOfWeek"
-                app:layout_constraintStart_toEndOf="@+id/inWeekNum"
-                app:layout_constraintTop_toBottomOf="@+id/inOverTime" />
+                android:id="@+id/textView16"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:paddingBottom="8dp"
+                android:paddingStart="26dp"
+                android:paddingTop="8dp"
+                android:text="@string/Overtime"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/inOverTime"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inAgencyName" />
 
         </android.support.constraint.ConstraintLayout>
 

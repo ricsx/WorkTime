@@ -1,10 +1,13 @@
 package uk.co.computerxpert.worktime.Activities;
 
 import android.app.TimePickerDialog;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Spinner;
 
@@ -38,6 +41,7 @@ public class DefShiftsManMod extends AppCompatActivity implements View.OnClickLi
     private int eddefShiftID = 0;
     private Spinner spinnerCompany, spinnerAgency;
     private String kezdveg = "k", notSelected;
+    private Button btnstartTime, btnendTime;
 
     final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
     SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm", Locale.UK); // Set up time format to 24-hour
@@ -55,20 +59,32 @@ public class DefShiftsManMod extends AppCompatActivity implements View.OnClickLi
         spinnerCompany = (Spinner) findViewById(R.id.sp_compNames2);
         spinnerAgency = (Spinner) findViewById(R.id.sp_agencyNames2);
 
-        Button btnstartTime = (Button) findViewById(R.id.btn_startTime2);
-        Button btnendTime = (Button) findViewById(R.id.btn_endTime2);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.def_shifts_man_mod_top);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
+        upArrow.setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
+        btnstartTime = (Button) findViewById(R.id.btn_startTime2);
+        btnendTime = (Button) findViewById(R.id.btn_endTime2);
+        Button btnstartTimest = (Button) findViewById(R.id.btn_startTime2St);
+        Button btnendTimest = (Button) findViewById(R.id.btn_endTime2st);
         Button btnSave = (Button) findViewById(R.id.btn_defShiftsSave2);
 
         String fromDefShiftsID = getIntent().getStringExtra("defShiftsID");
 
         App.CompanyListToSpinnerAlign(spinnerCompany, this,"SELECT * FROM Companies" , "false");
-        App.AgenciesListToSpinner(spinnerAgency, this, "SELECT * FROM Agencies", "false");
+        App.AgenciesListToSpinnerAlign(spinnerAgency, this, "SELECT * FROM Agencies", "false");
 
         loadFormDefaults(fromDefShiftsID);
 
 
         btnstartTime.setOnClickListener(this);
+        btnstartTimest.setOnClickListener(this);
         btnendTime.setOnClickListener(this);
+        btnendTimest.setOnClickListener(this);
         btnSave.setOnClickListener(this);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -82,7 +98,23 @@ public class DefShiftsManMod extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+        btnstartTimest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                kezdveg="k";
+                updateTime();
+            }
+        });
+
         btnendTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                kezdveg = "v";
+                updateTime();
+            }
+        });
+
+        btnendTimest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 kezdveg = "v";
@@ -112,7 +144,9 @@ public class DefShiftsManMod extends AppCompatActivity implements View.OnClickLi
         for(int i=0; i<defShifts_s.size();i++){
             eddefShiftName.setText(defShifts_s.get(i).get_defsh_name());
             edstarttime.setText(defShifts_s.get(i).get_defsh_starttime());
+            btnstartTime.setText(defShifts_s.get(i).get_defsh_starttime());
             edendtime.setText(defShifts_s.get(i).get_defsh_endtime());
+            btnendTime.setText(defShifts_s.get(i).get_defsh_endtime());
             edunpbreak.setText(String.valueOf(defShifts_s.get(i).get_defsh_unpbr()));
             defCompId = defShifts_s.get(i).get_defsh_comp_id();
             defAgencyId = defShifts_s.get(i).get_defsh_agency_id();
@@ -158,8 +192,14 @@ public class DefShiftsManMod extends AppCompatActivity implements View.OnClickLi
 
 
     private void updateTextLabel (String var){
-        if(kezdveg == "k") { edstarttime.setText(formatTime.format(dateTime.getTime())); }
-        if(kezdveg == "v") { edendtime.setText(formatTime.format(dateTime.getTime())); }
+        if(kezdveg == "k") {
+            edstarttime.setText(formatTime.format(dateTime.getTime()));
+            btnstartTime.setText(formatTime.format(dateTime.getTime()));
+        }
+        if(kezdveg == "v") {
+            edendtime.setText(formatTime.format(dateTime.getTime()));
+            btnendTime.setText(formatTime.format(dateTime.getTime()));
+        }
     }
 
 

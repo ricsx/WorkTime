@@ -62,4 +62,8 @@
     <string name="SetANewDefaultShift">Set a new default shift</string>
     <string name="SelectCompany">Select company</string>
     <string name="SelectAgency">Select Agency</string>
+    <string name="ModifyYourShift">Modify your shift</string>
+    <string name="ModifyYourAgency">Modify your agency</string>
+    <string name="ModifyYourCompany">Modify your company</string>
+    <string name="chooseAgency">Choose an agency</string>
 </resources>

@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     tools:context="uk.co.computerxpert.worktime.Activities.WageManMod">
 
-
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/wages_man_mod_top"
         android:layout_width="0dp"
@@ -19,7 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <!-- app:theme="@style/" > -->
-
 
         <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -75,7 +72,7 @@
     <EditText
         android:id="@+id/in_wage_stdateBox2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="10dp"
         android:layout_marginStart="72dp"
         android:layout_marginTop="4dp"
         android:ems="10"
@@ -87,22 +84,26 @@
 
     <Button
         android:id="@+id/btn_wage_stdate2"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="4dp"
         android:background="@color/colorWhite"
+        android:fontFamily="sans-serif"
         android:paddingBottom="8dp"
-        android:paddingRight="30dp"
+        android:paddingRight="26dp"
         android:paddingTop="8dp"
         android:textAlignment="textEnd"
         android:textAllCaps="false"
+        android:textColor="@color/text_color"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_wage_txt_stdate2"
+        app:layout_constraintStart_toEndOf="@+id/btn_wage_stdate2st"
         app:layout_constraintTop_toBottomOf="@+id/tvCompName" />
 
     <Button
-        android:id="@+id/btn_wage_txt_stdate2"
+        android:id="@+id/btn_wage_stdate2st"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginTop="4dp"
@@ -130,11 +131,13 @@
         android:paddingStart="26dp"
         android:paddingTop="8dp"
         android:textAlignment="textEnd"
+        android:textColor="@color/text_color"
         android:textSize="16sp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/in_wage_stdateBox2" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_wage_stdate2" />
 
     <Button
         android:id="@+id/btn_stp_wageSave2"
@@ -143,8 +146,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
         android:onClick="onClick"
+        android:background="@drawable/shape"
         android:text="@string/bt_stp_somp_send"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/in_wage_valBox2" />
@@ -161,5 +169,5 @@
         android:text="@string/salaryPerHour"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_wage_stdateBox2" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_wage_stdate2st" />
 </android.support.constraint.ConstraintLayout>

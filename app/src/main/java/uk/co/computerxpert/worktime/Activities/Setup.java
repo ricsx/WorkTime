@@ -20,11 +20,11 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
 
-        Button companies = (Button) findViewById(R.id.btn_companies);
-        Button wages = (Button) findViewById(R.id.btn_wages);
+        Button companies = (Button) findViewById(R.id.btn_companies2);
+        Button wages = (Button) findViewById(R.id.btn_wages2);
         Button dev = (Button) findViewById(R.id.btn_dev);
-        Button agencies = (Button) findViewById(R.id.btn_agencies);
-        Button defShifts = (Button) findViewById(R.id.btn_defShifts);
+        Button agencies = (Button) findViewById(R.id.btn_agencies2);
+        Button defShifts = (Button) findViewById(R.id.btn_defShifts2);
 
         companies.setOnClickListener(this);
         wages.setOnClickListener(this);
@@ -40,24 +40,29 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
 
     public void onClick(final android.view.View v){
         switch (v.getId()) {
-            case R.id.btn_companies:
+            case R.id.btn_companies2:
                 Uj_activity = new Intent(Setup.this, CompaniesMan.class);
+                Uj_activity.putExtra("firstRunFlag", "0");
                 startActivity(Uj_activity);
                 break;
-            case R.id.btn_wages:
+            case R.id.btn_wages2:
                 Uj_activity = new Intent(Setup.this, WageMan.class);
+                Uj_activity.putExtra("firstRunFlag", "0");
                 startActivity(Uj_activity);
                 break;
             case R.id.btn_dev:
                 Uj_activity = new Intent(Setup.this, DeveloperSection.class);
+                Uj_activity.putExtra("firstRunFlag", "0");
                 startActivity(Uj_activity);
                 break;
-            case R.id.btn_agencies:
+            case R.id.btn_agencies2:
                 Uj_activity = new Intent(Setup.this, AgenciesMan.class);
+                Uj_activity.putExtra("firstRunFlag", "0");
                 startActivity(Uj_activity);
                 break;
-            case R.id.btn_defShifts:
+            case R.id.btn_defShifts2:
                 Uj_activity = new Intent(Setup.this, DefShiftsMan.class);
+                Uj_activity.putExtra("firstRunFlag", "0");
                 startActivity(Uj_activity);
                 break;
         }

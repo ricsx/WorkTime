@@ -49,6 +49,7 @@
         android:id="@+id/results"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
@@ -75,7 +76,7 @@
                 android:background="@drawable/layerlist"
                 android:paddingBottom="8dp"
                 android:paddingEnd="26dp"
-                android:paddingStart="26dp"
+                android:paddingStart="18dp"
                 android:paddingTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -127,6 +128,7 @@
                 android:text="@string/bt_stp_somp_send"
                 android:textColor="@color/colorWhite"
                 android:textSize="20dp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.507"
                 app:layout_constraintStart_toStartOf="parent"
@@ -134,6 +136,7 @@
 
             <Button
                 android:id="@+id/btn_wage_stdate"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"

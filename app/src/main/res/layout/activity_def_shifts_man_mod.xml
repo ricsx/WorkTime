@@ -7,6 +7,43 @@
     android:layout_height="match_parent"
     tools:context="uk.co.computerxpert.worktime.Activities.DefShiftsManMod">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/def_shifts_man_mod_top"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:background="@color/toolbar_background"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- app:theme="@style/" > -->
+
+
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="16dp">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="26dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/ModifyYourShift"
+                android:textAllCaps="true"
+                android:textColor="@color/toolbar_title"
+                android:textSize="22sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+
     <ScrollView
         android:id="@+id/scrollView5"
         android:layout_width="0dp"
@@ -15,69 +52,76 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/def_shifts_man_mod_top">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/ShiftName"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <EditText
                 android:id="@+id/inp_defShiftName2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:background="@color/colorWhite"
                 android:ems="10"
                 android:inputType="textPersonName"
-                app:layout_constraintStart_toEndOf="@+id/textView20"
+                android:paddingBottom="8dp"
+                android:paddingStart="26dp"
+                android:paddingTop="8dp"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView21"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:paddingBottom="8sp"
+                android:paddingStart="26sp"
+                android:paddingTop="8sp"
                 android:text="@string/Company"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+                app:layout_constraintTop_toBottomOf="@+id/inp_defShiftName2" />
 
             <Spinner
                 android:id="@+id/sp_compNames2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="17dp"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/layerlist_right"
                 android:gravity="right"
+                android:paddingEnd="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView21"
                 app:layout_constraintTop_toBottomOf="@+id/inp_defShiftName2" />
 
             <TextView
                 android:id="@+id/textView23"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="TextView"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:paddingBottom="8dp"
+                android:paddingStart="26dp"
+                android:paddingTop="8dp"
+                android:text="@string/Agency"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
-            <Spinner
+             <Spinner
                 android:id="@+id/sp_agencyNames2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/layerlist_right"
+                android:paddingEnd="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView23"
                 app:layout_constraintTop_toBottomOf="@+id/sp_compNames2" />
 
@@ -89,17 +133,25 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="@string/TimeOfStart"
+                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
             <Button
                 android:id="@+id/btn_startTime2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/btnTime"
-                app:layout_constraintStart_toEndOf="@+id/inp_startTime2"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/layerlist_hour"
+                android:fontFamily="sans-serif"
+                android:paddingBottom="8dp"
+                android:paddingEnd="60dp"
+                android:paddingTop="8dp"
+                android:textAlignment="textEnd"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_startTime2St"
                 app:layout_constraintTop_toBottomOf="@+id/sp_agencyNames2" />
 
             <EditText
@@ -111,50 +163,109 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="@string/TimeOfEnd"
+                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inp_startTime2" />
 
             <Button
                 android:id="@+id/btn_endTime2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="5dp"
-                android:text="@string/btnTime"
-                app:layout_constraintStart_toEndOf="@+id/inp_endTime2"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/layerlist_hour"
+                android:fontFamily="sans-serif"
+                android:paddingBottom="8dp"
+                android:paddingEnd="60dp"
+                android:paddingTop="8dp"
+                android:textAlignment="textEnd"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_endTime2st"
                 app:layout_constraintTop_toBottomOf="@+id/btn_startTime2" />
 
             <TextView
                 android:id="@+id/textView22"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:paddingBottom="8dp"
+                android:paddingStart="26dp"
+                android:paddingTop="8dp"
                 android:text="@string/unpaidBreak"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/inp_endTime2" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_endTime2st" />
 
             <EditText
                 android:id="@+id/inp_unpBreak2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="6dp"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:paddingBottom="8dp"
+                android:paddingRight="26dp"
+                android:paddingTop="8dp"
+                android:textAlignment="textEnd"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView22"
                 app:layout_constraintTop_toBottomOf="@+id/btn_endTime2" />
 
             <Button
                 android:id="@+id/btn_defShiftsSave2"
-                android:layout_width="155dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/shape"
+                android:fontFamily="sans-serif"
                 android:text="@string/save"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inp_unpBreak2" />
+
+            <Button
+                android:id="@+id/btn_startTime2St"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:fontFamily="sans-serif"
+                android:paddingBottom="8sp"
+                android:paddingStart="26sp"
+                android:paddingTop="8sp"
+                android:text="@string/TimeOfStart"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/inp_startTime2"
+                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+            <Button
+                android:id="@+id/btn_endTime2st"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:fontFamily="sans-serif"
+                android:paddingBottom="8dp"
+                android:paddingStart="26dp"
+                android:paddingTop="8dp"
+                android:text="@string/TimeOfEnd"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_startTime2St" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

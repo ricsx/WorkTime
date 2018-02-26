@@ -27,10 +27,12 @@ import uk.co.computerxpert.worktime.data.DatabaseManager;
 import uk.co.computerxpert.worktime.data.model.Agencies;
 import uk.co.computerxpert.worktime.data.model.Companies;
 import uk.co.computerxpert.worktime.data.model.DefShifts;
+import uk.co.computerxpert.worktime.data.model.Settings;
 import uk.co.computerxpert.worktime.data.model.Wage;
 import uk.co.computerxpert.worktime.data.repo.AgenciesRepo;
 import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
 import uk.co.computerxpert.worktime.data.repo.DefShiftsRepo;
+import uk.co.computerxpert.worktime.data.repo.SettingsRepo;
 import uk.co.computerxpert.worktime.data.repo.WageRepo;
 
 public class App extends Application {
@@ -224,6 +226,15 @@ public class App extends Application {
         return comp_id;
     }
 
+
+    public static String settingTest(String settingName){
+        String settings_val = "";
+        String selectQuery="SELECT * FROM Settings WHERE settings_name=\""+settingName+"\"";
+        List<Settings> settings_s = SettingsRepo.getSettings(selectQuery);
+        for(int i=0; i<settings_s.size(); i++) {
+            settings_val = settings_s.get(i).get_settings_val();
+        } return settings_val;
+    }
 
 }
 

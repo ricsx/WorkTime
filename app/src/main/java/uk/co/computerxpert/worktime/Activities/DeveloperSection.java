@@ -16,6 +16,7 @@ import uk.co.computerxpert.worktime.data.DatabaseManager;
 import uk.co.computerxpert.worktime.data.repo.AgenciesRepo;
 import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
 import uk.co.computerxpert.worktime.data.repo.DefShiftsRepo;
+import uk.co.computerxpert.worktime.data.repo.SettingsRepo;
 import uk.co.computerxpert.worktime.data.repo.WageRepo;
 import uk.co.computerxpert.worktime.data.repo.WorktimesRepo;
 
@@ -44,6 +45,7 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
         Button agenciesCreate = (Button) findViewById(R.id.btn_agenciesCreate);
         Button defShiftsCreate = (Button) findViewById(R.id.btn_defShiftsCreate);
         Button defDatas = (Button) findViewById(R.id.btn_defDatas);
+        Button settingsCreate = (Button) findViewById(R.id.btn_SettingsCreate);
 
         execSql.setOnClickListener(this);
         droptable.setOnClickListener(this);
@@ -53,6 +55,7 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
         agenciesCreate.setOnClickListener(this);
         defShiftsCreate.setOnClickListener(this);
         defDatas.setOnClickListener(this);
+        settingsCreate.setOnClickListener(this);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -75,6 +78,11 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
     public void createWorktime(){
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         db.execSQL(WorktimesRepo.createTable());
+    }
+
+    public void createSettings(){
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        db.execSQL(SettingsRepo.createTable());
     }
 
     public void createCompanies(){
@@ -217,6 +225,9 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btn_defDatas:
                 fillDefDatas();
+                break;
+            case R.id.btn_SettingsCreate:
+                createSettings();
                 break;
         }
     }

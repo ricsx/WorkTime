@@ -54,7 +54,7 @@
     <string name="dialogRecordExistQuestion">Are you sure you want to add this entry?</string>
     <string name="dialogRecordExistWarning">This day already contains record.</string>
     <string name="mustFillDateTime">The date and time values must fill!</string>
-    <string name="setUpWorkingTime" >SET UP YOUR WORKING TIME</string>
+    <string name="setUpWorkingTime">SET UP YOUR WORKING TIME</string>
     <string name="myCompanies">My Companies</string>
     <string name="DataOfTheCompany">Data of the company</string>
     <string name="myAgencies">My Agencies</string>
@@ -64,4 +64,8 @@
     <string name="SetANewDefaultShift">Set a new default shift</string>
     <string name="SelectCompany">Select Company</string>
     <string name="SelectAgency">Select Agency</string>
+    <string name="ModifyYourShift">Modify your shift</string>
+    <string name="ModifyYourAgency">Modify your agency</string>
+    <string name="ModifyYourCompany">Modify your company</string>
+    <string name="chooseAgency">Choose an agency</string>
 </resources>
