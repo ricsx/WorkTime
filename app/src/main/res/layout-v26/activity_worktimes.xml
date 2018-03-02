@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="uk.co.computerxpert.worktime.Activities.Worktimes">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/worktimes_top"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:background="@color/toolbar_background"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- app:theme="@style/" > -->
+
+
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="16dp">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="26dp"
+                android:layout_marginTop="6dp"
+                android:text="@string/title_dashboard"
+                android:textAllCaps="true"
+                android:textColor="@color/toolbar_title"
+                android:textSize="30sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_marginEnd="26dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/setUpWorkingTime"
+                android:textColor="@color/text_color"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar_title" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/scrollView6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/worktimes_top">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_vegdate"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/layerlist_cal"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:focusedByDefault="true"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:text="@string/DateOfEnd"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_kezdtime" />
+
+            <Spinner
+                android:id="@+id/spinner4"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/layerlist"
+                android:paddingBottom="8dp"
+                android:paddingEnd="0dp"
+                android:paddingStart="18dp"
+                android:paddingTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_savePayslip" />
+
+            <EditText
+                android:id="@+id/overTimeWage"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:ems="10"
+                android:hint="@string/wageOfTheOtime"
+                android:inputType="number|numberDecimal"
+                android:paddingBottom="8dp"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:paddingTop="8dp"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chb_overTime" />
+
+            <Spinner
+                android:id="@+id/sp_companyNames"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/layerlist"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:focusedByDefault="true"
+                android:paddingBottom="8dp"
+                android:paddingEnd="0dp"
+                android:paddingStart="18dp"
+                android:paddingTop="8dp"
+                android:windowSoftInputMode="stateAlwaysHidden"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/overTimeWage" />
+
+            <Spinner
+                android:id="@+id/sp_agencyNames"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/layerlist"
+                android:paddingBottom="8dp"
+                android:paddingEnd="0dp"
+                android:paddingStart="18dp"
+                android:paddingTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sp_companyNames" />
+
+            <Button
+                android:id="@+id/btn_date"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/layerlist_cal"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:text="@string/DateOfStart"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sp_agencyNames" />
+
+            <EditText
+                android:id="@+id/in_kezddateBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:labelFor="@id/in_kezddateBox"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:textSize="14sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btn_date" />
+
+            <EditText
+                android:id="@+id/in_kezdtimeBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="6dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:labelFor="@id/in_kezdtimeBox"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_date" />
+
+            <EditText
+                android:id="@+id/in_vegtimeBox"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="time"
+                android:labelFor="@id/in_vegtimeBox"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/in_vegdateBox" />
+
+            <EditText
+                android:id="@+id/in_megjBox"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorWhite"
+                android:ems="10"
+                android:hint="@string/Comment"
+                android:inputType="text"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/in_unpaidBreakBox" />
+
+            <Button
+                android:id="@+id/btn_kezdtime"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/layerlist_hour"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:text="@string/TimeOfStart"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_date" />
+
+            <EditText
+                android:id="@+id/in_vegdateBox"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:labelFor="@id/in_vegdateBox"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/in_kezdtimeBox" />
+
+            <Button
+                android:id="@+id/btn_vegtime"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/layerlist_hour"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:text="@string/TimeOfEnd"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_vegdate" />
+
+            <EditText
+                android:id="@+id/in_unpaidBreakBox"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorWhite"
+                android:ems="10"
+                android:hint="@string/unpaidBreak"
+                android:inputType="number"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_vegtime" />
+
+            <CheckBox
+                android:id="@+id/chb_overTime"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:paddingEnd="12dp"
+                android:paddingStart="4dp"
+                android:textAlignment="viewStart"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner4" />
+
+            <Button
+                android:id="@+id/btn_WorktimeSave"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/shape"
+                android:fontFamily="sans-serif"
+                android:onClick="onClick"
+                android:text="@string/bt_stp_somp_send"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/in_megjBox" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:paddingBottom="8dp"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:paddingTop="8dp"
+                android:text="@string/Overtime"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/chb_overTime"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner4" />
+
+            <Button
+                android:id="@+id/btn_savePayslip"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:text="@string/savePayslip"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation" />
+
+</android.support.constraint.ConstraintLayout>
+
