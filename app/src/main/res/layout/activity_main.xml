@@ -11,7 +11,7 @@
         android:id="@+id/overview_top"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@color/toolbar_title"
+        android:background="@color/toolbar_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,17 +29,19 @@
 
             <TextView
                 android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginEnd="26dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginTop="6dp"
                 android:text="@string/title_home"
+                android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/overview_title"
+                android:textColor="@color/toolbar_title"
                 android:textSize="30sp"
                 android:textStyle="bold|italic"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
@@ -90,8 +92,10 @@
         android:layout_margin="16dp"
         android:layout_marginBottom="20dp"
         android:layout_marginStart="24dp"
+        app:backgroundTint="@color/toolbar_title"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:rippleColor="@color/colorWhite"
+        app:srcCompat="@drawable/ic_add_black_24dp" />
 
 </android.support.constraint.ConstraintLayout>

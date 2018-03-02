@@ -5,7 +5,7 @@
     <color name="colorAccent">#78909B</color>
     <color name="colorWhite">#ffffff</color>
     <color name="text_color">#666666</color>
-    <color name="row_overtime">#336699</color>
+    <color name="row_overtime">#78909b</color>
     <color name="row_normal">#78909b</color>
     <color name="toolbar_background">#eeeeee</color>
     <color name="toolbar_title">#303f9f</color>
