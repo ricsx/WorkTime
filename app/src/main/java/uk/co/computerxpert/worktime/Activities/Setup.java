@@ -20,11 +20,11 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
 
-        Button companies = (Button) findViewById(R.id.btn_companies2);
-        Button wages = (Button) findViewById(R.id.btn_wages2);
-        Button dev = (Button) findViewById(R.id.btn_dev);
-        Button agencies = (Button) findViewById(R.id.btn_agencies2);
-        Button defShifts = (Button) findViewById(R.id.btn_defShifts2);
+        Button companies = findViewById(R.id.btn_companies2);
+        Button wages = findViewById(R.id.btn_wages2);
+        Button dev = findViewById(R.id.btn_dev);
+        Button agencies = findViewById(R.id.btn_agencies2);
+        Button defShifts = findViewById(R.id.btn_defShifts2);
 
         companies.setOnClickListener(this);
         wages.setOnClickListener(this);
@@ -32,7 +32,7 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         agencies.setOnClickListener(this);
         defShifts.setOnClickListener(this);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     }

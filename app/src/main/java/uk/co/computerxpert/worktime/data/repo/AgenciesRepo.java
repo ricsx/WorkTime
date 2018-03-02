@@ -7,22 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.computerxpert.worktime.data.DBHelper;
 import uk.co.computerxpert.worktime.data.DatabaseManager;
 import uk.co.computerxpert.worktime.data.model.Agencies;
 
-/**
- * Created by ricsx on 05/02/18.
- */
-
 public class AgenciesRepo {
-    private Agencies agencies;
-    private static final String TAG_Ertek="TAG: ";
-    private DBHelper dbHelper;
 
     public AgenciesRepo(){
-        agencies = new Agencies();
-        dbHelper = new DBHelper();
+
     }
 
 
@@ -61,32 +52,9 @@ public class AgenciesRepo {
     }
 
 
-    public static List<Agencies> getAgencies2(String selectQuery){
-        Agencies agencies = new Agencies();
-        List<Agencies> agencies_s = new ArrayList<Agencies>();
-
-        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                agencies= new Agencies();
-                agencies.setagency_id(cursor.getInt(cursor.getColumnIndex(Agencies.KEY_agency_id)));
-                agencies.setagency_name(cursor.getString(cursor.getColumnIndex(Agencies.KEY_agency_name)));
-                agencies_s.add(agencies);
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        DatabaseManager.getInstance().closeDatabase();
-
-        return agencies_s;
-    }
-
-
     public static List<Agencies> getAgencies(String selectQuery){
-        Agencies agencies = new Agencies();
-        List<Agencies> agencies_s = new ArrayList<Agencies>();
+        Agencies agencies;
+        List<Agencies> agencies_s = new ArrayList<>();
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -136,13 +104,4 @@ public class AgenciesRepo {
         db.close(); // Closing database connection
         DatabaseManager.getInstance().closeDatabase();
     }
-
-
-    public static void delete(String query) {
-        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        db.delete(Agencies.TABLE, query,null);
-        DatabaseManager.getInstance().closeDatabase();
-    }
-
-
 }

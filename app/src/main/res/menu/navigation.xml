@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_home"
         android:enabled="true"
-        app:showAsAction="always|withText" />
+        app:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/navigation_dashboard"

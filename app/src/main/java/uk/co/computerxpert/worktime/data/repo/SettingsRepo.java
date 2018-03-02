@@ -10,19 +10,9 @@ import java.util.List;
 import uk.co.computerxpert.worktime.data.DatabaseManager;
 import uk.co.computerxpert.worktime.data.model.Settings;
 
-/**
- * Created by ricsx on 20/02/18.
- */
-
 public class SettingsRepo {
 
-    private Settings settings;
-    private static final String TAG_Ertek="TAG: ";
-
     public SettingsRepo(){
-
-        settings= new Settings();
-
     }
 
 
@@ -52,8 +42,8 @@ public class SettingsRepo {
 
 
     public static List<Settings> getSettings(String selectQuery){
-        Settings settings = new Settings();
-        List<Settings> settings_s = new ArrayList<Settings>();
+        Settings settings;
+        List<Settings> settings_s = new ArrayList<>();
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 

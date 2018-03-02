@@ -1,10 +1,5 @@
 package uk.co.computerxpert.worktime.data;
 
-/**
- * Created by ricsx on 29/12/17.
- */
-
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -32,8 +27,7 @@ public class DBHelper  extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION =8;
     // Database Name
     private static final String DATABASE_NAME = "worktimeDB.db";
-    private static final String TAG = DBHelper.class.getSimpleName().toString();
-    private static SQLiteDatabase mDatabase;
+    private static final String TAG = DBHelper.class.getSimpleName();
 
     // boolean aa = isTableExists("DefShifts", false);
 
@@ -64,29 +58,6 @@ public class DBHelper  extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + DefShifts.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Settings.TABLE);
         onCreate(db);
-    }
-
-    public boolean isTableExists(String tableName, boolean openDb) {
-        if(openDb) {
-            if(mDatabase == null || !mDatabase.isOpen()) {
-                mDatabase = getReadableDatabase();
-            }
-
-            if(!mDatabase.isReadOnly()) {
-                mDatabase.close();
-                mDatabase = getReadableDatabase();
-            }
-        }
-
-        Cursor cursor = mDatabase.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'", null);
-        if(cursor!=null) {
-            if(cursor.getCount()>0) {
-                cursor.close();
-                return true;
-            }
-            cursor.close();
-        }
-        return false;
     }
 
 }

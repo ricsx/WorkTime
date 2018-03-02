@@ -1,8 +1,5 @@
 package uk.co.computerxpert.worktime.data.model;
 
-/**
- * Created by ricsx on 03/01/18.
- */
 
 public class FullQuerys {
 
@@ -112,35 +109,21 @@ public class FullQuerys {
 
     public String getcomp_name() { return this._comp_name; }
 
-    public void setwage_id(int wage_id) {
-        this._wage_id = wage_id;
-    }
+    public void setwage_id(int wage_id) { this._wage_id = wage_id; }
 
-    public int getwage_id() {
-        return this._wage_id;
-    }
+    public int getwage_id() { return this._wage_id; }
 
-    public void setwage_comp_id(int wage_comp_id) {
-        this._wage_comp_id = wage_comp_id;
-    }
+    public void setwage_comp_id(int wage_comp_id) { this._wage_comp_id = wage_comp_id; }
 
     public int getwage_comp_id() { return this._wage_comp_id; }
 
-    public void setwage_startdate(double  wage_startdate) {
-        this._wage_startdate = wage_startdate;
-    }
+    public void setwage_startdate(double  wage_startdate) { this._wage_startdate = wage_startdate; }
 
-    public double  getwage_startdate() {
-        return this._wage_startdate;
-    }
+    public double  getwage_startdate() { return this._wage_startdate; }
 
-    public void set_wage_strstdate(String wage_stsstdate) {
-        this._wage_strstdate = wage_stsstdate;
-    }
+    public void set_wage_strstdate(String wage_stsstdate) { this._wage_strstdate = wage_stsstdate; }
 
-    public String  get_wage_strstdate() {
-        return this._wage_strstdate;
-    }
+    public String  get_wage_strstdate() { return this._wage_strstdate; }
 
     public void setwage_val(String wage_val) { this._wage_val = wage_val; }
 
@@ -166,9 +149,7 @@ public class FullQuerys {
         this._wt_rem = wt_rem;
     }
 
-    public String getwt_rem() {
-        return this._wt_rem;
-    }
+    public String getwt_rem() { return this._wt_rem; }
 
     public void setwt_week(int wt_week) { this._wt_week = wt_week; }
 

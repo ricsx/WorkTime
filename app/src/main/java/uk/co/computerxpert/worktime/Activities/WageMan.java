@@ -1,5 +1,6 @@
 package uk.co.computerxpert.worktime.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import uk.co.computerxpert.worktime.App.App;
 import uk.co.computerxpert.worktime.R;
@@ -57,18 +59,19 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wage_man);
 
-        spinner1 = (Spinner) findViewById(R.id.spinner2);
-        in_kezddate = (EditText) findViewById(R.id.in_wage_stdateBox);
-        in_val = (EditText) findViewById(R.id.in_wage_valBox);
-        btn_kezddate = (Button) findViewById(R.id.btn_wage_stdate);
-        result = (ListView) findViewById(R.id.results);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        spinner1 = findViewById(R.id.spinner2);
+        in_kezddate = findViewById(R.id.in_wage_stdateBox);
+        in_val = findViewById(R.id.in_wage_valBox);
+        btn_kezddate = findViewById(R.id.btn_wage_stdate);
+        result = findViewById(R.id.results);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
 
         String firstRunFlag = getIntent().getStringExtra("firstRunFlag");
         if(firstRunFlag == null){ firstRunFlag ="0"; }
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.wages_man_top);
+        Toolbar myToolbar = findViewById(R.id.wages_man_top);
         setSupportActionBar(myToolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
@@ -112,17 +115,15 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
             dateTime.set(Calendar.YEAR, year);
             dateTime.set(Calendar.MONTH, month);
             dateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateTextLabel("date");
+            updateTextLabel();
         }
     };
 
 
-    private void updateTextLabel (String var){
-        if(kezdveg == "k") {
-            if (var == "date") {
+    private void updateTextLabel(){
+        if(Objects.equals(kezdveg, "k")) {
                 in_kezddate.setText(formatDate.format(dateTime.getTime()));
                 btn_kezddate.setText(formatDate.format(dateTime.getTime()));
-            }
         }
     }
 
@@ -145,10 +146,10 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
 
         // Dates convert to Unix format
         // DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy hh:mm");
-        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy hh:mm");
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy hh:mm");
 
         Date date_kezd = dateFormat.parse(kezd_);
-        long kezd_uxT = (long)date_kezd.getTime()/1000;
+        long kezd_uxT = date_kezd.getTime() /1000;
 
         // End of converts
 
@@ -194,17 +195,23 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
                 + " WHERE " + Wage.KEY_wage_comp_id
                 + " = " + Companies.KEY_comp_id
                 ;
-        WageRepo wageRepo = new WageRepo();
-        List<Wage> wage_s = wageRepo.relGetWage(selectQuery);
+
+        List<Wage> wage_s = WageRepo.relGetWage(selectQuery);
 
         // "values" array definition and loading
+        //noinspection MismatchedQueryAndUpdateOfCollection
         ArrayList<Integer> arr_id = new ArrayList<>();
+        //noinspection MismatchedQueryAndUpdateOfCollection
         ArrayList<Integer> arr_comp_id = new ArrayList<>();
+        //noinspection MismatchedQueryAndUpdateOfCollection
         ArrayList<Double> arr_startdate = new ArrayList<>();
+        //noinspection MismatchedQueryAndUpdateOfCollection
         ArrayList<String> arr_strstdate = new ArrayList<>();
-        ArrayList<String> arr_val = new ArrayList<String>();
-        ArrayList<String> arr_compname = new ArrayList<String>();
-        ArrayList<String> list_val = new ArrayList<String>();
+        //noinspection MismatchedQueryAndUpdateOfCollection
+        ArrayList<String> arr_val = new ArrayList<>();
+        //noinspection MismatchedQueryAndUpdateOfCollection
+        ArrayList<String> arr_compname = new ArrayList<>();
+        ArrayList<String> list_val = new ArrayList<>();
 
         for(int i=0; i<wage_s.size();i++){
             arr_id.add(wage_s.get(i).getwage_id());
@@ -213,31 +220,29 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
             arr_strstdate.add(wage_s.get(i).getwage_strstdate());
             arr_val.add(wage_s.get(i).getwage_val());
             arr_compname.add(wage_s.get(i).getcomp_name());
-            long dv = (long) (Double.valueOf(wage_s.get(i).getwage_startdate())*1000);
+            long dv = (long) (wage_s.get(i).getwage_startdate() *1000);
             Date df = new java.util.Date(dv);
 
-            String df_arr_st = new SimpleDateFormat("MM/dd, yyyy").format(df);
+            @SuppressLint("SimpleDateFormat") String df_arr_st = new SimpleDateFormat("MM/dd, yyyy").format(df);
             list_val.add(wage_s.get(i).getcomp_name()+" - "+df_arr_st+" - "+wage_s.get(i).getwage_val());
         }
 
         // array-fetching
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, list_val);
         result.setAdapter(adapter);
 
-        // TODO: To create the modify of records (NO DELETE! modify only)
         // After Clicked...
         result.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                int itemPosition = position;
                 String itemValue = (String) result.getItemAtPosition(position);
                 List<String> cutteredItems = Arrays.asList(itemValue.split(" - "));
                 String wageIDString = Integer.toString(getWageIDFromQuery( "SELECT * FROM  wage,Companies WHERE " +
                         "wage.wage_comp_id=companies.comp_id AND comp_name = \""+ cutteredItems.get(0) +"\"" +
-                        " AND wage_val = \""+ cutteredItems.get(2) + "\""));;
+                        " AND wage_val = \""+ cutteredItems.get(2) + "\""));
                 Uj_activity = new Intent(WageMan.this, WageManMod.class);
                 // Uj_activity.putExtra("companyID", companyIDString);
                 Uj_activity.putExtra("wageID", wageIDString);
@@ -247,16 +252,12 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
 
             }
         });
-
-
     }
 
 
     private int getWageIDFromQuery(String query){
-        String selectQuery =  query;
         int wageID=0;
-        WageRepo wageRepo = new WageRepo();
-        List<Wage> wages_s= wageRepo.relGetWage(selectQuery);
+        List<Wage> wages_s= WageRepo.relGetWage(query);
 
         for(int i=0; i<wages_s.size();i++){ wageID = wages_s.get(i).getwage_id(); }
 

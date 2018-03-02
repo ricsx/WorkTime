@@ -37,20 +37,21 @@ public class CompaniesManMod extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_companies_man_mod);
 
-        ed_comp_name = (EditText) findViewById(R.id.cmm_compNameBox);
-        edCompAddr = (EditText) findViewById(R.id.cmm_compAddressBox);
-        edCompCity = (EditText) findViewById(R.id.cmm_compCityBox);
-        edCompPostCode = (EditText) findViewById(R.id.cmm_compPostcodeBox);
-        edCompPhone = (EditText) findViewById(R.id.cmm_compPhoneBox);
-        edContPName = (EditText) findViewById(R.id.cmm_compContPersNameBox);
-        edContPPhone = (EditText) findViewById(R.id.cmm_compContPersPhoneBox);
-        edContPEmail = (EditText) findViewById(R.id.cmm_compContPersEmailBox);
+        ed_comp_name = findViewById(R.id.cmm_compNameBox);
+        edCompAddr = findViewById(R.id.cmm_compAddressBox);
+        edCompCity = findViewById(R.id.cmm_compCityBox);
+        edCompPostCode = findViewById(R.id.cmm_compPostcodeBox);
+        edCompPhone = findViewById(R.id.cmm_compPhoneBox);
+        edContPName = findViewById(R.id.cmm_compContPersNameBox);
+        edContPPhone = findViewById(R.id.cmm_compContPersPhoneBox);
+        edContPEmail = findViewById(R.id.cmm_compContPersEmailBox);
 
         String fromCompanyID = getIntent().getStringExtra("companyID");
-        Button btn_cmmMod = (Button) findViewById(R.id.btn_cmmMod);
+        Button btn_cmmMod = findViewById(R.id.btn_cmmMod);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.company_man_mod_top);
+        Toolbar myToolbar = findViewById(R.id.company_man_mod_top);
         setSupportActionBar(myToolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
@@ -61,18 +62,19 @@ public class CompaniesManMod extends AppCompatActivity implements View.OnClickLi
         loadFormDefaults(fromCompanyID);
         btn_cmmMod.setOnClickListener(this);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
 
     private void loadFormDefaults(String value){
         String selectQuery =  " SELECT * from Companies WHERE " + Companies.KEY_comp_id + " = \"" + value + "\"";
-        CompaniesRepo companiesRepo = new CompaniesRepo();
-        List<Companies> companies_s= companiesRepo.getCompanies(selectQuery);
+
+        List<Companies> companies_s= CompaniesRepo.getCompanies(selectQuery);
         // "values" array definition and loading
         ed_comp_id = Integer.parseInt(value);
-        ArrayList<String> values = new ArrayList<String>();
+        //noinspection MismatchedQueryAndUpdateOfCollection
+        ArrayList<String> values = new ArrayList<>();
         for(int i=0; i<companies_s.size();i++){
             ed_comp_name.setText(companies_s.get(i).getcomp_name());
             edCompAddr.setText(companies_s.get(i).getcompanyAddress());

@@ -1,5 +1,6 @@
 package uk.co.computerxpert.worktime.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -32,6 +33,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import uk.co.computerxpert.worktime.App.App;
 import uk.co.computerxpert.worktime.R;
@@ -51,13 +53,13 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
     private Intent Uj_activity;
     private String kezdveg = "k", chooseDefaulShift, notSelected, chooseCompany, globalVegdate;
     private Spinner spinnerCompany, spinner2, spinnerAgency;
-    private CheckBox chechBox_overTime;
     private Context context = this;
-    Button btn_kezddate, btn_kezdtime, btn_vegdate, btn_vegtime, btn_WorktimeSave;
+    Button btn_kezddate, btn_kezdtime, btn_vegdate, btn_vegtime, btn_WorktimeSave, btn_savePayslip;
 
     private uk.co.computerxpert.worktime.data.model.Worktimes arrWorktimes = new uk.co.computerxpert.worktime.data.model.Worktimes();
 
     final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
+    @SuppressLint("SimpleDateFormat")
     DateFormat formatDate = new SimpleDateFormat("dd MMM yyyy");
     SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm", Locale.UK); // Set up time format to 24-hour
     DecimalFormat decimalFormat = new DecimalFormat("##.00");
@@ -70,33 +72,34 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         chooseDefaulShift = getString(R.string.ChooseDefaultShift);
         notSelected = getString(R.string.NotSelected);
         chooseCompany = getString(R.string.chooseCompany);
-        spinnerCompany = (Spinner) findViewById(R.id.sp_companyNames);
-        spinner2 = (Spinner) findViewById(R.id.spinner4);
-        spinnerAgency = (Spinner) findViewById(R.id.sp_agencyNames);
-        in_kezddate = (EditText) findViewById(R.id.in_kezddateBox);
-        in_kezdtime = (EditText) findViewById(R.id.in_kezdtimeBox);
-        in_vegdate = (EditText) findViewById(R.id.in_vegdateBox);
-        in_vegtime = (EditText) findViewById(R.id.in_vegtimeBox);
-        in_megj = (EditText) findViewById(R.id.in_megjBox);
-        in_unpaidBreak = (EditText) findViewById(R.id.in_unpaidBreakBox);
-        btn_kezddate = (Button) findViewById(R.id.btn_date);
-        btn_kezdtime = (Button) findViewById(R.id.btn_kezdtime);
-        btn_vegdate = (Button) findViewById(R.id.btn_vegdate);
-        btn_vegtime = (Button) findViewById(R.id.btn_vegtime);
-        btn_WorktimeSave = (Button) findViewById(R.id.btn_WorktimeSave);
-        chechBox_overTime = (CheckBox) findViewById(R.id.chb_overTime);
-        overTimeWage = (EditText) findViewById(R.id.overTimeWage);
-
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.worktimes_top);
+        spinnerCompany = findViewById(R.id.sp_companyNames);
+        spinner2 = findViewById(R.id.spinner4);
+        spinnerAgency = findViewById(R.id.sp_agencyNames);
+        in_kezddate = findViewById(R.id.in_kezddateBox);
+        in_kezdtime = findViewById(R.id.in_kezdtimeBox);
+        in_vegdate = findViewById(R.id.in_vegdateBox);
+        in_vegtime = findViewById(R.id.in_vegtimeBox);
+        in_megj = findViewById(R.id.in_megjBox);
+        in_unpaidBreak = findViewById(R.id.in_unpaidBreakBox);
+        btn_kezddate = findViewById(R.id.btn_date);
+        btn_kezdtime = findViewById(R.id.btn_kezdtime);
+        btn_vegdate = findViewById(R.id.btn_vegdate);
+        btn_WorktimeSave = findViewById(R.id.btn_WorktimeSave);
+        CheckBox chechBox_overTime = findViewById(R.id.chb_overTime);
+        btn_savePayslip = findViewById(R.id.btn_savePayslip);
+        btn_vegtime = findViewById(R.id.btn_vegtime);
+        overTimeWage = findViewById(R.id.overTimeWage);
+        Toolbar myToolbar = findViewById(R.id.worktimes_top);
         setSupportActionBar(myToolbar);
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // starting Spinners
-        App.DefShiftsListToSpinner(spinner2, context, "SELECT * FROM DefShifts", chooseDefaulShift);
+        App.DefShiftsListToSpinner(spinner2, context, chooseDefaulShift);
         loadingDatasFromSpinner2();
 
-        App.AgenciesListToSpinner(spinnerAgency, this, "SELECT * FROM Agencies", notSelected);
+        App.AgenciesListToSpinner(spinnerAgency, this, notSelected);
 
         App.CompanyListToSpinner(spinnerCompany, context, "SELECT * FROM Companies", chooseCompany);
 
@@ -113,14 +116,24 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
             }
         });
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         btn_kezddate.setOnClickListener(this);
         btn_kezdtime.setOnClickListener(this);
         btn_vegdate.setOnClickListener(this);
         btn_vegtime.setOnClickListener(this);
+        btn_savePayslip.setOnClickListener(this);
+
         App.makeMonthArray();
+
+        btn_savePayslip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uj_activity = new Intent(Worktimes.this, SavePayslips.class);
+                startActivity(Uj_activity);
+            }
+        });
 
         btn_kezddate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,14 +196,15 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
             in_vegtime.setText(getString(R.string.TimeOfEnd));
             in_megj.setText("");
             in_unpaidBreak.setText("");
-            App.AgenciesListToSpinner(spinnerAgency, this, "SELECT * FROM Agencies", notSelected);
+            App.AgenciesListToSpinner(spinnerAgency, this, notSelected);
             App.CompanyListToSpinner(spinnerCompany, context, "SELECT * FROM Companies", chooseCompany);
         } else {
             String selectQuery = " SELECT * from DefShifts WHERE " + DefShifts.KEY_DS_Name + " = \"" + value + "\"";
-            DefShiftsRepo defShiftsRepo = new DefShiftsRepo();
-            List<DefShifts> defShifts_s = defShiftsRepo.getDefShifts(selectQuery);
+            // DefShiftsRepo defShiftsRepo = new DefShiftsRepo();
+            List<DefShifts> defShifts_s = DefShiftsRepo.getDefShifts(selectQuery);
             // "values" array definition and loading
-            ArrayList<String> values = new ArrayList<String>();
+            //noinspection MismatchedQueryAndUpdateOfCollection
+            ArrayList<String> values = new ArrayList<>();
             for (int i = 0; i < defShifts_s.size(); i++) {
                 in_kezdtime.setText(defShifts_s.get(i).get_defsh_starttime());
                 btn_kezdtime.setText(defShifts_s.get(i).get_defsh_starttime());
@@ -299,7 +313,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         String unpbr =  in_unpaidBreak.getText().toString();
         String agency_name = spinnerAgency.getSelectedItem().toString();
         String ovTimeWage = overTimeWage.getText().toString();
-        Integer agency_id = null;
+        Integer agency_id;
 
         if(kezddate.equals("") || kezddate.equals(getString(R.string.DateOfStart)) ||
                 kezdtime.equals("") || kezdtime.equals(getString(R.string.TimeOfStart)) ||
@@ -344,7 +358,10 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            double kezd_uxT = (long) date_kezd.getTime() / 1000;
+            double kezd_uxT = 0;
+            if (date_kezd != null) {
+                kezd_uxT = date_kezd.getTime() / 1000;
+            }
 
             Date date_veg = null;
             try {
@@ -352,7 +369,10 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            double veg_uxT = (long) date_veg.getTime() / 1000;
+            double veg_uxT = 0;
+            if (date_veg != null) {
+                veg_uxT = date_veg.getTime() / 1000;
+            }
             // End of converts
 
             // Calculate the correct week-of-year from the selected date
@@ -456,9 +476,10 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
 
     // If say Yes from dialog
     private void postrunner(uk.co.computerxpert.worktime.data.model.Worktimes arrWorktimes){
+        //noinspection StatementWithEmptyBody
         if (saveValidator != 1 ) {
         } else {
-            WorktimesRepo.insert((uk.co.computerxpert.worktime.data.model.Worktimes) arrWorktimes);
+            WorktimesRepo.insert(arrWorktimes);
             goToHome();
         }
     }
@@ -484,7 +505,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
                     WorktimesRepo.insert(arrWorktimes);
                     goToHome();
                 }
-            }else if(worktimes_s.get(i).getwt_strsdate() != vegdate){
+            }else if(!Objects.equals(worktimes_s.get(i).getwt_strsdate(), vegdate)){
                 WorktimesRepo.insert(arrWorktimes);
                 goToHome();
             }

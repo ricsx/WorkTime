@@ -9,7 +9,7 @@
     <string name="btn_setup_wages">Wages</string>
     <string name="title_activity_stp_comp">Stp_comp</string>
     <string name="title_activity_stp_wages">Stp_wages</string>
-    <string name="title_activity_developer_section">DeveloperSection</string>
+    <string name="title_activity_developer_section" translatable="false">DeveloperSection</string>
     <string name="title_activity_companies_man_mod">CompaniesManMod</string>
     <string name="Name">Name</string>
     <string name="CompanyAddress">Address</string>
@@ -68,4 +68,16 @@
     <string name="ModifyYourAgency">Modify your agency</string>
     <string name="ModifyYourCompany">Modify your company</string>
     <string name="chooseAgency">Choose an agency</string>
+    <string name="savePayslip">Save payslip</string>
+    <string name="saveYourPayslip">Save your payslip</string>
+    <string name="saveFromPhoto">Make a photo from your payslip</string>
+    <string name="saveFromFile">Choose your payslip file</string>
+    <string name="payslipName">Payslip name</string>
+    <string name="firstTimeRun">First Time Run</string>
+    <string name="loadDefaults">load defaults</string>
+    <string name="StartToWork">Start to work</string>
+    <string name="todo">TODO</string>
+    <string name="devSection">Developer section</string>
+    <string name="name">Name</string>
+    <string name="textview">TextView</string>
 </resources>

@@ -37,42 +37,43 @@ public class AgenciesManMod extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agencies_man_mod);
 
-        ed_agency_name = (EditText) findViewById(R.id.upd_agencyNameBox);
-        edAgencyAddr = (EditText) findViewById(R.id.upd_agencyAddressBox);
-        edAgencyCity = (EditText) findViewById(R.id.upd_agencyCityBox);
-        edAgencyPostCode = (EditText) findViewById(R.id.upd_agencyPostcodeBox);
-        edAgencyPhone = (EditText) findViewById(R.id.upd_agencyPhoneBox);
-        edContPName = (EditText) findViewById(R.id.upd_agencyContPersNameBox);
-        edContPPhone = (EditText) findViewById(R.id.upd_agencyContPersPhoneBox);
-        edContPEmail = (EditText) findViewById(R.id.upd_agencyContPersEmailBox);
+        ed_agency_name = findViewById(R.id.upd_agencyNameBox);
+        edAgencyAddr = findViewById(R.id.upd_agencyAddressBox);
+        edAgencyCity = findViewById(R.id.upd_agencyCityBox);
+        edAgencyPostCode = findViewById(R.id.upd_agencyPostcodeBox);
+        edAgencyPhone = findViewById(R.id.upd_agencyPhoneBox);
+        edContPName = findViewById(R.id.upd_agencyContPersNameBox);
+        edContPPhone = findViewById(R.id.upd_agencyContPersPhoneBox);
+        edContPEmail = findViewById(R.id.upd_agencyContPersEmailBox);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.agencies_man_mod_top);
+        Toolbar myToolbar = findViewById(R.id.agencies_man_mod_top);
         setSupportActionBar(myToolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
         upArrow.setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-        Button btn_cmmMod = (Button) findViewById(R.id.btn_stp_agency_update);
+        Button btn_cmmMod = findViewById(R.id.btn_stp_agency_update);
 
         String fromAgencyanyID = getIntent().getStringExtra("agencyID");
         loadFormDefaults(fromAgencyanyID);
 
         btn_cmmMod.setOnClickListener(this);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
 
     private void loadFormDefaults(String value){
         String selectQuery =  " SELECT * from Agencies WHERE " + Agencies.KEY_agency_id + " = \"" + value + "\"";
-        AgenciesRepo agenciesRepo = new AgenciesRepo();
-        List<Agencies> agencies_s= agenciesRepo.getAgencies(selectQuery);
+        List<Agencies> agencies_s= AgenciesRepo.getAgencies(selectQuery);
         // "values" array definition and loading
         ed_agency_id = Integer.parseInt(value);
-        ArrayList<String> values = new ArrayList<String>();
+        //noinspection MismatchedQueryAndUpdateOfCollection
+        ArrayList<String> values = new ArrayList<>();
         for(int i=0; i<agencies_s.size();i++){
             ed_agency_name.setText(agencies_s.get(i).getagency_name());
             edAgencyAddr.setText(agencies_s.get(i).getagencyAddress());

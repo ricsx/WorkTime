@@ -1,9 +1,5 @@
 package uk.co.computerxpert.worktime.data.model;
 
-/**
- * Created by ricsx on 06/02/18.
- */
-
 public class DefShifts {
 
     public static final String TAG = DefShifts.class.getSimpleName();

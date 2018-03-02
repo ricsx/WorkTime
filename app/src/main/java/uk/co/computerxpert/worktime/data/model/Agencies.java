@@ -1,9 +1,5 @@
 package uk.co.computerxpert.worktime.data.model;
 
-/**
- * Created by ricsx on 05/02/18.
- */
-
 public class Agencies {
     public static final String TAG = Agencies.class.getSimpleName();
     public static final String TABLE = "Agencies";

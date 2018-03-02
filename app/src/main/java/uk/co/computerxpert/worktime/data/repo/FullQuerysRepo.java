@@ -2,7 +2,6 @@ package uk.co.computerxpert.worktime.data.repo;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,29 +9,20 @@ import java.util.List;
 import uk.co.computerxpert.worktime.data.DatabaseManager;
 import uk.co.computerxpert.worktime.data.model.FullQuerys;
 
-/**
- * Created by ricsx on 03/01/18.
- */
-
 public class FullQuerysRepo {
-    private FullQuerys fullQuerys;
-    private static final String TAG_Ertek="TAG: ";
 
     public FullQuerysRepo(){
-
-        fullQuerys= new FullQuerys();
 
     }
 
 
     public static List<FullQuerys> getFullQuerys(String selectQuery){
-        FullQuerys fullQuerys = new FullQuerys();
-        List<FullQuerys> fullQuerys_s = new ArrayList<FullQuerys>();
+        FullQuerys fullQuerys;
+        List<FullQuerys> fullQuerys_s = new ArrayList<>();
 
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
-        Log.i(TAG_Ertek, selectQuery);
         Cursor cursor = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
@@ -74,12 +64,11 @@ public class FullQuerysRepo {
 
 
     public static List<FullQuerys> getMaxStartDate(String selectQuery){
-        FullQuerys fullQuerys = new FullQuerys();
-        List<FullQuerys> fullQuerys_s = new ArrayList<FullQuerys>();
+        FullQuerys fullQuerys;
+        List<FullQuerys> fullQuerys_s = new ArrayList<>();
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
-        Log.i(TAG_Ertek, selectQuery);
         Cursor cursor = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {

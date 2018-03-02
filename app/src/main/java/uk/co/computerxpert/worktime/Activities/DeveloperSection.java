@@ -22,30 +22,27 @@ import uk.co.computerxpert.worktime.data.repo.WorktimesRepo;
 
 public class DeveloperSection extends AppCompatActivity implements View.OnClickListener {
 
-    private int id = 1;
-    private Intent Uj_activity;
+    Intent Uj_activity;
     EditText sqlQueryBox,dropTableNameBox, defTblNameBox;
-
-    private static final String TAG_Ertek = "TAG: ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_developer_section);
 
-        sqlQueryBox = (EditText) findViewById(R.id.in_SQLQueryBox);
-        dropTableNameBox = (EditText) findViewById(R.id.in_dropTableNameBox);
-        defTblNameBox = (EditText) findViewById(R.id.in_defTblNameBox);
+        sqlQueryBox = findViewById(R.id.in_SQLQueryBox);
+        dropTableNameBox = findViewById(R.id.in_dropTableNameBox);
+        defTblNameBox = findViewById(R.id.in_defTblNameBox);
 
-        Button execSql = (Button) findViewById(R.id.btn_execSql);
-        Button droptable = (Button) findViewById(R.id.btn_dropTable);
-        Button worktimeCreate = (Button) findViewById(R.id.btn_worktimeCreate);
-        Button companiesCreate = (Button) findViewById(R.id.btn_companiesCreate);
-        Button wagesCreate = (Button) findViewById(R.id.btn_wagesCreate);
-        Button agenciesCreate = (Button) findViewById(R.id.btn_agenciesCreate);
-        Button defShiftsCreate = (Button) findViewById(R.id.btn_defShiftsCreate);
-        Button defDatas = (Button) findViewById(R.id.btn_defDatas);
-        Button settingsCreate = (Button) findViewById(R.id.btn_SettingsCreate);
+        Button execSql = findViewById(R.id.btn_execSql);
+        Button droptable = findViewById(R.id.btn_dropTable);
+        Button worktimeCreate = findViewById(R.id.btn_worktimeCreate);
+        Button companiesCreate = findViewById(R.id.btn_companiesCreate);
+        Button wagesCreate = findViewById(R.id.btn_wagesCreate);
+        Button agenciesCreate = findViewById(R.id.btn_agenciesCreate);
+        Button defShiftsCreate = findViewById(R.id.btn_defShiftsCreate);
+        Button defDatas = findViewById(R.id.btn_defDatas);
+        Button settingsCreate = findViewById(R.id.btn_SettingsCreate);
 
         execSql.setOnClickListener(this);
         droptable.setOnClickListener(this);
@@ -57,7 +54,7 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
         defDatas.setOnClickListener(this);
         settingsCreate.setOnClickListener(this);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     }
@@ -181,17 +178,14 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     Uj_activity = new Intent(DeveloperSection.this, MainActivity.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
                     Uj_activity = new Intent(DeveloperSection.this, Worktimes.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
                     Uj_activity = new Intent(DeveloperSection.this, Setup.class);
-                    Uj_activity.putExtra("sessid", id);
                     startActivity(Uj_activity);
                     return true;
             }

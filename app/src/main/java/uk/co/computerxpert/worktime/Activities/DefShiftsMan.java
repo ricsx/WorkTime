@@ -28,6 +28,7 @@ import java.util.Calendar;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import uk.co.computerxpert.worktime.App.App;
 import uk.co.computerxpert.worktime.R;
@@ -43,7 +44,8 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
     EditText eddefShiftName, edstarttime, edendtime, edunpbreak;
     private ListView results;
     private Spinner spinner, spinnerAgency;
-    private String kezdveg = "k", notSelected, selectCompany, selectAgency;
+    private String kezdveg = "k";
+    private String notSelected;
     private Button btnstartTime, btnendTime;
 
     final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
@@ -55,34 +57,32 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_def_shifts_man);
 
         notSelected=getString(R.string.NotSelected);
-        selectCompany=getString(R.string.SelectCompany);
-        selectAgency=getString(R.string.SelectAgency);
-        results=(ListView) findViewById(R.id.result);
-        eddefShiftName = (EditText) findViewById(R.id.inp_defShiftName);
-        edstarttime = (EditText) findViewById(R.id.inp_startTime);
-        edendtime = (EditText) findViewById(R.id.inp_endTime);
-        edunpbreak = (EditText) findViewById(R.id.inp_unpBreak);
-        spinner = (Spinner) findViewById(R.id.sp_compNames);
-        spinnerAgency = (Spinner) findViewById(R.id.sp_agencyNames);
-
-        btnstartTime = (Button) findViewById(R.id.btn_startTime);
-        btnendTime = (Button) findViewById(R.id.btn_endTime);
-        Button btnSave = (Button) findViewById(R.id.btn_defShiftsSave);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        results= findViewById(R.id.result);
+        eddefShiftName = findViewById(R.id.inp_defShiftName);
+        edstarttime = findViewById(R.id.inp_startTime);
+        edendtime = findViewById(R.id.inp_endTime);
+        edunpbreak = findViewById(R.id.inp_unpBreak);
+        spinner = findViewById(R.id.sp_compNames);
+        spinnerAgency = findViewById(R.id.sp_agencyNames);
+        btnstartTime = findViewById(R.id.btn_startTime);
+        btnendTime = findViewById(R.id.btn_endTime);
+        Button btnSave = findViewById(R.id.btn_defShiftsSave);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
 
         String firstRunFlag = getIntent().getStringExtra("firstRunFlag");
         if(firstRunFlag == null){ firstRunFlag ="0"; }
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.def_shifts_man_top);
+        Toolbar myToolbar = findViewById(R.id.def_shifts_man_top);
         setSupportActionBar(myToolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
         upArrow.setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-        App.CompanyListToSpinnerAlign(spinner, this, "SELECT * FROM Companies", notSelected);
-        App.AgenciesListToSpinnerAlign(spinnerAgency, this, "SELECT * FROM Agencies", notSelected);
+        App.CompanyListToSpinnerAlign(spinner, this, notSelected);
+        App.AgenciesListToSpinnerAlign(spinnerAgency, this, notSelected);
 
         make_listview();
         btnstartTime.setOnClickListener(this);
@@ -125,17 +125,17 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             dateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
             dateTime.set(Calendar.MINUTE, minute);
-            updateTextLabel("time");
+            updateTextLabel();
         }
     };
 
 
-    private void updateTextLabel (String var){
-        if(kezdveg == "k") {
+    private void updateTextLabel(){
+        if(Objects.equals(kezdveg, "k")) {
             edstarttime.setText(formatTime.format(dateTime.getTime()));
             btnstartTime.setText(formatTime.format(dateTime.getTime()));
         }
-        if(kezdveg == "v") {
+        if(Objects.equals(kezdveg, "v")) {
             edendtime.setText(formatTime.format(dateTime.getTime()));
             btnendTime.setText(formatTime.format(dateTime.getTime()));
         }
@@ -144,16 +144,14 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
 
     private void make_listview(){
         String selectQuery =  " SELECT * from DefShifts";
-
-        DefShiftsRepo defShiftsRepo = new DefShiftsRepo();
-        List<DefShifts> defShifts_s= defShiftsRepo.getDefShifts(selectQuery);
+        List<DefShifts> defShifts_s= DefShiftsRepo.getDefShifts(selectQuery);
 
         // "values" array definition and loading
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         for(int i=0; i<defShifts_s.size();i++){ values.add(defShifts_s.get(i).get_defsh_name());  }
 
         // array-fetching
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
         results.setAdapter(adapter);
 
@@ -175,10 +173,8 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
 
 
     private int getDefShiftsIDFromQuery(String query){
-        String selectQuery =  query;
         int defShiftsID=0;
-        DefShiftsRepo defShiftsRepo = new DefShiftsRepo();
-        List<DefShifts> defShifts_s= defShiftsRepo.getDefShifts(selectQuery);
+        List<DefShifts> defShifts_s= DefShiftsRepo.getDefShifts(query);
 
         for(int i=0; i<defShifts_s.size();i++){ defShiftsID = defShifts_s.get(i).get_defsh_id(); }
 
@@ -194,7 +190,7 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
         String unpbreak = edunpbreak.getText().toString();
         String comp_name = spinner.getSelectedItem().toString();
         String agency_name = spinnerAgency.getSelectedItem().toString();
-        Integer agency_id = null;
+        Integer agency_id;
 
         if(agency_name.equals(notSelected)){
             agency_id = null;
@@ -219,6 +215,7 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
         defShifts.set_defsh_starttime(starttime);
         defShifts.set_defsh_endtime(endtime);
         defShifts.set_defsh_unpbr(Integer.parseInt(unpbreak));
+        //noinspection ConstantConditions
         defShifts.set_defsh_agency_id(agency_id);
 
         DefShiftsRepo.insert(defShifts);

@@ -12,7 +12,6 @@
         android:layout_width="0dp"
         android:layout_height="90dp"
         android:background="@color/toolbar_background"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -56,7 +55,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/inp_defShiftName2"
@@ -65,7 +64,9 @@
                 android:background="@color/colorWhite"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:labelFor="@id/inp_defShiftName2"
                 android:paddingBottom="8dp"
+                android:paddingEnd="0dp"
                 android:paddingStart="26dp"
                 android:paddingTop="8dp"
                 android:textColor="@color/text_color"
@@ -81,6 +82,7 @@
                 android:layout_marginTop="4dp"
                 android:background="@color/colorWhite"
                 android:paddingBottom="8sp"
+                android:paddingEnd="0dp"
                 android:paddingStart="26sp"
                 android:paddingTop="8sp"
                 android:text="@string/Company"
@@ -94,8 +96,8 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/layerlist_right"
-                android:gravity="right"
                 android:paddingEnd="40dp"
+                android:paddingStart="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView21"
                 app:layout_constraintTop_toBottomOf="@+id/inp_defShiftName2" />
@@ -107,6 +109,7 @@
                 android:layout_marginTop="4dp"
                 android:background="@color/colorWhite"
                 android:paddingBottom="8dp"
+                android:paddingEnd="0dp"
                 android:paddingStart="26dp"
                 android:paddingTop="8dp"
                 android:text="@string/Agency"
@@ -114,13 +117,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
-             <Spinner
+            <Spinner
                 android:id="@+id/sp_agencyNames2"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/layerlist_right"
                 android:paddingEnd="40dp"
+                android:paddingStart="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView23"
                 app:layout_constraintTop_toBottomOf="@+id/sp_compNames2" />
@@ -132,6 +136,7 @@
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:labelFor="@id/inp_startTime2"
                 android:text="@string/TimeOfStart"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
@@ -147,6 +152,7 @@
                 android:fontFamily="sans-serif"
                 android:paddingBottom="8dp"
                 android:paddingEnd="60dp"
+                android:paddingStart="0dp"
                 android:paddingTop="8dp"
                 android:textAlignment="textEnd"
                 android:textSize="16sp"
@@ -162,6 +168,7 @@
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:labelFor="@id/inp_endTime2"
                 android:text="@string/TimeOfEnd"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
@@ -177,9 +184,10 @@
                 android:fontFamily="sans-serif"
                 android:paddingBottom="8dp"
                 android:paddingEnd="60dp"
+                android:paddingStart="0dp"
                 android:paddingTop="8dp"
                 android:textAlignment="textEnd"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btn_endTime2st"
                 app:layout_constraintTop_toBottomOf="@+id/btn_startTime2" />
@@ -191,6 +199,7 @@
                 android:layout_marginTop="4dp"
                 android:background="@color/colorWhite"
                 android:paddingBottom="8dp"
+                android:paddingEnd="0dp"
                 android:paddingStart="26dp"
                 android:paddingTop="8dp"
                 android:text="@string/unpaidBreak"
@@ -206,8 +215,10 @@
                 android:background="@color/colorWhite"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:labelFor="@id/inp_unpBreak2"
                 android:paddingBottom="8dp"
-                android:paddingRight="26dp"
+                android:paddingEnd="26dp"
+                android:paddingStart="0dp"
                 android:paddingTop="8dp"
                 android:textAlignment="textEnd"
                 android:textColor="@color/text_color"
@@ -242,6 +253,7 @@
                 android:background="@color/colorWhite"
                 android:fontFamily="sans-serif"
                 android:paddingBottom="8sp"
+                android:paddingEnd="0dp"
                 android:paddingStart="26sp"
                 android:paddingTop="8sp"
                 android:text="@string/TimeOfStart"
@@ -259,6 +271,7 @@
                 android:background="@color/colorWhite"
                 android:fontFamily="sans-serif"
                 android:paddingBottom="8dp"
+                android:paddingEnd="0dp"
                 android:paddingStart="26dp"
                 android:paddingTop="8dp"
                 android:text="@string/TimeOfEnd"

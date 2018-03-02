@@ -7,21 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.computerxpert.worktime.data.DBHelper;
 import uk.co.computerxpert.worktime.data.DatabaseManager;
 import uk.co.computerxpert.worktime.data.model.DefShifts;
 
-/**
- * Created by ricsx on 06/02/18.
- */
-
 public class DefShiftsRepo {
-    private DefShifts defShifts;
-    private static final String TAG_Ertek="TAG: ";
-    private DBHelper dbHelper;
 
     public DefShiftsRepo(){
-        defShifts = new DefShifts();
     }
 
 
@@ -58,32 +49,9 @@ public class DefShiftsRepo {
     }
 
 
-    public static List<DefShifts> getDefShifts2(String selectQuery){
-        DefShifts defShifts = new DefShifts();
-        List<DefShifts> defShifts_s = new ArrayList<DefShifts>();
-
-        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                defShifts= new DefShifts();
-                defShifts.set_defsh_id(cursor.getInt(cursor.getColumnIndex(DefShifts.KEY_DS_ID)));
-                defShifts.set_defsh_name(cursor.getString(cursor.getColumnIndex(DefShifts.KEY_DS_Name)));
-                defShifts_s.add(defShifts);
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        DatabaseManager.getInstance().closeDatabase();
-
-        return defShifts_s;
-    }
-
-
     public static List<DefShifts> getDefShifts(String selectQuery){
-        DefShifts defShifts = new DefShifts();
-        List<DefShifts> defShifts_s = new ArrayList<DefShifts>();
+        DefShifts defShifts;
+        List<DefShifts> defShifts_s = new ArrayList<>();
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -127,12 +95,4 @@ public class DefShiftsRepo {
         db.close(); // Closing database connection
         DatabaseManager.getInstance().closeDatabase();
     }
-
-
-    public static void delete(String query) {
-        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        db.delete(DefShifts.TABLE, query,null);
-        DatabaseManager.getInstance().closeDatabase();
-    }
-
 }

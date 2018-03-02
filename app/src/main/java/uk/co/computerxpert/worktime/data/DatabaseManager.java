@@ -1,9 +1,5 @@
 package uk.co.computerxpert.worktime.data;
 
-/**
- * Created by ricsx on 29/12/17.
- */
-
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 

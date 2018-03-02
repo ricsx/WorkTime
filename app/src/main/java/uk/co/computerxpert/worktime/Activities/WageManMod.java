@@ -48,15 +48,16 @@ public class WageManMod extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wage_man_mod);
 
-        _tvCompName = (TextView) findViewById(R.id.tvCompName);
-        spinner1 = (Spinner) findViewById(R.id.spinner2);
-        in_kezddate = (EditText) findViewById(R.id.in_wage_stdateBox2);
-        in_val = (EditText) findViewById(R.id.in_wage_valBox2);
-        btn_kezddate = (Button) findViewById(R.id.btn_wage_stdate2);
-        Button btn_kezddateSt = (Button) findViewById(R.id.btn_wage_stdate2st);
+        _tvCompName = findViewById(R.id.tvCompName);
+        spinner1 = findViewById(R.id.spinner2);
+        in_kezddate = findViewById(R.id.in_wage_stdateBox2);
+        in_val = findViewById(R.id.in_wage_valBox2);
+        btn_kezddate = findViewById(R.id.btn_wage_stdate2);
+        Button btn_kezddateSt = findViewById(R.id.btn_wage_stdate2st);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.wages_man_mod_top);
+        Toolbar myToolbar = findViewById(R.id.wages_man_mod_top);
         setSupportActionBar(myToolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
@@ -67,12 +68,12 @@ public class WageManMod extends AppCompatActivity implements View.OnClickListene
 
         fromWageID = getIntent().getStringExtra("wageID");
         defaultCompName = getIntent().getStringExtra("compName");
-        Button btn_cmmMod = (Button) findViewById(R.id.btn_stp_wageSave2);
+        Button btn_cmmMod = findViewById(R.id.btn_stp_wageSave2);
 
         loadFormDefaults(fromWageID);
         btn_cmmMod.setOnClickListener(this);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
@@ -102,26 +103,24 @@ public class WageManMod extends AppCompatActivity implements View.OnClickListene
             dateTime.set(Calendar.YEAR, year);
             dateTime.set(Calendar.MONTH, month);
             dateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateTextLabel("date");
+            updateTextLabel();
         }
     };
 
 
-    private void updateTextLabel (String var){
-            if (var == "date") {
-                in_kezddate.setText(formatDate.format(dateTime.getTime()));
-                btn_kezddate.setText(formatDate.format(dateTime.getTime()));
-            }
+    private void updateTextLabel(){
+        in_kezddate.setText(formatDate.format(dateTime.getTime()));
+        btn_kezddate.setText(formatDate.format(dateTime.getTime()));
     }
 
     private void loadFormDefaults(String value){
         String selectQuery =  " SELECT * from Wage,companies WHERE wage.wage_comp_id = companies.comp_id AND " +
                 Wage.KEY_wage_id + " = \"" + value + "\"";
-        WageRepo wageRepo = new WageRepo();
-        List<Wage> wage_s= wageRepo.relGetWage(selectQuery);
+        List<Wage> wage_s= WageRepo.relGetWage(selectQuery);
         // "values" array definition and loading
         ed_wage_id = Integer.parseInt(value);
-        ArrayList<String> values = new ArrayList<String>();
+        //noinspection MismatchedQueryAndUpdateOfCollection
+        ArrayList<String> values = new ArrayList<>();
         for(int i=0; i<wage_s.size();i++){
             _tvCompName.setText(defaultCompName);
             in_kezddate.setText(wage_s.get(i).getwage_strstdate());
@@ -139,10 +138,8 @@ public class WageManMod extends AppCompatActivity implements View.OnClickListene
         String kezd_ = kezddate+" 00:00";
         String val = in_val.getText().toString();
 
-        Integer wage_id = Integer.valueOf(fromWageID);
-
         Date date_kezd = dateFormat.parse(kezd_);
-        long kezd_uxT = (long)date_kezd.getTime()/1000;
+        long kezd_uxT = date_kezd.getTime() /1000;
 
         // End of converts
 

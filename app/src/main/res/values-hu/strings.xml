@@ -66,4 +66,14 @@
     <string name="ModifyYourAgency">Ügynökség adatok módositása</string>
     <string name="title_activity_def_shifts_man_mod">Müszak-minta megváltoztatása</string>
     <string name="chooseAgency">Válassz egy ügynökséget</string>
+    <string name="saveYourPayslip">Elszámolás mentése</string>
+    <string name="savePayslip">Elszámolás mentése</string>
+    <string name="saveFromPhoto">Fotózza le az elszámolást</string>
+    <string name="saveFromFile">Válassza ki az elszámolás-filet</string>
+    <string name="title_activity_setup">Beállítások</string>
+    <string name="payslipName">Elszámolás neve</string>
+    <string name="firstTimeRun">Első futtatás</string>
+    <string name="loadDefaults">Alapbeállítások</string>
+    <string name="StartToWork">Indulhat az app</string>
+    <string name="devSection">Developer section</string>
 </resources>

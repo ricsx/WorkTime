@@ -1,5 +1,6 @@
 package uk.co.computerxpert.worktime.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -19,7 +20,6 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.FullQuerys;
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //noinspection StatementWithEmptyBody,EqualsBetweenInconvertibleTypes
         if(settingTest("firstrun").equals("") || settingTest("firstrun").equals(0)) {
             Settings settings = new Settings();
             settings.set_settings_name("firstrun");
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         addHeaders();
         addData();
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         floatingActionButton();
@@ -150,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     fullQuerys_s.get(i).getwt_stredate()+" - "+fullQuerys_s.get(i).getwt_stretime();
 
             Date date = new Date((long) fullQuerys_s.get(i).getwt_startdate()*1000L);
-            SimpleDateFormat sdf = new SimpleDateFormat("EE");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE");
             String dayOfTheWeek = sdf.format(date);
             dayOfTheWeek = dayOfTheWeek.replace(" ","");
 
@@ -189,16 +190,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public String uxdateToString(long uxdate){
-
-        Date date = new Date(uxdate*1000L);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm", Locale.UK);
-        String formattedDate = sdf.format(date);
-        return formattedDate;
-    }
-
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -227,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void floatingActionButton(){
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

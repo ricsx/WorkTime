@@ -1,10 +1,5 @@
 package uk.co.computerxpert.worktime.data.model;
 
-/**
- * Created by ricsx on 29/12/17.
- */
-
-
 
 public class Wage {
 
@@ -28,20 +23,6 @@ public class Wage {
     public Wage() {
     }
 
-    public Wage(int wage_id, int wage_comp_id, double wage_startdate, String wage_strstdate, String wage_val) {
-        this._wage_id = wage_id;
-        this._wage_comp_id = wage_comp_id;
-        this._wage_startdate = wage_startdate;
-        this._wage_strstdate = wage_strstdate;
-        this._wage_val = wage_val;
-    }
-
-    public Wage(int wage_comp_id, double wage_startdate, String wage_strstdate, String wage_val) {
-        this._wage_comp_id = wage_comp_id;
-        this._wage_startdate = wage_startdate;
-        this._wage_strstdate = wage_strstdate;
-        this._wage_val = wage_val;
-    }
 
     public void setwage_id(int wage_id) {
         this._wage_id = wage_id;

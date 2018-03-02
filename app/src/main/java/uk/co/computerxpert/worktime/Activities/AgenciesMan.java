@@ -34,24 +34,25 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agencies_man);
 
-        result=(ListView) findViewById(R.id.results);
-        ed_agency_name = (EditText) findViewById(R.id.cmm_agencyNameBox3);
-        edAgencyAddr = (EditText) findViewById(R.id.cmm_agencyAddressBox3);
-        edAgencyCity = (EditText) findViewById(R.id.cmm_agencyCityBox3);
-        edAgencyPostCode = (EditText) findViewById(R.id.cmm_agencyPostcodeBox3);
-        edAgencyPhone = (EditText) findViewById(R.id.cmm_agencyPhoneBox3);
-        edContPName = (EditText) findViewById(R.id.cmm_agencyContPersNameBox3);
-        edContPPhone = (EditText) findViewById(R.id.cmm_agencyContPersPhoneBox3);
-        edContPEmail = (EditText) findViewById(R.id.cmm_agencyContPersEmailBox3);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        result= findViewById(R.id.results);
+        ed_agency_name = findViewById(R.id.cmm_agencyNameBox3);
+        edAgencyAddr = findViewById(R.id.cmm_agencyAddressBox3);
+        edAgencyCity = findViewById(R.id.cmm_agencyCityBox3);
+        edAgencyPostCode = findViewById(R.id.cmm_agencyPostcodeBox3);
+        edAgencyPhone = findViewById(R.id.cmm_agencyPhoneBox3);
+        edContPName = findViewById(R.id.cmm_agencyContPersNameBox3);
+        edContPPhone = findViewById(R.id.cmm_agencyContPersPhoneBox3);
+        edContPEmail = findViewById(R.id.cmm_agencyContPersEmailBox3);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
 
         String firstRunFlag = getIntent().getStringExtra("firstRunFlag");
         if(firstRunFlag == null){ firstRunFlag ="0"; }
 
-        Button btn_stp_agency_send = (Button) findViewById(R.id.btn_stp_agency_update);
+        Button btn_stp_agency_send = findViewById(R.id.btn_stp_agency_update);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.agencies_top);
+        Toolbar myToolbar = findViewById(R.id.agencies_top);
         setSupportActionBar(myToolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
@@ -104,15 +105,15 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
     private void make_listview(){
         String selectQuery =  " SELECT * from Agencies";
 
-        AgenciesRepo agenciesRepo = new AgenciesRepo();
-        List<Agencies> agencies_s= agenciesRepo.getAgencies(selectQuery);
+        // AgenciesRepo agenciesRepo = new AgenciesRepo();
+        List<Agencies> agencies_s= AgenciesRepo.getAgencies(selectQuery);
 
         // "values" array definition and loading
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         for(int i=0; i<agencies_s.size();i++){ values.add(agencies_s.get(i).getagency_name());  }
 
         // array-fetching
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
         result.setAdapter(adapter);
 
@@ -122,7 +123,6 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                int itemPosition = position;
                 String itemValue = (String) result.getItemAtPosition(position);
                 String agencyIDString = Integer.toString(getAgencyIDFromQuery("SELECT * FROM Agencies WHERE agency_name = \""+itemValue+"\""));
                 Uj_activity = new Intent(AgenciesMan.this, AgenciesManMod.class);
@@ -136,10 +136,8 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
 
 
     private int getAgencyIDFromQuery(String query){
-        String selectQuery =  query;
         int agencyID=0;
-        AgenciesRepo agenciesRepo = new AgenciesRepo();
-        List<Agencies> agencies_s= agenciesRepo.getAgencies(selectQuery);
+        List<Agencies> agencies_s= AgenciesRepo.getAgencies(query);
 
         for(int i=0; i<agencies_s.size();i++){ agencyID = agencies_s.get(i).getagency_id(); }
 

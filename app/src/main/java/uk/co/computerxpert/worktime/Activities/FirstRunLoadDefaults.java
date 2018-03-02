@@ -10,7 +10,7 @@ import uk.co.computerxpert.worktime.R;
 
 public class FirstRunLoadDefaults extends AppCompatActivity implements View.OnClickListener {
 
-    private Intent Uj_activity;
+    Intent Uj_activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,11 +18,11 @@ public class FirstRunLoadDefaults extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_first_run_load_defaults);
 
 
-        Button companies = (Button) findViewById(R.id.btn_companies2);
-        Button wages = (Button) findViewById(R.id.btn_wages2);
-        Button startToWork = (Button) findViewById(R.id.btn_startToWork);
-        Button agencies = (Button) findViewById(R.id.btn_agencies2);
-        Button defShifts = (Button) findViewById(R.id.btn_defShifts2);
+        Button companies = findViewById(R.id.btn_companies2);
+        Button wages = findViewById(R.id.btn_wages2);
+        Button startToWork = findViewById(R.id.btn_startToWork);
+        Button agencies = findViewById(R.id.btn_agencies2);
+        Button defShifts = findViewById(R.id.btn_defShifts2);
 
         companies.setOnClickListener(this);
         wages.setOnClickListener(this);

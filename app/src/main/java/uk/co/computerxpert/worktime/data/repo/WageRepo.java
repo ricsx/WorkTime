@@ -1,9 +1,5 @@
 package uk.co.computerxpert.worktime.data.repo;
 
-/**
- * Created by ricsx on 30/12/17.
- */
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,19 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.computerxpert.worktime.data.DatabaseManager;
-import uk.co.computerxpert.worktime.data.model.DefShifts;
 import uk.co.computerxpert.worktime.data.model.Wage;
 
 
 public class WageRepo {
 
-    private Wage wage;
-    private static final String TAG_Ertek="TAG: ";
-
     public WageRepo(){
-
-        wage= new Wage();
-
     }
 
 
@@ -58,8 +47,8 @@ public class WageRepo {
 
 
     public static List<Wage> getWage(String selectQuery){
-        Wage wage = new Wage();
-        List<Wage> wage_s = new ArrayList<Wage>();
+        Wage wage;
+        List<Wage> wage_s = new ArrayList<>();
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
@@ -84,8 +73,8 @@ public class WageRepo {
 
 
     public static List<Wage> relGetWage(String selectQuery){
-        Wage wage = new Wage();
-        List<Wage> wage_s = new ArrayList<Wage>();
+        Wage wage;
+        List<Wage> wage_s = new ArrayList<>();
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
@@ -107,13 +96,6 @@ public class WageRepo {
         cursor.close();
         DatabaseManager.getInstance().closeDatabase();
         return wage_s;
-    }
-
-
-    public static void delete(String query) {
-        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        db.delete(Wage.TABLE, query,null);
-        DatabaseManager.getInstance().closeDatabase();
     }
 
 

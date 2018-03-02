@@ -34,23 +34,24 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_companies_man);
 
-        result=(ListView) findViewById(R.id.results);
-        ed_comp_name = (EditText) findViewById(R.id.cmm_compNameBox3);
-        edCompAddr = (EditText) findViewById(R.id.cmm_compAddressBox3);
-        edCompCity = (EditText) findViewById(R.id.cmm_compCityBox3);
-        edCompPostCode = (EditText) findViewById(R.id.cmm_compPostcodeBox3);
-        edCompPhone = (EditText) findViewById(R.id.cmm_compPhoneBox3);
-        edContPName = (EditText) findViewById(R.id.cmm_compContPersNameBox3);
-        edContPPhone = (EditText) findViewById(R.id.cmm_compContPersPhoneBox3);
-        edContPEmail = (EditText) findViewById(R.id.cmm_compContPersEmailBox3);
+        result= findViewById(R.id.results);
+        ed_comp_name = findViewById(R.id.cmm_compNameBox3);
+        edCompAddr = findViewById(R.id.cmm_compAddressBox3);
+        edCompCity = findViewById(R.id.cmm_compCityBox3);
+        edCompPostCode = findViewById(R.id.cmm_compPostcodeBox3);
+        edCompPhone = findViewById(R.id.cmm_compPhoneBox3);
+        edContPName = findViewById(R.id.cmm_compContPersNameBox3);
+        edContPPhone = findViewById(R.id.cmm_compContPersPhoneBox3);
+        edContPEmail = findViewById(R.id.cmm_compContPersEmailBox3);
 
         String firstRunFlag = getIntent().getStringExtra("firstRunFlag");
         if(firstRunFlag == null){ firstRunFlag ="0"; }
 
-        Button btn_stp_comp_send = (Button) findViewById(R.id.btn_stp_comp_send);
+        Button btn_stp_comp_send = findViewById(R.id.btn_stp_comp_send);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.companies_top);
+        Toolbar myToolbar = findViewById(R.id.companies_top);
         setSupportActionBar(myToolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
@@ -60,7 +61,7 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
         make_listview();
         btn_stp_comp_send.setOnClickListener(this);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         if(firstRunFlag.equals("0")) {
@@ -107,16 +108,15 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
     private void make_listview(){
         String selectQuery =  " SELECT * from Companies";
 
-        CompaniesRepo companiesRepo = new CompaniesRepo();
-        List<Companies> companies_s= companiesRepo.getCompanies(selectQuery);
+        List<Companies> companies_s= CompaniesRepo.getCompanies(selectQuery);
 
         // "values" array definition and loading
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         for(int i=0; i<companies_s.size();i++){ values.add(companies_s.get(i).getcomp_name());  }
 
         // array-fetching
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-              android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, values);
         result.setAdapter(adapter);
 
         // After Clicked...
@@ -138,10 +138,9 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
 
 
     private int getCompanyIDFromQuery(String query){
-        String selectQuery =  query;
         int companyID=0;
-        CompaniesRepo companiesRepo = new CompaniesRepo();
-        List<Companies> companies_s= companiesRepo.getCompanies(selectQuery);
+
+        List<Companies> companies_s= CompaniesRepo.getCompanies(query);
 
         for(int i=0; i<companies_s.size();i++){ companyID = companies_s.get(i).getcomp_id(); }
 

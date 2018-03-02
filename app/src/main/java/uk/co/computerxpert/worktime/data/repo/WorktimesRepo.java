@@ -3,7 +3,6 @@ package uk.co.computerxpert.worktime.data.repo;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,31 +10,15 @@ import java.util.List;
 import uk.co.computerxpert.worktime.data.DatabaseManager;
 import uk.co.computerxpert.worktime.data.model.Worktimes;
 
-/**
- * Created by ricsx on 29/12/17.
- */
-
-
-
-
-
-
 public class WorktimesRepo {
 
-    private Worktimes worktimes;
-    private static final String TAG_Ertek = "TAG: ";
-
-
     public WorktimesRepo(){
-
-        worktimes = new Worktimes();
-
     }
 
 
     public static String createTable(){
 
-        String aa="CREATE TABLE " + Worktimes.TABLE  + " ( "
+        return "CREATE TABLE " + Worktimes.TABLE  + " ( "
         + Worktimes.KEY_wt_id  + " INTEGER PRIMARY KEY AUTOINCREMENT, "
         + Worktimes.KEY_wt_comp_id + " INTEGER, "
         + Worktimes.KEY_wt_startdate + " REAL, "
@@ -53,8 +36,6 @@ public class WorktimesRepo {
         + Worktimes.KEY_wt_agency_id + " INTEGER, "
         + Worktimes.KEY_wt_otwage + " TEXT "
         + ")";
-
-        return aa;
     }
 
 
@@ -86,8 +67,8 @@ public class WorktimesRepo {
 
 
     public static List<Worktimes> findWorktime(String selectQuery){
-        Worktimes worktimes = new Worktimes();
-        List<Worktimes> worktimes_s = new ArrayList<Worktimes>();
+        Worktimes worktimes;
+        List<Worktimes> worktimes_s = new ArrayList<>();
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
@@ -96,7 +77,6 @@ public class WorktimesRepo {
         if (cursor.moveToFirst()) {
             do {
                 worktimes = new Worktimes();
-                worktimes.setwt_id(cursor.getInt(cursor.getColumnIndex(Worktimes.KEY_wt_id)));
                 worktimes.setwt_comp_id(cursor.getInt(cursor.getColumnIndex(Worktimes.KEY_wt_comp_id)));
                 worktimes.setwt_startdate(cursor.getLong(cursor.getColumnIndex(Worktimes.KEY_wt_startdate)));
                 worktimes.setwt_enddate(cursor.getLong(cursor.getColumnIndex(Worktimes.KEY_wt_enddate)));
@@ -121,12 +101,4 @@ public class WorktimesRepo {
 
         return worktimes_s;
     }
-
-
-    public static void delete(String query) {
-        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        db.delete(Worktimes.TABLE, query,null);
-        DatabaseManager.getInstance().closeDatabase();
-    }
-
 }

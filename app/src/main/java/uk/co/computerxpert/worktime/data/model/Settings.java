@@ -1,10 +1,5 @@
 package uk.co.computerxpert.worktime.data.model;
 
-/**
- * Created by ricsx on 20/02/18.
- */
-
-
 public class Settings {
 
     public static final String TAG = Settings.class.getSimpleName();
@@ -21,17 +16,6 @@ public class Settings {
 
 
     public Settings() {
-    }
-
-    public Settings(int settings_id, String settings_name, String settings_val) {
-        this._settings_id = settings_id;
-        this._settings_name = settings_name;
-        this._settings_val = settings_val;
-    }
-
-    public Settings(String settings_name, String settings_val) {
-        this._settings_name = settings_name;
-        this._settings_val = settings_val;
     }
 
     public void set_settings_id(int settings_id) {

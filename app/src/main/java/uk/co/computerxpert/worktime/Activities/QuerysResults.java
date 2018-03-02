@@ -1,9 +1,5 @@
 package uk.co.computerxpert.worktime.Activities;
 
-/**
- * Created by ricsx on 10/01/18.
- */
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -21,10 +17,7 @@ import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.FullQuerys;
@@ -35,7 +28,7 @@ import static uk.co.computerxpert.worktime.App.App.dformat;
 
 public class QuerysResults extends AppCompatActivity implements View.OnClickListener {
 
-    private static Intent Uj_activity;
+    Intent Uj_activity;
     private String newSelectQuery;
 
     @Override
@@ -46,7 +39,7 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
 
         addHeaders();
         addData();
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
@@ -133,15 +126,6 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
         tl.addView(tr, getTblLayoutParams());
     }
 
-
-    public String uxdateToString(long uxdate){
-
-        Date date = new Date(uxdate*1000L);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm", Locale.UK);
-        String formattedDate = sdf.format(date);
-        return formattedDate;
-    }
 
     @Override
     public void onClick(View v) {

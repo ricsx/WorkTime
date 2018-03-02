@@ -1,36 +1,20 @@
 package uk.co.computerxpert.worktime.data.repo;
 
-/**
- * Created by ricsx on 29/12/17.
- */
-
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.computerxpert.worktime.data.DBHelper;
 import uk.co.computerxpert.worktime.data.DatabaseManager;
 import uk.co.computerxpert.worktime.data.model.Companies;
-
-import static uk.co.computerxpert.worktime.data.DBHelper.*;
 
 
 public class CompaniesRepo  {
 
-    private Companies companies;
-    private static final String TAG_Ertek="TAG: ";
-    private DBHelper dbHelper;
-
     public CompaniesRepo(){
-        companies = new Companies();
-        dbHelper = new DBHelper();
     }
 
 
@@ -72,8 +56,8 @@ public class CompaniesRepo  {
 
 
     public static List<Companies> getCompanies2(String selectQuery){
-        Companies companies = new Companies();
-        List<Companies> companies_s = new ArrayList<Companies>();
+        Companies companies;
+        List<Companies> companies_s = new ArrayList<>();
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -95,8 +79,8 @@ public class CompaniesRepo  {
 
 
     public static List<Companies> getCompanies(String selectQuery){
-        Companies companies = new Companies();
-        List<Companies> companies_s = new ArrayList<Companies>();
+        Companies companies;
+        List<Companies> companies_s = new ArrayList<>();
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -148,12 +132,4 @@ public class CompaniesRepo  {
         db.close(); // Closing database connection
         DatabaseManager.getInstance().closeDatabase();
     }
-
-
-    public static void delete(String query) {
-        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        db.delete(Companies.TABLE, query,null);
-        DatabaseManager.getInstance().closeDatabase();
-    }
-
 }
