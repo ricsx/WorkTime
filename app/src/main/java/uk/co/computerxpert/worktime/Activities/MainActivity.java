@@ -173,8 +173,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tr.setBackgroundColor(Color.WHITE);
         tr.addView(getTextView(1, "", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorWhite),16));
         tr.addView(getTextView(1, "TOTAL: ", ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, R.color.colorWhite),16));
-        tr.addView(getTextView(1,  ""+hoursOfWeek, ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, R.color.colorWhite),16));
-        tr.addView(getTextView(1,  ""+dformat.format(salaryOfWeek), ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, R.color.colorWhite),16));
+        tr.addView(getTextView(1,  ""+hoursOfWeek+"", ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, R.color.colorWhite),16));
+        tr.addView(getTextView(1,  ""+dformat.format(salaryOfWeek)+"", ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, R.color.colorWhite),16));
         tl.addView(tr, getTblLayoutParams());
     }
 

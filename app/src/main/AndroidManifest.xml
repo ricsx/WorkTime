@@ -62,7 +62,12 @@
         </activity>
         <activity
             android:name=".Activities.QuerysResults"
-            android:label="@string/title_activity_my" />
+            android:label="@string/title_activity_my"
+            android:parentActivityName=".Activities.Querys">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="uk.co.computerxpert.worktime.Activities.QuerysResults" />
+        </activity>
         <activity
             android:name=".Activities.Querys"
             android:label="@string/title_activity_querys" />
