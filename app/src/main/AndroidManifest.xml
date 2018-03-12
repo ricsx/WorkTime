@@ -26,7 +26,8 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".Activities.Setup"
-            android:label="@string/title_activity_setup" />
+            android:label="@string/title_activity_setup"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".Activities.CompaniesMan"
             android:label="@string/title_activity_stp_comp"
@@ -99,7 +100,15 @@
                 android:value="uk.co.computerxpert.worktime.Activities.DefShiftsMan" />
         </activity>
         <activity android:name=".Activities.FirstRunLoadDefaults" />
-        <activity android:name=".Activities.SavePayslips"></activity>
+        <activity android:name=".Activities.SavePayslips" />
+        <activity
+            android:name=".Activities.ViewableFields"
+            android:label="@string/title_activity_viewable_fields"
+            android:parentActivityName=".Activities.Querys">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="uk.co.computerxpert.worktime.Activities.Querys" />
+        </activity>
     </application>
 
 </manifest>

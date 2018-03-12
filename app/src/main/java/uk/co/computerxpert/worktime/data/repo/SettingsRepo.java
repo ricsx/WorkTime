@@ -29,7 +29,6 @@ public class SettingsRepo {
         int settingsId;
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
-        values.put(Settings.KEY_settings_id, settings.get_settings_id());
         values.put(Settings.KEY_settings_name, settings.get_settings_name());
         values.put(Settings.KEY_settings_val, settings.get_settings_val());
 
@@ -71,7 +70,7 @@ public class SettingsRepo {
     }
 
 
-    public static void update(int settings_id, String settings_name, String settings_val) {
+    public static void update(String settings_name, String settings_val) {
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase(); //DBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -80,8 +79,8 @@ public class SettingsRepo {
         values.put(Settings.KEY_settings_val, settings_val);
 
         // It's a good practice to use parameter ?, instead of concatenate string
-        db.update (Settings.TABLE, values, Settings.KEY_settings_id + "= ?",
-                new String[] { String.valueOf(settings_id) });
+        db.update (Settings.TABLE, values, Settings.KEY_settings_name + " = ?",
+                new String[] { String.valueOf(settings_name) });
         db.close(); // Closing database connection
         DatabaseManager.getInstance().closeDatabase();
     }

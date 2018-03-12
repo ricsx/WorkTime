@@ -5,10 +5,10 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="uk.co.computerxpert.worktime.Activities.Setup">
+    tools:context="uk.co.computerxpert.worktime.Activities.ViewableFields">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/setup_top"
+        android:id="@+id/ViewableFields_top"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="@color/toolbar_background"
@@ -33,7 +33,7 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="26dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/title_activity_setup"
+                android:text="@string/title_activity_viewable_fields"
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/toolbar_title"
@@ -52,148 +52,146 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setup_top">
+        app:layout_constraintTop_toBottomOf="@+id/ViewableFields_top">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/btn_companies2"
-                style="@style/Widget.AppCompat.Button.Borderless"
+            <Switch
+                android:id="@+id/sw_dayName"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="16dp"
                 android:background="@color/colorWhite"
                 android:fontFamily="sans-serif"
                 android:paddingEnd="0dp"
-                android:paddingStart="26dp"
-                android:text="@string/btn_setup_company"
-                android:textAlignment="viewStart"
+                android:paddingStart="26sp"
+                android:text="@string/dayName"
+                android:textColor="@color/text_color"
                 android:textSize="20sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_dev" />
-
-            <Button
-                android:id="@+id/btn_wages2"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/colorWhite"
-                android:fontFamily="sans-serif"
-                android:paddingEnd="0dp"
-                android:paddingStart="26dp"
-                android:text="@string/btn_setup_wages"
-                android:textAlignment="viewStart"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_companies2" />
-
-            <Button
-                android:id="@+id/btn_agencies2"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/colorWhite"
-                android:fontFamily="sans-serif"
-                android:paddingEnd="0dp"
-                android:paddingStart="26dp"
-                android:text="@string/Agencies"
-                android:textAlignment="viewStart"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_wages2" />
-
-            <Button
-                android:id="@+id/btn_defShifts2"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/colorWhite"
-                android:fontFamily="sans-serif"
-                android:paddingEnd="0dp"
-                android:paddingStart="26dp"
-                android:text="@string/DefShifts"
-                android:textAlignment="viewStart"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_agencies2" />
-
-            <Button
-                android:id="@+id/btn_dev"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:fontFamily="sans-serif"
-                android:paddingEnd="0dp"
-                android:paddingStart="26dp"
-                android:text="@string/devSection"
-                android:textAlignment="viewStart"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/ed_currency"
-                android:layout_width="115dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/colorWhite"
-                android:ems="10"
-                android:hint="@string/Currency"
-                android:inputType="textPersonName"
-                android:paddingEnd="0dp"
-                android:paddingStart="26dp"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_defShifts2" />
-
-            <Button
-                android:id="@+id/btn_saveCurrency"
-                style="@style/Widget.AppCompat.Button.Borderless"
+            <Switch
+                android:id="@+id/sw_shift"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="4dp"
                 android:background="@color/colorWhite"
                 android:fontFamily="sans-serif"
-                android:paddingEnd="26dp"
-                android:paddingStart="0dp"
-                android:text="@string/save"
-                android:textAlignment="viewEnd"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/sw_dayName"
-                app:layout_constraintTop_toBottomOf="@+id/btn_defShifts2" />
-
-            <Switch
-                android:id="@+id/sw_dayName"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/colorWhite"
-                android:fontFamily="sans-serif"
-                android:text="@string/beforeValue"
+                android:paddingEnd="0dp"
+                android:paddingStart="26sp"
+                android:text="@string/shift"
                 android:textColor="@color/text_color"
                 android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@+id/ed_currency"
-                app:layout_constraintTop_toBottomOf="@+id/btn_defShifts2" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sw_dayName" />
+
+            <Switch
+                android:id="@+id/sw_paidHours"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="0dp"
+                android:paddingStart="26sp"
+                android:text="@string/payedHours"
+                android:textColor="@color/text_color"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sw_shift" />
+
+            <Switch
+                android:id="@+id/sw_wage"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorWhite"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="0dp"
+                android:paddingStart="26sp"
+                android:text="@string/btn_setup_wages"
+                android:textColor="@color/text_color"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sw_paidHours" />
+
+            <Switch
+                android:id="@+id/sw_unpBreak"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="0dp"
+                android:paddingStart="26sp"
+                android:text="@string/unpaidBreak"
+                android:textColor="@color/text_color"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sw_wage" />
+
+            <Switch
+                android:id="@+id/sw_comments"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="0dp"
+                android:paddingStart="26sp"
+                android:text="@string/Comment"
+                android:textColor="@color/text_color"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sw_unpBreak" />
+
+            <Switch
+                android:id="@+id/sw_companies"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorWhite"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="0dp"
+                android:paddingStart="26sp"
+                android:text="@string/Companies"
+                android:textColor="@color/text_color"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sw_comments" />
+
+            <Switch
+                android:id="@+id/sw_agencies"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorWhite"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="0dp"
+                android:paddingStart="26sp"
+                android:text="@string/Agencies"
+                android:textColor="@color/text_color"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sw_companies" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
@@ -209,5 +207,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/navigation" />
+
+    <Button
+        android:id="@+id/btn_saveVblFields"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape"
+        android:fontFamily="sans-serif"
+        android:text="@string/save"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scroll" />
 
 </android.support.constraint.ConstraintLayout>

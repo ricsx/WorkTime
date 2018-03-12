@@ -32,13 +32,11 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
 
     private Spinner _inCegn, _inAgencyName;
     private EditText _inWeekNum, _inStDate, _inEndDate;
-    private Button _btnStDate, _btnEndDate;
+    private Button _btnStDate, _btnEndDate,_btn_ViewableFields;
     private CheckBox _inOverTime;
     Intent Uj_activity;
     private String kezdveg = "k";
-    private String chooseCompany;
-    private String choosAgency;
-
+    private String chooseCompany, chooseAgency;
 
     final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
     @SuppressLint("SimpleDateFormat")
@@ -50,7 +48,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_querys);
 
         chooseCompany=getString(R.string.chooseCompany);
-        choosAgency=getString(R.string.chooseAgency);
+        chooseAgency=getString(R.string.chooseAgency);
         _inAgencyName = findViewById(R.id.inAgencyName);
         _inCegn = findViewById(R.id.inCegn);
         _inWeekNum = findViewById(R.id.inWeekNum);
@@ -59,15 +57,17 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         _btnStDate = findViewById(R.id.btnStDate);
         _btnEndDate = findViewById(R.id.btnEndDate);
         _inOverTime = findViewById(R.id.inOverTime);
+        _btn_ViewableFields = findViewById(R.id.btn_ViewableFields);
 
         App.CompanyListToSpinner(_inCegn, this, "SELECT * FROM Companies", chooseCompany);
-        App.AgenciesListToSpinner(_inAgencyName, this, choosAgency);
+        App.AgenciesListToSpinner(_inAgencyName, this, chooseAgency);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         _btnStDate.setOnClickListener(this);
         _btnEndDate.setOnClickListener(this);
+        _btn_ViewableFields.setOnClickListener(this);
 
         _btnStDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +84,15 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
                 updateDate();
             }
         });
+
+        _btn_ViewableFields.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uj_activity = new Intent(Querys.this, ViewableFields.class);
+                startActivity(Uj_activity);
+            }
+        });
+
 
     }
 
@@ -132,7 +141,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         Integer agency_id;
         long kezd_uxT=0, veg_uxT=0;
 
-        if(agencyName.equals(choosAgency)){
+        if(agencyName.equals(chooseAgency)){
             agency_id = 0;
         }else{
              String selectQuery = " SELECT * "

@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public Intent Uj_activity;
     int id = 1;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Integer rowcolor;
         double maxStartDate = maxStartDate();
         double minMaxStartDate = maxStartDate - OneDayUxt*8;
-
+        String titleLine;
         String selectQuery =  " SELECT * FROM worktime, wage,companies " +
                 " WHERE worktime.wt_comp_id=companies.comp_id " +
                 " AND companies.comp_id=wage.wage_comp_id " +
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         double hoursOfWeek=0;
         double salaryOfWeek=0;
         int x = 1;
+
         TableLayout tl = findViewById(R.id.table);
 
         List<FullQuerys> fullQuerys_s = FullQuerysRepo.getFullQuerys(selectQuery);
@@ -143,6 +145,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 rowcolor = R.color.toolbar_background;
             } else {
                 rowcolor = R.color.row_overtime;
+            }
+            if(settingTest("beforevalues").equals("true")){
+                titleLine = settingTest("currency")+" "+fullQuerys_s.get(i).getwt_salary()+"\n";
+            }else{
+                titleLine = fullQuerys_s.get(i).getwt_salary()+" "+settingTest("currency")+"\n";
             }
 
             hoursOfWeek = hoursOfWeek + Double.parseDouble(fullQuerys_s.get(i).getwt_hours());
@@ -163,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             tr.addView(getTextView(i + 1, dayOfTheWeek+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, rowcolor),0));
             tr.addView(getTextView(i + fullQuerys_s.size(), shift, ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
             tr.addView(getTextView(i + fullQuerys_s.size(), fullQuerys_s.get(i).getwt_hours()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
-            tr.addView(getTextView(i + fullQuerys_s.size(),"£"+fullQuerys_s.get(i).getwt_salary()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
+            tr.addView(getTextView(i + fullQuerys_s.size(),titleLine, ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
             // tr.addView(getTextView(i + fullQuerys_s.size(),tmp2+"\n", Color.WHITE, Typeface.NORMAL, ContextCompat.getColor(this, rowcolor)));
 
             tl.addView(tr, getTblLayoutParams());
@@ -196,6 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {

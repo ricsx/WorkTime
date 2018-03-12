@@ -22,7 +22,6 @@
     <string name="NewCompany">Add a new company</string>
     <string name="startofempl">Start of employment</string>
     <string name="title_activity_wage_man_mod">WageManMod</string>
-    <string name="title_activity_my">MyActivity</string>
     <string name="title_activity_querys">Querys</string>
     <string name="TimeOfStart">Time of start</string>
     <string name="DateOfStart">Date of start</string>
@@ -76,8 +75,18 @@
     <string name="firstTimeRun">First Time Run</string>
     <string name="loadDefaults">load defaults</string>
     <string name="StartToWork">Start to work</string>
-    <string name="todo">TODO</string>
     <string name="devSection">Developer section</string>
+    <string name="Currency">Currency</string>
+    <string name="beforeValue">Before value</string>
+    <string name="viewableFields">viewable fields</string>
+    <string name="Companies">Companies</string>
+    <string name="title_activity_my">My activity</string>
+    <string name="title_activity_viewable_fields">Viewable fields</string>
+    <string name="todo">TODO</string>
     <string name="name">Name</string>
-    <string name="textview">TextView</string>
+    <string name="textview">textview</string>
+    <string name="dayName">Name of days</string>
+    <string name="shift">Shift</string>
+    <string name="payedHours">Numbers of paid hours</string>
+
 </resources>

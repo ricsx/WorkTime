@@ -202,7 +202,25 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnEndDate" />
+                app:layout_constraintTop_toBottomOf="@+id/inEndDate" />
+
+            <Button
+                android:id="@+id/btn_ViewableFields"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorWhite"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:text="@string/viewableFields"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnSendQuerys" />
 
             <TextView
                 android:id="@+id/textView16"

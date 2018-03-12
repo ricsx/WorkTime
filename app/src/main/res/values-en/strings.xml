@@ -76,4 +76,11 @@
     <string name="loadDefaults">load defaults</string>
     <string name="StartToWork">Start to work</string>
     <string name="devSection">Developer section</string>
+    <string name="Currency">Currency</string>
+    <string name="beforeValue">Before value</string>
+    <string name="viewableFields">Viewable fields</string>
+    <string name="Companies">Companies</string>
+    <string name="dayName">Name of days</string>
+    <string name="shift">Shift</string>
+    <string name="payedHours">Numbers of paid hours</string>
 </resources>

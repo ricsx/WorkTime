@@ -76,4 +76,11 @@
     <string name="loadDefaults">Alapbeállítások</string>
     <string name="StartToWork">Indulhat az app</string>
     <string name="devSection">Developer section</string>
+    <string name="Currency">Pénznem</string>
+    <string name="beforeValue">Érték előtt</string>
+    <string name="viewableFields">Látható mezők</string>
+    <string name="Companies">Munkáltatók</string>
+    <string name="dayName">Napok neve</string>
+    <string name="shift">Műszak</string>
+    <string name="payedHours">Fizetett munkaórák száma</string>
 </resources>
