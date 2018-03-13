@@ -65,8 +65,9 @@
             android:id="@+id/table"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:stretchColumns="*"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:stretchColumns="*" />
+
 
     </ScrollView>
 

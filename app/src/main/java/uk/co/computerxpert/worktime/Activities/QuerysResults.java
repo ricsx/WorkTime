@@ -30,6 +30,7 @@ import uk.co.computerxpert.worktime.data.model.FullQuerys;
 import uk.co.computerxpert.worktime.data.repo.FullQuerysRepo;
 
 import static uk.co.computerxpert.worktime.App.App.dformat;
+import static uk.co.computerxpert.worktime.App.App.settingTest;
 
 
 public class QuerysResults extends AppCompatActivity implements View.OnClickListener {
@@ -99,11 +100,22 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
         TableRow tr = new TableRow(this);
         tr.setLayoutParams(getLayoutParams());
         tr.setBackgroundColor(Color.WHITE);
-        tr.addView(getTextView(0, "", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16));
-        tr.addView(getTextView(1, "SHIFT", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16));
-        tr.addView(getTextView(2, "HOURS", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
-        tr.addView(getTextView(3, "WAGE", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
-
+        if(settingTest("view_dayNameValues").equals("true"))
+            tr.addView(getTextView(0, "", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16));
+        if(settingTest("view_shiftValues").equals("true"))
+            tr.addView(getTextView(1, "SHIFT", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16));
+        if(settingTest("view_paidHoursValues").equals("true"))
+            tr.addView(getTextView(2, "HOURS", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
+        if(settingTest("view_wageValues").equals("true"))
+            tr.addView(getTextView(3, "WAGE", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
+        if(settingTest("view_unpBreakValues").equals("true"))
+            tr.addView(getTextView(4, "UNP.BREAK", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
+        if(settingTest("view_commentsValues").equals("true"))
+            tr.addView(getTextView(5, "COMMENTS", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
+        if(settingTest("view_companiesValues").equals("true"))
+            tr.addView(getTextView(6, "COMPANY", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
+        if(settingTest("view_agenciesValues").equals("true"))
+            tr.addView(getTextView(6, "AGENCY", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
         tl.addView(tr, getTblLayoutParams());
     }
 
@@ -113,6 +125,7 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
         double hoursOfWeek=0;
         double salaryOfWeek=0;
         Integer rowcolor;
+        String titleLine;
 
         TableLayout tl = findViewById(R.id.table);
 
@@ -127,9 +140,12 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
             } else {
                 rowcolor = R.color.row_overtime;
             }
-
-            String shift = fullQuerys_s.get(i).getcomp_name()+" \n"+
-                    fullQuerys_s.get(i).getwt_strsdate()+" - "+fullQuerys_s.get(i).getwt_strstime()+"\n"+
+            if(settingTest("beforevalues").equals("true")){
+                titleLine = settingTest("currency")+" "+fullQuerys_s.get(i).getwt_salary()+"\n";
+            }else{
+                titleLine = fullQuerys_s.get(i).getwt_salary()+" "+settingTest("currency")+"\n";
+            }
+            String shift = fullQuerys_s.get(i).getwt_strsdate()+" - "+fullQuerys_s.get(i).getwt_strstime()+"\n"+
                     fullQuerys_s.get(i).getwt_stredate()+" - "+fullQuerys_s.get(i).getwt_stretime();
 
             Date date = new Date((long) fullQuerys_s.get(i).getwt_startdate()*1000L);
@@ -139,11 +155,20 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
             TableRow tr = new TableRow(this);
             tr.setLayoutParams(getLayoutParams());
             tr.setBackgroundColor(Color.WHITE);
-            tr.addView(getTextView(i + 1, "\n"+dayOfTheWeek+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, rowcolor),0));
-            tr.addView(getTextView(i + 1, shift, ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
-            tr.addView(getTextView(i + fullQuerys_s.size(), "\n"+fullQuerys_s.get(i).getwt_hours()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
-            tr.addView(getTextView(i + fullQuerys_s.size(),"\n£"+fullQuerys_s.get(i).getwt_salary()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
-
+                if(settingTest("view_dayNameValues").equals("true"))
+                    tr.addView(getTextView(i + 1, dayOfTheWeek+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, rowcolor),0));
+                if(settingTest("view_shiftValues").equals("true"))
+                    tr.addView(getTextView(i + fullQuerys_s.size(), shift, ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
+                if(settingTest("view_paidHoursValues").equals("true"))
+                    tr.addView(getTextView(i + fullQuerys_s.size(), fullQuerys_s.get(i).getwt_hours()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
+                if(settingTest("view_wageValues").equals("true"))
+                    tr.addView(getTextView(i + fullQuerys_s.size(),titleLine, ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
+                if(settingTest("view_unpBreakValues").equals("true"))
+                    tr.addView(getTextView(i + fullQuerys_s.size(),fullQuerys_s.get(i).getwt_unpbr()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
+                if(settingTest("view_companiesValues").equals("true"))
+                    tr.addView(getTextView(i + fullQuerys_s.size(),fullQuerys_s.get(i).getcomp_name()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
+                if(settingTest("view_agenciesValues").equals("true"))
+                    tr.addView(getTextView(i + fullQuerys_s.size(),fullQuerys_s.get(i).get_agency_name()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
             tl.addView(tr, getTblLayoutParams());
         }
         TableRow tr = new TableRow(this);

@@ -51,6 +51,10 @@ public class FullQuerysRepo {
                 fullQuerys.setwt_strsdate(cursor.getString(cursor.getColumnIndex("wt_strsdate")));
                 fullQuerys.setwt_strstime(cursor.getString(cursor.getColumnIndex("wt_strstime")));
                 fullQuerys.setwt_otwage(cursor.getString(cursor.getColumnIndex("wt_otwage")));
+                fullQuerys.setwt_unpbr(cursor.getInt(cursor.getColumnIndex("wt_unpbr")));
+
+                fullQuerys.set_agency_id(cursor.getInt(cursor.getColumnIndex("agency_id")));
+                fullQuerys.set_agency_name(cursor.getString(cursor.getColumnIndex("agency_name")));
 
                 fullQuerys_s.add(fullQuerys);
             } while (cursor.moveToNext());

@@ -10,7 +10,6 @@ public class FullQuerys {
     private String _wt_rem;
     private int _wt_week;
     private int _wt_year;
-
     private int _wage_id;
     private int _wage_comp_id;
     private double _wage_startdate;
@@ -23,10 +22,11 @@ public class FullQuerys {
     private String _wt_hours;
     private String _wt_salary;
     private String _wt_otwage;
-
+    private int _wt_unpbr;
     private int _comp_id;
     private String _comp_name;
-
+    private int _agency_id;
+    private String _agency_name;
 
     public FullQuerys(){
 
@@ -66,7 +66,7 @@ public class FullQuerys {
                       int wage_id, int wage_comp_id, double  wage_startdate, String wage_strstdate, String wage_val,
                       int wt_id, int wt_comp_id, double  wt_startdate, double  wt_enddate, String wt_rem, int wt_week, int wt_year,
                       String wt_strsdate, String wt_stredate, String wt_strstime, String wt_stretime,
-                      String wt_hours, String wt_salary, String wt_otwage){
+                      String wt_hours, String wt_salary, String wt_otwage, int wt_unpbr, int agency_id, String agency_name){
         this._comp_name = comp_name;
         this._wage_id = wage_id;
         this._wage_comp_id = wage_comp_id;
@@ -87,6 +87,9 @@ public class FullQuerys {
         this._wt_hours = wt_hours;
         this._wt_salary = wt_salary;
         this._wt_otwage = wt_otwage;
+        this._wt_unpbr = wt_unpbr;
+        this._agency_id = agency_id;
+        this._agency_name = agency_name;
     }
 
 
@@ -202,5 +205,17 @@ public class FullQuerys {
     public void setwt_otwage(String wt_otwage) { this._wt_otwage = wt_otwage; }
 
     public String getwt_otwage() { return this._wt_otwage; }
+
+    public void setwt_unpbr(int wt_unpbr) { this._wt_unpbr = wt_unpbr; }
+
+    public int getwt_unpbr() { return this._wt_unpbr; }
+
+    public void set_agency_id(int agency_id) { this._agency_id = agency_id; }
+
+    public int get_agency_id() { return this._agency_id; }
+
+    public void set_agency_name(String agency_name) { this._agency_name = agency_name; }
+
+    public String get_agency_name() { return this._agency_name; }
 }
 

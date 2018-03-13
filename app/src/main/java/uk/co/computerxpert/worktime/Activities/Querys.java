@@ -182,7 +182,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         if (vegdate.length() != 0) { partQueryEndDate = " AND wt_enddate < "+veg_uxT; }else { partQueryEndDate = ""; }
         if (agency_id != 0) { partQueryAgencyName = " AND wt_agency_id = "+agency_id; }else{ partQueryAgencyName = ""; }
 
-        String sel = "select * from worktime,companies,wage where worktime.wt_comp_id=companies.comp_id and companies.comp_id=wage.wage_comp_id "
+        String sel = "select * from worktime,companies,wage,agencies where worktime.wt_comp_id=companies.comp_id and companies.comp_id=wage.wage_comp_id and worktime.wt_agency_id=agencies.agency_id"
                 +partQueryCompName+partQueryWeekNum+partQueryStartDate+partQueryEndDate+partQueryOvertime+partQueryAgencyName;
 
         Uj_activity = new Intent(Querys.this, QuerysResults.class);

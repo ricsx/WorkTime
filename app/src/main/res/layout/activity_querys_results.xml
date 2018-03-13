@@ -56,11 +56,24 @@
         app:layout_constraintTop_toBottomOf="@+id/querys_result_top"
         tools:context=".Activities.QuerysResults">
 
-        <TableLayout
-            android:id="@+id/table"
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:stretchColumns="0,1" />
+            android:layout_marginBottom="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:fillViewport="true"
+            >
+
+            <TableLayout
+                android:id="@+id/table"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:stretchColumns="*" />
+        </HorizontalScrollView>
+
+
     </ScrollView>
 
     <android.support.design.widget.BottomNavigationView

@@ -24,10 +24,11 @@ import static uk.co.computerxpert.worktime.App.App.settingTest;
 public class ViewableFields extends AppCompatActivity implements View.OnClickListener {
 
     Intent Uj_activity;
+    Button _btn_saveVblFields;
     Switch _sw_dayName, _sw_shift, _sw_paidHours, _sw_wage, _sw_unpBreak,
         _sw_agencies, _sw_companies, _sw_comments;
-    Button _btn_saveVblFields;
-    String dayNameSwitch;
+    String dayNameSwitch, shiftSwitch, paidHoursSwitch, wageSwitch, unpBreakSwitch,
+        commentsSwitch, companiesSwitch, agenciesSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,6 @@ public class ViewableFields extends AppCompatActivity implements View.OnClickLis
 
 
     public void saveSwitches() {
-
         Settings dayNameVal = new Settings();
         dayNameVal.set_settings_name("view_dayNameValues");
         dayNameVal.set_settings_val(dayNameSwitch);
@@ -95,6 +95,76 @@ public class ViewableFields extends AppCompatActivity implements View.OnClickLis
             SettingsRepo.insert(dayNameVal);
         } else {
             SettingsRepo.update("view_dayNameValues", dayNameSwitch);
+        }
+
+        Settings shiftVal = new Settings();
+        shiftVal.set_settings_name("view_shiftValues");
+        shiftVal.set_settings_val(shiftSwitch);
+
+        if (settingTest("view_shiftValues").equals("")) {
+            SettingsRepo.insert(shiftVal);
+        } else {
+            SettingsRepo.update("view_shiftValues", shiftSwitch);
+        }
+
+        Settings paidHoursVal = new Settings();
+        paidHoursVal.set_settings_name("view_paidHoursValues");
+        paidHoursVal.set_settings_val(paidHoursSwitch);
+
+        if (settingTest("view_paidHoursValues").equals("")) {
+            SettingsRepo.insert(paidHoursVal);
+        } else {
+            SettingsRepo.update("view_paidHoursValues", paidHoursSwitch);
+        }
+
+        Settings wageVal = new Settings();
+        wageVal.set_settings_name("view_wageValues");
+        wageVal.set_settings_val(wageSwitch);
+
+        if (settingTest("view_wageValues").equals("")) {
+            SettingsRepo.insert(wageVal);
+        } else {
+            SettingsRepo.update("view_wageValues", wageSwitch);
+        }
+
+        Settings unpBreakVal = new Settings();
+        unpBreakVal.set_settings_name("view_unpBreakValues");
+        unpBreakVal.set_settings_val(unpBreakSwitch);
+
+        if (settingTest("view_unpBreakValues").equals("")) {
+            SettingsRepo.insert(unpBreakVal);
+        } else {
+            SettingsRepo.update("view_unpBreakValues", unpBreakSwitch);
+        }
+
+        Settings commentsVal = new Settings();
+        commentsVal.set_settings_name("view_commentsValues");
+        commentsVal.set_settings_val(commentsSwitch);
+
+        if (settingTest("view_commentsValues").equals("")) {
+            SettingsRepo.insert(commentsVal);
+        } else {
+            SettingsRepo.update("view_commentsValues", commentsSwitch);
+        }
+
+        Settings companiesVal = new Settings();
+        companiesVal.set_settings_name("view_companiesValues");
+        companiesVal.set_settings_val(companiesSwitch);
+
+        if (settingTest("view_companiesValues").equals("")) {
+            SettingsRepo.insert(companiesVal);
+        } else {
+            SettingsRepo.update("view_companiesValues", companiesSwitch);
+        }
+
+        Settings agenciesVal = new Settings();
+        agenciesVal.set_settings_name("view_agenciesValues");
+        agenciesVal.set_settings_val(agenciesSwitch);
+
+        if (settingTest("view_agenciesValues").equals("")) {
+            SettingsRepo.insert(agenciesVal);
+        } else {
+            SettingsRepo.update("view_agenciesValues", agenciesSwitch);
         }
     }
 
@@ -128,6 +198,20 @@ public class ViewableFields extends AppCompatActivity implements View.OnClickLis
             case R.id.btn_saveVblFields:
                 if (_sw_dayName.isChecked()) dayNameSwitch = _sw_dayName.getTextOn().toString();
                 else dayNameSwitch = _sw_dayName.getTextOff().toString();
+                if (_sw_shift.isChecked()) shiftSwitch = _sw_shift.getTextOn().toString();
+                else shiftSwitch = _sw_shift.getTextOff().toString();
+                if (_sw_paidHours.isChecked()) paidHoursSwitch = _sw_paidHours.getTextOn().toString();
+                else paidHoursSwitch = _sw_paidHours.getTextOff().toString();
+                if (_sw_wage.isChecked()) wageSwitch = _sw_wage.getTextOn().toString();
+                else wageSwitch = _sw_wage.getTextOff().toString();
+                if (_sw_unpBreak.isChecked()) unpBreakSwitch = _sw_unpBreak.getTextOn().toString();
+                else unpBreakSwitch = _sw_unpBreak.getTextOff().toString();
+                if (_sw_comments.isChecked()) commentsSwitch = _sw_comments.getTextOn().toString();
+                else commentsSwitch = _sw_comments.getTextOff().toString();
+                if (_sw_companies.isChecked()) companiesSwitch = _sw_companies.getTextOn().toString();
+                else companiesSwitch = _sw_companies.getTextOff().toString();
+                if (_sw_agencies.isChecked()) agenciesSwitch = _sw_agencies.getTextOn().toString();
+                else agenciesSwitch = _sw_agencies.getTextOff().toString();
                 saveSwitches();
                 Uj_activity = new Intent(ViewableFields.this, ViewableFields.class);
                 startActivity(Uj_activity);
