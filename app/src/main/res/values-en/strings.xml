@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">WorkTime</string>
     <string name="title_dashboard">Worktime</string>
     <string name="title_notifications">Setup</string>
     <string name="title_activity_dashbrd">Worktimes</string>
@@ -83,4 +82,15 @@
     <string name="dayName">Name of days</string>
     <string name="shift">Shift</string>
     <string name="payedHours">Numbers of paid hours</string>
+    <string name="noViewvableFields">The viewable fields aren\'t selected. \nPlease select some fields on QUERYS -> Viewable fields.</string>
+    <string name="hours">Hours</string>
+    <string name="deketeDays">Delete wrong days</string>
+    <string name="selectDeletedDay">Select the day you want to delete</string>
+    <string name="title_activity_delete_wrong_days">Delete wrong days</string>
+    <string name="textview">tv</string>
+    <string name="name">nm</string>
+    <string name="todo">TODO</string>
+    <string name="title_activity_viewable_fields">Viewable fields</string>
+    <string name="title_activity_my">My activity</string>
+    <string name="Delete">Delete</string>
 </resources>

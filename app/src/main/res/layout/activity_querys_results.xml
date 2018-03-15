@@ -68,9 +68,12 @@
 
             <TableLayout
                 android:id="@+id/table"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:stretchColumns="*" />
+                android:gravity="center"
+                android:stretchColumns="*"
+                android:fillViewport="true"
+                />
         </HorizontalScrollView>
 
 

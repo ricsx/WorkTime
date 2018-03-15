@@ -160,7 +160,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/sp_companyNames" />
 
             <Button
-                android:id="@+id/btn_date"
+                android:id="@+id/btn_deleteDaysDate"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
@@ -191,7 +191,7 @@
                 android:textSize="14sp"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_date" />
+                app:layout_constraintTop_toTopOf="@+id/btn_deleteDaysDate" />
 
             <EditText
                 android:id="@+id/in_kezdtimeBox"
@@ -206,7 +206,7 @@
                 android:paddingStart="26dp"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_date" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_deleteDaysDate" />
 
             <EditText
                 android:id="@+id/in_vegtimeBox"
@@ -255,7 +255,7 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_date" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_deleteDaysDate" />
 
             <EditText
                 android:id="@+id/in_vegdateBox"

@@ -32,7 +32,8 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
 
     private Spinner _inCegn, _inAgencyName;
     private EditText _inWeekNum, _inStDate, _inEndDate;
-    private Button _btnStDate, _btnEndDate,_btn_ViewableFields;
+    private Button _btnStDate;
+    private Button _btnEndDate;
     private CheckBox _inOverTime;
     Intent Uj_activity;
     private String kezdveg = "k";
@@ -57,7 +58,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         _btnStDate = findViewById(R.id.btnStDate);
         _btnEndDate = findViewById(R.id.btnEndDate);
         _inOverTime = findViewById(R.id.inOverTime);
-        _btn_ViewableFields = findViewById(R.id.btn_ViewableFields);
+        Button _btn_ViewableFields = findViewById(R.id.btn_ViewableFields);
 
         App.CompanyListToSpinner(_inCegn, this, "SELECT * FROM Companies", chooseCompany);
         App.AgenciesListToSpinner(_inAgencyName, this, chooseAgency);

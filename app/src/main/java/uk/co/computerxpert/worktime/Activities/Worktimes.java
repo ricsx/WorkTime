@@ -81,7 +81,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         in_vegtime = findViewById(R.id.in_vegtimeBox);
         in_megj = findViewById(R.id.in_megjBox);
         in_unpaidBreak = findViewById(R.id.in_unpaidBreakBox);
-        btn_kezddate = findViewById(R.id.btn_date);
+        btn_kezddate = findViewById(R.id.btn_deleteDaysDate);
         btn_kezdtime = findViewById(R.id.btn_kezdtime);
         btn_vegdate = findViewById(R.id.btn_vegdate);
         btn_WorktimeSave = findViewById(R.id.btn_WorktimeSave);
@@ -314,6 +314,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         String agency_name = spinnerAgency.getSelectedItem().toString();
         String ovTimeWage = overTimeWage.getText().toString();
         Integer agency_id;
+
 
         if(kezddate.equals("") || kezddate.equals(getString(R.string.DateOfStart)) ||
                 kezdtime.equals("") || kezdtime.equals(getString(R.string.TimeOfStart)) ||

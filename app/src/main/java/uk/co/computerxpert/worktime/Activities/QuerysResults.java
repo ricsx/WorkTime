@@ -12,7 +12,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TableLayout;
@@ -37,7 +36,7 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
 
     Intent Uj_activity;
     private String newSelectQuery;
-
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,12 +109,12 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
             tr.addView(getTextView(3, "WAGE", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
         if(settingTest("view_unpBreakValues").equals("true"))
             tr.addView(getTextView(4, "UNP.BREAK", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
-        if(settingTest("view_commentsValues").equals("true"))
-            tr.addView(getTextView(5, "COMMENTS", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
         if(settingTest("view_companiesValues").equals("true"))
             tr.addView(getTextView(6, "COMPANY", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
         if(settingTest("view_agenciesValues").equals("true"))
             tr.addView(getTextView(6, "AGENCY", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
+        if(settingTest("view_commentsValues").equals("true"))
+            tr.addView(getTextView(5, "COMMENTS", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
         tl.addView(tr, getTblLayoutParams());
     }
 
@@ -124,15 +123,16 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
 
         double hoursOfWeek=0;
         double salaryOfWeek=0;
-        Integer rowcolor;
+        Integer rowcolor, cnt=0;
         String titleLine;
+        String titleSumLine = null;
 
         TableLayout tl = findViewById(R.id.table);
 
         List<FullQuerys> fullQuerys_s = FullQuerysRepo.getFullQuerys(newSelectQuery);
 
         for(int i=0; i<fullQuerys_s.size();i++){
-
+            cnt=0;
             hoursOfWeek = hoursOfWeek + Double.parseDouble(fullQuerys_s.get(i).getwt_hours());
             salaryOfWeek = salaryOfWeek + Double.parseDouble(fullQuerys_s.get(i).getwt_salary());
             if (fullQuerys_s.get(i).getwt_otwage().equals("0")) {
@@ -142,8 +142,11 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
             }
             if(settingTest("beforevalues").equals("true")){
                 titleLine = settingTest("currency")+" "+fullQuerys_s.get(i).getwt_salary()+"\n";
+                titleSumLine = settingTest("currency")+" "+dformat.format(salaryOfWeek);
+
             }else{
                 titleLine = fullQuerys_s.get(i).getwt_salary()+" "+settingTest("currency")+"\n";
+                titleSumLine = dformat.format(salaryOfWeek)+" "+settingTest("currency");
             }
             String shift = fullQuerys_s.get(i).getwt_strsdate()+" - "+fullQuerys_s.get(i).getwt_strstime()+"\n"+
                     fullQuerys_s.get(i).getwt_stredate()+" - "+fullQuerys_s.get(i).getwt_stretime();
@@ -155,29 +158,33 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
             TableRow tr = new TableRow(this);
             tr.setLayoutParams(getLayoutParams());
             tr.setBackgroundColor(Color.WHITE);
-                if(settingTest("view_dayNameValues").equals("true"))
-                    tr.addView(getTextView(i + 1, dayOfTheWeek+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, rowcolor),0));
-                if(settingTest("view_shiftValues").equals("true"))
-                    tr.addView(getTextView(i + fullQuerys_s.size(), shift, ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
-                if(settingTest("view_paidHoursValues").equals("true"))
-                    tr.addView(getTextView(i + fullQuerys_s.size(), fullQuerys_s.get(i).getwt_hours()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
-                if(settingTest("view_wageValues").equals("true"))
-                    tr.addView(getTextView(i + fullQuerys_s.size(),titleLine, ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
-                if(settingTest("view_unpBreakValues").equals("true"))
-                    tr.addView(getTextView(i + fullQuerys_s.size(),fullQuerys_s.get(i).getwt_unpbr()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
-                if(settingTest("view_companiesValues").equals("true"))
-                    tr.addView(getTextView(i + fullQuerys_s.size(),fullQuerys_s.get(i).getcomp_name()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
-                if(settingTest("view_agenciesValues").equals("true"))
-                    tr.addView(getTextView(i + fullQuerys_s.size(),fullQuerys_s.get(i).get_agency_name()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
+                if(settingTest("view_dayNameValues").equals("true")) {
+                    tr.addView(getTextView(i + 1, dayOfTheWeek+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, rowcolor),0)); cnt++; }
+                if(settingTest("view_shiftValues").equals("true")) {
+                    tr.addView(getTextView(i + fullQuerys_s.size(), shift, ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0)); cnt++; }
+                if(settingTest("view_paidHoursValues").equals("true")) {
+                    tr.addView(getTextView(i + fullQuerys_s.size(), fullQuerys_s.get(i).getwt_hours()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0)); cnt++; }
+                if(settingTest("view_wageValues").equals("true")) {
+                    tr.addView(getTextView(i + fullQuerys_s.size(),titleLine, ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0)); cnt++; }
+                if(settingTest("view_unpBreakValues").equals("true")) {
+                    tr.addView(getTextView(i + fullQuerys_s.size(),fullQuerys_s.get(i).getwt_unpbr()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0)); cnt++; }
+                if(settingTest("view_companiesValues").equals("true")) {
+                    tr.addView(getTextView(i + fullQuerys_s.size(),fullQuerys_s.get(i).getcomp_name()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0)); cnt++; }
+                if(settingTest("view_agenciesValues").equals("true")) {
+                    tr.addView(getTextView(i + fullQuerys_s.size(),fullQuerys_s.get(i).get_agency_name()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0)); cnt++;}
+                if(settingTest("view_commentsValues").equals("true")) {
+                    tr.addView(getTextView(i + fullQuerys_s.size(),fullQuerys_s.get(i).getwt_rem()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0)); cnt++; }
+
             tl.addView(tr, getTblLayoutParams());
         }
         TableRow tr = new TableRow(this);
         tr.setBackgroundColor(Color.WHITE);
         tr.addView(getTextView(1, "", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorWhite),16));
         tr.addView(getTextView(1, "TOTAL: ", ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, R.color.colorWhite),16));
-        tr.addView(getTextView(1,  ""+hoursOfWeek, ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, R.color.colorWhite),16));
-        tr.addView(getTextView(1,  ""+dformat.format(salaryOfWeek), ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, R.color.colorWhite),16));
+        tr.addView(getTextView(1,  ""+hoursOfWeek+" "+getString(R.string.hours), ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, R.color.colorWhite),16));
+        tr.addView(getTextView(1,  titleSumLine, ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, R.color.colorWhite),16));
         tl.addView(tr, getTblLayoutParams());
+        if(cnt.equals(0)) Toast.makeText(this, getString(R.string.noViewvableFields), Toast.LENGTH_LONG).show();
     }
 
 
@@ -186,7 +193,6 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
         int id = v.getId();
         TextView tv = findViewById(id);
         if (null != tv) {
-            Log.i("onClick", "Clicked on row :: " + id);
             Toast.makeText(this, "Clicked on row :: " + id + ", Text :: " + tv.getText(), Toast.LENGTH_SHORT).show();
         }
     }

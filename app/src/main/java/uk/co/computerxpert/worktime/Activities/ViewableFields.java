@@ -213,7 +213,7 @@ public class ViewableFields extends AppCompatActivity implements View.OnClickLis
                 if (_sw_agencies.isChecked()) agenciesSwitch = _sw_agencies.getTextOn().toString();
                 else agenciesSwitch = _sw_agencies.getTextOff().toString();
                 saveSwitches();
-                Uj_activity = new Intent(ViewableFields.this, ViewableFields.class);
+                Uj_activity = new Intent(ViewableFields.this, Querys.class);
                 startActivity(Uj_activity);
                 break;
         }

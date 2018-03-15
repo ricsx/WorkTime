@@ -88,5 +88,11 @@
     <string name="dayName">Name of days</string>
     <string name="shift">Shift</string>
     <string name="payedHours">Numbers of paid hours</string>
+    <string name="noViewvableFields">The viewable fields aren\'t selected. \nPlease select some fields on QUERYS -> Viewable fields.</string>
+    <string name="hours">Hours</string>
+    <string name="deketeDays">Delete wrong days</string>
+    <string name="title_activity_delete_wrong_days">Delete wrong days</string>
+    <string name="selectDeletedDay">Select the day you want to delete</string>
+    <string name="Delete">Delete</string>
 
 </resources>

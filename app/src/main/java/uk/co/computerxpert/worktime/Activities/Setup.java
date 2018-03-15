@@ -37,6 +37,7 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         Button agencies = findViewById(R.id.btn_agencies2);
         Button defShifts = findViewById(R.id.btn_defShifts2);
         Button btn_saveCurrency = findViewById(R.id.btn_saveCurrency);
+        Button _deleteDays = findViewById(R.id.btn_deletedays);
         ed_currency = findViewById(R.id.ed_currency);
         _sw_beforeValue = findViewById(R.id.sw_dayName);
 
@@ -52,6 +53,7 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         agencies.setOnClickListener(this);
         defShifts.setOnClickListener(this);
         btn_saveCurrency.setOnClickListener(this);
+        _deleteDays.setOnClickListener(this);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -128,6 +130,10 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
                 else statusSwitch1 = _sw_beforeValue.getTextOff().toString();
                 saveCurrency();
                 Uj_activity = new Intent(Setup.this, Setup.class);
+                startActivity(Uj_activity);
+                break;
+            case R.id.btn_deletedays:
+                Uj_activity = new Intent(Setup.this, DeleteWrongDays.class);
                 startActivity(Uj_activity);
                 break;
         }

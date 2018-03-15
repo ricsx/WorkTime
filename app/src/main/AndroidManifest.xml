@@ -109,6 +109,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="uk.co.computerxpert.worktime.Activities.Querys" />
         </activity>
+        <activity
+            android:name=".Activities.DeleteWrongDays"
+            android:label="@string/title_activity_delete_wrong_days"
+            android:parentActivityName=".Activities.Setup">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="uk.co.computerxpert.worktime.Activities.Setup" />
+        </activity>
     </application>
 
 </manifest>

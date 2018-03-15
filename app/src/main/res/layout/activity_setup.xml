@@ -148,11 +148,29 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/btn_deletedays"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorWhite"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:text="@string/deketeDays"
+                android:textAlignment="viewStart"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_defShifts2" />
+
             <EditText
                 android:id="@+id/ed_currency"
                 android:layout_width="115dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorWhite"
                 android:ems="10"
@@ -162,7 +180,7 @@
                 android:paddingStart="26dp"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_defShifts2" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_deletedays" />
 
             <Button
                 android:id="@+id/btn_saveCurrency"
@@ -179,13 +197,15 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/sw_dayName"
-                app:layout_constraintTop_toBottomOf="@+id/btn_defShifts2" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_deletedays" />
 
             <Switch
                 android:id="@+id/sw_dayName"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorWhite"
                 android:fontFamily="sans-serif"
@@ -193,7 +213,7 @@
                 android:textColor="@color/text_color"
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@+id/ed_currency"
-                app:layout_constraintTop_toBottomOf="@+id/btn_defShifts2" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_deletedays" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

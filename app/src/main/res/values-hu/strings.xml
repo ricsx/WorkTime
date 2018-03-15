@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">WorkTime</string>
     <string name="title_dashboard">Munkaidő</string>
     <string name="title_notifications">Beállítások</string>
     <string name="title_activity_dashbrd">Munkaidők</string>
@@ -83,4 +82,15 @@
     <string name="dayName">Napok neve</string>
     <string name="shift">Műszak</string>
     <string name="payedHours">Fizetett munkaórák száma</string>
+    <string name="noViewvableFields">A látható mezők nincsenek kijelölve. \nKérjük, válasszon néhány mezőt a QUERIES -> Megtekinthető mezőkben.</string>
+    <string name="hours">Óra</string>
+    <string name="deketeDays">Hibás napok törlése</string>
+    <string name="selectDeletedDay">Törlendő nap kiválasztása</string>
+    <string name="title_activity_delete_wrong_days">Hibás napok törlése</string>
+    <string name="textview">tv</string>
+    <string name="name">nm</string>
+    <string name="todo">TODO</string>
+    <string name="title_activity_viewable_fields">Látható mezők</string>
+    <string name="title_activity_my">My activity</string>
+    <string name="Delete">Törlés</string>
 </resources>
