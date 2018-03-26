@@ -93,4 +93,8 @@
     <string name="title_activity_viewable_fields">Viewable fields</string>
     <string name="title_activity_my">My activity</string>
     <string name="Delete">Delete</string>
+    <string name="holiday">Holiday</string>
+    <string name="wageOfTheHoliday">Wage of the holiday (wage of day)</string>
+    <string name="numOfViewableDays">Viewable days</string>
+    <string name="viewableWeeks">Viewable weeks</string>
 </resources>

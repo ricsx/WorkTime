@@ -27,6 +27,7 @@ public class FullQuerys {
     private String _comp_name;
     private int _agency_id;
     private String _agency_name;
+    private String _wt_holiday;
 
     public FullQuerys(){
 
@@ -66,7 +67,8 @@ public class FullQuerys {
                       int wage_id, int wage_comp_id, double  wage_startdate, String wage_strstdate, String wage_val,
                       int wt_id, int wt_comp_id, double  wt_startdate, double  wt_enddate, String wt_rem, int wt_week, int wt_year,
                       String wt_strsdate, String wt_stredate, String wt_strstime, String wt_stretime,
-                      String wt_hours, String wt_salary, String wt_otwage, int wt_unpbr, int agency_id, String agency_name){
+                      String wt_hours, String wt_salary, String wt_otwage, int wt_unpbr, int agency_id, String agency_name,
+                      String wt_holiday){
         this._comp_name = comp_name;
         this._wage_id = wage_id;
         this._wage_comp_id = wage_comp_id;
@@ -90,6 +92,7 @@ public class FullQuerys {
         this._wt_unpbr = wt_unpbr;
         this._agency_id = agency_id;
         this._agency_name = agency_name;
+        this._wt_holiday = wt_holiday;
     }
 
 
@@ -217,5 +220,10 @@ public class FullQuerys {
     public void set_agency_name(String agency_name) { this._agency_name = agency_name; }
 
     public String get_agency_name() { return this._agency_name; }
+
+    public void set_wt_holiday(String wt_holiday) { this._wt_holiday = wt_holiday; }
+
+    public String get_wt_holiday() { return this._wt_holiday; }
+
 }
 

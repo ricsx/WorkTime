@@ -34,7 +34,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
     private EditText _inWeekNum, _inStDate, _inEndDate;
     private Button _btnStDate;
     private Button _btnEndDate;
-    private CheckBox _inOverTime;
+    private CheckBox _inOverTime, _inHoliday;
     Intent Uj_activity;
     private String kezdveg = "k";
     private String chooseCompany, chooseAgency;
@@ -58,6 +58,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         _btnStDate = findViewById(R.id.btnStDate);
         _btnEndDate = findViewById(R.id.btnEndDate);
         _inOverTime = findViewById(R.id.inOverTime);
+        _inHoliday = findViewById(R.id.inHoliday);
         Button _btn_ViewableFields = findViewById(R.id.btn_ViewableFields);
 
         App.CompanyListToSpinner(_inCegn, this, "SELECT * FROM Companies", chooseCompany);
@@ -130,7 +131,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
     public void makeListView (View view) throws ParseException {
 
         String partQueryCompName, partQueryWeekNum, partQueryStartDate,
-                partQueryEndDate, partQueryOvertime, partQueryAgencyName;
+                partQueryEndDate, partQueryOvertime, partQueryAgencyName, partQueryHoliday;
         String compName = _inCegn.getSelectedItem().toString();
         String agencyName = _inAgencyName.getSelectedItem().toString();
         String kezddate = _inStDate.getText().toString();
@@ -176,7 +177,12 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
             veg_uxT = date_veg.getTime() / 1000;
         }
         // End of converts
-        if (_inOverTime.isChecked()){ partQueryOvertime = " AND wt_otwage != 0 "; }else{ partQueryOvertime = ""; }
+        if (_inOverTime.isChecked() && _inHoliday.isChecked()){
+            partQueryOvertime = " AND wt_otwage != 0 "; partQueryHoliday = " OR wt_holiday != 0 ";
+        }else {
+            if (_inOverTime.isChecked()) { partQueryOvertime = " AND wt_otwage != 0 ";} else { partQueryOvertime = ""; }
+            if (_inHoliday.isChecked()) { partQueryHoliday = " AND wt_holiday != 0 ";} else { partQueryHoliday = "";            }
+        }
         if (comp_id != 0) { partQueryCompName = " AND wt_comp_id = "+comp_id; }else{  partQueryCompName = ""; }
         if (week.length() != 0) { partQueryWeekNum = " AND wt_week = "+week; }else { partQueryWeekNum = ""; }
         if (kezddate.length() != 0) { partQueryStartDate = " AND wt_startdate > "+kezd_uxT; } else { partQueryStartDate = ""; }
@@ -184,7 +190,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         if (agency_id != 0) { partQueryAgencyName = " AND wt_agency_id = "+agency_id; }else{ partQueryAgencyName = ""; }
 
         String sel = "select * from worktime,companies,wage,agencies where worktime.wt_comp_id=companies.comp_id and companies.comp_id=wage.wage_comp_id and worktime.wt_agency_id=agencies.agency_id"
-                +partQueryCompName+partQueryWeekNum+partQueryStartDate+partQueryEndDate+partQueryOvertime+partQueryAgencyName;
+                +partQueryCompName+partQueryWeekNum+partQueryStartDate+partQueryEndDate+partQueryOvertime+partQueryAgencyName+partQueryHoliday;
 
         Uj_activity = new Intent(Querys.this, QuerysResults.class);
         Uj_activity.putExtra("sel", sel);

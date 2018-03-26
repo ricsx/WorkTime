@@ -94,5 +94,12 @@
     <string name="title_activity_delete_wrong_days">Delete wrong days</string>
     <string name="selectDeletedDay">Select the day you want to delete</string>
     <string name="Delete">Delete</string>
+    <string name="title_activity_view_logo">viewLogo</string>
+    <string name="holiday">Holiday</string>
+    <string name="wageOfTheHoliday">Wage of the holiday (wage of day)</string>
+    <string name="nullHour" translatable="false">00:00</string>
+    <string name="midnight" translatable="false">24:00</string>
+    <string name="numOfViewableDays">Viewable days</string>
+    <string name="viewableWeeks">Viewable weeks</string>
 
 </resources>

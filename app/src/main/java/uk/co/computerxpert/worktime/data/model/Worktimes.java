@@ -21,6 +21,7 @@ public class Worktimes {
     public static final String KEY_wt_unpaidBreak = "wt_unpbr";
     public static final String KEY_wt_agency_id = "wt_agency_id";
     public static final String KEY_wt_otwage = "wt_otwage";
+    public static final String KEY_wt_holiday = "wt_holiday";
 
 
     private int _wt_comp_id;
@@ -38,6 +39,7 @@ public class Worktimes {
     private int _wt_unpbr;
     private int _wt_agency_id;
     private String _wt_otwage;
+    private String _wt_holiday;
 
     public Worktimes() {
 
@@ -58,7 +60,8 @@ public class Worktimes {
 
     public Worktimes(int wt_comp_id, double wt_startdate, double wt_enddate, String wt_rem, int wt_week, int wt_year,
                      String wt_strsdate, String wt_stredate, String wt_strstime, String wt_stretime,
-                     String wt_hours, String wt_salary, int wt_unpbr, int wt_agency_id, String wt_otwage) {
+                     String wt_hours, String wt_salary, int wt_unpbr, int wt_agency_id, String wt_otwage,
+                     String wt_holiday) {
         this._wt_comp_id = wt_comp_id;
         this._wt_startdate = wt_startdate;
         this._wt_enddate = wt_enddate;
@@ -74,6 +77,7 @@ public class Worktimes {
         this._wt_unpbr = wt_unpbr;
         this._wt_agency_id = wt_agency_id;
         this._wt_otwage = wt_otwage;
+        this._wt_holiday = wt_holiday;
     }
 
     public void setwt_comp_id(int wt_comp_id) {
@@ -173,4 +177,8 @@ public class Worktimes {
     public void setwt_otwage(String wt_otwage) { this._wt_otwage = wt_otwage; }
 
     public String getwt_otwage() { return this._wt_otwage; }
+
+    public void setwt_holiday(String wt_holiday) { this._wt_holiday = wt_holiday; }
+
+    public String getwt_holiday() { return this._wt_holiday; }
 }

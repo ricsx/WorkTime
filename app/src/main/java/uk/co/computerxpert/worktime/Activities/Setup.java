@@ -22,7 +22,7 @@ import static uk.co.computerxpert.worktime.App.App.settingTest;
 public class Setup extends AppCompatActivity implements View.OnClickListener {
 
     private Intent Uj_activity;
-    private EditText ed_currency;
+    private EditText ed_currency, _viewNumWeeks;
     Switch _sw_beforeValue;
     String statusSwitch1;
 
@@ -38,8 +38,10 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         Button defShifts = findViewById(R.id.btn_defShifts2);
         Button btn_saveCurrency = findViewById(R.id.btn_saveCurrency);
         Button _deleteDays = findViewById(R.id.btn_deletedays);
+        Button btn_saveNumWeeks = findViewById(R.id.btn_saveNumWeeks);
         ed_currency = findViewById(R.id.ed_currency);
         _sw_beforeValue = findViewById(R.id.sw_dayName);
+        _viewNumWeeks = findViewById(R.id.ed_numWeeks);
 
         loadSwitchDefaults(_sw_beforeValue);
         _sw_beforeValue.setTextOn("true");
@@ -54,6 +56,7 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         defShifts.setOnClickListener(this);
         btn_saveCurrency.setOnClickListener(this);
         _deleteDays.setOnClickListener(this);
+        btn_saveNumWeeks.setOnClickListener(this);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -61,11 +64,15 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
 
 
     public void loadDefaults(){
-        String selectQuery = " SELECT * from Settings WHERE " + Settings.KEY_settings_name + " = \"currency\"";
-        List<Settings> settings_s = SettingsRepo.getSettings(selectQuery);
+        String selectQuery;
+        List<Settings> settings_s;
+        selectQuery = " SELECT * from Settings WHERE " + Settings.KEY_settings_name + " = \"currency\"";
+        settings_s = SettingsRepo.getSettings(selectQuery);
         //noinspection MismatchedQueryAndUpdateOfCollection
-        // ArrayList<String> values = new ArrayList<>();
         for (int i = 0; i < settings_s.size(); i++) ed_currency.setText(settings_s.get(i).get_settings_val());
+        selectQuery = " SELECT * from Settings WHERE " + Settings.KEY_settings_name + " = \"viewNumWeeks\"";
+        settings_s = SettingsRepo.getSettings(selectQuery);
+        for (int i = 0; i < settings_s.size(); i++) _viewNumWeeks.setText(settings_s.get(i).get_settings_val());
     }
 
     public void loadSwitchDefaults(Switch switchName){
@@ -134,6 +141,17 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.btn_deletedays:
                 Uj_activity = new Intent(Setup.this, DeleteWrongDays.class);
+                startActivity(Uj_activity);
+                break;
+            case R.id.btn_saveNumWeeks:
+                String viewNumWeeks = _viewNumWeeks.getText().toString();
+                Settings settings = new Settings();
+                settings.set_settings_name("viewNumWeeks");
+                settings.set_settings_val(viewNumWeeks);
+                if (settingTest("viewNumWeeks").equals("")){ SettingsRepo.insert(settings); }
+                else { SettingsRepo.update("viewNumWeeks", viewNumWeeks);
+                }
+                Uj_activity = new Intent(Setup.this, Setup.class);
                 startActivity(Uj_activity);
                 break;
         }

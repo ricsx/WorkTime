@@ -48,7 +48,8 @@ import uk.co.computerxpert.worktime.data.repo.WorktimesRepo;
 
 public class Worktimes extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText in_kezddate, in_kezdtime, in_vegdate, in_vegtime, in_megj, in_unpaidBreak, overTimeWage;
+    private EditText in_kezddate, in_kezdtime, in_vegdate, in_vegtime, in_megj,
+            in_unpaidBreak, overTimeWage, holidayWage;
     private int defAgencyId=0, defCompId=0, saveValidator = 0, errorFlag = 0;
     private Intent Uj_activity;
     private String kezdveg = "k", chooseDefaulShift, notSelected, chooseCompany, globalVegdate;
@@ -86,9 +87,11 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         btn_vegdate = findViewById(R.id.btn_vegdate);
         btn_WorktimeSave = findViewById(R.id.btn_WorktimeSave);
         CheckBox chechBox_overTime = findViewById(R.id.chb_overTime);
+        CheckBox checkBox_holiday = findViewById(R.id.chb_holiday);
         btn_savePayslip = findViewById(R.id.btn_savePayslip);
         btn_vegtime = findViewById(R.id.btn_vegtime);
         overTimeWage = findViewById(R.id.overTimeWage);
+        holidayWage = findViewById(R.id.holidayWage);
         Toolbar myToolbar = findViewById(R.id.worktimes_top);
         setSupportActionBar(myToolbar);
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -112,6 +115,24 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
                 else
                 {
                     overTimeWage.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        checkBox_holiday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {
+                    holidayWage.setVisibility(View.VISIBLE);
+                    in_kezdtime.setText(R.string.nullHour);
+                    btn_kezdtime.setText(R.string.nullHour);
+                    in_vegtime.setText(R.string.midnight);
+                    btn_vegtime.setText(R.string.midnight);
+                    in_unpaidBreak.setText("0");
+                }
+                else
+                {
+                    holidayWage.setVisibility(View.GONE);
                 }
             }
         });
@@ -299,8 +320,10 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
 
     public void newWtime(){
         Double wageOfDay;
-        String wt_outwage;
+        String wt_outwage, wt_holiday;
         String defOvTimeWage = getString(R.string.wageOfTheOtime);
+        String defHolidayWage = getString(R.string.wageOfTheHoliday);
+        String defUnpaidBreak = getString(R.string.unpaidBreak);
         String cegnev = spinnerCompany.getSelectedItem().toString();
         String kezddate = in_kezddate.getText().toString();
         String kezdtime = in_kezdtime.getText().toString();
@@ -313,8 +336,8 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         String unpbr =  in_unpaidBreak.getText().toString();
         String agency_name = spinnerAgency.getSelectedItem().toString();
         String ovTimeWage = overTimeWage.getText().toString();
-        Integer agency_id;
-
+        String holidWage = holidayWage.getText().toString();
+        Integer agency_id, wt_unpr;
 
         if(kezddate.equals("") || kezddate.equals(getString(R.string.DateOfStart)) ||
                 kezdtime.equals("") || kezdtime.equals(getString(R.string.TimeOfStart)) ||
@@ -327,7 +350,6 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         }else {
             errorFlag = 0;
         }
-
 
         if(errorFlag != 1) {
             if (unpbr.equals("")) {
@@ -412,7 +434,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
             String exactHoursOfDay = Double.toString(Double.parseDouble(decimalFormat.format(wh2)));
             // End of workhouse-calculate
 
-            if (ovTimeWage.equals(defOvTimeWage)||ovTimeWage.equals("")) {
+            if (ovTimeWage.equals(defOvTimeWage) || ovTimeWage.equals("")) {
                 Double wOfDay = App.wageFromWageID(comp_id) * Double.parseDouble(exactHoursOfDay);
                 wageOfDay = Double.parseDouble(decimalFormat.format(wOfDay));
                 wt_outwage = "0";
@@ -422,6 +444,24 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
                 wt_outwage = ovTimeWage;
             }
 
+            String wt_salary = String.valueOf(wageOfDay);
+
+            if (unpbr.equals(defUnpaidBreak) || unpbr.equals("")) {
+                wt_unpr = 0;
+            } else {
+                wt_unpr = Integer.parseInt(unpbr);
+            }
+
+            if (holidWage.equals(defHolidayWage)||holidWage.equals("")) {
+                wt_holiday = "0";
+            } else {
+                wt_holiday = holidWage;
+                wt_salary = holidWage;
+                wt_unpr = 0;
+                kezdtime = "00:00";
+                vegtime = "24:00";
+            }
+
             arrWorktimes.setwt_comp_id(comp_id); // must specified
             arrWorktimes.setwt_startdate(kezd_uxT); // calculated value
             arrWorktimes.setwt_enddate(veg_uxT); // calculated value
@@ -429,14 +469,15 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
             arrWorktimes.setwt_week(woyear); // calculated value
             arrWorktimes.setwt_year(a); // calculated value
             arrWorktimes.setwt_hours(hoursOfDay); // calculated value
-            arrWorktimes.setwt_salary(String.valueOf(wageOfDay)); // calculated value
+            arrWorktimes.setwt_salary(wt_salary); // calculated value
             arrWorktimes.setwt_stredate(kezddate); // must specified
             arrWorktimes.setwt_strsdate(vegdate); // must specified
             arrWorktimes.setwt_strstime(kezdtime); // must specified
             arrWorktimes.setwt_stretime(vegtime); // must specified
-            arrWorktimes.setwt_unpbr(Integer.parseInt(unpbr)); // possible the empty value
+            arrWorktimes.setwt_unpbr(wt_unpr); // possible the empty value
             arrWorktimes.setwt_agency_id(agency_id); // possible the empty value
             arrWorktimes.setwt_otwage(wt_outwage); // possible the empty
+            arrWorktimes.setwt_holiday(wt_holiday); // possible the empty
 
             in_kezddate.setText("");
             in_kezdtime.setText("");

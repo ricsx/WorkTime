@@ -135,10 +135,12 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
             cnt=0;
             hoursOfWeek = hoursOfWeek + Double.parseDouble(fullQuerys_s.get(i).getwt_hours());
             salaryOfWeek = salaryOfWeek + Double.parseDouble(fullQuerys_s.get(i).getwt_salary());
-            if (fullQuerys_s.get(i).getwt_otwage().equals("0")) {
-                rowcolor = R.color.toolbar_background;
-            } else {
+            if (!fullQuerys_s.get(i).getwt_otwage().equals("0")) {
                 rowcolor = R.color.row_overtime;
+            } else if (!fullQuerys_s.get(i).get_wt_holiday().equals("0")) {
+                rowcolor = R.color.row_holiday;
+            } else {
+                rowcolor = R.color.toolbar_background;
             }
             if(settingTest("beforevalues").equals("true")){
                 titleLine = settingTest("currency")+" "+fullQuerys_s.get(i).getwt_salary()+"\n";

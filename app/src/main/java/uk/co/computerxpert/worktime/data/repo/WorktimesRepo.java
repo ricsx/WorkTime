@@ -34,8 +34,9 @@ public class WorktimesRepo {
         + Worktimes.KEY_wt_unpaidBreak + " INTEGER, "
         + Worktimes.KEY_wt_salary + " TEXT, "
         + Worktimes.KEY_wt_agency_id + " INTEGER, "
-        + Worktimes.KEY_wt_otwage + " TEXT "
-        + ")";
+        + Worktimes.KEY_wt_otwage + " TEXT, "
+        + Worktimes.KEY_wt_holiday + " TEXT "
+                + ")";
     }
 
 
@@ -58,6 +59,7 @@ public class WorktimesRepo {
         values.put(Worktimes.KEY_wt_unpaidBreak, worktimes.getwt_unpbr());
         values.put(Worktimes.KEY_wt_agency_id, worktimes.getwt_agency_id());
         values.put(Worktimes.KEY_wt_otwage, worktimes.getwt_otwage());
+        values.put(Worktimes.KEY_wt_holiday, worktimes.getwt_holiday());
         // Inserting Row
         worktimeId=(int) db.insert(Worktimes.TABLE, null, values);
         DatabaseManager.getInstance().closeDatabase();
@@ -92,6 +94,7 @@ public class WorktimesRepo {
                 worktimes.setwt_unpbr(cursor.getInt(cursor.getColumnIndex(Worktimes.KEY_wt_unpaidBreak)));
                 worktimes.setwt_agency_id(cursor.getInt(cursor.getColumnIndex(Worktimes.KEY_wt_agency_id)));
                 worktimes.setwt_otwage(cursor.getString(cursor.getColumnIndex(Worktimes.KEY_wt_otwage)));
+                worktimes.setwt_holiday(cursor.getString(cursor.getColumnIndex(Worktimes.KEY_wt_holiday)));
                 worktimes_s.add(worktimes);
             } while (cursor.moveToNext());
         }

@@ -89,7 +89,7 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_kezdtime" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_kezdtime" tools:targetApi="o"/>
 
             <Spinner
                 android:id="@+id/spinner4"
@@ -125,6 +125,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/chb_overTime" />
 
+            <EditText
+                android:id="@+id/holidayWage"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:ems="10"
+                android:hint="@string/wageOfTheHoliday"
+                android:inputType="number|numberDecimal"
+                android:paddingBottom="8dp"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:paddingTop="8dp"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
             <Spinner
                 android:id="@+id/sp_companyNames"
                 android:layout_width="0dp"
@@ -142,7 +161,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/overTimeWage" />
+                app:layout_constraintTop_toBottomOf="@+id/holidayWage"
+                tools:targetApi="o" />
 
             <Spinner
                 android:id="@+id/sp_agencyNames"
@@ -313,12 +333,30 @@
                 android:layout_marginTop="4dp"
                 android:background="@color/colorWhite"
                 android:paddingEnd="12dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
                 android:paddingStart="4dp"
                 android:textAlignment="viewStart"
                 android:textColor="@color/text_color"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spinner4" />
+
+            <CheckBox
+                android:id="@+id/chb_holiday"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:paddingEnd="12dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingStart="4dp"
+                android:textAlignment="viewStart"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/overTimeWage" />
 
             <Button
                 android:id="@+id/btn_WorktimeSave"
@@ -357,6 +395,23 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spinner4" />
 
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:paddingBottom="8dp"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:paddingTop="8dp"
+                android:text="@string/holiday"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/chb_overTime"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/overTimeWage" />
+
             <Button
                 android:id="@+id/btn_savePayslip"
                 style="@style/Widget.AppCompat.Button.Borderless"
@@ -390,4 +445,3 @@
         app:menu="@menu/navigation" />
 
 </android.support.constraint.ConstraintLayout>
-

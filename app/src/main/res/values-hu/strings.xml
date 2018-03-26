@@ -93,4 +93,8 @@
     <string name="title_activity_viewable_fields">Látható mezők</string>
     <string name="title_activity_my">My activity</string>
     <string name="Delete">Törlés</string>
+    <string name="holiday">Szabadnap</string>
+    <string name="wageOfTheHoliday">Szabadnapi fizetés (napi bér)</string>
+    <string name="numOfViewableDays">Látható napok</string>
+    <string name="viewableWeeks">Látható hetek</string>
 </resources>

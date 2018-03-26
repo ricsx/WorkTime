@@ -52,6 +52,7 @@ public class FullQuerysRepo {
                 fullQuerys.setwt_strstime(cursor.getString(cursor.getColumnIndex("wt_strstime")));
                 fullQuerys.setwt_otwage(cursor.getString(cursor.getColumnIndex("wt_otwage")));
                 fullQuerys.setwt_unpbr(cursor.getInt(cursor.getColumnIndex("wt_unpbr")));
+                fullQuerys.set_wt_holiday(cursor.getString(cursor.getColumnIndex("wt_holiday")));
 
                 fullQuerys.set_agency_id(cursor.getInt(cursor.getColumnIndex("agency_id")));
                 fullQuerys.set_agency_name(cursor.getString(cursor.getColumnIndex("agency_name")));
@@ -90,5 +91,28 @@ public class FullQuerysRepo {
         return fullQuerys_s;
     }
 
+
+    public static List<FullQuerys> getMaxStartWeek(String selectQuery){
+        FullQuerys fullQuerys;
+        List<FullQuerys> fullQuerys_s = new ArrayList<>();
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                fullQuerys= new FullQuerys();
+                fullQuerys.setwt_week(cursor.getInt(cursor.getColumnIndex("max(wt_week)")));
+
+                fullQuerys_s.add(fullQuerys);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return fullQuerys_s;
+    }
 
 }

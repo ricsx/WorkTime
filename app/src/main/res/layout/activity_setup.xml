@@ -51,6 +51,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setup_top">
 
@@ -118,7 +119,6 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="16dp"
                 android:background="@color/colorWhite"
                 android:fontFamily="sans-serif"
                 android:paddingEnd="0dp"
@@ -128,6 +128,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_agencies2" />
 
@@ -163,6 +164,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_defShifts2" />
 
@@ -170,7 +172,6 @@
                 android:id="@+id/ed_currency"
                 android:layout_width="115dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorWhite"
                 android:ems="10"
@@ -201,6 +202,25 @@
                 app:layout_constraintStart_toEndOf="@+id/sw_dayName"
                 app:layout_constraintTop_toBottomOf="@+id/btn_deletedays" />
 
+            <Button
+                android:id="@+id/btn_saveNumWeeks"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorWhite"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="26dp"
+                android:paddingStart="0dp"
+                android:text="@string/save"
+                android:textAlignment="viewEnd"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/sw_dayName"
+                app:layout_constraintTop_toBottomOf="@+id/btn_saveCurrency" />
+
             <Switch
                 android:id="@+id/sw_dayName"
                 android:layout_width="wrap_content"
@@ -214,6 +234,36 @@
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@+id/ed_currency"
                 app:layout_constraintTop_toBottomOf="@+id/btn_deletedays" />
+
+            <EditText
+                android:id="@+id/ed_numWeeks"
+                android:layout_width="115dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorWhite"
+                android:ems="10"
+                android:inputType="number"
+                android:labelFor="@+id/ed_numWeeks"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_currency" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:text="@string/viewableWeeks"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/btn_saveNumWeeks"
+                app:layout_constraintStart_toEndOf="@+id/ed_numWeeks"
+                app:layout_constraintTop_toBottomOf="@+id/btn_saveCurrency" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

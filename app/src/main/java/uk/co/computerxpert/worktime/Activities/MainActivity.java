@@ -27,7 +27,6 @@ import uk.co.computerxpert.worktime.data.model.Settings;
 import uk.co.computerxpert.worktime.data.repo.FullQuerysRepo;
 import uk.co.computerxpert.worktime.data.repo.SettingsRepo;
 
-import static uk.co.computerxpert.worktime.App.App.OneDayUxt;
 import static uk.co.computerxpert.worktime.App.App.dformat;
 import static uk.co.computerxpert.worktime.App.App.settingTest;
 
@@ -49,9 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             SettingsRepo.insert(settings);
             Uj_activity = new Intent(MainActivity.this, FirstRunLoadDefaults.class);
             startActivity(Uj_activity);
-        }else {
-
-        }
+        }else{}
 
         addHeaders();
         addData();
@@ -59,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         floatingActionButton();
+
 
     }
 
@@ -120,13 +118,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void addData() {
 
         Integer rowcolor;
-        double maxStartDate = maxStartDate();
-        double minMaxStartDate = maxStartDate - OneDayUxt*8;
+        Integer maxStartWeek = maxStartWeek();
+        Integer numberOfWeeks;
+        if(settingTest("viewNumWeeks").equals("")||settingTest("viewNumWeeks").equals(null)){
+            numberOfWeeks = 0;
+        }else{
+            numberOfWeeks = Integer.parseInt(settingTest("viewNumWeeks"));
+        }
+        Integer minMaxStartWeek = maxStartWeek - numberOfWeeks+1;
         String titleLine;
         String selectQuery =  " SELECT * FROM worktime, wage,companies,agencies " +
                 " WHERE worktime.wt_comp_id=companies.comp_id " +
                 " AND companies.comp_id=wage.wage_comp_id AND worktime.wt_agency_id=agencies.agency_id " +
-                "AND wt_startdate <= " + maxStartDate + " AND wt_startdate >= " + minMaxStartDate +
+                "AND wt_week <= " + maxStartWeek + " AND wt_week >= " + minMaxStartWeek +
                 " ORDER BY wt_startdate"
                 ;
         double hoursOfWeek=0;
@@ -138,13 +142,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         List<FullQuerys> fullQuerys_s = FullQuerysRepo.getFullQuerys(selectQuery);
 
         for(int i=0; i<fullQuerys_s.size();i++) {
-            x = x +i;
-            //if()
-            if (fullQuerys_s.get(i).getwt_otwage().equals("0")) {
-                rowcolor = R.color.toolbar_background;
-            } else {
+            x = x+i;
+            if (!fullQuerys_s.get(i).getwt_otwage().equals("0")) {
                 rowcolor = R.color.row_overtime;
+            } else if (!fullQuerys_s.get(i).get_wt_holiday().equals("0")) {
+                rowcolor = R.color.row_holiday;
+            } else {
+                rowcolor = R.color.toolbar_background;
             }
+
             if(settingTest("beforevalues").equals("true")){
                 titleLine = settingTest("currency")+" "+fullQuerys_s.get(i).getwt_salary()+"\n";
             }else{
@@ -183,17 +189,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public double maxStartDate(){
-        String selectQuery =  " SELECT max(wt_startdate) FROM worktime, wage,companies " +
+    public Integer maxStartWeek(){
+        String selectQuery =  " SELECT max(wt_week) FROM worktime, wage,companies " +
                 " WHERE worktime.wt_comp_id=companies.comp_id " +
                 " AND companies.comp_id=wage.wage_comp_id"
                 ;
-        double aa=0.00;
-        List<FullQuerys> fullQuerys_s = FullQuerysRepo.getMaxStartDate(selectQuery);
+        Integer aa=0;
+        List<FullQuerys> fullQuerys_s = FullQuerysRepo.getMaxStartWeek(selectQuery);
 
-        for(int i=0; i<fullQuerys_s.size();i++){ aa = fullQuerys_s.get(i).getwt_startdate();
+        for(int i=0; i<fullQuerys_s.size();i++){ aa = fullQuerys_s.get(i).getwt_week();
         }
-
         return aa;
     }
 
@@ -229,10 +234,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void floatingActionButton(){
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                    Uj_activity = new Intent(MainActivity.this, Querys.class);
-                    startActivity(Uj_activity);
+                 Uj_activity = new Intent(MainActivity.this, Querys.class);
+                 startActivity(Uj_activity);
             }
         });
     }
@@ -246,6 +252,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "Clicked on row :: " + id + ", Text :: " + tv.getText(), Toast.LENGTH_SHORT).show();
         }
     }
-
 
 }
