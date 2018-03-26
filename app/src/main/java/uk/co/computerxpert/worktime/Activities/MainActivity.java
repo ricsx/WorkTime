@@ -1,10 +1,16 @@
 package uk.co.computerxpert.worktime.Activities;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +23,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -57,7 +66,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         floatingActionButton();
 
+        takeScreenShot();
 
+    }
+
+
+    private void takeScreenShot()
+    {
+        View u = ((Activity) this).findViewById(R.id.scrollView2);
+
+        //HorizontalScrollView z = (HorizontalScrollView) ((Activity) this).findViewById(R.id.scrollView2);
+        //int totalHeight = z.getChildAt(0).getHeight();
+        //int totalWidth = z.getChildAt(0).getWidth();
+
+        //Bitmap b = getBitmapFromView(u,totalHeight,totalWidth);
+        Bitmap b = getBitmapFromView(u,1024,768);
+
+        //Save bitmap
+        String extr = Environment.getExternalStorageDirectory()+"/Folder/";
+        String fileName = "/report.jpg";
+        File myPath = new File(extr, fileName);
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(myPath);
+            b.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+            MediaStore.Images.Media.insertImage(this.getContentResolver(), b, "Screen", "screen");
+        }catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
+    public Bitmap getBitmapFromView(View view, int totalHeight, int totalWidth) {
+
+        Bitmap returnedBitmap = Bitmap.createBitmap(totalWidth,totalHeight , Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        Drawable bgDrawable = view.getBackground();
+        if (bgDrawable != null)
+            bgDrawable.draw(canvas);
+        else
+            canvas.drawColor(Color.WHITE);
+        view.draw(canvas);
+        return returnedBitmap;
     }
 
 

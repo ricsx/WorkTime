@@ -92,6 +92,23 @@
                 app:layout_constraintTop_toBottomOf="@+id/sw_dayName" />
 
             <Switch
+                android:id="@+id/sw_week"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="0dp"
+                android:paddingStart="26sp"
+                android:text="@string/numberOfWeek"
+                android:textColor="@color/text_color"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sw_shift" />
+
+            <Switch
                 android:id="@+id/sw_paidHours"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
@@ -106,7 +123,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sw_shift" />
+                app:layout_constraintTop_toBottomOf="@+id/sw_week" />
 
             <Switch
                 android:id="@+id/sw_wage"

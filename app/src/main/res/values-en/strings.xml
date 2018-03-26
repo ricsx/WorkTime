@@ -97,4 +97,5 @@
     <string name="wageOfTheHoliday">Wage of the holiday (wage of day)</string>
     <string name="numOfViewableDays">Viewable days</string>
     <string name="viewableWeeks">Viewable weeks</string>
+    <string name="numberOfWeek">Number of week</string>
 </resources>

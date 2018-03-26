@@ -26,9 +26,9 @@ public class ViewableFields extends AppCompatActivity implements View.OnClickLis
     Intent Uj_activity;
     Button _btn_saveVblFields;
     Switch _sw_dayName, _sw_shift, _sw_paidHours, _sw_wage, _sw_unpBreak,
-        _sw_agencies, _sw_companies, _sw_comments;
+        _sw_agencies, _sw_companies, _sw_comments, _sw_week;
     String dayNameSwitch, shiftSwitch, paidHoursSwitch, wageSwitch, unpBreakSwitch,
-        commentsSwitch, companiesSwitch, agenciesSwitch;
+        commentsSwitch, companiesSwitch, agenciesSwitch, numberOfWeekSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class ViewableFields extends AppCompatActivity implements View.OnClickLis
         _sw_comments = findViewById(R.id.sw_comments);
         _sw_companies = findViewById(R.id.sw_companies);
         _sw_agencies = findViewById(R.id.sw_agencies);
+        _sw_week = findViewById(R.id.sw_week);
         _btn_saveVblFields = findViewById(R.id.btn_saveVblFields);
 
         loadSwitchDefaults(_sw_dayName, "view_dayNameValues");
@@ -71,7 +72,8 @@ public class ViewableFields extends AppCompatActivity implements View.OnClickLis
         _sw_companies.setTextOn("true");  _sw_companies.setTextOff("false");
         loadSwitchDefaults(_sw_agencies, "view_agenciesValues");
         _sw_agencies.setTextOn("true");  _sw_agencies.setTextOff("false");
-
+        loadSwitchDefaults(_sw_week, "view_numberOfWeekValues");
+        _sw_week.setTextOn("true");  _sw_week.setTextOff("false");
         _btn_saveVblFields.setOnClickListener(this);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
@@ -166,6 +168,16 @@ public class ViewableFields extends AppCompatActivity implements View.OnClickLis
         } else {
             SettingsRepo.update("view_agenciesValues", agenciesSwitch);
         }
+
+        Settings weekVal = new Settings();
+        weekVal.set_settings_name("view_numberOfWeekValues");
+        weekVal.set_settings_val(numberOfWeekSwitch);
+
+        if (settingTest("view_numberOfWeekValues").equals("")) {
+            SettingsRepo.insert(weekVal);
+        } else {
+            SettingsRepo.update("view_numberOfWeekValues", numberOfWeekSwitch);
+        }
     }
 
 
@@ -212,6 +224,8 @@ public class ViewableFields extends AppCompatActivity implements View.OnClickLis
                 else companiesSwitch = _sw_companies.getTextOff().toString();
                 if (_sw_agencies.isChecked()) agenciesSwitch = _sw_agencies.getTextOn().toString();
                 else agenciesSwitch = _sw_agencies.getTextOff().toString();
+                if (_sw_week.isChecked()) numberOfWeekSwitch = _sw_week.getTextOn().toString();
+                else numberOfWeekSwitch = _sw_week.getTextOff().toString();
                 saveSwitches();
                 Uj_activity = new Intent(ViewableFields.this, Querys.class);
                 startActivity(Uj_activity);

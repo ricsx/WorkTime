@@ -97,4 +97,5 @@
     <string name="wageOfTheHoliday">Szabadnapi fizetés (napi bér)</string>
     <string name="numOfViewableDays">Látható napok</string>
     <string name="viewableWeeks">Látható hetek</string>
+    <string name="numberOfWeek">A hét száma</string>
 </resources>
