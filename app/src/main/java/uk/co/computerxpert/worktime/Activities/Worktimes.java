@@ -320,7 +320,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
 
     public void newWtime(){
         Double wageOfDay;
-        String wt_outwage, wt_holiday;
+        String wt_outwage = "0", wt_holiday;
         String defOvTimeWage = getString(R.string.wageOfTheOtime);
         String defHolidayWage = getString(R.string.wageOfTheHoliday);
         String defUnpaidBreak = getString(R.string.unpaidBreak);
@@ -338,6 +338,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         String ovTimeWage = overTimeWage.getText().toString();
         String holidWage = holidayWage.getText().toString();
         Integer agency_id, wt_unpr;
+        String wt_salary;
 
         if(kezddate.equals("") || kezddate.equals(getString(R.string.DateOfStart)) ||
                 kezdtime.equals("") || kezdtime.equals(getString(R.string.TimeOfStart)) ||
@@ -434,18 +435,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
             String exactHoursOfDay = Double.toString(Double.parseDouble(decimalFormat.format(wh2)));
             // End of workhouse-calculate
 
-            if (ovTimeWage.equals(defOvTimeWage) || ovTimeWage.equals("")) {
-                Double wOfDay = App.wageFromWageID(comp_id) * Double.parseDouble(exactHoursOfDay);
-                wageOfDay = Double.parseDouble(decimalFormat.format(wOfDay));
-                wt_outwage = "0";
-            } else {
-                wageOfDay = Double.parseDouble(ovTimeWage) * Double.parseDouble(exactHoursOfDay);
-                wageOfDay = Double.parseDouble(decimalFormat.format(wageOfDay));
-                wt_outwage = ovTimeWage;
-            }
-
-            String wt_salary = String.valueOf(wageOfDay);
-
+            
             if (unpbr.equals(defUnpaidBreak) || unpbr.equals("")) {
                 wt_unpr = 0;
             } else {
@@ -454,6 +444,19 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
 
             if (holidWage.equals(defHolidayWage)||holidWage.equals("")) {
                 wt_holiday = "0";
+                if (ovTimeWage.equals(defOvTimeWage) || ovTimeWage.equals(""))
+                {
+                    Double wOfDay = App.wageFromWageID(comp_id) * Double.parseDouble(exactHoursOfDay);
+                    wageOfDay = Double.parseDouble(decimalFormat.format(wOfDay));
+                    wt_outwage = "0";
+                } else {
+                    wageOfDay = Double.parseDouble(ovTimeWage) * Double.parseDouble(exactHoursOfDay);
+                    wageOfDay = Double.parseDouble(decimalFormat.format(wageOfDay));
+                    wt_outwage = ovTimeWage;
+                }
+
+                wt_salary = String.valueOf(wageOfDay);
+
             } else {
                 wt_holiday = holidWage;
                 wt_salary = holidWage;
