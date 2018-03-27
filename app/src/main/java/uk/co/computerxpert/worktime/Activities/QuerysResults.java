@@ -1,25 +1,43 @@
 package uk.co.computerxpert.worktime.Activities;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
+import android.os.CancellationSignal;
+import android.os.ParcelFileDescriptor;
+import android.print.PageRange;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintDocumentInfo;
+import android.print.PrintManager;
+import android.print.pdf.PrintedPdfDocument;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.HorizontalScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +54,7 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
 
     Intent Uj_activity;
     private String newSelectQuery;
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +72,10 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
 
         addHeaders();
         addData();
+
+        //printPDF(findViewById(R.id.queryScrollView));
+
+        floatingActionButton();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
@@ -191,6 +213,108 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
         tr.addView(getTextView(1,  titleSumLine, ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, R.color.colorWhite),16));
         tl.addView(tr, getTblLayoutParams());
         if(cnt.equals(0)) Toast.makeText(this, getString(R.string.noViewvableFields), Toast.LENGTH_LONG).show();
+    }
+
+
+    public void printPDF(View view) {
+        PrintManager printManager = (PrintManager) getSystemService(PRINT_SERVICE);
+        assert printManager != null;
+        printManager.print("printJobOutput", new ViewPrintAdapter(this, findViewById(R.id.horizQueryScroll)), null);
+    }
+
+    public class ViewPrintAdapter extends PrintDocumentAdapter {
+
+        private PrintedPdfDocument mDocument;
+        private Context mContext;
+        private View mView;
+
+        ViewPrintAdapter(Context context, View view) {
+            mContext = context;
+            mView = view;
+        }
+
+        @Override
+        public void onLayout(PrintAttributes oldAttributes, PrintAttributes newAttributes,
+                             CancellationSignal cancellationSignal,
+                             LayoutResultCallback callback, Bundle extras) {
+
+            mDocument = new PrintedPdfDocument(mContext, newAttributes);
+
+            if (cancellationSignal.isCanceled()) {
+                callback.onLayoutCancelled();
+                return;
+            }
+
+            PrintDocumentInfo.Builder builder = new PrintDocumentInfo
+                    .Builder("print_output.pdf")
+                    .setContentType(PrintDocumentInfo.CONTENT_TYPE_DOCUMENT)
+                    .setPageCount(1);
+
+            PrintDocumentInfo info = builder.build();
+            callback.onLayoutFinished(info, true);
+        }
+
+        @Override
+        public void onWrite(PageRange[] pages, ParcelFileDescriptor destination,
+                            CancellationSignal cancellationSignal,
+                            WriteResultCallback callback) {
+
+            PdfDocument.Page page = mDocument.startPage(0);
+            int h = 0, w = 0;
+            Bitmap bitmap;
+            HorizontalScrollView scrollView = (HorizontalScrollView) mView;
+
+            for (int i = 0; i < scrollView.getChildCount(); i++) {
+                h += scrollView.getChildAt(i).getHeight();
+                w += scrollView.getChildAt(i).getWidth();
+                scrollView.getChildAt(i).setBackgroundResource(R.color.colorAccent);
+            }
+
+            bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+
+            Canvas canvas = new Canvas(bitmap);
+            scrollView.draw(canvas);
+
+            Rect src = new Rect(0, 0, w, h);
+
+            Canvas pageCanvas = page.getCanvas();
+            float pageWidth = pageCanvas.getWidth();
+            float pageHeight = pageCanvas.getHeight();
+
+            float scale = Math.min(pageWidth/src.width(), pageHeight/src.height());
+            float left = pageWidth / 2 - src.width() * scale / 2;
+            float top = pageHeight / 2 - src.height() * scale / 2;
+            float right = pageWidth / 2 + src.width() * scale / 2;
+            float bottom = pageHeight / 2 + src.height() * scale / 2;
+            RectF dst = new RectF(left, top, right, bottom);
+
+            pageCanvas.drawBitmap(bitmap, src, dst, null);
+            mDocument.finishPage(page);
+
+            try {
+                mDocument.writeTo(new FileOutputStream(
+                        destination.getFileDescriptor()));
+            } catch (IOException e) {
+                callback.onWriteFailed(e.toString());
+                return;
+            } finally {
+                mDocument.close();
+                mDocument = null;
+            }
+            callback.onWriteFinished(new PageRange[]{new PageRange(0, 0)});
+        }
+    }
+
+
+    public void floatingActionButton(){
+        FloatingActionButton fab = findViewById(R.id.fab4);
+        fab.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                printPDF(findViewById(R.id.horizQueryScroll));
+            }
+        });
     }
 
 
