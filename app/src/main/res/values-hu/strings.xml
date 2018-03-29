@@ -84,9 +84,9 @@
     <string name="payedHours">Fizetett munkaórák száma</string>
     <string name="noViewvableFields">A látható mezők nincsenek kijelölve. \nKérjük, válasszon néhány mezőt a QUERIES -> Megtekinthető mezőkben.</string>
     <string name="hours">Óra</string>
-    <string name="deketeDays">Hibás napok törlése</string>
+    <string name="deketeDays">Napok törlése</string>
     <string name="selectDeletedDay">Törlendő nap kiválasztása</string>
-    <string name="title_activity_delete_wrong_days">Hibás napok törlése</string>
+    <string name="title_activity_delete_wrong_days">Napok törlése</string>
     <string name="textview">tv</string>
     <string name="name">nm</string>
     <string name="todo">TODO</string>
