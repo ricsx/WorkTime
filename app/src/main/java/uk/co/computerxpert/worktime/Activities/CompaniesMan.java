@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -33,6 +35,13 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_companies_man);
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.text_color));
+        }
 
         result= findViewById(R.id.results);
         ed_comp_name = findViewById(R.id.cmm_compNameBox3);
@@ -63,6 +72,8 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().getItem(2).setChecked(true);
+
 
         if(firstRunFlag.equals("0")) {
             navigation.setVisibility(View.VISIBLE);
@@ -102,6 +113,7 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
         edContPName.setText("");
         edContPPhone.setText("");
         edContPEmail.setText("");
+        finish();
     }
 
 
@@ -156,11 +168,11 @@ public class CompaniesMan extends AppCompatActivity  implements View.OnClickList
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(CompaniesMan.this, MainActivity.class);
+                    Uj_activity = new Intent(CompaniesMan.this, Querys.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(CompaniesMan.this, Worktimes.class);
+                    Uj_activity = new Intent(CompaniesMan.this, MainActivity.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:

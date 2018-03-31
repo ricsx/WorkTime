@@ -98,4 +98,6 @@
     <string name="numOfViewableDays">Látható napok</string>
     <string name="viewableWeeks">Látható hetek</string>
     <string name="numberOfWeek">A hét száma</string>
+    <string name="contactSupport">Kapcsolat a Supporttal</string>
+    <string name="reportBugs">Hiba jelentése</string>
 </resources>

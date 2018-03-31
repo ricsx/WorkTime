@@ -102,5 +102,7 @@
     <string name="numOfViewableDays">Viewable days</string>
     <string name="viewableWeeks">Viewable weeks</string>
     <string name="numberOfWeek">Number of week</string>
+    <string name="contactSupport">Contact Support</string>
+    <string name="reportBugs">Report bugs</string>
 
 </resources>

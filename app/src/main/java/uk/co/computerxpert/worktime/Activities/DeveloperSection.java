@@ -177,11 +177,11 @@ public class DeveloperSection extends AppCompatActivity implements View.OnClickL
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(DeveloperSection.this, MainActivity.class);
+                    Uj_activity = new Intent(DeveloperSection.this, Querys.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(DeveloperSection.this, Worktimes.class);
+                    Uj_activity = new Intent(DeveloperSection.this, MainActivity.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:

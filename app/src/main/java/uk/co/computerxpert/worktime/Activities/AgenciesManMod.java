@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -36,6 +38,13 @@ public class AgenciesManMod extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agencies_man_mod);
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.text_color));
+        }
 
         ed_agency_name = findViewById(R.id.upd_agencyNameBox);
         edAgencyAddr = findViewById(R.id.upd_agencyAddressBox);
@@ -64,6 +73,7 @@ public class AgenciesManMod extends AppCompatActivity implements View.OnClickLis
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().getItem(2).setChecked(true);
     }
 
 
@@ -111,11 +121,11 @@ public class AgenciesManMod extends AppCompatActivity implements View.OnClickLis
             Intent Uj_activity;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(AgenciesManMod.this, MainActivity.class);
+                    Uj_activity = new Intent(AgenciesManMod.this, Querys.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(AgenciesManMod.this, Worktimes.class);
+                    Uj_activity = new Intent(AgenciesManMod.this, MainActivity.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:

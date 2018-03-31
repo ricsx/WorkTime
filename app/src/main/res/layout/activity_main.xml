@@ -96,6 +96,6 @@
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintStart_toStartOf="parent"
         app:rippleColor="@color/colorWhite"
-        app:srcCompat="@drawable/ic_add_black_24dp" />
+        app:srcCompat="@drawable/plus_sign" />
 
 </android.support.constraint.ConstraintLayout>

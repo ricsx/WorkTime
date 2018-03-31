@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import uk.co.computerxpert.worktime.App.App;
+import uk.co.computerxpert.worktime.Common.Common;
 import uk.co.computerxpert.worktime.data.model.Agencies;
 import uk.co.computerxpert.worktime.data.model.Companies;
 import uk.co.computerxpert.worktime.data.model.DefShifts;
@@ -32,7 +32,7 @@ public class DBHelper  extends SQLiteOpenHelper {
     // boolean aa = isTableExists("DefShifts", false);
 
     public DBHelper( ) {
-        super(App.getContext(), DATABASE_NAME, null, DATABASE_VERSION);
+        super(Common.getContext(), DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override

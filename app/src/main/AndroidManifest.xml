@@ -5,9 +5,9 @@
 
 
     <application
-        android:name=".App.App"
+        android:name=".Common.Common"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher_"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher__round"
         android:supportsRtl="true"

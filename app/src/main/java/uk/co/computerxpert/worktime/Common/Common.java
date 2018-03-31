@@ -1,4 +1,4 @@
-package uk.co.computerxpert.worktime.App;
+package uk.co.computerxpert.worktime.Common;
 
 /*
   Created by ricsx on 29/12/17.
@@ -7,6 +7,10 @@ package uk.co.computerxpert.worktime.App;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -21,6 +25,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
+import uk.co.computerxpert.worktime.Activities.MainActivity;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.DBHelper;
 import uk.co.computerxpert.worktime.data.DatabaseManager;
@@ -35,7 +40,7 @@ import uk.co.computerxpert.worktime.data.repo.DefShiftsRepo;
 import uk.co.computerxpert.worktime.data.repo.SettingsRepo;
 import uk.co.computerxpert.worktime.data.repo.WageRepo;
 
-public class App extends Application {
+public class Common extends Application {
     @SuppressLint("StaticFieldLeak")
     private static Context context;
     private static Integer comp_id;
@@ -178,6 +183,7 @@ public class App extends Application {
             settings_val = settings_s.get(i).get_settings_val();
         } return settings_val;
     }
+
 
 }
 

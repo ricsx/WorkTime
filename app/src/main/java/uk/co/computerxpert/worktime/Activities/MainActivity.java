@@ -3,7 +3,9 @@ package uk.co.computerxpert.worktime.Activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,6 +14,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -27,8 +31,8 @@ import uk.co.computerxpert.worktime.data.model.Settings;
 import uk.co.computerxpert.worktime.data.repo.FullQuerysRepo;
 import uk.co.computerxpert.worktime.data.repo.SettingsRepo;
 
-import static uk.co.computerxpert.worktime.App.App.dformat;
-import static uk.co.computerxpert.worktime.App.App.settingTest;
+import static uk.co.computerxpert.worktime.Common.Common.dformat;
+import static uk.co.computerxpert.worktime.Common.Common.settingTest;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -39,6 +43,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.text_color));
+        }
 
         //noinspection StatementWithEmptyBody,EqualsBetweenInconvertibleTypes
         if(settingTest("firstrun").equals("") || settingTest("firstrun").equals(0)) {
@@ -53,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addHeaders();
         addData();
         BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.getMenu().getItem(1).setChecked(true);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         floatingActionButton();
@@ -213,11 +225,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(MainActivity.this, MainActivity.class);
+                    Uj_activity = new Intent(MainActivity.this, Querys.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(MainActivity.this, uk.co.computerxpert.worktime.Activities.Worktimes.class);
+                    Uj_activity = new Intent(MainActivity.this, MainActivity.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
@@ -236,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onClick(View view) {
-                 Uj_activity = new Intent(MainActivity.this, Querys.class);
+                 Uj_activity = new Intent(MainActivity.this, Worktimes.class);
                  startActivity(Uj_activity);
             }
         });

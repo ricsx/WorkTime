@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -32,16 +34,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import uk.co.computerxpert.worktime.App.App;
+import uk.co.computerxpert.worktime.Common.Common;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.Companies;
 import uk.co.computerxpert.worktime.data.model.Wage;
 import uk.co.computerxpert.worktime.data.repo.WageRepo;
 
-import static uk.co.computerxpert.worktime.App.App.dateTime;
-import static uk.co.computerxpert.worktime.App.App.formatDate;
-import static uk.co.computerxpert.worktime.App.App.makeMonthArray;
-import static uk.co.computerxpert.worktime.App.App.months;
+import static uk.co.computerxpert.worktime.Common.Common.dateTime;
+import static uk.co.computerxpert.worktime.Common.Common.formatDate;
+import static uk.co.computerxpert.worktime.Common.Common.makeMonthArray;
+import static uk.co.computerxpert.worktime.Common.Common.months;
 
 public class WageMan extends AppCompatActivity  implements View.OnClickListener {
 
@@ -58,6 +60,13 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wage_man);
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.text_color));
+        }
 
         spinner1 = findViewById(R.id.spinner2);
         in_kezddate = findViewById(R.id.in_wage_stdateBox);
@@ -83,7 +92,7 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
         makeMonthArray();
         // starting Spinner (Company names)
         String selectQuery = "SELECT * FROM companies";
-        App.CompanyListToSpinner(spinner1, context, selectQuery, "false");
+        Common.CompanyListToSpinner(spinner1, context, selectQuery, "false");
 
         if(firstRunFlag.equals("0")) {
             navigation.setVisibility(View.VISIBLE);
@@ -91,6 +100,7 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
             navigation.setVisibility(View.GONE);
         }
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().getItem(2).setChecked(true);
 
         btn_kezddate.setOnClickListener(this);
 
@@ -142,7 +152,7 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
                 + " =\""+ cegnev+"\""
                 ;
 
-        Integer comp_id = App.comp_idFromSpinner(selectQuery);
+        Integer comp_id = Common.comp_idFromSpinner(selectQuery);
 
         // Dates convert to Unix format
         // DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy hh:mm");
@@ -180,6 +190,7 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
 
         in_kezddate.setText("");
         in_val.setText("");
+        finish();
     }
 
 
@@ -272,11 +283,11 @@ public class WageMan extends AppCompatActivity  implements View.OnClickListener 
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(WageMan.this, MainActivity.class);
+                    Uj_activity = new Intent(WageMan.this, Querys.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(WageMan.this, Worktimes.class);
+                    Uj_activity = new Intent(WageMan.this, MainActivity.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:

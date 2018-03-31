@@ -9,6 +9,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Spinner;
 
 import android.content.Intent;
@@ -30,7 +32,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import uk.co.computerxpert.worktime.App.App;
+import uk.co.computerxpert.worktime.Common.Common;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.Agencies;
 import uk.co.computerxpert.worktime.data.model.Companies;
@@ -55,6 +57,13 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_def_shifts_man);
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.text_color));
+        }
 
         notSelected=getString(R.string.NotSelected);
         results= findViewById(R.id.result);
@@ -81,8 +90,8 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
         upArrow.setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-        App.CompanyListToSpinnerAlign(spinner, this, notSelected);
-        App.AgenciesListToSpinnerAlign(spinnerAgency, this, notSelected);
+        Common.CompanyListToSpinnerAlign(spinner, this, notSelected);
+        Common.AgenciesListToSpinnerAlign(spinnerAgency, this, notSelected);
 
         make_listview();
         btnstartTime.setOnClickListener(this);
@@ -95,6 +104,7 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
             navigation.setVisibility(View.GONE);
         }
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().getItem(2).setChecked(true);
 
         btnstartTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,14 +209,14 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
                     + " FROM " + Agencies.TABLE
                     + " WHERE " + Agencies.KEY_agency_name
                     + " =\"" + agency_name + "\"";
-            agency_id = App.agency_idFromSpinner(selectQuery);
+            agency_id = Common.agency_idFromSpinner(selectQuery);
         }
 
         String selectQuery = " SELECT * "
                     + " FROM " + Companies.TABLE
                     + " WHERE " + Companies.KEY_comp_name
                     + " =\"" + comp_name + "\"";
-        Integer comp_id = App.comp_idFromSpinner(selectQuery);
+        Integer comp_id = Common.comp_idFromSpinner(selectQuery);
 
 
         DefShifts defShifts = new DefShifts();
@@ -224,6 +234,7 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
         edstarttime.setText("");
         edendtime.setText("");
         edunpbreak.setText("");
+        finish();
     }
 
 
@@ -234,11 +245,11 @@ public class DefShiftsMan extends AppCompatActivity implements View.OnClickListe
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(DefShiftsMan.this, MainActivity.class);
+                    Uj_activity = new Intent(DefShiftsMan.this, Querys.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(DefShiftsMan.this, Worktimes.class);
+                    Uj_activity = new Intent(DefShiftsMan.this, MainActivity.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:

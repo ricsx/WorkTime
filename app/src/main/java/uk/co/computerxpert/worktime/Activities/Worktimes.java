@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -35,7 +37,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import uk.co.computerxpert.worktime.App.App;
+import uk.co.computerxpert.worktime.Common.Common;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.Agencies;
 import uk.co.computerxpert.worktime.data.model.Companies;
@@ -70,6 +72,13 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worktimes);
 
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.text_color));
+        }
+
         chooseDefaulShift = getString(R.string.ChooseDefaultShift);
         notSelected = getString(R.string.NotSelected);
         chooseCompany = getString(R.string.chooseCompany);
@@ -99,12 +108,12 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // starting Spinners
-        App.DefShiftsListToSpinner(spinner2, context, chooseDefaulShift);
+        Common.DefShiftsListToSpinner(spinner2, context, chooseDefaulShift);
         loadingDatasFromSpinner2();
 
-        App.AgenciesListToSpinner(spinnerAgency, this, notSelected);
+        Common.AgenciesListToSpinner(spinnerAgency, this, notSelected);
 
-        App.CompanyListToSpinner(spinnerCompany, context, "SELECT * FROM Companies", chooseCompany);
+        Common.CompanyListToSpinner(spinnerCompany, context, "SELECT * FROM Companies", chooseCompany);
 
         chechBox_overTime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -139,6 +148,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().getItem(1).setChecked(true);
 
         btn_kezddate.setOnClickListener(this);
         btn_kezdtime.setOnClickListener(this);
@@ -146,7 +156,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         btn_vegtime.setOnClickListener(this);
         btn_savePayslip.setOnClickListener(this);
 
-        App.makeMonthArray();
+        Common.makeMonthArray();
 
         btn_savePayslip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,8 +227,8 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
             in_vegtime.setText(getString(R.string.TimeOfEnd));
             in_megj.setText("");
             in_unpaidBreak.setText("");
-            App.AgenciesListToSpinner(spinnerAgency, this, notSelected);
-            App.CompanyListToSpinner(spinnerCompany, context, "SELECT * FROM Companies", chooseCompany);
+            Common.AgenciesListToSpinner(spinnerAgency, this, notSelected);
+            Common.CompanyListToSpinner(spinnerCompany, context, "SELECT * FROM Companies", chooseCompany);
         } else {
             String selectQuery = " SELECT * from DefShifts WHERE " + DefShifts.KEY_DS_Name + " = \"" + value + "\"";
             // DefShiftsRepo defShiftsRepo = new DefShiftsRepo();
@@ -363,7 +373,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
                         + " FROM " + Agencies.TABLE
                         + " WHERE " + Agencies.KEY_agency_name
                         + " =\"" + agency_name + "\"";
-                agency_id = App.agency_idFromSpinner(selectQuery);
+                agency_id = Common.agency_idFromSpinner(selectQuery);
             }
 
             // Calculate the comp_id from the spinner return value
@@ -371,7 +381,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
                     + " WHERE " + Companies.KEY_comp_name
                     + " =\"" + cegnev + "\"";
 
-            Integer comp_id = App.comp_idFromSpinner(selectQuery);
+            Integer comp_id = Common.comp_idFromSpinner(selectQuery);
 
             // Dates convert to Unix format
             DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy kk:mm", Locale.UK);
@@ -409,7 +419,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
 
             int a = Integer.parseInt(bb[2]);
             int c = Integer.parseInt(bb[0]); //.replaceAll(".$", ""));
-            int b = App.months.get(bb[1]);
+            int b = Common.months.get(bb[1]);
 
             now.set(Calendar.DATE, c);
             now.set(Calendar.MONTH, b - 1);
@@ -446,7 +456,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
                 wt_holiday = "0";
                 if (ovTimeWage.equals(defOvTimeWage) || ovTimeWage.equals(""))
                 {
-                    Double wOfDay = App.wageFromWageID(comp_id) * Double.parseDouble(exactHoursOfDay);
+                    Double wOfDay = Common.wageFromWageID(comp_id) * Double.parseDouble(exactHoursOfDay);
                     wageOfDay = Double.parseDouble(decimalFormat.format(wOfDay));
                     wt_outwage = "0";
                 } else {
@@ -571,11 +581,11 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(Worktimes.this, MainActivity.class);
+                    Uj_activity = new Intent(Worktimes.this, Querys.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(Worktimes.this, Worktimes.class);
+                    Uj_activity = new Intent(Worktimes.this, MainActivity.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:

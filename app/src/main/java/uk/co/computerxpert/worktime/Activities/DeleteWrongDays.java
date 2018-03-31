@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -21,8 +23,8 @@ import java.util.Calendar;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.DatabaseManager;
 
-import static uk.co.computerxpert.worktime.App.App.dateTime;
-import static uk.co.computerxpert.worktime.App.App.formatDate;
+import static uk.co.computerxpert.worktime.Common.Common.dateTime;
+import static uk.co.computerxpert.worktime.Common.Common.formatDate;
 
 public class DeleteWrongDays extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,6 +37,13 @@ public class DeleteWrongDays extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_wrong_days);
 
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.text_color));
+        }
+
         _deleteDaysDate = findViewById(R.id.btn_deleteDaysDate);
         _inpDeleteDaysDate = findViewById(R.id.in_deleteDasyDate);
         Button _deleteDaysSend = findViewById(R.id.btn_deleteDaysSend);
@@ -44,7 +53,7 @@ public class DeleteWrongDays extends AppCompatActivity implements View.OnClickLi
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
+        navigation.getMenu().getItem(2).setChecked(true);
 
         Toolbar myToolbar = findViewById(R.id.deleteWrongDays_top);
         setSupportActionBar(myToolbar);
@@ -66,7 +75,7 @@ public class DeleteWrongDays extends AppCompatActivity implements View.OnClickLi
                 SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
                 db.delete(uk.co.computerxpert.worktime.data.model.Worktimes.TABLE, "wt_strsdate = \""+_inpDeleteDaysDate.getText().toString()+"\"",null);
                 DatabaseManager.getInstance().closeDatabase();
-                Uj_activity = new Intent(DeleteWrongDays.this, MainActivity.class);
+                Uj_activity = new Intent(DeleteWrongDays.this, Setup.class);
                 startActivity(Uj_activity);
             }
         });
@@ -96,11 +105,11 @@ public class DeleteWrongDays extends AppCompatActivity implements View.OnClickLi
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(DeleteWrongDays.this, MainActivity.class);
+                    Uj_activity = new Intent(DeleteWrongDays.this, Querys.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(DeleteWrongDays.this, Worktimes.class);
+                    Uj_activity = new Intent(DeleteWrongDays.this, MainActivity.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:

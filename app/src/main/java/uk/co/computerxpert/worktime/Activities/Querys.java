@@ -9,6 +9,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -23,7 +25,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
-import uk.co.computerxpert.worktime.App.App;
+import uk.co.computerxpert.worktime.Common.Common;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.Agencies;
 import uk.co.computerxpert.worktime.data.model.Companies;
@@ -48,6 +50,13 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_querys);
 
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.text_color));
+        }
+
         chooseCompany=getString(R.string.chooseCompany);
         chooseAgency=getString(R.string.chooseAgency);
         _inAgencyName = findViewById(R.id.inAgencyName);
@@ -61,11 +70,12 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         _inHoliday = findViewById(R.id.inHoliday);
         Button _btn_ViewableFields = findViewById(R.id.btn_ViewableFields);
 
-        App.CompanyListToSpinner(_inCegn, this, "SELECT * FROM Companies", chooseCompany);
-        App.AgenciesListToSpinner(_inAgencyName, this, chooseAgency);
+        Common.CompanyListToSpinner(_inCegn, this, "SELECT * FROM Companies", chooseCompany);
+        Common.AgenciesListToSpinner(_inAgencyName, this, chooseAgency);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().getItem(0).setChecked(true);
 
         _btnStDate.setOnClickListener(this);
         _btnEndDate.setOnClickListener(this);
@@ -150,7 +160,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
                     + " FROM " + Agencies.TABLE
                     + " WHERE " + Agencies.KEY_agency_name
                     + " =\"" + agencyName + "\"";
-            agency_id = App.agency_idFromSpinner(selectQuery);
+            agency_id = Common.agency_idFromSpinner(selectQuery);
         }
 
 
@@ -161,7 +171,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
                     + " FROM " + Companies.TABLE
                     + " WHERE " + Companies.KEY_comp_name
                     + " =\"" + compName + "\"";
-            comp_id = App.comp_idFromSpinner(selectQuery);
+            comp_id = Common.comp_idFromSpinner(selectQuery);
         }
 
         // Dates convert to Unix format
@@ -213,11 +223,11 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(Querys.this, MainActivity.class);
+                    Uj_activity = new Intent(Querys.this, Querys.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(Querys.this, Worktimes.class);
+                    Uj_activity = new Intent(Querys.this, MainActivity.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:

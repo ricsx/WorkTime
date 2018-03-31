@@ -29,6 +29,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -46,8 +48,8 @@ import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.FullQuerys;
 import uk.co.computerxpert.worktime.data.repo.FullQuerysRepo;
 
-import static uk.co.computerxpert.worktime.App.App.dformat;
-import static uk.co.computerxpert.worktime.App.App.settingTest;
+import static uk.co.computerxpert.worktime.Common.Common.dformat;
+import static uk.co.computerxpert.worktime.Common.Common.settingTest;
 
 
 public class QuerysResults extends AppCompatActivity implements View.OnClickListener {
@@ -59,6 +61,14 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_querys_results);
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.text_color));
+        }
+
         newSelectQuery = getIntent().getStringExtra("sel");
         Toolbar myToolbar = findViewById(R.id.querys_result_top);
 
@@ -78,6 +88,7 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
         floatingActionButton();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().getItem(0).setChecked(true);
     }
 
     private TextView getTextView(int id, String title, int color, int typeface, int bgColor, int txtsize) {
@@ -335,11 +346,11 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(QuerysResults.this, MainActivity.class);
+                    Uj_activity = new Intent(QuerysResults.this, Querys.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(QuerysResults.this, Worktimes.class);
+                    Uj_activity = new Intent(QuerysResults.this, MainActivity.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
