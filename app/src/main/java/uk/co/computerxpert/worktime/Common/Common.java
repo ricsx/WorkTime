@@ -122,7 +122,11 @@ public class Common extends Application {
         List<Agencies> agencies_s= AgenciesRepo.getAgencies("SELECT * FROM Agencies");
         List<String> values = new ArrayList<>();
         if(!Objects.equals(def, "false")){ values.add(def); }
-        for(int i=0; i<agencies_s.size();i++) values.add(agencies_s.get(i).getagency_name());
+        for(int i=0; i<agencies_s.size();i++){
+            if(!agencies_s.get(i).getagency_name().equals("-")) {
+                values.add(agencies_s.get(i).getagency_name());
+            }
+        }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context,
                 android.R.layout.simple_spinner_item, values);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -135,7 +139,11 @@ public class Common extends Application {
         List<Agencies> agencies_s= AgenciesRepo.getAgencies("SELECT * FROM Agencies");
         List<String> values = new ArrayList<>();
         if(!Objects.equals(def, "false")){ values.add(def); }
-        for(int i=0; i<agencies_s.size();i++) values.add(agencies_s.get(i).getagency_name());
+        for(int i=0; i<agencies_s.size();i++) {
+            if (!agencies_s.get(i).getagency_name().equals("-")) {
+                values.add(agencies_s.get(i).getagency_name());
+            }
+        }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context,
                 R.layout.spinner_align_right, values);
         dataAdapter.setDropDownViewResource(R.layout.spinner_align_right);

@@ -136,16 +136,20 @@
             <Button
                 android:id="@+id/btn_dev"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="5dp"
-                android:layout_height="20dp"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
                 android:paddingEnd="0dp"
                 android:paddingStart="26dp"
+                android:text="dev"
                 android:textAlignment="viewStart"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ed_numWeeks" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_reportBugs" />
 
             <Button
                 android:id="@+id/btn_deletedays"

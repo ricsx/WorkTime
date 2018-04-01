@@ -137,8 +137,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(maxStartWeek-numberOfWeeks>dMaxWeek) {
             Integer gWeek = dMaxWeek+52-numberOfWeeks+1;
-            whereYear = "AND (wt_year=\""+(maxYear-1)+"\" AND wt_week>=\""+gWeek+"\") " +
-                    "OR (wt_year=\""+maxYear+"\" AND wt_week<=\""+dMaxWeek+"\" AND wt_week>=\""+(dMaxWeek-numberOfWeeks+1)+"\" ) ";
+            whereYear = "AND ( (wt_year=\""+(maxYear-1)+"\" AND wt_week>=\""+gWeek+"\") " +
+                    "OR (wt_year=\""+maxYear+"\" AND wt_week<=\""+dMaxWeek+"\" AND wt_week>=\""+(dMaxWeek-numberOfWeeks+1)+"\" ) ) ";
         }
 
         String selectQuery =  " SELECT * FROM worktime, wage,companies,agencies " +

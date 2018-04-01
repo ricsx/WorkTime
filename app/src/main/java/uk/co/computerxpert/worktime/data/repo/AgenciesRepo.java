@@ -52,6 +52,27 @@ public class AgenciesRepo {
     }
 
 
+    public static int insertEmptyAgency() {
+        int agencyId;
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Agencies.KEY_agency_id, 0);
+        values.put(Agencies.KEY_agency_name, "-");
+        values.put(Agencies.KEY_agencyAddress, "");
+        values.put(Agencies.KEY_agencyCity, "");
+        values.put(Agencies.KEY_agencyPostcode, "");
+        values.put(Agencies.KEY_agencyPhone, "");
+        values.put(Agencies.KEY_contactpersonName, "");
+        values.put(Agencies.KEY_contactpersonPhone, "");
+        values.put(Agencies.KEY_contactpersonEmail, "");
+        // Inserting Row
+        agencyId=(int) db.insert(Agencies.TABLE, null, values);
+        DatabaseManager.getInstance().closeDatabase();
+
+        return agencyId;
+    }
+
+
     public static List<Agencies> getAgencies(String selectQuery){
         Agencies agencies;
         List<Agencies> agencies_s = new ArrayList<>();

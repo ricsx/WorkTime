@@ -164,7 +164,11 @@ public class DefShiftsManMod extends AppCompatActivity implements View.OnClickLi
             defAgencyId = defShifts_s.get(i).get_defsh_agency_id();
             values.add(defShifts_s.get(i).get_defsh_name());
         }
-        spinnerAgency.setSelection(setPosFromDefAgencyId(defAgencyId)+1);
+        if(defAgencyId==0) {
+            Common.AgenciesListToSpinnerAlign(spinnerAgency, this, notSelected);
+        }else{
+            spinnerAgency.setSelection(setPosFromDefAgencyId(defAgencyId)+1);
+        }
         spinnerCompany.setSelection(setPosFromDefCompanyId(defCompId));
     }
 
@@ -180,7 +184,7 @@ public class DefShiftsManMod extends AppCompatActivity implements View.OnClickLi
 
     private int setPosFromDefAgencyId(int agencyId){
         Integer position=0;
-        String selectQuery = " SELECT * FROM Agencies";
+        String selectQuery = " SELECT * FROM Agencies WHERE agency_id!=0";
         List<Agencies> agencies_s= AgenciesRepo.getAgencies(selectQuery);
         for(int i=0; i<agencies_s.size();i++){
             if(agencies_s.get(i).getagency_id() == agencyId){ position = i; }
@@ -226,6 +230,7 @@ public class DefShiftsManMod extends AppCompatActivity implements View.OnClickLi
 
         if(_agency_name.equals(notSelected)){
             _agency_id = 0;
+            AgenciesRepo.insertEmptyAgency();
         }else {
             String selectQuery = " SELECT * "
                     + " FROM " + Agencies.TABLE

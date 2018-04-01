@@ -255,7 +255,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
 
     private int setPosFromDefAgencyId(int agencyId){
         Integer position=0;
-        String selectQuery = " SELECT * FROM Agencies";
+        String selectQuery = " SELECT * FROM Agencies WHERE agency_id!=0";
         List<Agencies> agencies_s= AgenciesRepo.getAgencies(selectQuery);
         for(int i=0; i<agencies_s.size();i++){
             if(agencies_s.get(i).getagency_id() == agencyId){ position = i+1; }
