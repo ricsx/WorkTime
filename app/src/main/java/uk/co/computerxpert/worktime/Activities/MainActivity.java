@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void addData() {
 
         Integer rowcolor;
-        Integer maxStartWeek = maxStartWeek(), maxYear = maxYear(), dMaxWeek = yearValidator();
+        Integer maxYear = maxYear(), dMaxWeek = yearValidator();
         Integer numberOfWeeks;
         String whereYear = "";
 
@@ -133,13 +133,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             numberOfWeeks = 0;
         }else{
             numberOfWeeks = Integer.parseInt(settingTest("viewNumWeeks"));
+        }
 
-        }
-        if(maxStartWeek-numberOfWeeks>dMaxWeek) {
-            Integer gWeek = dMaxWeek+52-numberOfWeeks+1;
-            whereYear = "AND ( (wt_year=\""+(maxYear-1)+"\" AND wt_week>=\""+gWeek+"\") " +
+        // Ha a lekerdezes atnyulik az elozo evre, gweek hasznalata (ha nem, akkor meg ervenyes a whereYear "OR" resze)
+        Integer gWeek = dMaxWeek+52-numberOfWeeks+1;
+        whereYear = "AND ( (wt_year=\""+(maxYear-1)+"\" AND wt_week>=\""+gWeek+"\") " +
                     "OR (wt_year=\""+maxYear+"\" AND wt_week<=\""+dMaxWeek+"\" AND wt_week>=\""+(dMaxWeek-numberOfWeeks+1)+"\" ) ) ";
-        }
 
         String selectQuery =  " SELECT * FROM worktime, wage,companies,agencies " +
                 " WHERE worktime.wt_comp_id=companies.comp_id " +
@@ -201,20 +200,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tr.addView(getTextView(1,  ""+hoursOfWeek+"", ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, R.color.colorWhite),16));
         tr.addView(getTextView(1,  ""+dformat.format(salaryOfWeek)+"", ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, R.color.colorWhite),16));
         tl.addView(tr, getTblLayoutParams());
-    }
-
-
-    public Integer maxStartWeek(){
-        String selectQuery =  " SELECT max(wt_week) FROM worktime, wage,companies " +
-                " WHERE worktime.wt_comp_id=companies.comp_id " +
-                " AND companies.comp_id=wage.wage_comp_id"
-                ;
-        Integer result=0;
-        List<FullQuerys> fullQuerys_s = FullQuerysRepo.getMaxStartWeek(selectQuery);
-
-        for(int i=0; i<fullQuerys_s.size();i++){ result = fullQuerys_s.get(i).getwt_week();
-        }
-        return result;
     }
 
 
