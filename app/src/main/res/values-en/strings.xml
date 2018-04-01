@@ -33,7 +33,7 @@
     <string name="Agency">Agency</string>
     <string name="title_activity_companies_man_mod">Modify of company\'s datas</string>
     <string name="title_activity_wage_man_mod">Modify of wage\'s datas</string>
-    <string name="title_activity_querys">Querys</string>
+    <string name="title_activity_querys">Queries</string>
     <string name="title_activity_stp_comp">Datas of companies</string>
     <string name="title_activity_stp_wages">Datas of wages</string>
     <string name="DefShifts">Default Shifts</string>

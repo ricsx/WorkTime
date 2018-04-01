@@ -200,7 +200,11 @@ public class Common extends Application {
         List<uk.co.computerxpert.worktime.data.model.Worktimes> worktimes_s= WorktimesRepo.listYears("SELECT distinct wt_year FROM Worktime");
         List<String> values = new ArrayList<>();
         if(!Objects.equals(def, "false")){ values.add(def); }
-        for(int i=0; i<worktimes_s.size();i++) values.add(String.valueOf(worktimes_s.get(i).getwt_year()));
+        for(int i=0; i<worktimes_s.size();i++){
+            if(!String.valueOf(worktimes_s.get(i).getwt_year()).equals("")&&!String.valueOf(worktimes_s.get(i).getwt_year()).equals("0")) {
+                values.add(String.valueOf(worktimes_s.get(i).getwt_year()));
+            }
+        }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context,
                 android.R.layout.simple_spinner_item, values);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
