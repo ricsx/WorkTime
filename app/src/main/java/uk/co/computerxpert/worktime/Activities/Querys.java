@@ -32,7 +32,7 @@ import uk.co.computerxpert.worktime.data.model.Companies;
 
 public class Querys extends AppCompatActivity implements View.OnClickListener{
 
-    private Spinner _inCegn, _inAgencyName;
+    private Spinner _inCegn, _inAgencyName, _spYear;
     private EditText _inWeekNum, _inStDate, _inEndDate;
     private Button _btnStDate;
     private Button _btnEndDate;
@@ -68,10 +68,12 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         _btnEndDate = findViewById(R.id.btnEndDate);
         _inOverTime = findViewById(R.id.inOverTime);
         _inHoliday = findViewById(R.id.inHoliday);
+        _spYear = findViewById(R.id.spYear);
         Button _btn_ViewableFields = findViewById(R.id.btn_ViewableFields);
 
         Common.CompanyListToSpinner(_inCegn, this, "SELECT * FROM Companies", chooseCompany);
         Common.AgenciesListToSpinner(_inAgencyName, this, chooseAgency);
+        Common.YearsToSpinnerAlign(_spYear, this,"false");
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -149,6 +151,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
         String kezd_ = kezddate+" 00:00";
         String veg_ = vegdate+" 23:59";
         String week = _inWeekNum.getText().toString();
+        String year = _spYear.getSelectedItem().toString();
         Integer comp_id;
         Integer agency_id;
         long kezd_uxT=0, veg_uxT=0;
@@ -194,7 +197,7 @@ public class Querys extends AppCompatActivity implements View.OnClickListener{
             if (_inHoliday.isChecked()) { partQueryHoliday = " AND wt_holiday != 0 ";} else { partQueryHoliday = "";            }
         }
         if (comp_id != 0) { partQueryCompName = " AND wt_comp_id = "+comp_id; }else{  partQueryCompName = ""; }
-        if (week.length() != 0) { partQueryWeekNum = " AND wt_week = "+week; }else { partQueryWeekNum = ""; }
+        if (week.length() != 0) { partQueryWeekNum = " AND wt_week = "+week+ " AND wt_year= "+year; }else { partQueryWeekNum = ""; }
         if (kezddate.length() != 0) { partQueryStartDate = " AND wt_startdate > "+kezd_uxT; } else { partQueryStartDate = ""; }
         if (vegdate.length() != 0) { partQueryEndDate = " AND wt_enddate < "+veg_uxT; }else { partQueryEndDate = ""; }
         if (agency_id != 0) { partQueryAgencyName = " AND wt_agency_id = "+agency_id; }else{ partQueryAgencyName = ""; }

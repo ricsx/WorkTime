@@ -22,7 +22,7 @@
     <string name="CompanyPostcode">Irányítószámconjfdkklbdgfkl</string>
     <string name="CompanyConPersEmail">Email</string>
     <string name="CompanyComPersPhone">Tel.</string>
-    <string name="NumberOfWeek">A hét száma</string>
+    <string name="NumberOfWeek">Hanyadik hét ebből az évből</string>
     <string name="Query">Lekérdezés</string>
     <string name="salaryPerHour">Órabér</string>
     <string name="unpaidBreak">Fizetetlen szünet (perc)</string>
@@ -97,7 +97,8 @@
     <string name="wageOfTheHoliday">Szabadnapi fizetés (napi bér)</string>
     <string name="numOfViewableDays">Látható napok</string>
     <string name="viewableWeeks">Látható hetek</string>
-    <string name="numberOfWeek">A hét száma</string>
+    <string name="numberOfWeek">Hányadik hét az évből</string>
     <string name="contactSupport">Kapcsolat a Supporttal</string>
     <string name="reportBugs">Hiba jelentése</string>
+    <string name="noDataMatching">Nincs találat</string>
 </resources>

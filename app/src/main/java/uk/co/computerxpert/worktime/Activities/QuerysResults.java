@@ -83,8 +83,6 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
         addHeaders();
         addData();
 
-        //printPDF(findViewById(R.id.queryScrollView));
-
         floatingActionButton();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -128,29 +126,48 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
      **/
 
     public void addHeaders() {
+        int cnt=0;
         TableLayout tl = findViewById(R.id.table);
         TableRow tr = new TableRow(this);
         tr.setLayoutParams(getLayoutParams());
         tr.setBackgroundColor(Color.WHITE);
-        if(settingTest("view_dayNameValues").equals("true"))
-            tr.addView(getTextView(0, "DAY", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16));
-        if(settingTest("view_shiftValues").equals("true"))
-            tr.addView(getTextView(1, "SHIFT", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16));
-        if(settingTest("view_numberOfWeekValues").equals("true"))
-            tr.addView(getTextView(2, "WEEK", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16));
-        if(settingTest("view_paidHoursValues").equals("true"))
-            tr.addView(getTextView(3, "HOURS", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
-        if(settingTest("view_wageValues").equals("true"))
-            tr.addView(getTextView(4, "WAGE", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
-        if(settingTest("view_unpBreakValues").equals("true"))
-            tr.addView(getTextView(5, "UNP.BREAK", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
-        if(settingTest("view_companiesValues").equals("true"))
-            tr.addView(getTextView(6, "COMPANY", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
-        if(settingTest("view_agenciesValues").equals("true"))
-            tr.addView(getTextView(7, "AGENCY", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
-        if(settingTest("view_commentsValues").equals("true"))
-            tr.addView(getTextView(8, "COMMENTS", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16 ));
+        if(settingTest("view_dayNameValues").equals("true")){
+            tr.addView(getTextView(0, "DAY", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background),16)); cnt++;
+        }
+        if(settingTest("view_shiftValues").equals("true")) {
+            tr.addView(getTextView(1, "SHIFT", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background), 16));
+            cnt++;
+        }
+        if(settingTest("view_numberOfWeekValues").equals("true")) {
+            tr.addView(getTextView(2, "WEEK", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background), 16));
+            cnt++;
+        }
+        if(settingTest("view_paidHoursValues").equals("true")) {
+            tr.addView(getTextView(3, "HOURS", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background), 16));
+            cnt++;
+        }
+        if(settingTest("view_wageValues").equals("true")) {
+            tr.addView(getTextView(4, "WAGE", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background), 16));
+            cnt++;
+        }
+        if(settingTest("view_unpBreakValues").equals("true")) {
+            tr.addView(getTextView(5, "UNP.BREAK", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background), 16));
+            cnt++;
+        }
+        if(settingTest("view_companiesValues").equals("true")) {
+            tr.addView(getTextView(6, "COMPANY", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background), 16));
+            cnt++;
+        }
+        if(settingTest("view_agenciesValues").equals("true")) {
+            tr.addView(getTextView(7, "AGENCY", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background), 16));
+            cnt++;
+        }
+        if(settingTest("view_commentsValues").equals("true")) {
+            tr.addView(getTextView(8, "COMMENTS", ContextCompat.getColor(this, R.color.toolbar_title), Typeface.BOLD, ContextCompat.getColor(this, R.color.toolbar_background), 16));
+            cnt++;
+        }
         tl.addView(tr, getTblLayoutParams());
+        if(cnt==0) Toast.makeText(this, getString(R.string.noViewvableFields), Toast.LENGTH_LONG).show();
     }
 
 
@@ -160,7 +177,7 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
         double salaryOfWeek=0;
         Integer rowcolor, cnt=0;
         String titleLine;
-        String titleSumLine = null;
+        String titleSumLine = "";
 
         TableLayout tl = findViewById(R.id.table);
 
@@ -223,7 +240,7 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
         tr.addView(getTextView(1,  ""+hoursOfWeek+" "+getString(R.string.hours), ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, R.color.colorWhite),16));
         tr.addView(getTextView(1,  titleSumLine, ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, R.color.colorWhite),16));
         tl.addView(tr, getTblLayoutParams());
-        if(cnt.equals(0)) Toast.makeText(this, getString(R.string.noViewvableFields), Toast.LENGTH_LONG).show();
+        if(titleSumLine.equals("")) Toast.makeText(this, getString(R.string.noDataMatching), Toast.LENGTH_LONG).show();
     }
 
 

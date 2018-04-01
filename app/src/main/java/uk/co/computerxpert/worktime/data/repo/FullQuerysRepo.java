@@ -115,4 +115,27 @@ public class FullQuerysRepo {
         return fullQuerys_s;
     }
 
+
+    public static List<FullQuerys> getMaxYear(String selectQuery){
+        FullQuerys fullQuerys;
+        List<FullQuerys> fullQuerys_s = new ArrayList<>();
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                fullQuerys= new FullQuerys();
+                fullQuerys.setwt_year(cursor.getInt(cursor.getColumnIndex("max(wt_year)")));
+
+                fullQuerys_s.add(fullQuerys);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return fullQuerys_s;
+    }
 }

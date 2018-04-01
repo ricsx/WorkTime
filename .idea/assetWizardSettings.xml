@@ -19,8 +19,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$USER_HOME$/Pictures/WorkTime/Icons/logo02.png" />
-                                      <entry key="outputName" value="logo" />
+                                      <entry key="imageAsset" value="$USER_HOME$/Pictures/WorkTime/Icons/pdficon.png" />
+                                      <entry key="outputName" value="topdf" />
+                                      <entry key="theme" value="HOLO_DARK" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -82,7 +83,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputIconType" value="LAUNCHER_LEGACY" />
+                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>

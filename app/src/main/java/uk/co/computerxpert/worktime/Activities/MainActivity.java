@@ -3,9 +3,7 @@ package uk.co.computerxpert.worktime.Activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -66,9 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.getMenu().getItem(1).setChecked(true);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
         floatingActionButton();
-
     }
 
 
@@ -129,21 +125,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void addData() {
 
         Integer rowcolor;
-        Integer maxStartWeek = maxStartWeek();
+        Integer maxStartWeek = maxStartWeek(), maxYear = maxYear(), dMaxWeek = yearValidator();
         Integer numberOfWeeks;
+        String whereYear = "";
+
         if(settingTest("viewNumWeeks").equals("")||settingTest("viewNumWeeks").equals(null)){
             numberOfWeeks = 0;
         }else{
             numberOfWeeks = Integer.parseInt(settingTest("viewNumWeeks"));
+
         }
-        Integer minMaxStartWeek = maxStartWeek - numberOfWeeks+1;
-        String titleLine;
+        if(maxStartWeek-numberOfWeeks>dMaxWeek) {
+            Integer gWeek = dMaxWeek+52-numberOfWeeks+1;
+            whereYear = "AND (wt_year=\""+(maxYear-1)+"\" AND wt_week>=\""+gWeek+"\") " +
+                    "OR (wt_year=\""+maxYear+"\" AND wt_week<=\""+dMaxWeek+"\" AND wt_week>=\""+(dMaxWeek-numberOfWeeks+1)+"\" ) ";
+        }
+
         String selectQuery =  " SELECT * FROM worktime, wage,companies,agencies " +
                 " WHERE worktime.wt_comp_id=companies.comp_id " +
                 " AND companies.comp_id=wage.wage_comp_id AND worktime.wt_agency_id=agencies.agency_id " +
-                "AND wt_week <= " + maxStartWeek + " AND wt_week >= " + minMaxStartWeek +
+                whereYear +
                 " ORDER BY wt_startdate"
                 ;
+        String titleLine;
         double hoursOfWeek=0;
         double salaryOfWeek=0;
         int x = 1;
@@ -205,12 +209,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 " WHERE worktime.wt_comp_id=companies.comp_id " +
                 " AND companies.comp_id=wage.wage_comp_id"
                 ;
-        Integer aa=0;
+        Integer result=0;
         List<FullQuerys> fullQuerys_s = FullQuerysRepo.getMaxStartWeek(selectQuery);
 
-        for(int i=0; i<fullQuerys_s.size();i++){ aa = fullQuerys_s.get(i).getwt_week();
+        for(int i=0; i<fullQuerys_s.size();i++){ result = fullQuerys_s.get(i).getwt_week();
         }
-        return aa;
+        return result;
+    }
+
+
+    public Integer maxYear(){
+        String selectQuery =  " SELECT max(wt_year) FROM worktime";
+        Integer result=0;
+        List<FullQuerys> fullQuerys_s = FullQuerysRepo.getMaxYear(selectQuery);
+
+        for(int i=0; i<fullQuerys_s.size();i++){ result = fullQuerys_s.get(i).getwt_year();
+        }
+        return result;
+    }
+
+
+    public Integer yearValidator(){
+        Integer maxYear = maxYear();
+        String selectQuery =  " SELECT max(wt_week) FROM worktime WHERE wt_year = "+maxYear;
+        Integer maxWeekDepMaxYear=0;
+        List<FullQuerys> fullQuerys_s = FullQuerysRepo.getMaxStartWeek(selectQuery);
+
+        for(int i=0; i<fullQuerys_s.size();i++){ maxWeekDepMaxYear = fullQuerys_s.get(i).getwt_week();
+        }
+        return maxWeekDepMaxYear;
     }
 
 

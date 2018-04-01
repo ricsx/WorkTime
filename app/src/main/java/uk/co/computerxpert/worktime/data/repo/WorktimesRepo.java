@@ -104,4 +104,26 @@ public class WorktimesRepo {
 
         return worktimes_s;
     }
+
+
+    public static List<Worktimes> listYears(String selectQuery){
+        Worktimes worktimes;
+        List<Worktimes> worktimes_s = new ArrayList<>();
+
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                worktimes = new Worktimes();
+                worktimes.setwt_year(cursor.getInt(cursor.getColumnIndex(Worktimes.KEY_wt_year)));
+                worktimes_s.add(worktimes);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+        return worktimes_s;
+    }
+
 }

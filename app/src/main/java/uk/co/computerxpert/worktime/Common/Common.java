@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import uk.co.computerxpert.worktime.Activities.MainActivity;
+import uk.co.computerxpert.worktime.Activities.Worktimes;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.DBHelper;
 import uk.co.computerxpert.worktime.data.DatabaseManager;
@@ -39,6 +40,7 @@ import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
 import uk.co.computerxpert.worktime.data.repo.DefShiftsRepo;
 import uk.co.computerxpert.worktime.data.repo.SettingsRepo;
 import uk.co.computerxpert.worktime.data.repo.WageRepo;
+import uk.co.computerxpert.worktime.data.repo.WorktimesRepo;
 
 public class Common extends Application {
     @SuppressLint("StaticFieldLeak")
@@ -184,6 +186,18 @@ public class Common extends Application {
         } return settings_val;
     }
 
+
+    public static void YearsToSpinnerAlign(Spinner spinnername, Context context, String def){
+
+        List<uk.co.computerxpert.worktime.data.model.Worktimes> worktimes_s= WorktimesRepo.listYears("SELECT distinct wt_year FROM Worktime");
+        List<String> values = new ArrayList<>();
+        if(!Objects.equals(def, "false")){ values.add(def); }
+        for(int i=0; i<worktimes_s.size();i++) values.add(String.valueOf(worktimes_s.get(i).getwt_year()));
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context,
+                android.R.layout.simple_spinner_item, values);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnername.setAdapter(dataAdapter);
+    }
 
 }
 

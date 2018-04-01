@@ -44,6 +44,7 @@
 
 
     <ScrollView
+        android:id="@+id/scrollView7"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
@@ -99,8 +100,6 @@
                 android:paddingTop="8dp"
                 android:selectAllOnFocus="false"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView16"
                 tools:targetApi="o" />
@@ -267,6 +266,16 @@
                 app:layout_constraintEnd_toStartOf="@+id/inOverTime"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inAgencyName" />
+
+            <Spinner
+                android:id="@+id/spYear"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/layerlist_right"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/inWeekNum"
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
         </android.support.constraint.ConstraintLayout>
 

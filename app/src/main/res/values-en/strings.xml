@@ -22,7 +22,7 @@
     <string name="DateOfEnd">Date of end</string>
     <string name="TimeOfEnd">Time of end</string>
     <string name="CompanyPostcode">Postcode</string>
-    <string name="NumberOfWeek">Number of the week</string>
+    <string name="NumberOfWeek">Week of the year</string>
     <string name="Query">Query</string>
     <string name="salaryPerHour">Hourly wage</string>
     <string name="unpaidBreak">Unpaid break minutes</string>
@@ -97,7 +97,8 @@
     <string name="wageOfTheHoliday">Wage of the holiday (wage of day)</string>
     <string name="numOfViewableDays">Viewable days</string>
     <string name="viewableWeeks">Viewable weeks</string>
-    <string name="numberOfWeek">Number of week</string>
+    <string name="numberOfWeek">Number of the week</string>
     <string name="contactSupport">Contact Support</string>
     <string name="reportBugs">Report bugs</string>
+    <string name="noDataMatching">No data matching your search</string>
 </resources>
