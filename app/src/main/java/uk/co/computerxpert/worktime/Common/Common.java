@@ -7,10 +7,6 @@ package uk.co.computerxpert.worktime.Common;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -25,8 +21,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-import uk.co.computerxpert.worktime.Activities.MainActivity;
-import uk.co.computerxpert.worktime.Activities.Worktimes;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.DBHelper;
 import uk.co.computerxpert.worktime.data.DatabaseManager;
@@ -54,6 +48,7 @@ public class Common extends Application {
     public static final Calendar dateTime = Calendar.getInstance(Locale.UK); // Set up Monday as first day of week
     @SuppressLint("SimpleDateFormat")
     public static final DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy hh:mm");
+
 
     @Override
     public void onCreate()
@@ -211,6 +206,17 @@ public class Common extends Application {
         spinnername.setAdapter(dataAdapter);
     }
 
+
+    public static void daysToSpinner(Spinner spinnername, Context context, List<String> items, String def){
+
+        List<String> values = new ArrayList<>();
+        if(!Objects.equals(def, "false")){ values.add(def); }
+        for(int i=0; i<items.size();i++){ values.add(items.get(i)); }
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context,
+                android.R.layout.simple_spinner_item, values);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnername.setAdapter(dataAdapter);
+    }
 }
 
 

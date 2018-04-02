@@ -101,4 +101,12 @@
     <string name="contactSupport">Kapcsolat a Supporttal</string>
     <string name="reportBugs">Hiba jelentése</string>
     <string name="noDataMatching">Nincs találat</string>
+    <string name="monday">Hétfő</string>
+    <string name="tuesday">Kedd</string>
+    <string name="wednesday">Szerda</string>
+    <string name="thursday">Csütörtök</string>
+    <string name="friday">Péntek</string>
+    <string name="saturday">Szombat</string>
+    <string name="sunday">Vasárnap</string>
+    <string name="startOfTheWeek">A munkahét első napja</string>
 </resources>

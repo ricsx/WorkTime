@@ -12,11 +12,16 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import uk.co.computerxpert.worktime.Common.Common;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.Settings;
 import uk.co.computerxpert.worktime.data.repo.SettingsRepo;
@@ -29,6 +34,9 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
     private EditText ed_currency, _viewNumWeeks;
     Switch _sw_beforeValue;
     String statusSwitch1;
+    Spinner _sp_weekList;
+    Map<String, Integer> daysOfWeek = new HashMap<>();
+    List<String> daysToSpinner = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +60,9 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         Button btn_saveNumWeeks = findViewById(R.id.btn_saveNumWeeks);
         Button btn_contactSupport = findViewById(R.id.btn_contactSupport);
         Button btn_reportBugs = findViewById(R.id.btn_reportBugs);
+        Button btn_saveStartOfWeek = findViewById(R.id.btn_saveStartOfWeek);
+
+        _sp_weekList = findViewById(R.id.sp_weekList);
         ed_currency = findViewById(R.id.ed_currency);
         _sw_beforeValue = findViewById(R.id.sw_dayName);
         _viewNumWeeks = findViewById(R.id.ed_numWeeks);
@@ -60,6 +71,9 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         _sw_beforeValue.setTextOn("true");
         _sw_beforeValue.setTextOff("false");
 
+        makeDaysArrayMulti();
+        makeDaysArray();
+        Common.daysToSpinner(_sp_weekList, this, daysToSpinner, "false");
         loadDefaults();
 
         companies.setOnClickListener(this);
@@ -72,6 +86,7 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         btn_saveNumWeeks.setOnClickListener(this);
         btn_contactSupport.setOnClickListener(this);
         btn_reportBugs.setOnClickListener(this);
+        btn_saveStartOfWeek.setOnClickListener(this);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -89,6 +104,12 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         selectQuery = " SELECT * from Settings WHERE " + Settings.KEY_settings_name + " = \"viewNumWeeks\"";
         settings_s = SettingsRepo.getSettings(selectQuery);
         for (int i = 0; i < settings_s.size(); i++) _viewNumWeeks.setText(settings_s.get(i).get_settings_val());
+
+        String dayNameFromDB="";
+        String selectQuery2 = " SELECT * FROM Settings WHERE settings_name=\"startOfTheWeek\"";
+        List<Settings> daynm = SettingsRepo.getSettings(selectQuery2);
+        for(int i=0; i<daynm.size();i++) { dayNameFromDB = daynm.get(i).get_settings_val(); }
+        _sp_weekList.setSelection(Integer.parseInt(dayNameFromDB)-1);
     }
 
     public void loadSwitchDefaults(Switch switchName){
@@ -176,6 +197,18 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
             case R.id.btn_reportBugs:
                 sendEmail("eaddrss@gmail.com", "BUGREPORT");
                 break;
+            case R.id.btn_saveStartOfWeek:
+                String dayName = _sp_weekList.getSelectedItem().toString();
+                String dayNum = Integer.toString(daysOfWeek.get(dayName));
+                Settings daySettings = new Settings();
+                daySettings.set_settings_name("startOfTheWeek");
+                daySettings.set_settings_val(dayNum);
+                if (settingTest("startOfTheWeek").equals("")){ SettingsRepo.insert(daySettings); }
+                else { SettingsRepo.update("startOfTheWeek", dayNum);
+                }
+                Uj_activity = new Intent(Setup.this, Setup.class);
+                startActivity(Uj_activity);
+                break;
         }
     }
 
@@ -198,6 +231,21 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
          "There is no email client installed.", Toast.LENGTH_SHORT).show();
       }
    }
+
+
+    public void makeDaysArray() {
+        daysToSpinner.add(getString(R.string.monday)); daysToSpinner.add(getString(R.string.tuesday));
+        daysToSpinner.add(getString(R.string.wednesday)); daysToSpinner.add(getString(R.string.thursday));
+        daysToSpinner.add(getString(R.string.friday)); daysToSpinner.add(getString(R.string.saturday));
+        daysToSpinner.add(getString(R.string.sunday));
+    }
+
+    public void makeDaysArrayMulti() {
+        daysOfWeek.put(getString(R.string.monday),1); daysOfWeek.put(getString(R.string.tuesday),2);
+        daysOfWeek.put(getString(R.string.wednesday),3); daysOfWeek.put(getString(R.string.thursday),4);
+        daysOfWeek.put(getString(R.string.friday),5); daysOfWeek.put(getString(R.string.saturday),6);
+        daysOfWeek.put(getString(R.string.sunday),7);
+    }
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

@@ -105,5 +105,13 @@
     <string name="contactSupport">Contact Support</string>
     <string name="reportBugs">Report bugs</string>
     <string name="noDataMatching">No data matching your search</string>
+    <string name="startOfTheWeek">Start of the week</string>
+    <string name="monday">Monday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="tuesday">Tuesday</string>
 
 </resources>

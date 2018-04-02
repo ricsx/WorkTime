@@ -41,6 +41,7 @@ import android.widget.Toast;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -178,6 +179,7 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
         Integer rowcolor, cnt=0;
         String titleLine;
         String titleSumLine = "";
+        Integer txtColor;
 
         TableLayout tl = findViewById(R.id.table);
 
@@ -213,7 +215,15 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
             tr.setLayoutParams(getLayoutParams());
             tr.setBackgroundColor(Color.WHITE);
                 if(settingTest("view_dayNameValues").equals("true")) {
-                    tr.addView(getTextView(i + 1, dayOfTheWeek+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, rowcolor),0)); cnt++; }
+                    long ddd = (long) (fullQuerys_s.get(i).getwt_startdate()*1000L);
+                    Calendar owncal = Calendar.getInstance();
+                    owncal.setTimeInMillis(ddd);
+                    Integer dayFromDB = owncal.get(Calendar.DAY_OF_WEEK)-1;
+                    Integer dayStartWeek = Integer.parseInt(settingTest("startOfTheWeek"));
+                    if(dayFromDB.equals(dayStartWeek)) { txtColor = R.color.startweekday;
+                    }else{ txtColor = R.color.text_color;
+                    }
+                    tr.addView(getTextView(i + 1, dayOfTheWeek+"\n", ContextCompat.getColor(this, txtColor), Typeface.BOLD, ContextCompat.getColor(this, rowcolor),0)); cnt++; }
                 if(settingTest("view_shiftValues").equals("true")) {
                     tr.addView(getTextView(i + fullQuerys_s.size(), shift, ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0)); cnt++; }
                 if(settingTest("view_numberOfWeekValues").equals("true")) {

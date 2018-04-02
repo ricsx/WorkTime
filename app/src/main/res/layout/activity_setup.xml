@@ -204,9 +204,9 @@
                 android:textAllCaps="false"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+                app:layout_constraintTop_toBottomOf="@+id/sp_weekList" />
 
             <EditText
                 android:id="@+id/ed_currency"
@@ -261,6 +261,25 @@
                 app:layout_constraintStart_toEndOf="@+id/sw_dayName"
                 app:layout_constraintTop_toBottomOf="@+id/btn_saveCurrency" />
 
+            <Button
+                android:id="@+id/btn_saveStartOfWeek"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="26dp"
+                android:paddingStart="0dp"
+                android:text="@string/save"
+                android:textAlignment="viewEnd"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/sw_dayName"
+                app:layout_constraintTop_toBottomOf="@+id/btn_saveNumWeeks" />
+
             <Switch
                 android:id="@+id/sw_dayName"
                 android:layout_width="wrap_content"
@@ -302,6 +321,32 @@
                 app:layout_constraintEnd_toStartOf="@+id/btn_saveNumWeeks"
                 app:layout_constraintStart_toEndOf="@+id/ed_numWeeks"
                 app:layout_constraintTop_toBottomOf="@+id/btn_saveCurrency" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:paddingEnd="20dp"
+                android:paddingStart="26dp"
+                android:text="@string/startOfTheWeek"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_numWeeks" />
+
+            <Spinner
+                android:id="@+id/sp_weekList"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/layerlist"
+                android:paddingEnd="20dp"
+                android:paddingStart="0dp"
+                app:layout_constraintEnd_toStartOf="@+id/btn_saveStartOfWeek"
+                app:layout_constraintStart_toEndOf="@+id/textView17"
+                app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

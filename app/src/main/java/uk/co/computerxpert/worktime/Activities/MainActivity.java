@@ -17,11 +17,13 @@ import android.view.WindowManager;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.FullQuerys;
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public Intent Uj_activity;
     int id = 1;
+    Map<String, Integer> daysOfWeek = new HashMap<>();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -127,9 +131,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Integer rowcolor;
         Integer maxYear = maxYear(), dMaxWeek = yearValidator();
         Integer numberOfWeeks;
-        String whereYear = "";
+        String whereYear;
+        Integer txtColor;
 
-        if(settingTest("viewNumWeeks").equals("")||settingTest("viewNumWeeks").equals(null)){
+        makeDaysArray();
+
+        if(settingTest("viewNumWeeks").equals("")){
             numberOfWeeks = 0;
         }else{
             numberOfWeeks = Integer.parseInt(settingTest("viewNumWeeks"));
@@ -183,10 +190,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String dayOfTheWeek = sdf.format(date);
             dayOfTheWeek = dayOfTheWeek.replace(" ","");
 
+            long ddd = (long) (fullQuerys_s.get(i).getwt_startdate()*1000L);
+            Calendar owncal = Calendar.getInstance();
+            owncal.setTimeInMillis(ddd);
+            Integer dayFromDB = owncal.get(Calendar.DAY_OF_WEEK)-1;
+            Integer dayStartWeek = Integer.parseInt(settingTest("startOfTheWeek"));
+
+            if(dayFromDB.equals(dayStartWeek)) { txtColor = R.color.startweekday;
+            }else{ txtColor = R.color.text_color;
+            }
+
             TableRow tr = new TableRow(this);
             tr.setLayoutParams(getLayoutParams());
             tr.setBackgroundColor(Color.WHITE);
-                tr.addView(getTextView(i + 1, dayOfTheWeek+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.BOLD, ContextCompat.getColor(this, rowcolor),0));
+                tr.addView(getTextView(i + 1, dayOfTheWeek+"\n", ContextCompat.getColor(this, txtColor), Typeface.BOLD, ContextCompat.getColor(this, rowcolor),0));
                 tr.addView(getTextView(i + fullQuerys_s.size(), shift, ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
                 tr.addView(getTextView(i + fullQuerys_s.size(), fullQuerys_s.get(i).getwt_hours()+"\n", ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
                 tr.addView(getTextView(i + fullQuerys_s.size(),titleLine, ContextCompat.getColor(this, R.color.text_color), Typeface.NORMAL, ContextCompat.getColor(this, rowcolor),0));
@@ -223,6 +240,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for(int i=0; i<fullQuerys_s.size();i++){ maxWeekDepMaxYear = fullQuerys_s.get(i).getwt_week();
         }
         return maxWeekDepMaxYear;
+    }
+
+
+    public void makeDaysArray() {
+        daysOfWeek.put(getString(R.string.monday),1); daysOfWeek.put(getString(R.string.tuesday),2);
+        daysOfWeek.put(getString(R.string.wednesday),3); daysOfWeek.put(getString(R.string.thursday),4);
+        daysOfWeek.put(getString(R.string.friday),5); daysOfWeek.put(getString(R.string.saturday),6);
+        daysOfWeek.put(getString(R.string.sunday),7);
     }
 
 
@@ -269,11 +294,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        int id = v.getId();
+       /* int id = v.getId();
         TextView tv = findViewById(id);
         if (null != tv) {
             Toast.makeText(this, "Clicked on row :: " + id + ", Text :: " + tv.getText(), Toast.LENGTH_SHORT).show();
-        }
+        } */
     }
 
 }

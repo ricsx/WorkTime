@@ -12,4 +12,5 @@
     <color name="toolbar_title">#303f9f</color>
     <color name="overview_title">#fff</color>
     <color name="row_dark">#f9f9f9</color>
+    <color name="startweekday">#e65c00</color>
 </resources>
