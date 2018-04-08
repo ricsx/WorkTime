@@ -248,7 +248,7 @@
             <EditText
                 android:id="@+id/in_megjBox"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorWhite"
                 android:ems="10"

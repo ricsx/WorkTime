@@ -113,5 +113,7 @@
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
     <string name="tuesday">Tuesday</string>
+    <string name="firstWelcome" translatable="false">Welcome to WorkTime</string>
+    <string name="firstSecLine">Please start to setup your details</string>
 
 </resources>

@@ -7,6 +7,8 @@ package uk.co.computerxpert.worktime.Common;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -217,6 +219,14 @@ public class Common extends Application {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnername.setAdapter(dataAdapter);
     }
+
+
+    public static void setStatusBarColor(Window window, Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(context.getResources().getColor(R.color.toolbar_background));
+        }
+    }
+
 }
-
-

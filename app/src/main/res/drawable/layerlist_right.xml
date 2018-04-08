@@ -2,10 +2,12 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 <item>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
+
     <solid android:color="#ffffff"/>
     <stroke
         android:width="0dp"
-        android:color="#80000000"/>
+        android:color="#80000000"
+        />
     <padding
         android:bottom="2dp"
         android:left="2dp"
@@ -20,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:src="@drawable/myarrow" />
+            android:src="@drawable/myarrow"
+            />
     </item>
 </layer-list>

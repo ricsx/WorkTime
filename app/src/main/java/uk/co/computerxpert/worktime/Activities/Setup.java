@@ -8,8 +8,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -43,12 +41,7 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
 
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            Window window = this.getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.text_color));
-        }
+        Common.setStatusBarColor(this.getWindow(), this);
 
         Button companies = findViewById(R.id.btn_companies2);
         Button wages = findViewById(R.id.btn_wages2);
@@ -105,7 +98,7 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         settings_s = SettingsRepo.getSettings(selectQuery);
         for (int i = 0; i < settings_s.size(); i++) _viewNumWeeks.setText(settings_s.get(i).get_settings_val());
 
-        String dayNameFromDB="";
+        String dayNameFromDB="1";
         String selectQuery2 = " SELECT * FROM Settings WHERE settings_name=\"startOfTheWeek\"";
         List<Settings> daynm = SettingsRepo.getSettings(selectQuery2);
         for(int i=0; i<daynm.size();i++) { dayNameFromDB = daynm.get(i).get_settings_val(); }

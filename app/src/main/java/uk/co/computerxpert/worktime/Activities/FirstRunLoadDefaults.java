@@ -4,10 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 
+import uk.co.computerxpert.worktime.Common.Common;
 import uk.co.computerxpert.worktime.R;
 
 public class FirstRunLoadDefaults extends AppCompatActivity implements View.OnClickListener {
@@ -19,12 +18,7 @@ public class FirstRunLoadDefaults extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_run_load_defaults);
 
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            Window window = this.getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.text_color));
-        }
+        Common.setStatusBarColor(this.getWindow(), this);
 
         Button companies = findViewById(R.id.btn_companies2);
         Button wages = findViewById(R.id.btn_wages2);

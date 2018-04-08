@@ -29,8 +29,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -45,6 +43,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import uk.co.computerxpert.worktime.Common.Common;
 import uk.co.computerxpert.worktime.R;
 import uk.co.computerxpert.worktime.data.model.FullQuerys;
 import uk.co.computerxpert.worktime.data.repo.FullQuerysRepo;
@@ -63,12 +62,7 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_querys_results);
 
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            Window window = this.getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.text_color));
-        }
+        Common.setStatusBarColor(this.getWindow(), this);
 
         newSelectQuery = getIntent().getStringExtra("sel");
         Toolbar myToolbar = findViewById(R.id.querys_result_top);
