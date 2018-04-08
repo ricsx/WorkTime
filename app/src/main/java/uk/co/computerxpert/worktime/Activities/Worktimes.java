@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -95,6 +96,7 @@ public class Worktimes extends AppCompatActivity implements View.OnClickListener
         overTimeWage = findViewById(R.id.overTimeWage);
         holidayWage = findViewById(R.id.holidayWage);
         Toolbar myToolbar = findViewById(R.id.worktimes_top);
+
         setSupportActionBar(myToolbar);
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //noinspection ConstantConditions

@@ -81,9 +81,11 @@ public class Common extends Application {
         List<String> values = new ArrayList<>();
         if(!Objects.equals(def, "false")){ values.add(def); }
         for(int i=0; i<companies_s.size();i++){ values.add(companies_s.get(i).getcomp_name()); }
-            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context,
-                    R.layout.spinner_align_right, values);
-            dataAdapter.setDropDownViewResource(R.layout.spinner_align_right);
+            /*ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context,
+                    R.layout.spinner_align_right, values); */
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context,
+                R.layout.spinner_item, values);
+        dataAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
             spinnername.setAdapter(dataAdapter);
     }
 
@@ -95,8 +97,8 @@ public class Common extends Application {
         if(!Objects.equals(def, "false")){ values.add(def); }
         for(int i=0; i<companies_s.size();i++){ values.add(companies_s.get(i).getcomp_name()); }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context,
-                android.R.layout.simple_spinner_item, values);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.spinner_item, values);
+        dataAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinnername.setAdapter(dataAdapter);
     }
 
@@ -108,8 +110,8 @@ public class Common extends Application {
         if(!Objects.equals(def, "false")){ values.add(def); }
         for(int i=0; i<defShifts_s.size();i++) values.add(defShifts_s.get(i).get_defsh_name());
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context,
-                android.R.layout.simple_spinner_item, values);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.spinner_item, values);
+        dataAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinnername.setAdapter(dataAdapter);
     }
 
@@ -125,8 +127,8 @@ public class Common extends Application {
             }
         }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context,
-                android.R.layout.simple_spinner_item, values);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.spinner_item, values);
+        dataAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinnername.setAdapter(dataAdapter);
     }
 
@@ -142,8 +144,8 @@ public class Common extends Application {
             }
         }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context,
-                R.layout.spinner_align_right, values);
-        dataAdapter.setDropDownViewResource(R.layout.spinner_align_right);
+                R.layout.spinner_item, values);
+        dataAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinnername.setAdapter(dataAdapter);
     }
 
@@ -203,8 +205,8 @@ public class Common extends Application {
             }
         }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context,
-                android.R.layout.simple_spinner_item, values);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.spinner_item, values);
+        dataAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinnername.setAdapter(dataAdapter);
     }
 
@@ -215,8 +217,8 @@ public class Common extends Application {
         if(!Objects.equals(def, "false")){ values.add(def); }
         for(int i=0; i<items.size();i++){ values.add(items.get(i)); }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context,
-                android.R.layout.simple_spinner_item, values);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.spinner_item, values);
+        dataAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinnername.setAdapter(dataAdapter);
     }
 
