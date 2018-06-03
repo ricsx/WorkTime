@@ -21,39 +21,40 @@ import java.util.List;
 
 import uk.co.computerxpert.worktime.Common.Common;
 import uk.co.computerxpert.worktime.R;
-import uk.co.computerxpert.worktime.data.model.Agencies;
-import uk.co.computerxpert.worktime.data.repo.AgenciesRepo;
+import uk.co.computerxpert.worktime.data.model.Persons;
+import uk.co.computerxpert.worktime.data.repo.PersonsRepo;
 
-public class AgenciesMan extends AppCompatActivity implements View.OnClickListener {
+
+public class PersonsMan extends AppCompatActivity implements View.OnClickListener {
 
     private Intent Uj_activity;
-    EditText ed_agency_name, edAgencyAddr, edAgencyCity, edAgencyPostCode, edAgencyPhone, edContPName, edContPPhone, edContPEmail;
+    EditText ed_persons_fname, ed_persons_lname, edAgencyAddr, edAgencyCity, edAgencyPostCode, edAgencyPhone, edContPName,
+            edContPPhone, edContPEmail;
     private ListView result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agencies_man);
+        setContentView(R.layout.activity_persons_man);
 
         Common.setStatusBarColor(this.getWindow(), this);
 
         result= findViewById(R.id.results);
-        ed_agency_name = findViewById(R.id.cmm_personLastNameBox);
+        ed_persons_fname = findViewById(R.id.cmm_personForeNameBox2);
+        ed_persons_lname = findViewById(R.id.cmm_PersonLastNameBox2);
         edAgencyAddr = findViewById(R.id.cmm_personAddressBox2);
         edAgencyCity = findViewById(R.id.cmm_personCityBox2);
         edAgencyPostCode = findViewById(R.id.cmm_personPostcodeBox2);
         edAgencyPhone = findViewById(R.id.cmm_personPhoneBox2);
-        edContPName = findViewById(R.id.cmm_agencyContPersNameBox3);
-        edContPPhone = findViewById(R.id.cmm_agencyContPersPhoneBox3);
-        edContPEmail = findViewById(R.id.cmm_agencyContPersEmailBox3);
+
         BottomNavigationView navigation = findViewById(R.id.navigation);
 
         String firstRunFlag = getIntent().getStringExtra("firstRunFlag");
         if(firstRunFlag == null){ firstRunFlag ="0"; }
 
-        Button btn_stp_agency_send = findViewById(R.id.btn_stp_person_update2);
+        Button btn_stp_persons_send = findViewById(R.id.btn_stp_person_update2);
 
-        Toolbar myToolbar = findViewById(R.id.agencies_top);
+        Toolbar myToolbar = findViewById(R.id.persons_top);
         setSupportActionBar(myToolbar);
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -63,7 +64,7 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         make_listview();
-        btn_stp_agency_send.setOnClickListener(this);
+        btn_stp_persons_send.setOnClickListener(this);
 
         if(firstRunFlag.equals("0")) {
             navigation.setVisibility(View.VISIBLE);
@@ -76,46 +77,40 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
 
 
 
-    public void agency_insert(){
-        String agency_name =  ed_agency_name.getText().toString();
-        String agency_addrs = edAgencyAddr.getText().toString();
-        String agency_city = edAgencyCity.getText().toString();
-        String agency_postc = edAgencyPostCode.getText().toString();
-        String agency_phone = edAgencyPhone.getText().toString();
-        String agency_cpname = edContPName.getText().toString();
-        String agency_cpphone = edContPPhone.getText().toString();
-        String agency_cpemail = edContPEmail.getText().toString();
-        Agencies agencies = new Agencies();
-        agencies.setagency_name(agency_name);
-        agencies.setagencyAddress(agency_addrs);
-        agencies.setagencyCity(agency_city);
-        agencies.setagencyPostcode(agency_postc);
-        agencies.setagencyPhone(agency_phone);
-        agencies.setcontactpersonName(agency_cpname);
-        agencies.setcontactpersonPhone(agency_cpphone);
-        agencies.setcontactpersonEmail(agency_cpemail);
-        AgenciesRepo.insert(agencies);
-        ed_agency_name.setText("");
+    public void persons_insert(){
+        String persons_fname =  ed_persons_fname.getText().toString();
+        String persons_lname =  ed_persons_lname.getText().toString();
+        String persons_addrs = edAgencyAddr.getText().toString();
+        String persons_city = edAgencyCity.getText().toString();
+        String persons_postc = edAgencyPostCode.getText().toString();
+        String persons_phone = edAgencyPhone.getText().toString();
+        Persons persons = new Persons();
+        persons.setpersons_fname(persons_fname);
+        persons.setpersons_lname(persons_lname);
+        persons.setpersonsAddress(persons_addrs);
+        persons.setpersonsCity(persons_city);
+        persons.setpersonsPostcode(persons_postc);
+        persons.setpersonsPhone(persons_phone);
+        PersonsRepo.insert(persons);
+        ed_persons_fname.setText("");
+        ed_persons_lname.setText("");
         edAgencyAddr.setText("");
         edAgencyCity.setText("");
         edAgencyPostCode.setText("");
         edAgencyPhone.setText("");
-        edContPName.setText("");
-        edContPPhone.setText("");
-        edContPEmail.setText("");
         finish();
     }
 
 
     private void make_listview(){
-        String selectQuery =  " SELECT * from Agencies";
+        String selectQuery =  " SELECT * from Persons";
 
-        // AgenciesRepo agenciesRepo = new AgenciesRepo();
-        List<Agencies> agencies_s= AgenciesRepo.getAgencies(selectQuery);
+        // PersonsRepo personsRepo = new PersonsRepo();
+        List<Persons> persons_s= PersonsRepo.getPersons(selectQuery);
 
         // "values" array definition and loading
         ArrayList<String> values = new ArrayList<>();
-        for(int i=0; i<agencies_s.size();i++){ values.add(agencies_s.get(i).getagency_name());  }
+        for(int i=0; i<persons_s.size();i++){ values.add(persons_s.get(i).getpersons_fname());  }
 
         // array-fetching
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
@@ -129,9 +124,9 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 String itemValue = (String) result.getItemAtPosition(position);
-                String agencyIDString = Integer.toString(getAgencyIDFromQuery("SELECT * FROM Agencies WHERE agency_name = \""+itemValue+"\""));
-                Uj_activity = new Intent(AgenciesMan.this, AgenciesManMod.class);
-                Uj_activity.putExtra("agencyID", agencyIDString);
+                String personsIDString = Integer.toString(getAgencyIDFromQuery("SELECT * FROM Persons WHERE persons_fname = \""+itemValue+"\""));
+              //  Uj_activity = new Intent(PersonsMan.this, PersonsManMod.class);
+                Uj_activity.putExtra("personsID", personsIDString);
                 startActivity(Uj_activity);
             }
         });
@@ -141,12 +136,12 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
 
 
     private int getAgencyIDFromQuery(String query){
-        int agencyID=0;
-        List<Agencies> agencies_s= AgenciesRepo.getAgencies(query);
+        int personsID=0;
+        List<Persons> persons_s= PersonsRepo.getPersons(query);
 
-        for(int i=0; i<agencies_s.size();i++){ agencyID = agencies_s.get(i).getagency_id(); }
+        for(int i=0; i<persons_s.size();i++){ personsID = persons_s.get(i).getpersons_id(); }
 
-        return agencyID;
+        return personsID;
     }
 
 
@@ -158,15 +153,15 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Uj_activity = new Intent(AgenciesMan.this, Querys.class);
+                    Uj_activity = new Intent(PersonsMan.this, Querys.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Uj_activity = new Intent(AgenciesMan.this, MainActivity.class);
+                    Uj_activity = new Intent(PersonsMan.this, MainActivity.class);
                     startActivity(Uj_activity);
                     return true;
                 case R.id.navigation_notifications:
-                    Uj_activity = new Intent(AgenciesMan.this, Setup.class);
+                    Uj_activity = new Intent(PersonsMan.this, Setup.class);
                     startActivity(Uj_activity);
                     return true;
             }
@@ -181,7 +176,7 @@ public class AgenciesMan extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_stp_person_update2:
-                agency_insert();
+                persons_insert();
                 break;
         }
     }

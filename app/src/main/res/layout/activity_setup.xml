@@ -100,7 +100,7 @@
                 android:id="@+id/btn_agencies2"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
-                android:layout_height="39dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:background="@color/colorWhite"
                 android:fontFamily="sans-serif"
@@ -129,7 +129,6 @@
                 android:textAllCaps="false"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_agencies2" />
 

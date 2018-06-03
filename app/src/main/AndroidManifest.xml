@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="uk.co.computerxpert.worktime">
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".Common.Common"
@@ -121,7 +121,23 @@
         </activity>
         <activity
             android:name=".Activities.ViewLogo"
-            android:label="@string/title_activity_view_logo"></activity>
+            android:label="@string/title_activity_view_logo" />
+        <activity
+            android:name=".Activities.PersonsMan"
+            android:label="@string/title_activity_persons_man"
+            android:parentActivityName=".Activities.Setup">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="uk.co.computerxpert.worktime.Activities.Setup" />
+        </activity>
+        <activity
+            android:name=".Activities.PersonsManMod"
+            android:label="@string/title_activity_persons_man_mod"
+            android:parentActivityName=".Activities.PersonsMan">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="uk.co.computerxpert.worktime.Activities.PersonsMan" />
+        </activity>
     </application>
 
 </manifest>

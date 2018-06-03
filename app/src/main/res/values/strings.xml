@@ -115,5 +115,17 @@
     <string name="tuesday">Tuesday</string>
     <string name="firstWelcome" translatable="false">Welcome to WorkTime</string>
     <string name="firstSecLine">Please start to setup your details</string>
+    <string name="week">week</string>
+    <string name="year">year</string>
+    <string name="wage">Wage</string>
+    <string name="paidHours">Paid hours</string>
+    <string name="persons">Persons</string>
+    <string name="title_activity_persons_man">PersonsMan</string>
+    <string name="dataOfThePersons">Data of the persons</string>
+    <string name="addNewPerson">Add a new person</string>
+    <string name="lastName">Lastname</string>
+    <string name="foreName">Forename</string>
+    <string name="title_activity_persons_man_mod">PersonsManMod</string>
+    <string name="modifyPerson">Modify persons\'s datas</string>
 
 </resources>

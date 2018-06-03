@@ -21,6 +21,7 @@ import java.util.Map;
 
 import uk.co.computerxpert.worktime.Common.Common;
 import uk.co.computerxpert.worktime.R;
+import uk.co.computerxpert.worktime.data.model.Persons;
 import uk.co.computerxpert.worktime.data.model.Settings;
 import uk.co.computerxpert.worktime.data.repo.SettingsRepo;
 
@@ -54,6 +55,8 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         Button btn_contactSupport = findViewById(R.id.btn_contactSupport);
         Button btn_reportBugs = findViewById(R.id.btn_reportBugs);
         Button btn_saveStartOfWeek = findViewById(R.id.btn_saveStartOfWeek);
+        Button btn_persons = findViewById(R.id.btn_persons);
+
 
         _sp_weekList = findViewById(R.id.sp_weekList);
         ed_currency = findViewById(R.id.ed_currency);
@@ -80,6 +83,7 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
         btn_contactSupport.setOnClickListener(this);
         btn_reportBugs.setOnClickListener(this);
         btn_saveStartOfWeek.setOnClickListener(this);
+        btn_persons.setOnClickListener(this);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -200,6 +204,11 @@ public class Setup extends AppCompatActivity implements View.OnClickListener {
                 else { SettingsRepo.update("startOfTheWeek", dayNum);
                 }
                 Uj_activity = new Intent(Setup.this, Setup.class);
+                startActivity(Uj_activity);
+                break;
+            case R.id.btn_persons:
+                Uj_activity = new Intent(Setup.this, PersonsMan.class);
+                Uj_activity.putExtra("firstRunFlag", "0");
                 startActivity(Uj_activity);
                 break;
         }

@@ -14,6 +14,7 @@ import uk.co.computerxpert.worktime.data.model.Worktimes;
 import uk.co.computerxpert.worktime.data.repo.AgenciesRepo;
 import uk.co.computerxpert.worktime.data.repo.CompaniesRepo;
 import uk.co.computerxpert.worktime.data.repo.DefShiftsRepo;
+import uk.co.computerxpert.worktime.data.repo.PersonsRepo;
 import uk.co.computerxpert.worktime.data.repo.SettingsRepo;
 import uk.co.computerxpert.worktime.data.repo.WageRepo;
 import uk.co.computerxpert.worktime.data.repo.WorktimesRepo;
@@ -44,6 +45,7 @@ public class DBHelper  extends SQLiteOpenHelper {
         db.execSQL(AgenciesRepo.createTable());
         db.execSQL(DefShiftsRepo.createTable());
         db.execSQL(SettingsRepo.createTable());
+        db.execSQL(PersonsRepo.createTable());
     }
 
     @Override

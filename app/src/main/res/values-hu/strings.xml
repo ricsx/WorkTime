@@ -109,4 +109,15 @@
     <string name="saturday">Szombat</string>
     <string name="sunday">Vasárnap</string>
     <string name="startOfTheWeek">A munkahét első napja</string>
+    <string name="week">hét</string>
+    <string name="year">év</string>
+    <string name="wage">Fizetés</string>
+    <string name="paidHours">Fizetett órák</string>
+    <string name="persons">Személyek</string>
+    <string name="firstWelcome" translatable="false">Welcome to WorkTime</string>
+    <string name="firstSecLine">Allítsd be az alapértékeket.</string>
+    <string name="lastName">Vezetéknév</string>
+    <string name="foreName">Keresztnév</string>
+    <string name="dataOfThePersons">Személyek adatai</string>
+    <string name="addNewPerson">Uj személy</string>
 </resources>

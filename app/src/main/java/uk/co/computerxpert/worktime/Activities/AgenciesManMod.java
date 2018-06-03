@@ -58,7 +58,7 @@ public class AgenciesManMod extends AppCompatActivity implements View.OnClickLis
         upArrow.setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-        Button btn_cmmMod = findViewById(R.id.btn_stp_agency_update);
+        Button btn_cmmMod = findViewById(R.id.btn_stp_person_update2);
 
         String fromAgencyanyID = getIntent().getStringExtra("agencyID");
         loadFormDefaults(fromAgencyanyID);
@@ -135,7 +135,7 @@ public class AgenciesManMod extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_stp_agency_update:
+            case R.id.btn_stp_person_update2:
                 updater();
                 Intent Uj_activity = new Intent(AgenciesManMod.this, AgenciesMan.class);
                 startActivity(Uj_activity);

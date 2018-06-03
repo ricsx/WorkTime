@@ -103,15 +103,15 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/cmm_agencyNameBox3"
+                android:id="@+id/cmm_personLastNameBox"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:background="@color/colorWhite"
                 android:ems="10"
                 android:hint="@string/Name"
                 android:inputType="textPersonName"
-                android:labelFor="@+id/cmm_agencyNameBox3"
-                android:nextFocusForward="@id/cmm_agencyAddressBox3"
+                android:labelFor="@+id/cmm_personLastNameBox"
+                android:nextFocusForward="@id/cmm_personAddressBox2"
                 android:paddingEnd="0dp"
                 android:paddingStart="26dp"
                 android:textSize="16sp"
@@ -120,7 +120,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/cmm_agencyAddressBox3"
+                android:id="@+id/cmm_personAddressBox2"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
@@ -128,17 +128,17 @@
                 android:ems="10"
                 android:hint="@string/CompanyAddress"
                 android:inputType="textPersonName"
-                android:labelFor="@+id/cmm_agencyAddressBox3"
-                android:nextFocusForward="@id/cmm_agencyCityBox3"
+                android:labelFor="@+id/cmm_personAddressBox2"
+                android:nextFocusForward="@id/cmm_personCityBox2"
                 android:paddingEnd="0dp"
                 android:paddingStart="26dp"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cmm_agencyNameBox3" />
+                app:layout_constraintTop_toBottomOf="@+id/cmm_personLastNameBox" />
 
             <EditText
-                android:id="@+id/cmm_agencyCityBox3"
+                android:id="@+id/cmm_personCityBox2"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
@@ -146,17 +146,17 @@
                 android:ems="10"
                 android:hint="@string/CompanyCity"
                 android:inputType="textPersonName"
-                android:labelFor="@+id/cmm_agencyCityBox3"
-                android:nextFocusForward="@id/cmm_agencyPostcodeBox3"
+                android:labelFor="@+id/cmm_personCityBox2"
+                android:nextFocusForward="@id/cmm_personPostcodeBox2"
                 android:paddingEnd="0dp"
                 android:paddingStart="26dp"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cmm_agencyAddressBox3" />
+                app:layout_constraintTop_toBottomOf="@+id/cmm_personAddressBox2" />
 
             <EditText
-                android:id="@+id/cmm_agencyPostcodeBox3"
+                android:id="@+id/cmm_personPostcodeBox2"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
@@ -164,17 +164,17 @@
                 android:ems="10"
                 android:hint="@string/CompanyPostcode"
                 android:inputType="textPersonName"
-                android:labelFor="@+id/cmm_agencyPostcodeBox3"
-                android:nextFocusForward="@id/cmm_agencyPhoneBox3"
+                android:labelFor="@+id/cmm_personPostcodeBox2"
+                android:nextFocusForward="@id/cmm_personPhoneBox2"
                 android:paddingEnd="0dp"
                 android:paddingStart="26dp"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cmm_agencyCityBox3" />
+                app:layout_constraintTop_toBottomOf="@+id/cmm_personCityBox2" />
 
             <EditText
-                android:id="@+id/cmm_agencyPhoneBox3"
+                android:id="@+id/cmm_personPhoneBox2"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
@@ -182,7 +182,7 @@
                 android:ems="10"
                 android:hint="@string/Phone"
                 android:inputType="phone"
-                android:labelFor="@+id/cmm_agencyPhoneBox3"
+                android:labelFor="@+id/cmm_personPhoneBox2"
                 android:nextFocusForward="@id/cmm_agencyContPersNameBox3"
                 android:paddingEnd="0dp"
                 android:paddingStart="26dp"
@@ -190,7 +190,7 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cmm_agencyPostcodeBox3" />
+                app:layout_constraintTop_toBottomOf="@+id/cmm_personPostcodeBox2" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -207,7 +207,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cmm_agencyPhoneBox3" />
+                app:layout_constraintTop_toBottomOf="@+id/cmm_personPhoneBox2" />
 
             <EditText
                 android:id="@+id/cmm_agencyContPersNameBox3"
@@ -255,7 +255,7 @@
                 android:hint="@string/CompanyConPersEmail"
                 android:inputType="textEmailAddress"
                 android:labelFor="@+id/cmm_agencyContPersEmailBox3"
-                android:nextFocusForward="@id/btn_stp_agency_update"
+                android:nextFocusForward="@id/btn_stp_person_update2"
                 android:paddingEnd="0dp"
                 android:paddingStart="26dp"
                 android:textSize="16sp"
@@ -264,7 +264,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/cmm_agencyContPersPhoneBox3" />
 
             <Button
-                android:id="@+id/btn_stp_agency_update"
+                android:id="@+id/btn_stp_person_update2"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginBottom="16dp"

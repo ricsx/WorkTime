@@ -355,7 +355,7 @@ public class QuerysResults extends AppCompatActivity implements View.OnClickList
         int id = v.getId();
         TextView tv = findViewById(id);
         if (null != tv) {
-            Toast.makeText(this, "Clicked on row :: " + id + ", Text :: " + tv.getText(), Toast.LENGTH_SHORT).show();
+            
         }
     }
 

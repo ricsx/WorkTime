@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.PersonsMan">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/persons_top"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:background="@color/toolbar_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <!-- app:theme="@style/" > -->
+
+            <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="16dp">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="26dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/dataOfThePersons"
+                    android:textAllCaps="true"
+                    android:textColor="@color/toolbar_title"
+                    android:textSize="22sp"
+                    android:textStyle="bold|italic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="26dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/addNewPerson"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="true"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbar_title" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingEnd="26dp"
+        android:paddingStart="0dp"
+        android:text="@string/persons"
+        android:textAlignment="textEnd"
+        android:textAllCaps="true"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/results"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollview5" />
+
+        <ListView
+            android:id="@+id/results"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <ScrollView
+        android:id="@+id/scrollview5"
+        android:layout_width="0dp"
+        android:layout_height="280dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/persons_top">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/cmm_personForeNameBox2"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:background="@color/colorWhite"
+                android:ems="10"
+                android:hint="@string/foreName"
+                android:inputType="textPersonName"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/cmm_PersonLastNameBox2"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:ems="10"
+                android:hint="@string/lastName"
+                android:inputType="textEmailSubject|textPersonName"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cmm_personForeNameBox2" />
+
+            <EditText
+                android:id="@+id/cmm_personAddressBox2"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:ems="10"
+                android:hint="@string/CompanyAddress"
+                android:inputType="textPersonName"
+                android:labelFor="@+id/cmm_personAddressBox2"
+                android:nextFocusForward="@id/cmm_personCityBox2"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cmm_PersonLastNameBox2" />
+
+            <EditText
+                android:id="@+id/cmm_personCityBox2"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:ems="10"
+                android:hint="@string/CompanyCity"
+                android:inputType="textPersonName"
+                android:labelFor="@+id/cmm_personCityBox2"
+                android:nextFocusForward="@id/cmm_personPostcodeBox2"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cmm_personAddressBox2" />
+
+            <EditText
+                android:id="@+id/cmm_personPostcodeBox2"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:ems="10"
+                android:hint="@string/CompanyPostcode"
+                android:inputType="textPersonName"
+                android:labelFor="@+id/cmm_personPostcodeBox2"
+                android:nextFocusForward="@id/cmm_personPhoneBox2"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cmm_personCityBox2" />
+
+            <EditText
+                android:id="@+id/cmm_personPhoneBox2"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorWhite"
+                android:ems="10"
+                android:hint="@string/Phone"
+                android:inputType="phone"
+                android:labelFor="@+id/cmm_personPhoneBox2"
+                android:nextFocusForward="@id/cmm_agencyContPersNameBox3"
+                android:paddingEnd="0dp"
+                android:paddingStart="26dp"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cmm_personPostcodeBox2" />
+
+            <Button
+                android:id="@+id/btn_stp_person_update2"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/shape"
+                android:fontFamily="sans-serif"
+                android:text="@string/bt_stp_somp_send"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cmm_personPhoneBox2" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="0dp"
+            android:background="?android:attr/windowBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:menu="@menu/navigation" />
+
+
+</android.support.constraint.ConstraintLayout>
